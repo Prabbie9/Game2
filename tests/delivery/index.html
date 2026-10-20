@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Harbourline delivery test</title><link rel="icon" href="data:,">
+<style>body{font:14px system-ui;background:#111;color:#ddd;padding:16px}li.ok{color:#7d7}li.bad{color:#f77}</style></head>
+<body><h2>Delivery test</h2><ul id="r"></ul><div id="fps"></div>
+<script type="module">
+const r = document.getElementById('r');
+const log = (ok, t) => { const li = document.createElement('li'); li.className = ok ? 'ok' : 'bad'; li.textContent = (ok ? 'PASS ' : 'FAIL ') + t; r.append(li); };
+const results = {}; window.DELIVERY = results;
+const gl = document.createElement('canvas').getContext('webgl2'); results.webgl2 = !!gl; log(!!gl, 'WebGL2');
+let gpu = false; try { gpu = !!(navigator.gpu && await navigator.gpu.requestAdapter()); } catch {} results.webgpu = gpu; log(true, 'WebGPU adapter: ' + gpu);
+const w = new Worker(URL.createObjectURL(new Blob(['onmessage=e=>postMessage(e.data*2)'], { type: 'text/javascript' })));
+results.worker = await new Promise((res) => { w.onmessage = (e) => res(e.data === 42); w.postMessage(21); setTimeout(() => res(false), 3000); }); log(results.worker, 'Web Worker');
+try { const { instance } = await WebAssembly.instantiateStreaming(fetch('../../test/add.wasm')); results.wasm = instance.exports.add(2, 3) === 5; } catch (e) { results.wasm = false; } log(results.wasm, 'WASM (instantiateStreaming)');
+// Binary loader: Artifact hosting ships non-web binaries as base64 JSON (see tools/make_artifact.mjs).
+const loadBin = async (u) => window.HL_B64 ? Uint8Array.from(atob((await (await fetch(u + '.b64.json')).json()).b64), (c) => c.charCodeAt(0)).buffer : (await fetch(u)).arrayBuffer();
+const t0 = performance.now(); const buf = await loadBin('../../test/blob10mb.bin'); results.blob = buf.byteLength; log(buf.byteLength === 10485760, `10MB asset ${(performance.now() - t0).toFixed(0)}ms`);
+try { const c = await caches.open('hl-delivery'); await c.put('../../test/blob10mb.bin', new Response(buf)); const m = await c.match('../../test/blob10mb.bin'); results.cache = !!m && (await m.arrayBuffer()).byteLength === buf.byteLength; } catch (e) { results.cache = 'error: ' + e.message; } log(results.cache === true, 'Cache API: ' + results.cache);
+let f = 0, last = performance.now(); const fe = document.getElementById('fps'); (function loop(now) { f++; if (now - last > 1000) { fe.textContent = 'FPS ' + f; results.fps = f; f = 0; last = now; } requestAnimationFrame(loop); })(last);
+results.done = true;
+</script></body></html>

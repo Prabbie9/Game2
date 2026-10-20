@@ -1,0 +1,29 @@
+{
+  "name": "harbourline",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "node tools/gen_test_blob.mjs && vite build && node tools/make_artifact.mjs",
+    "preview": "vite preview --port 4173 --host",
+    "play": "npm install --no-audit --no-fund && vite build && vite preview --port 4173 --host",
+    "smoke": "node tools/smoke.mjs",
+    "ingest": "node tools/ingest_clips.mjs"
+  },
+  "dependencies": {
+    "@dimforge/rapier3d-compat": "^0.14.0",
+    "postprocessing": "^6.36.4",
+    "three": "^0.170.0"
+  },
+  "devDependencies": {
+    "@gltf-transform/core": "^4.1.0",
+    "@gltf-transform/extensions": "^4.1.0",
+    "@gltf-transform/functions": "^4.1.0",
+    "@types/three": "^0.170.0",
+    "meshoptimizer": "^0.21.0",
+    "playwright": "^1.56.0",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10"
+  }
+}

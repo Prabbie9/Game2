@@ -1,0 +1,9 @@
+node_modules/
+dist/
+assets/sources/
+/tmp/
+*.log
+.vite/
+incoming/**/*.fbx.part
+public/test/blob10mb.bin
+shots/latest/

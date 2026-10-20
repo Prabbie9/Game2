@@ -1,0 +1,4 @@
+[
+ {"url": "index.html", "wait": 3000, "out": "shots/latest/home.png"},
+ {"url": "tests/delivery/index.html", "ready": "window.DELIVERY&&window.DELIVERY.done", "eval": "window.DELIVERY"}
+]

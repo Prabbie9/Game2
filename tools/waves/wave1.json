@@ -1,0 +1,412 @@
+[
+{
+"name": "Standard Idle",
+"id": "1N4hjcTklOlRvPZT2W9y2IVgxiR8od2MB",
+"size": 595872
+},
+{
+"name": "Male Standing Idle 01",
+"id": "1zrEPsPPC4w4QK4BpIrJtU88jP2DXx3Ib",
+"size": 655200
+},
+{
+"name": "Female Standing Idle",
+"id": "1xelUhQoNxmoyWlZO5UHbnvsdMhY_3yM-",
+"size": 1038512
+},
+{
+"name": "Standing Around Bored Idle",
+"id": "1Pnnj2Msft0Qu0McqZDlWTDj6-wGCPKYP",
+"size": 1157504
+},
+{
+"name": "Walking Forwards",
+"id": "1bXod2lDJic-XFEfC2DYpDLgBbLbTpn7K",
+"size": 390672
+},
+{
+"name": "Male Walk Forward 03",
+"id": "1eRJmAY5HStyfw-jGYu0jK7TN8x-qRP8F",
+"size": 386896
+},
+{
+"name": "Female Walk Forward",
+"id": "1xQhjDjqGMGogtKYy5sB1aCp6fyQnFIQW",
+"size": 398240
+},
+{
+"name": "Walking With A Swagger",
+"id": "1_kpP7UwKmoGbCSmJvjaEtAkSzSt4V_p9",
+"size": 365952
+},
+{
+"name": "Running Forwards",
+"id": "1N22-h_-o6dPoewSsrfyvonk8rQXf0lRA",
+"size": 344528
+},
+{
+"name": "Running Fast",
+"id": "1v-F-E8QusL22CeL8DT31CcNfRC5FKFsX",
+"size": 305360
+},
+{
+"name": "Sprinting",
+"id": "131trlHqsyU6kTaSwelj1uAxmQo5_Syg-",
+"size": 267888
+},
+{
+"name": "Female Run Backward",
+"id": "1WcSsfQ5ZVcUP0yvv_JxBgstdSiiB2yXD",
+"size": 308064
+},
+{
+"name": "Walking Left",
+"id": "1ZnSPDzLynhc1P7ysYcT4-z7yTVwRqCNf",
+"size": 394464
+},
+{
+"name": "Running Right",
+"id": "1PcT2xxAzjVuuPU-gbDChYbiJXbXtyzUN",
+"size": 348272
+},
+{
+"name": "Running Strafe To The Left",
+"id": "1IZwQiCr1k4IEtJdgU-3OV1s8xDsOCApM",
+"size": 337760
+},
+{
+"name": "Start Strafe Walk Right",
+"id": "1u4ZwjvX72-4axWXjP53fa38nqunfigyR",
+"size": 434384
+},
+{
+"name": "Right Male Strafe",
+"id": "1dRiM2aNOjC2xEMeEBflpn3zQiyqnBVsW",
+"size": 356656
+},
+{
+"name": "Walking Coming To A Stop From Left Foot Passing",
+"id": "1oqQVHH_Y08ZJ6cIs5vCH5hI-w-DzeRiO",
+"size": 519200
+},
+{
+"name": "Walking Coming To A Stop From Right Foot Passing",
+"id": "1Z6luP0EKu3HB2GXhqX3BDbL1QzuaV7b2",
+"size": 519200
+},
+{
+"name": "Start Sprint From Action Idle",
+"id": "1ChHFDywFnXxcnZspumlk-4HmD5qP463R",
+"size": 344240
+},
+{
+"name": "Standing Left Turn Game Blend",
+"id": "1FUIfdclgiB1posWoAUEIvlX0yBGO7HfP",
+"size": 447552
+},
+{
+"name": "Standing Right Turn Game Blend",
+"id": "124gDwUsb0HinAAg96lfn68e9TZjU5qww",
+"size": 394464
+},
+{
+"name": "Standing 180 Left Turn",
+"id": "14BLXZFiEN_0S8Gucu3lcG28U3TRIFEPH",
+"size": 443840
+},
+{
+"name": "Turning Left While Walking",
+"id": "1e5H1wZFPbueD5zUcBlRw3879Ezg0DlT4",
+"size": 395648
+},
+{
+"name": "Turning Right While Running",
+"id": "1XukCBqlZkPTQU1z1NFxarHZEloQzeAeO",
+"size": 347440
+},
+{
+"name": "Turning 180 Degrees While Running",
+"id": "1wKSd1_rI6fKf3-HKjH7mKbV0p1XExkPS",
+"size": 330560
+},
+{
+"name": "Walking Up A Set Of Stairs",
+"id": "19ktIvMNpGEBTQu3tsG4yOpM4uX4nruQ4",
+"size": 417136
+},
+{
+"name": "Running Down A Set Of Stairs",
+"id": "1q64IdusieMaAQZaA-0QRkuTfmfGxvInN",
+"size": 396944
+},
+{
+"name": "Jumping Up From Action Idle Game Blend",
+"id": "1ozZwGxnk0xA87gYMLJDLJ3yuT7HzWqRV",
+"size": 333984
+},
+{
+"name": "Standing Jumping In Place",
+"id": "1gyvvr3dSknjR7ccFcWmuBctVZL-9U3rv",
+"size": 481392
+},
+{
+"name": "Jumping While Running",
+"id": "1nwTGow1gtS6PGXzAk7l6mvemYQJ5jRPa",
+"size": 381968
+},
+{
+"name": "Running Jump To Run Forward",
+"id": "1VQ9o5XzbHXbXK9PO82nRnB6LYUovIjFs",
+"size": 459792
+},
+{
+"name": "Mid-Air Falling Idle",
+"id": "1cya6IrzxcU7ieDhYAW5azTLWhc83oUx5",
+"size": 333984
+},
+{
+"name": "Land From Fall A To Standing Idle",
+"id": "190cB0unmX0CgyO9cukUwrFWwfqrsV-ho",
+"size": 439824
+},
+{
+"name": "Land From Fall A To Run Forward",
+"id": "10lfs_j5TGWmgVPiIltK2NRVEls4Y3Tbf",
+"size": 368000
+},
+{
+"name": "Mid-Air Falling To A Hard Landing Game Blend",
+"id": "1pycw_U5kl2lboOCV_c1-mPpYAsyKwZ6b",
+"size": 467360
+},
+{
+"name": "Low Crouching Idle",
+"id": "1-0SMSGUQw2-MuGo26eW-DhYP21qzEaWI",
+"size": 515952
+},
+{
+"name": "Crouch Idle Looking Around",
+"id": "1iutb74DtMbR0QgqAPmsQlbLrfPv3r8PS",
+"size": 760912
+},
+{
+"name": "Standing To Crouching Transition",
+"id": "1OuQvijvgvyKjc4BDwHUNpkuU5aqP1AMs",
+"size": 406336
+},
+{
+"name": "Transition From Crouch To Standing Idle",
+"id": "1-kOIGnYX_-uhYvYK8dkh5_LkGQNThAIS",
+"size": 323040
+},
+{
+"name": "Walking Left While Crouched",
+"id": "1-2iMfQ5M1mUa6wJN9fRUixYcH3i2-8YT",
+"size": 394464
+},
+{
+"name": "Walking Right While Crouched",
+"id": "1L8cBQaJX_gmNJ8lqum44jn5L5gnq9kg4",
+"size": 405792
+},
+{
+"name": "Walking Backwards While Crouched",
+"id": "18TzH-bs4ypxxg_b7WBCUHo1xd0jU_CdV",
+"size": 402016
+},
+{
+"name": "Turn Left While Crouching Game Blend",
+"id": "1dRJW_W-I9yFhWJiHDzXhBMrn3zgola7_",
+"size": 332352
+},
+{
+"name": "Male Driving A Car",
+"id": "1HvlyUAXAptcxZX87Fp5nGrNJxJsNs0j3",
+"size": 581168
+},
+{
+"name": "Standard Drive",
+"id": "1dtTDFMxS7RNkKo3d1Mt3CJ4oUzWDaXZG",
+"size": 601008
+},
+{
+"name": "Hitting Steering Wheel In Driving Idle",
+"id": "1MslPNhtbCMloiZVGo8USei3qrCOWN0n9",
+"size": 593360
+},
+{
+"name": "Pulled Out Of Pilot Seat",
+"id": "1flrFL0YaSGeMQ1utez2ra0FB2pWAJL3i",
+"size": 643200
+},
+{
+"name": "Standing Up From Seated Position",
+"id": "10vppAXAE5iA7umNMZm38HCEBirg-lZM5",
+"size": 695216
+},
+{
+"name": "Walking With An Aimed Pistol",
+"id": "15Ty7zBq9ay0TMWtgHLzU0CEM8F5-dYMj",
+"size": 326960
+},
+{
+"name": "Running With Aimed Pistol",
+"id": "1-_yybw4YOFtdAWXzf5EmVy6jpZ_bzEg6",
+"size": 331056
+},
+{
+"name": "Strafe Left With An Aimed Pistol",
+"id": "1v-aKwlOaRtNExLOqU26LM7XVvXuc-J5Y",
+"size": 308064
+},
+{
+"name": "Strafe Right With An Aimed Pistol",
+"id": "1xzxv-3NUfKsQKndtg1T1t9pULPHfJEr2",
+"size": 310752
+},
+{
+"name": "Walking Backward With An Aimed Pistol",
+"id": "1MC8MmWmthZuUCMcpbH0JZ2HBAd7ByUDz",
+"size": 345856
+},
+{
+"name": "Running Backward With An Aimed Pistol",
+"id": "1jGlTElf-jnKaHP3wyTR8BTLFq_f8nqMI",
+"size": 305360
+},
+{
+"name": "Pistol Aim To Holster Idle",
+"id": "1ySidJHzSXmfE7tla6YnKbmKBCzl9wLH3",
+"size": 833296
+},
+{
+"name": "Shooting A Pistol From Behind Cover",
+"id": "19POhL_nL1mKBQkGU_nc1QbIhAMj1b1Un",
+"size": 478160
+},
+{
+"name": "Pistol Standing To Kneeling",
+"id": "1IT6TQHJHNYH27BtoO3sQrxJEr4Gw54n0",
+"size": 342080
+},
+{
+"name": "Firing A Gun",
+"id": "1BD6j-5JpeHUs55x5B69VHE2bGhcxqDk6",
+"size": 381856
+},
+{
+"name": "Rifle Standing Idle",
+"id": "1n5MFTVlMMsG0EEhVBVH65Am1Wpb-KqxE",
+"size": 427728
+},
+{
+"name": "Two Hand Rifle Idle",
+"id": "1EKCvKfR5NbOBmYSCK1Pwz0K4OE3so-Ib",
+"size": 718176
+},
+{
+"name": "Two Hand Lowered Gun Rifle Idle",
+"id": "1Us6LRqDbbe31VGniBaFZsUcXIlMeVdLH",
+"size": 742832
+},
+{
+"name": "Rifle Walk Forward",
+"id": "1st_gRudvKiBJow0q9gy0iMOjv_cKE9yR",
+"size": 343664
+},
+{
+"name": "Walking While Aiming Rifle",
+"id": "1jiu9uLu50r7IKSUa9Fmbd6n3-pseEniX",
+"size": 371376
+},
+{
+"name": "Running With Rifle Aimed",
+"id": "16kT13bhylasinAax9IzGi_zrBdMCuSAS",
+"size": 342144
+},
+{
+"name": "Rifle Run Left",
+"id": "1W946pmS-jA7WwXHzja0o-pi3ANuJdB4V",
+"size": 383664
+},
+{
+"name": "Rifle Run Right",
+"id": "1RK1yIQd84Bnez-Gr_skRwz4gFQDsvwyR",
+"size": 382656
+},
+{
+"name": "Rifle Run Backward",
+"id": "1GO0hD4W4EFwXloYY8T5ZT5vIrJXP0m51",
+"size": 381104
+},
+{
+"name": "Rifle Walk Backward Left",
+"id": "1waMMhtcGsNbpvPh-72UXVk91awTnmInY",
+"size": 343152
+},
+{
+"name": "Rifle Walk Backward Right",
+"id": "19BZijF0gUl9uBPfQuhrKnGh7GRLd49sj",
+"size": 343152
+},
+{
+"name": "Rifle Sprint Left",
+"id": "1CgQXJTElUkt-pOHZs4DJ4rWRrLrUljqN",
+"size": 383264
+},
+{
+"name": "Rifle Crouched Idle",
+"id": "1ztAjoi5i7fNnb8vidQmcHBmi8msTOGSy",
+"size": 427728
+},
+{
+"name": "Rifle Walking Crouched",
+"id": "1wCJ_YaL55kVQsNwGQaxVpq621fN76WPr",
+"size": 446944
+},
+{
+"name": "Rifle Crouched Walk Left",
+"id": "1I8-Hi409DPt5l73gM5iLu38ZxY__hGzS",
+"size": 343296
+},
+{
+"name": "Rifle Walking Right Crouched",
+"id": "1TpyFqQG6E_LuEgwZIfRV3sb8vWDiu7FM",
+"size": 441728
+},
+{
+"name": "Rifle Crouched Walk Backward",
+"id": "1wQOIiEEBNRY4Pg0FhyUGblHght-Ctj2K",
+"size": 343344
+},
+{
+"name": "Rifle Down To Aiming",
+"id": "1aB32p1hgNr7yYrVj965-Y7qsRzbP3ntu",
+"size": 360432
+},
+{
+"name": "Shooting",
+"id": "1aublF3kpn3WitI3wbKpE8MqFv9G6XmUK",
+"size": 315408
+},
+{
+"name": "Standing Shooting Rapid Fire",
+"id": "1qiAni2oLEw6Bcwrwn7eK3FFg24NTMFy6",
+"size": 318528
+},
+{
+"name": "Fire Rifle While Crouched",
+"id": "14ILSOXoL2WRZorTQI0FkwB3r8qlswdOd",
+"size": 377104
+},
+{
+"name": "Run While Reloading Rifle",
+"id": "1QwowNjXaAwdo1pROmuK4Lws0yl2FuBup",
+"size": 680192
+},
+{
+"name": "Grabbing Rifle From Behind The Shoulder",
+"id": "1dJbpChh_MvcXFaIXh8aAp6mxw65T809E",
+"size": 663536
+}
+]

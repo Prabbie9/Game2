@@ -1,0 +1,6770 @@
+[
+{
+"name": "Capoeira Step Backward",
+"id": "1O3rFc7SBnoDiC_V7qXO-KKFzSdLuj3e_",
+"size": 390672,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Casting A Magic Spell Wide With Two Arms",
+"id": "1HOD_TQO-L00v5jxBhvIvbiSl3lrYH0F9",
+"size": 665072,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Celebrating After A Win While Seated",
+"id": "13u-tv4i9TfhOkC1BdH-NUVJ7_7XPUOk6",
+"size": 808048,
+"category": "vehicle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Celebrating Victory While Sitting",
+"id": "1VAyox6ETR2quBPEqHAKeqXhPnCMHb_6T",
+"size": 756256,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Check Shoe While Holding Rifle",
+"id": "19MPdLbUddbTlv5n4CDht0Dlu2nNvGw3s",
+"size": 645792,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Climbing A Rope Without Using Legs",
+"id": "1DWEFnj5xh0IIxZWf8drLtAX4FCKbYIoT",
+"size": 552752,
+"category": "climb",
+"themed": false,
+"dup": false
+},
+{
+"name": "Climbing Up A Wall",
+"id": "1AFY2qa5Jk8dGO0GuvYhWIXda_5BlMD_E",
+"size": 467360,
+"category": "climb",
+"themed": false,
+"dup": false
+},
+{
+"name": "Conjuring Magic And Throwing",
+"id": "1ZbNlE0D7Rg2gP-tNU3nCGze7D1RRzxE9",
+"size": 944128,
+"category": "throw",
+"themed": true,
+"dup": false
+},
+{
+"name": "Crazy Hand Gesture",
+"id": "1nP7yKuBWsqcN_WChB7Kd9PCXjROOzydZ",
+"size": 714816,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Crouch Idle (1)",
+"id": "1yvqmcYKxnhK8iYCA8NGPwui-NTQbj6F4",
+"size": 778272,
+"category": "crouch",
+"themed": false,
+"dup": true
+},
+{
+"name": "Crouch Idle Looking Around",
+"id": "1iutb74DtMbR0QgqAPmsQlbLrfPv3r8PS",
+"size": 760912,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Crouched Rifle Walk Strafe Left",
+"id": "1UNpEg8SLsX52oMIUzlba0pD7GL0K_zrn",
+"size": 399360,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Crouching To Laying Prone Transition",
+"id": "1JebGxHyzLYvt_Tq5TadkuxozP_kDCeyx",
+"size": 468768,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Crying And Rubbing Eyes",
+"id": "1XFP6fnwf7qGFPpKMg-aEqFA3ngCo_i8F",
+"size": 812480,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Death Reaction Falling Forwards With Bow (2)",
+"id": "1--pHC1bhdZ0oZENHo7Xv6KM-fgtXLWyb",
+"size": 506816,
+"category": "death",
+"themed": true,
+"dup": true
+},
+{
+"name": "Disarming Axe Over The Shoulder",
+"id": "1ShQrKGw02JbDpFbZ7qZTZHTdmgfRbpYZ",
+"size": 451152,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Dive Roll From Standing (1)",
+"id": "1PiaDiKiG-vUuysxz5cQL1HHu-95QyxnG",
+"size": 504976,
+"category": "misc",
+"themed": false,
+"dup": true
+},
+{
+"name": "Diving Forwards With Bow",
+"id": "1Wg4cMSc8HyBJAQoKY5Y5epYLjXCnoX96",
+"size": 423648,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Dodge Right With Bow",
+"id": "1NECODVzmbxhgqVI3B5X7-aUh6UeX_Vw6",
+"size": 356112,
+"category": "melee",
+"themed": true,
+"dup": false
+},
+{
+"name": "End Bicycle Sit Up To Fitness Idle",
+"id": "1gbllcuV-69-7R6CSLl8Zpnisxh3hcwyJ",
+"size": 673376,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "End Overhead Squat Workout To Fitness Idle",
+"id": "1BibDgPqnu71IEN0mc-vCxGH5PoYOLJ7T",
+"size": 662832,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "End Russian Kettlebell Swing To Fitness Idle",
+"id": "1E8d5p5zxIuun8fJwKM-scuxfiATLbS0Q",
+"size": 538096,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Entering An Access Code",
+"id": "1A2vIzvmT3w01MVZkSSa52DYYjnTo0SuG",
+"size": 863792,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Equipping Bow",
+"id": "1WoQZhzF3_YIaJRvc_Z-hKnNXX679t7jF",
+"size": 367200,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Equipping Torch And Lighting With Right Hand",
+"id": "1YCigdHH-W3PLPYRfZWUmALbqu1kiX3TO",
+"size": 602352,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Equipping Torch",
+"id": "1GoCxZYEmQLOwN-radzZISfpBLTya0iNS",
+"size": 470064,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Evil Plotting",
+"id": "1KVvwGI0Kau2S8PYcOUxzmRiDl_M7EyIs",
+"size": 636384,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Examine Backwards (2)",
+"id": "1NAx2yQcZ34a10LCBg7s1it052B8NmsBi",
+"size": 267888,
+"category": "misc",
+"themed": false,
+"dup": true
+},
+{
+"name": "Fall A Idle With Bow",
+"id": "1ITcSON17mGzCMgH95ABhad1_BAw272oM",
+"size": 362384,
+"category": "jump",
+"themed": true,
+"dup": false
+},
+{
+"name": "Fast Run To Jump Up Onto Higher Level",
+"id": "1hoeHo5LRc-No3F_BINtI2v1TU_jxOt4V",
+"size": 484464,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Female Dwarf Walk Forward",
+"id": "10HE4_EpjKOzaz6th2-TQWGtyJMZHBtO2",
+"size": 351264,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Female Hip Hop 'Raise The Roof' Dancing",
+"id": "126t6zh6CGak3tWGx9uqUF_K9kx-I3Re_",
+"size": 638544,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Female Jazz Dancing 'Arm Push'",
+"id": "1UpIGcjfJoXrGY_e7zg1zkjuXmvB3Pwd8",
+"size": 453776,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Female Ninja Idle Var. 2",
+"id": "1kOgzfs9WVcC-EEtacMJdxTlYEGvZJ7Xw",
+"size": 711984,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Female Ninja Idle Var. 3",
+"id": "1S1hlFv8-h0ISXcywyFywJXW6LhkiIsjl",
+"size": 709456,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Female Ninja Run Arc Left",
+"id": "1yAvorR_7Q_df_uNiwUJkG1UmLuynP5NN",
+"size": 310752,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Female Ninja Run Backward Arc Left",
+"id": "1XpVwZLM5CeChVxAZoU1t-qq-Sagzd5Yk",
+"size": 308064,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Female Ninja Run Backward",
+"id": "1Jz2uH-zs3sGvbV275rOCzuIJh6GaskOH",
+"size": 305360,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Female Ninja Run",
+"id": "1ZbHd6J7J4RaN88do3bNawV9qlLdf0isY",
+"size": 313456,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Female Ninja Sneak Walk",
+"id": "1vS1hKayhWiKcQcIayXhFeFVvvwc4bOCA",
+"size": 348560,
+"category": "crouch",
+"themed": true,
+"dup": false
+},
+{
+"name": "Female Ninja Walk Forward Arc Left",
+"id": "1UAzPT7IpF61bxbuHLaIHMyurOnWbozaL",
+"size": 353952,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Female Orc Standing Idle",
+"id": "1xAlX3jPyG8xp5IwFNbjut-6_gBJ_J5Ch",
+"size": 841360,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Female Right Turn With Briefcase",
+"id": "1jdjBMBGXoAtbpA5mvSaS-SLvLlOM1tPY",
+"size": 351264,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Female Run Backward",
+"id": "1WcSsfQ5ZVcUP0yvv_JxBgstdSiiB2yXD",
+"size": 308064,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Female Standing Idle",
+"id": "1xelUhQoNxmoyWlZO5UHbnvsdMhY_3yM-",
+"size": 1038512,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Female Start Walking",
+"id": "12RwE32gRpPXeH0ZhqShR5uzRd7LVNIsF",
+"size": 413360,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Female Twist Left Idle To Twist Right Idle",
+"id": "1Gp7WzGr5J70JDVZy7OcUTI2yuS6vfhQS",
+"size": 542960,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Female Twist Left Idle",
+"id": "1pAp4eia3SKGGJdrZgj9YUeXx05okZL0B",
+"size": 702912,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Female Twist Right Idle To Twist Left Idle",
+"id": "1S9Zy1NZ_TiXiHhmFu1YSDqUfL81yQQYs",
+"size": 507856,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Female Twist Right Idle To Walk 180 - Turning Right",
+"id": "1DolC0Vs9ihIWbuFjP34cL3Tbc4Ah5j8r",
+"size": 485184,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Female Twist Right Idle",
+"id": "1qqeznJIzj5uZ3dkAarVoiIFcq3XaM4Ec",
+"size": 711808,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Female Walk Arc Left",
+"id": "16Bts6IkTuOddePdign5hztQGPxnjiLB_",
+"size": 345856,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Female Walk Forward In A Wide Turn To The Right",
+"id": "1OvmXrYdSM7fciLX4EWcaFMUtNnufsrjX",
+"size": 793872,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Female Walk Forward Turning Left 90 In An Arc",
+"id": "1YnUaWZXd2XSGEcOdpe1EKJbdwY8JTR-C",
+"size": 670400,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Female Walk Forward Turning Right 90",
+"id": "1Bn8Eh8Q5WBRDASaq_TP3KxXu5vDeta4e",
+"size": 541872,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Female Walk Forward",
+"id": "1xQhjDjqGMGogtKYy5sB1aCp6fyQnFIQW",
+"size": 398240,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Female Walk Like A Cowgirl - 1 Stride Loop",
+"id": "1l4kUCOTewVKELFMjGr59ml9rZZvZMLVx",
+"size": 364752,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Fire Rifle While Crouched",
+"id": "14ILSOXoL2WRZorTQI0FkwB3r8qlswdOd",
+"size": 377104,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Firing A Gun",
+"id": "1BD6j-5JpeHUs55x5B69VHE2bGhcxqDk6",
+"size": 381856,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Fishing Idle",
+"id": "1J3uWc5gG9eezNZjjL63hatg0OtFdL2W9",
+"size": 552176,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Fitness Idle Transition To Basic Push Up",
+"id": "1w3RphUBcau2-uUrmNTfmtCLjb-KTH-HI",
+"size": 556992,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Flexing Muscles",
+"id": "1syW9G0Mi3un_VRKF5nTEBdJbeLUEjqni",
+"size": 700640,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Flipping Backwards To Kick",
+"id": "1D0ws4xqOrqoTRuvp-LCp-bv9vnvgGLGG",
+"size": 492736,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Flying Bicycle Kick",
+"id": "1PMKONOWDCZ7F0ul_gFCXt4z8hG9uTWg1",
+"size": 312560,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Flying Idle",
+"id": "1HfTy923_SYlwUrGEdR1vBXkMV-pu4_cT",
+"size": 475456,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Football Player Getting Into Stance",
+"id": "1MMEUo0ed1t7tJU71U_xYOU9YejsknPhR",
+"size": 549440,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Frantically Fall Over With Rifle",
+"id": "1ROYBpcibJI5bKdmN3_SZd43ovSD7Cygo",
+"size": 471248,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Free Hang Idle To Braced Idle",
+"id": "166GEsL0cpQ6cUEOH5yqj8vTo8NhesnfA",
+"size": 378432,
+"category": "climb",
+"themed": false,
+"dup": false
+},
+{
+"name": "Front Flip To Kick",
+"id": "15akYc97SWTBfqaS9EfTQcO35nETrpoTY",
+"size": 579680,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Front Leg Sweep",
+"id": "1Kze3IUxqiWc7oJGTSV_juAnGYTVheLDL",
+"size": 402560,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Front Raises Workout",
+"id": "1nNrhqjsUfS7UHXfFIuSyqmc_gU-ehIsx",
+"size": 649792,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Gesturing Head Side To Side",
+"id": "1YNvFfJmo5DncUPU0GkCbaLxoqCjS8CuB",
+"size": 579680,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Gesturing With Arm To The Side",
+"id": "1qjYcpvWC5LtZt0i3zXdQZ-E-t8gKVS_w",
+"size": 647712,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Getting Hit By A Car While Tired",
+"id": "14XGGT7r55Iok2anq0mMDIYSeLYMUY1Qr",
+"size": 657744,
+"category": "vehicle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Getting Hit From Back",
+"id": "1Hy6e50KmYZjqgfc6GwZ-cdUR9UnBFhwh",
+"size": 665472,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Getting Hit On The Back With An Object While Running",
+"id": "1PjE4zvnIdOdMbSLCt9BkpmEWFVUtG1sX",
+"size": 546624,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Getting Hit On The Left Side Of The Head With An Object When Running",
+"id": "1j1x8bXOno4DJ1sPdktFaLr8FSo3Z-Nu4",
+"size": 632592,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Getting Hit On The Right Side Of The Head With An Object When Running",
+"id": "1EUBJ6DHgKDGTPlW4O1j9KNiNFWtstlCg",
+"size": 636368,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Getting Shoved While Walking",
+"id": "1O_N89z0I1he7im7c8lS1Ef_XqHTMP5YI",
+"size": 496048,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Getting Smashed By A Large Object",
+"id": "16Em_nobAwJTho9WUJQ-8oOfTUlAtqHtQ",
+"size": 514304,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Getting Spit In Face And Drawing Weapon",
+"id": "1tquVWVeGJrg15YV440uYbv_t1ilC84T0",
+"size": 614144,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Goalie Overhand Throw",
+"id": "1MmtqZfk7Fj67T41ueRkFEZ400N9aAsnc",
+"size": 698496,
+"category": "throw",
+"themed": false,
+"dup": false
+},
+{
+"name": "Goalkeeper Directing The Defensive Players",
+"id": "1R6msTiEA4MSW1SkF2VZVbiJekYkbKgTL",
+"size": 944128,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Goalkeeper Jump And Miss",
+"id": "1Pwl5j3hCoKHv99CsKFAODgsn0sfkKCm4",
+"size": 594800,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Goalkeeper Left Body Block (1)",
+"id": "1gXuMtr7KnJiCm08H22cEv45RVR9efHdo",
+"size": 651504,
+"category": "melee",
+"themed": false,
+"dup": true
+},
+{
+"name": "Goalkeeper Right Body Block",
+"id": "1BOlf80N5fl7OVOl5dTGdbCO8xRRaC3Sf",
+"size": 541872,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Goalkeeper Right Sidestep",
+"id": "12uIWfDvFHqeHPgWi82q85aknoc4xNziP",
+"size": 432256,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Goalkeeper Rolling Pass",
+"id": "1rN9Aar6nSVxpIKyquhZWtkv4LvzNTVo9",
+"size": 618400,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Golf Swing Chip Shot (1)",
+"id": "19pqMYcN0nxyf4HzK6dZfZcDaQCHmjuBI",
+"size": 712208,
+"category": "hit",
+"themed": false,
+"dup": true
+},
+{
+"name": "Golf Swing Drive Shot",
+"id": "1uDkqMHRmz9d8VQJM9orq_mnXhGZM7Swf",
+"size": 783936,
+"category": "vehicle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Grab Attacker Then Twist Arm And Kick Head",
+"id": "1MRhh6AoIH-gckkX0S5GWGQR5L0HLRfJc",
+"size": 720800,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Grabbing Rifle From Behind The Shoulder",
+"id": "1dJbpChh_MvcXFaIXh8aAp6mxw65T809E",
+"size": 663536,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Great Sword Backward Walk",
+"id": "1U2L9AdQKv7ekEwCB2J6Amb2KyDzG_kn5",
+"size": 367456,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Great Sword Block To Standing",
+"id": "1vP-qSulE1Ta_wbV05l-fIFsiNaPNxfe9",
+"size": 407920,
+"category": "melee",
+"themed": true,
+"dup": false
+},
+{
+"name": "Great Sword Blocking Idle",
+"id": "115scJuu_8zEc-h_SOiNEzJw4XtlSXqsY",
+"size": 338368,
+"category": "melee",
+"themed": true,
+"dup": false
+},
+{
+"name": "Great Sword Crouch Idle",
+"id": "1Apm0EYQb82WOelUn9qhnUbSCYH4vDpzi",
+"size": 408672,
+"category": "crouch",
+"themed": true,
+"dup": false
+},
+{
+"name": "Great Sword Crouching Block Idle",
+"id": "1fNODQjaX3FRvOECb3zdL0dUeQlSI5EBF",
+"size": 375552,
+"category": "melee",
+"themed": true,
+"dup": false
+},
+{
+"name": "Great Sword Crouching Blocked Impact",
+"id": "1Yd2ML67-OStTIFLkKKkrYEvtq7jntHGg",
+"size": 316192,
+"category": "hit",
+"themed": true,
+"dup": false
+},
+{
+"name": "Great Sword Jump",
+"id": "1q_5fid842HBaiYdJwStHyaF2JmQLUxJy",
+"size": 335056,
+"category": "jump",
+"themed": true,
+"dup": false
+},
+{
+"name": "Great Sword Look Around Idle (1)",
+"id": "17ka1uvNT-7YSPmqHnoEhM95aQHxjKVAK",
+"size": 824480,
+"category": "loco",
+"themed": true,
+"dup": true
+},
+{
+"name": "Great Sword Look Around Idle",
+"id": "1KP8rFt2MmcZhq0CQZqcTwXvqUXXBskMD",
+"size": 601824,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Great Sword Low Slide Attack From Run",
+"id": "1q6NVga1bVj-FthdlvBQ6atUPFyj6F9lP",
+"size": 510704,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Great Sword Running Jump",
+"id": "138HI7XbLkScWboLyxTfhsk-_sZHPxWcp",
+"size": 315504,
+"category": "jump",
+"themed": true,
+"dup": false
+},
+{
+"name": "Great Sword Spell Casting",
+"id": "1pvxVgzwxh5ULzkLR_DPTVhpDZnDbeShy",
+"size": 594736,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Great Sword Spin Kick",
+"id": "1AzkN4xLZ_Gi4Ic_hxKRP3S0S-AGq2YC6",
+"size": 384128,
+"category": "melee",
+"themed": true,
+"dup": false
+},
+{
+"name": "Great Sword Stand To Crouch",
+"id": "1uF3gUm3S22m3AtpY5dx-k7iLwHPZszUL",
+"size": 328320,
+"category": "crouch",
+"themed": true,
+"dup": false
+},
+{
+"name": "Great Sword Unblocked Impact",
+"id": "1Zpzem2A1EJWCh5jMIebrPFS9_w0tiT77",
+"size": 359360,
+"category": "hit",
+"themed": true,
+"dup": false
+},
+{
+"name": "Happy Forward Hand Gesture",
+"id": "1oHbYTCjqlpLd9EDJ2BO2oxdQnqZcMmcB",
+"size": 594800,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Happy Run Backward Right Arc",
+"id": "1Jq-GYIlNC2bFeBUpd-Oo8h0tb_hMLfhH",
+"size": 336320,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Happy Walk Backward Right Arc",
+"id": "1LdyvPwp8lV8_9clVJ7wFA87aBXAj0yy4",
+"size": 373392,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Happy Walking Forward Arc Left",
+"id": "1P_5Xo-w_V8w5e3znTjHDx1qkh7YczLN5",
+"size": 381968,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "High Enthusiasm Fist Pump",
+"id": "1LNSxcQ7mrq-o5lPxB_pmRFXS2DiRzCFW",
+"size": 481392,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "High Right Block",
+"id": "1116uvvOAg_zt6NvobzI-szTCZxXqoF-s",
+"size": 398016,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "High Right Boxing Pivot",
+"id": "1a1o7NvkAuT8vvdksEdKJ5Sbe1KswQcKB",
+"size": 340464,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Hip Hop Dancing With Arms",
+"id": "1TwFO8o16SnFjvSiD4ALF25eFQ4AcMDNY",
+"size": 1979056,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Hit In The Shoulder And Falls To The Ground",
+"id": "1fJaol7JBu3wXINao3wPjIhvv-4lKZ7wh",
+"size": 580224,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Hit Reaction From Behind With Bow (1)",
+"id": "1BJ0zQ728KSEYoKbMzvFzf-gtjkjDxwLG",
+"size": 359360,
+"category": "hit",
+"themed": true,
+"dup": true
+},
+{
+"name": "Hit Reaction From Behind With Bow",
+"id": "1mzqwKpEdhhAEbOGitDEama5RHHe3f5O6",
+"size": 325520,
+"category": "hit",
+"themed": true,
+"dup": false
+},
+{
+"name": "Hit Reaction From Gut Shot With Axe",
+"id": "1gaVy4IPwQQ1koizpeZOobsAMiWyg56vI",
+"size": 412496,
+"category": "hit",
+"themed": true,
+"dup": false
+},
+{
+"name": "Hit Reaction From The Front With Bow (1)",
+"id": "13jtQdJ6Ywyn4LzRQwINQKhDlty2N5XRC",
+"size": 383904,
+"category": "hit",
+"themed": true,
+"dup": true
+},
+{
+"name": "Hit Reaction From The Front With Bow",
+"id": "16zUldCq8MdKT3pdR0CIt37-_ckgnldvT",
+"size": 335024,
+"category": "hit",
+"themed": true,
+"dup": false
+},
+{
+"name": "Hit Reaction From The Right With Axe",
+"id": "1SfuHSYMSMCeHXm2KrsfHfK4o9QR-sgou",
+"size": 433872,
+"category": "hit",
+"themed": true,
+"dup": false
+},
+{
+"name": "Hit Reaction When Running With Rifle",
+"id": "1QSpe7FD23AEAS_UZXsa6R61j_g9AYjmV",
+"size": 329616,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Hit Reaction When Walking While Aiming Rifle",
+"id": "1K7Rl9BtR-k0u8tsfY2F1t16x_dkNcU58",
+"size": 374912,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Hit Reaction",
+"id": "12XIKT5xGwaFpk7JlQZV0nAuTUkYMu1AV",
+"size": 385024,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Hitting Steering Wheel In Driving Idle",
+"id": "1MslPNhtbCMloiZVGo8USei3qrCOWN0n9",
+"size": 593360,
+"category": "vehicle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Holding An Object Idle",
+"id": "1eSr7HW37DDS_hDDv6cz1gNgRuZl6Xjlf",
+"size": 789312,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Holding An Object While Turning Right",
+"id": "1v_v1CP_Ps3hpM-S__t6I2UlBOcG6dYjV",
+"size": 387120,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Holding Bow",
+"id": "1-Jh5ZnLn95CKiLTQ7zI3lscQm2ebVp97",
+"size": 267888,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Holding Off Assailant Attacking From Above While Sitting",
+"id": "12pymut5YrD78Qa-0Xi2yhdKO4p1wQmmC",
+"size": 650896,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Holding Rifle",
+"id": "1xcwXpjUZGtxjlHZS4oXonBHg3qMnEDdG",
+"size": 513264,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Hook Punch With The Rear Hand",
+"id": "1jQfVzp59uL7QAUagcVsAqiUdic_iXBEH",
+"size": 343152,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "House Dance Variation Four",
+"id": "1h-BoyMfsMXTl8Y7ropikSJHYLxx4wQod",
+"size": 1925520,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Hurt Ground Idle From A Soccer Fall",
+"id": "1HfrNdBcKIC73fMlts-f2IBn_Hzr3QPG4",
+"size": 383664,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Idle Holding A Rifle While Shaking Legs",
+"id": "1AylVdCrOFcf9NcTrNZ9RU-T92Ca0ASCb",
+"size": 642000,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Idle Soccer Header",
+"id": "1RR_-likQPUtAkZLEFT-s-khwK95YYvkp",
+"size": 421600,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Illegal Headbutt With Step (1)",
+"id": "1sIsBAvBfOGrAffyePgmMN3uTJlvPwbli",
+"size": 443056,
+"category": "loco",
+"themed": false,
+"dup": true
+},
+{
+"name": "Injured Jumping While Running",
+"id": "18fFWfbBksy8lEUn0QlDqsEsgZK5YFmv-",
+"size": 342944,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Injured Jumping While Standing",
+"id": "1U8mzh85zA7xK_1YOK24o7UiXiV7oqo9X",
+"size": 471456,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Injured Running Backwards Turning Left",
+"id": "1M9EDceqlJuW31rlteazWSIQoI7Ff0zH6",
+"size": 429024,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Injured Standing Turning Left",
+"id": "16VkDJcPoHNKsyj8oHmaMmF2D5Sh5JJd8",
+"size": 362272,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Injured Walking Backwards Left Turn",
+"id": "1P0xwVvTj4yqhhG7yENlJ2i654f_IJiLI",
+"size": 344528,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Injured Walking Turning Left",
+"id": "1-Nsdn46czhWM7YpBTEqxyqarHnut8-8O",
+"size": 482480,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Inspecting Forwards With Torch - Looop",
+"id": "13lyE2luCuG2vZ0rU_gAArsWGHr-o6iM2",
+"size": 632064,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Inspecting Ground With Torch",
+"id": "16vtzSMsGAE-1ARib-T6Hs1L2ew3EyHMW",
+"size": 753200,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Inspecting Upwards With Torch",
+"id": "1HMB4HTlzmPUNo1vyoWrVvZPcNjltUEjD",
+"size": 848064,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Insulting With Rude Gesture",
+"id": "1IyNGaoUyHRw9d_vvFyuIokjjFOszLjGa",
+"size": 564560,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Jab Punch",
+"id": "1xs_J7F3dI0n4O-cICTA0qMWhBk4KUy2Y",
+"size": 344736,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Jab To Elbow Combo",
+"id": "1MUzFbqBVrPU4mzfTLcx5h2Uuqxw8y2-9",
+"size": 632592,
+"category": "melee",
+"themed": true,
+"dup": false
+},
+{
+"name": "Jab With Right Hand",
+"id": "1eHwZjZZvpuasX4AhiaO3GjwHijI_WjyT",
+"size": 267888,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Juggling Header Of A Soccer Ball (1)",
+"id": "1KBPuC6lUXjjrA2wJOhnaGWT2RfgizkPQ",
+"size": 702144,
+"category": "misc",
+"themed": false,
+"dup": true
+},
+{
+"name": "Juggling Left Knee Of A Soccer Ball",
+"id": "1hpAuzjsljk5y-B8oinCd_QZVsZIFY3iz",
+"size": 361296,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Juggling Right Kick Of A Soccer Ball",
+"id": "1_7mghFB7xlrN3Lizgp-OOjS42IkNdbcA",
+"size": 409584,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Juggling Right Knee Of A Soccer Ball",
+"id": "1Q9OLSGl8TcdUdGKM4epRiPBGb__CxLzc",
+"size": 331920,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Juggling Right Knee Stall Of A Soccer Ball",
+"id": "1L1EsahYYj5qIQFbTCgDUHyxx9cMPOT0a",
+"size": 470064,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Jump And Catch With One Hand",
+"id": "1GZqCTs0G9nlnBNeaGV-FOaUpmINMMZNE",
+"size": 668320,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Jump Grab To Free Hanging",
+"id": "1iV1VtioBZUA2Tg5N7t4Qnu-XXEA1EO73",
+"size": 467360,
+"category": "climb",
+"themed": false,
+"dup": false
+},
+{
+"name": "Jump To A Braced Hang From Standing Idle",
+"id": "1tYPiJa72AwsJ3DYcJKyqRCIF5vikBNxX",
+"size": 392112,
+"category": "climb",
+"themed": false,
+"dup": false
+},
+{
+"name": "Jump Up",
+"id": "1UMqCN7lyC9Nb1_4dBu7WrRXgkCMeEOsv",
+"size": 530544,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Jumping And Landing In Place",
+"id": "15jyMzMF_C1H62TuKqOb8L00wLK4HNvJP",
+"size": 527984,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Jumping Down From Higher Level",
+"id": "1f8DiQp98M02ZObyrCRcF9yclGkyaLzK4",
+"size": 590400,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Jumping From Action Idle",
+"id": "1lOOENh0nYf1CSqDL90PYnnF86oeFSnLx",
+"size": 457104,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Jumping Up From Action Idle Game Blend",
+"id": "1ozZwGxnk0xA87gYMLJDLJ3yuT7HzWqRV",
+"size": 333984,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Jumping Up From Action Idle",
+"id": "1jRlxQN1cl62gN9Fiw48yruITX5WuFZHo",
+"size": 347664,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Jumping While Run Strafing Right",
+"id": "1qFDk4t2tpmPztb5CIdIJSJBh988rmB7F",
+"size": 375632,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Jumping While Running And Holding A Rifle (1)",
+"id": "1ZkBWmvslXnubAk09yFvTbghrpQ6NG4X_",
+"size": 344784,
+"category": "jump",
+"themed": false,
+"dup": true
+},
+{
+"name": "Jumping While Running",
+"id": "1nwTGow1gtS6PGXzAk7l6mvemYQJ5jRPa",
+"size": 381968,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Jumping While Strafing Left- Loop",
+"id": "1ldKeAXC-6kzFsBy8bYu9KgRmXFg5LZ2S",
+"size": 341792,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Kick With Right Foot Holding Axe (1)",
+"id": "14ksZ1ElQyB91aIM91mtbQYkIDa2ZGPib",
+"size": 398240,
+"category": "melee",
+"themed": true,
+"dup": true
+},
+{
+"name": "Kicking Up A Soccer Ball",
+"id": "1_y7Ce__o1CxpDjcr8x_JSajem-NTDCdP",
+"size": 413360,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Kissing A Shorter Person For A Short Period",
+"id": "1XjvWusxirWPuU0moBi3XNXwENE5VpfG9",
+"size": 685520,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Kissing A Taller Person For A Long Period",
+"id": "1Ao_I9NzQSzkwGB8Uu0xcdT3UtZqhztNX",
+"size": 890592,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Kneeling Idle",
+"id": "1ljPR6LWNdO4XNDc3sTeXEEftXmwED-e8",
+"size": 626864,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Kneeling In Prayer",
+"id": "1_6h5owuHie-3_A8u9T27jBFPShJaBlHm",
+"size": 441728,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Kneeling Planting A Plant",
+"id": "17RnXd8TnZsNRwUtgfEqnfuPvGKZ6K0XJ",
+"size": 933104,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Knocked Out Falling To Back",
+"id": "1cBu_gPtZ_tW_enCNaBdyLztXQAxXO4gc",
+"size": 709456,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Knocked Out Falling To Stomach",
+"id": "1l5k8ONm7kH5MgfNitDHORF2ihs_vXkes",
+"size": 765840,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Ladder Climb One Step At A Time",
+"id": "1XUmH5qN3mWVq78iTcp1O3DaKP0MRZYSG",
+"size": 389056,
+"category": "climb",
+"themed": false,
+"dup": false
+},
+{
+"name": "Land From Fall A To Run Forward",
+"id": "10lfs_j5TGWmgVPiIltK2NRVEls4Y3Tbf",
+"size": 368000,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Land From Fall A To Standing Idle (1)",
+"id": "1rFmAS06B9zchZeNffhs50Yt8Ye64fYI3",
+"size": 341536,
+"category": "jump",
+"themed": false,
+"dup": true
+},
+{
+"name": "Land From Fall A To Standing Idle",
+"id": "190cB0unmX0CgyO9cukUwrFWwfqrsV-ho",
+"size": 439824,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Large Hit Reaction From The Right",
+"id": "1Z5mq3FUl_NFJe2SKk9_94A-1mKoZs3WW",
+"size": 447376,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Laughing Standing",
+"id": "1zao1_NzNidf9CnPrc2psRFzKCKCvzD8Y",
+"size": 1073040,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Laying Coughing Mildly",
+"id": "16VHu6g2_4KibM4wmIMeBccsI1IX8OgfZ",
+"size": 422352,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Laying Coughing Severely",
+"id": "1OFKO6YeOHXUPfhfPVdkhklqU4ycJHcBc",
+"size": 462496,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Laying On A Bed Gesturing With Hand",
+"id": "13JU4iIXHQKI7RvNJlXVcdz_4wd1hA6Lv",
+"size": 451200,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Laying On A Bed Nodding",
+"id": "1tKh0aYZAifOJdndhGc1Ds64slVwUtmE4",
+"size": 373616,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Laying On Back Writhing In Pain",
+"id": "12PAUNA1DtMd4Yrjyc6pyJYq0FLnZBRq6",
+"size": 630832,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Laying On The Ground Dying",
+"id": "11J262eGd2mtI1HDfrX7BVF5wKw1cQeRO",
+"size": 853664,
+"category": "death",
+"themed": false,
+"dup": false
+},
+{
+"name": "Laying Picking At Shirt",
+"id": "1rI4518rxsbrhtp7GSOXj8sVIA63AxnEt",
+"size": 426896,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Laying Taking A Pill",
+"id": "10aZze2bbhCEY-QI_iulwZbxuRsMRzhzf",
+"size": 437120,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Laying Vomiting Into A Bag",
+"id": "1ykMQ1Ly8ZINlw4ewMhY2Q4n2HUb5ncj0",
+"size": 427968,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Leaning Forwards Hands In Front",
+"id": "1XH_o1D86Nusy2ie6gaF2nn5wrQMKd518",
+"size": 267888,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Ledge Hit To Hanging Braced",
+"id": "11cxv2_vUBT6yNd9A5aQ9thLGrry0PRNg",
+"size": 416064,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Left Hand On Hip (2)",
+"id": "1yMjwX0D69Z0mBPWafTPQvXekcC_hS0oT",
+"size": 267888,
+"category": "misc",
+"themed": false,
+"dup": true
+},
+{
+"name": "Left Item Pick Up Into Pack When Running",
+"id": "1xqg07BCLZPG29mKQejWjXG8G_ZKfUjV1",
+"size": 385280,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Left Male Strafe (1)",
+"id": "1RDZvIEB057HrX_8NQa5k7AIl7fj3tDwN",
+"size": 348560,
+"category": "strafe",
+"themed": false,
+"dup": true
+},
+{
+"name": "Left Reaction To Front Hit Holding A Rifle",
+"id": "1-I2yfJsKcTv9s2Lc9GknZjw8gVTelus2",
+"size": 459264,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Left Standing Sneak Behind Cover (1)",
+"id": "13INJJyW-qn_zcGBV4va1S9NjYU-yWK60",
+"size": 373536,
+"category": "crouch",
+"themed": false,
+"dup": true
+},
+{
+"name": "Left Standing Sneak Behind Cover W_ Rifle",
+"id": "1nFv55Y1aJtz3AHbJnJH88d69z3UrBiwO",
+"size": 361296,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Left Standing Sneak Behind Cover",
+"id": "178xbdyTJtV3B4zV0mnMtGxVD32hymk7t",
+"size": 373536,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Left To Right Spin Attack With Axe (1)",
+"id": "1DvWwkgQS7rU9Ir5cFganUCaOLlWM2fFK",
+"size": 505152,
+"category": "misc",
+"themed": true,
+"dup": true
+},
+{
+"name": "Left To Right Spin Attack With Axe",
+"id": "1oSaDkS3QidFkDwyTzwT6Dq_efju_Sia2",
+"size": 571168,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Legs Crossed",
+"id": "1uLPWU3r1gVxQ0m--HnPt62MFibLEmVFs",
+"size": 267872,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Lifting A Heavy Object With Both Hands",
+"id": "1rm2BDDRWwJnrW4gm2s59hD560cEAhgtH",
+"size": 1117152,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Lighting Torch From Wall",
+"id": "1FEePfjh71rI2Gv91Eu0dTtu2VgtaruSM",
+"size": 651392,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Little Girl Leaning On A Wall Listening To Music",
+"id": "1bz5fg2QohDzmROWrZ91QGO-8upCbXshU",
+"size": 481392,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Long Left Boxing Side Step",
+"id": "1JrDE-38qvwKrkyuDEdW0iKLa7FrcxW9u",
+"size": 326960,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Long Putting Shot",
+"id": "1awnoo1_oTUfSelPHpnFsoJQQuCT0ohYA",
+"size": 636672,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Long Right Boxing Side Step",
+"id": "1qm_p8s0gpEMr2FU8LtI2mIOdgpBEHkJH",
+"size": 329664,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Looking Around With Axe (1)",
+"id": "1pCvCx-rRjre1xEUhIrXtnGN0jG9tarn0",
+"size": 1045248,
+"category": "civil",
+"themed": true,
+"dup": true
+},
+{
+"name": "Looking Around With Axe",
+"id": "19Bn2YCpglp4AwClH0zzWvW-Zz_WHHqgX",
+"size": 856704,
+"category": "civil",
+"themed": true,
+"dup": false
+},
+{
+"name": "Looking Around With Bow",
+"id": "1J2uSnFuCyAg4FIvpcB7vc7e4wY7VTTO1",
+"size": 569744,
+"category": "civil",
+"themed": true,
+"dup": false
+},
+{
+"name": "Looking Down And Away",
+"id": "1tjTeo0Jb5B-m9-OfmoH1v5oqu4ZR5Fna",
+"size": 691824,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Looking Forward (1)",
+"id": "1WsHCc6cyF9ryBId83X2g-Al_w92G3mht",
+"size": 267888,
+"category": "civil",
+"themed": false,
+"dup": true
+},
+{
+"name": "Looking Forward (2)",
+"id": "17DhO7Hvg4nOR7gA_de-9TXbDDUlOhVOn",
+"size": 267888,
+"category": "civil",
+"themed": false,
+"dup": true
+},
+{
+"name": "Looking Forward",
+"id": "1dVgK3RSlXO3DHcA-bR4CmPqYJross3ND",
+"size": 267888,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Looking With Hand Shading Eyes",
+"id": "10ncKcAwmktqqslkzuQPugV1HAFMcdwZ8",
+"size": 650896,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Losing Balance And Falling Forward Into A Pool",
+"id": "1IkFB958BfbM9N-y297eoPQ59vF_tHL_a",
+"size": 519200,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Losing Balance And Falling Off An Edge",
+"id": "1n-ebMSvl1Tgl3UodSMsdAt7Eq6x6m22H",
+"size": 836512,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Losing Balance And Falling Sideways Into A Pool",
+"id": "1rS3pAuo5j5k1r-YZrRpve_OSRj4ZnMD3",
+"size": 537552,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Low Crouching Idle",
+"id": "1-0SMSGUQw2-MuGo26eW-DhYP21qzEaWI",
+"size": 515952,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Low Enthusiasm Fist Pump While Sitting",
+"id": "1FyBfMhzzUDwILhAuUA6tVRkwsy2O_yfN",
+"size": 632592,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Low Left Block",
+"id": "11Ahv_ad-P65VFOg52BwfLVcoE5JTs6Nv",
+"size": 383664,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Low Left Boxing Pivot",
+"id": "1eA9YdS8s4ls_NG0zR9w2KaM3TrI-SZG6",
+"size": 365296,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Low Right Boxing Pivot",
+"id": "16eYZbw0ieCCArdCvP0mo2AReLoxNpXXX",
+"size": 362064,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Lucha Libre Style Aerial Shoulder Throw",
+"id": "1JcnHLrKVZRSZ3DgcF9Tmd6CKRxS2UoQO",
+"size": 681744,
+"category": "throw",
+"themed": false,
+"dup": false
+},
+{
+"name": "Lunging Forward To Bite",
+"id": "1qSM8stywUGAQ7HKhjMNTErLN2PcLqcJI",
+"size": 606144,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "MC Rapping On The Microphone",
+"id": "1jfPAtnZG7OcGLM2zP-gwqBzwHNnHEV-a",
+"size": 954480,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male 180 Turn With Briefcase",
+"id": "1DSZTaVvgwX3DGaJiZXkFGxsBBxfJB6pa",
+"size": 445760,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Boxing Idle",
+"id": "1sPp_dFL0pGlCUbu_YWhLIcqPGgOgEMfp",
+"size": 552528,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Brutal Walk",
+"id": "1u155FfNBbzI7zOX4CE_kIISwQsGSi6MR",
+"size": 399744,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Cheering Head Banging",
+"id": "1e5odFAGXTNAqvxzcjTt9-mqfaiXclBzI",
+"size": 473520,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Driving A Car",
+"id": "1HvlyUAXAptcxZX87Fp5nGrNJxJsNs0j3",
+"size": 581168,
+"category": "vehicle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Drunk Walk - Two Cycle Loop",
+"id": "1c2T0V_WPe1cvgvIWXNgY2245PPCJvLmR",
+"size": 486688,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Fight Idle Boxing Stance",
+"id": "1XjX-I15Vc6H-6ZbpIvtry4xwLBwpyClF",
+"size": 529456,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Fight Idle Thai Chi To Open Stance",
+"id": "1bHiBOei1My-rCHZ_Gza-fF2NtD_SPyk4",
+"size": 736016,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Fitness Idle With Breathing",
+"id": "1RsweZAIP_3XYwtHZ_7LytHGColP29Xdl",
+"size": 629248,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Fitness Idle",
+"id": "1FW48KIldtL9gOhmcFgy00NzrJd8E3N1l",
+"size": 540256,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Frog Style Jump Down",
+"id": "16v0r7kCu84NkpcKeHRAe3UWJhwaGXuxA",
+"size": 448464,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Front Snap Kick With The Lead Foot Advancing",
+"id": "1O6MeClxN57Fl0UyS9sdJmI9nnsApfVnK",
+"size": 445760,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Graceful Jump Down",
+"id": "1tHytw6_GPUjdlJe7Jr2iq65c2bw7ukoH",
+"size": 542960,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Injured Walk",
+"id": "1jpSUNGhHO8Kpmgufg-Cn44UTbiasaOsw",
+"size": 435024,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Jumping Down From 4 Feet",
+"id": "1i8KgKIEThaXM6Okk_K9PZZd-A4jIK1JB",
+"size": 481152,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Jumping Down From 4ft And Crouching On One Hand",
+"id": "1ApXJgVD5E6XlTpV8ePwSGugm-7r-Gw48",
+"size": 511632,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Jumping Down From 4ft With A Rifle",
+"id": "1IyzATx5N65J2ff7KiSZPEBmCU4f5no9h",
+"size": 449616,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Jumping Over And Obstacle Out To A Spin",
+"id": "1aQmwGa39ATDAakmtwjXJ2duDtq-lGmXh",
+"size": 502880,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Knife Stab With The Rear Hand And Reverse Grip",
+"id": "19BkQIqhZ-lup0dr4o4JKofVmtKZkQJRy",
+"size": 475456,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Looking Through A File Cabinet Low",
+"id": "1_vTSFL4VcbWUuKcdrTI3tXtHBgNKxjA3",
+"size": 1474976,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male One Arm Swing Onto Platform",
+"id": "1aoV3Z3goorCrWGosJMVHbl4nxaanIILm",
+"size": 486864,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Orc Standing Idle (1)",
+"id": "1h9mJC4GOgXMinKel1Wi81JLYqkDJ1aBK",
+"size": 686736,
+"category": "loco",
+"themed": true,
+"dup": true
+},
+{
+"name": "Male Reaction Hit On The Right Side",
+"id": "1fho-2-R8RcRdylwIc1988vmvK-dL5Wy6",
+"size": 397152,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Standing Fantasy Gunplay With Hand Cannon",
+"id": "1PW0YFN3rusirF4NXdGMesY6Kjvsz7MXj",
+"size": 467360,
+"category": "rifle",
+"themed": true,
+"dup": false
+},
+{
+"name": "Male Standing Idle 01",
+"id": "1zrEPsPPC4w4QK4BpIrJtU88jP2DXx3Ib",
+"size": 655200,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Stepping Onto Platform",
+"id": "1Rdz83TlX7ax_j7FDnF45flx7EiyRWevm",
+"size": 372864,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Talking On The Cell Phone While Pacing Back And Forth",
+"id": "1Odqg_BhSZvEGwD_UafSJ4oNNA0d-bwgw",
+"size": 3721760,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Talking On The Cell Phone",
+"id": "1UcQ1puRz6c_AgioDc8rrjG12QhDBT2kN",
+"size": 635296,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Talking While Seated",
+"id": "1Ho18RB76U8xUbmJHi_UKoUWGeBW4dLVy",
+"size": 576864,
+"category": "vehicle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Thrust Kick With The Rear Foot",
+"id": "13s6VvaeAjFovepg3dJulzQNc2dD8lxn_",
+"size": 434960,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Twist Left Idle To Walk 180 - Turning Left",
+"id": "1U9iml5JsjlpsT3N-sFENNC9qqZVFOf5V",
+"size": 489600,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Twist Left Idle",
+"id": "1mzfiZ0GZzpcH-NsPL9phB6acaj-zJ22i",
+"size": 583456,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Twist Right Idle To Twist Left Idle",
+"id": "1gUFHyHXEaQWUi2b1DceMMl0Kyw1kKluF",
+"size": 470064,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Walk Forward 03",
+"id": "1eRJmAY5HStyfw-jGYu0jK7TN8x-qRP8F",
+"size": 386896,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Walk Forward In A Tight Turn To The Left",
+"id": "1yl9gBNY9COOwo2k04iRuCa4RtTOtpdhd",
+"size": 708192,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Walk Forward In A Wide Turn To The Left",
+"id": "1-VXraQSSLe7byies69hj-vCKfGD6I4rC",
+"size": 681744,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Walk Forward To Twist Right Idle",
+"id": "1GJScJWW74ZyMsvONi523aP97ARDnWrBo",
+"size": 458720,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Walk Forward Turning Right 90",
+"id": "1iHootPB6-Nesy-mRs_foDi3rTKX0HBnu",
+"size": 541872,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Walk Start Turining 180 To The Left",
+"id": "1-Ql_IK3jR3bljtwYwJ_8tyrddquVniHW",
+"size": 545664,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Walk Up The Stairs",
+"id": "1arqS0oqZLOTlPX3uk2mhukGqJoKU9zEF",
+"size": 359360,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male Walk With Briefcase",
+"id": "1R7_x9U4NI2eFxltFm5Vk1JSlQOYT7fvm",
+"size": 362592,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Male With Headphones Listening To Music",
+"id": "1VpXHtbzsXqjTbIW3rSO41yLrt5zuo4Gm",
+"size": 550384,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Man Working On Device",
+"id": "1lsTyb0gcLIdYCyNHnGW5WGN63T6Xi9Hw",
+"size": 837344,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Medium Drive",
+"id": "1oYwO4wrFf-U3pM-IQlQcsrS-urRVDwfZ",
+"size": 688688,
+"category": "vehicle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Medium Left Boxing Side Step",
+"id": "1QTwSI-lL0ZAGcniACNbtGXbiBVet4H7e",
+"size": 329664,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Medium Right Boxing Side Step",
+"id": "11y-OIwVs3B8RZFYWWGP-C3Uwl-7rZLHy",
+"size": 329664,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Mid-Air Falling Idle",
+"id": "1cya6IrzxcU7ieDhYAW5azTLWhc83oUx5",
+"size": 333984,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Mid-Air Falling To A Hard Landing Game Blend",
+"id": "1pycw_U5kl2lboOCV_c1-mPpYAsyKwZ6b",
+"size": 467360,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Military Signal _Look_ While Crouched (1)",
+"id": "1jTSCfK-ELBKVPgHiGYrlAKAyCJ9oWS-h",
+"size": 637248,
+"category": "crouch",
+"themed": false,
+"dup": true
+},
+{
+"name": "Military Signaling _Follow_ While Crouched",
+"id": "14nYLloWRHjeUsKBIFZfme6mPdJVuW7UR",
+"size": 660704,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Military Signaling _Stay Back_ While Crouched",
+"id": "1rXy1IFfityYHB9IGMMHA1g_-D-z-rBPH",
+"size": 697184,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Mime Pulling A Rope",
+"id": "1INcB5UC_f2ufCxUSMP6EJHjfJhYTTsae",
+"size": 1485744,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Mma Low Kick",
+"id": "15J2HOmysAdcigYVcxGVmHm1t3CMoQjmH",
+"size": 432256,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Mma Takedown To Standing Mma Idle (1)",
+"id": "1UgknDkef-aIbOVMWnkX0v-Gzsu40DvMV",
+"size": 659056,
+"category": "loco",
+"themed": false,
+"dup": true
+},
+{
+"name": "Moving Backward In Crawl Position With Rifle",
+"id": "1VlYBkBuMfpoLsY6XMt_RmGY7aDMColZK",
+"size": 400944,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Moving Backward In Prone Position With Rifle",
+"id": "1K3HCsDKibOGesest1g5ZJ_SPXqMjfrl7",
+"size": 416064,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Moving Sideways While Hanging From A Bar",
+"id": "11ET-itPJK0D8TGTifmMY8Yy1g-Vt7Ccy",
+"size": 420912,
+"category": "climb",
+"themed": false,
+"dup": false
+},
+{
+"name": "Mutant 45 Degree Right Turn From Idle",
+"id": "1hKgJLQtuDXTduClg2QQhkjMUh7Jm0IpU",
+"size": 485184,
+"category": "turn",
+"themed": true,
+"dup": false
+},
+{
+"name": "Mutant Eagle Jump",
+"id": "1v7H0zQWd9_C18qt3vsWhkhD4ly2L5njA",
+"size": 614416,
+"category": "jump",
+"themed": true,
+"dup": false
+},
+{
+"name": "Mutant Jump Attack To Idle",
+"id": "1fu2BlYvsDGnXc_PRlh1-pbkOOIuzWjH6",
+"size": 683840,
+"category": "jump",
+"themed": true,
+"dup": false
+},
+{
+"name": "Nodding Head Yes (1)",
+"id": "1RoHzTe_cqxuMM0QxG7YaEoNGUYeCywsA",
+"size": 556992,
+"category": "civil",
+"themed": false,
+"dup": true
+},
+{
+"name": "Northern Soul Dance Spin Dip And Splits",
+"id": "1MQ44Gt2cf9N7gaokfi-NTI8Q72ENRIrD",
+"size": 1042976,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Northern Soul Dance Spin On Floor",
+"id": "1lVbJItQ15n9QoViLIbLc0qeU_ib4B7yR",
+"size": 926800,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "One Handed Casting Spell Fowards",
+"id": "1fsGU1nz0jEU6Sz4XYAw4e6Rt6yAq2eRS",
+"size": 521680,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Opening Cabinet Door",
+"id": "1F9HFfsiQs6pdgU4MdGv5YQNIulqhq51X",
+"size": 689200,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Overhead Bashing Swing",
+"id": "1IXPfXjd0m7H4VEX-lrzNfD5IGR-egJsA",
+"size": 715760,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Painfully Getting Spat On In The Face",
+"id": "1G7I60e99qC9kV27IfmIhWnJVqW1Lpr6a",
+"size": 522080,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Petting A Large Animal",
+"id": "1ergjBetaza-tcOonh4uSnrn8CcwXfE7x",
+"size": 669904,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Picking Fruit From Ground",
+"id": "1mXX1q00ywJWvGM4mwhAVKJXtep7-PkBf",
+"size": 887408,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Picking Up An Object",
+"id": "109cI1GRTKzyZgzDfCGINjgQCrQ3GhHbS",
+"size": 1036960,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Picking Up Object And Throwing",
+"id": "1Rj8gtxa-lBsEV1Z8v_i-_PrV5b0kzujL",
+"size": 705408,
+"category": "throw",
+"themed": false,
+"dup": false
+},
+{
+"name": "Picking Up Torch From The Ground",
+"id": "1fjShjyKME61oD8uBD-ipVls8kQ3SiCSN",
+"size": 696864,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Pike Walk",
+"id": "100ML-_CYwKYz6LE-SDF8Ss95ohYqs9iF",
+"size": 842384,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Pilot Flies Helicopter",
+"id": "1vyRj8DD-LLj9AavFtzmxplvgaJItdpwB",
+"size": 804624,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Pilot Flying Helicopter Getting Knocked Unconscious",
+"id": "1aoENcKdDETgvHbz9RBWFEvm7umgUIBsC",
+"size": 635232,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Pistol Aim To Holster Idle",
+"id": "1ySidJHzSXmfE7tla6YnKbmKBCzl9wLH3",
+"size": 833296,
+"category": "pistol",
+"themed": false,
+"dup": false
+},
+{
+"name": "Pistol Kneeling To Standing",
+"id": "1Raammd1JbhE-tYGNZ3ofO_aA1YTwQNTh",
+"size": 372864,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Pistol Standing To Kneeling",
+"id": "1IT6TQHJHNYH27BtoO3sQrxJEr4Gw54n0",
+"size": 342080,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Pistol Workout",
+"id": "1NYSICVH_3aAZkWCtFCNETGJ-EFgfS-3C",
+"size": 715184,
+"category": "pistol",
+"themed": false,
+"dup": false
+},
+{
+"name": "Pitching A Baseball",
+"id": "1ULr8GUaC4ZXlIsbCAWiaMJjn9jPY8_KT",
+"size": 699696,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Placing Tee Into The Ground (1)",
+"id": "1pjpwB9nuTjn91TwT7pLrddYVVkIm5RNi",
+"size": 996880,
+"category": "misc",
+"themed": false,
+"dup": true
+},
+{
+"name": "Plank Position",
+"id": "1t-5ovty33as5VQW-ecGuHmNowi0T7zJq",
+"size": 527840,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Playing A Run On A Piano",
+"id": "1KFyhB4SGuwXAtWKwBAKEefN-herTopOQ",
+"size": 1063248,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Pointing With Arm Bent",
+"id": "1O4_vx8Au6t1v3CD3hnFON7Lhfhaf1QAN",
+"size": 519120,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Post-Putting Failed Shot Gesture Var 1",
+"id": "1we_rDduFy7LjwHD0V7LB0QhnORjWFgiX",
+"size": 991104,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Post-Putting Failed Shot Gesture Var 2",
+"id": "1ItoNSNmsccWhyz4-TQKPxwx2vyrDg7s3",
+"size": 1085424,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Post-Putting Victory Gesture Var 2",
+"id": "1B8Hhgt5qDoYnz51szmdi_py-Inkgthx9",
+"size": 1004400,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Post-Shot Course Correction Var 1",
+"id": "1DyJv5MFqJwxLFzDw-7KnnaZFHUXiLK1Z",
+"size": 977200,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Post-Shot Course Correction Var 2",
+"id": "1dxjHUl-tQJeMaANttYzTGindqaBUM9Xi",
+"size": 1040256,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Prone Move Forward To Stop In Prone Position",
+"id": "1PZZSeDcxsl2tuyRSuMSl9ac9tO7ARMZ0",
+"size": 412848,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Pulled Out Of Pilot Seat",
+"id": "1flrFL0YaSGeMQ1utez2ra0FB2pWAJL3i",
+"size": 643200,
+"category": "vehicle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Pulling A Heavy Object",
+"id": "1iUnUcsYTixwks5uqzOGdaeidN-YwHudN",
+"size": 375024,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Punching A Speedbag",
+"id": "18wAwBtciU9REguf21T4O9g0jfxihU8UA",
+"size": 854048,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Pushing Heavy Object (1)",
+"id": "12OTtlLf7KXTUQluhW9wxbivvbTm6aI7Y",
+"size": 970272,
+"category": "misc",
+"themed": false,
+"dup": true
+},
+{
+"name": "Pushing With Both Hands",
+"id": "1IZEKwaHniDrLRyVRzpmajVCvgHVZ7KFS",
+"size": 267888,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Pushing With Left Side Of Body",
+"id": "1qOduJboBujt0yVBuwMMigwFzUjLZwu8u",
+"size": 267888,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Putt Post-Shot Victory Gesture",
+"id": "1K0AOuWjI5Dy_Pbz-n_76GntT5gJ7anV2",
+"size": 873760,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Putting Down An Object",
+"id": "16ji-5Q7p8oB_BcjO3OAJncNVW0Uqtc67",
+"size": 1112592,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Quad Punch Combo",
+"id": "1vYWRWzp9BKqh6SW0hf6AF3HEipmrOynQ",
+"size": 440000,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Quick Formal Bow",
+"id": "1ZXJtP62Z8H_C2bVWrS6Y6WviyurNXyvK",
+"size": 569168,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Quick Roll Eveade To Run",
+"id": "1jtMfIZBB_lfbsQKXh7SsL4u9zSpgmrkf",
+"size": 420912,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Quickly Pointing Angrily Forward",
+"id": "1lndTuwaT8aEbXK-WaxaGFAB8RHcROVZL",
+"size": 538096,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rallying The Crowd To Make Them Cheer",
+"id": "1j7x5OAI2RYDMxiHZL55hOcVyPBVWo2WN",
+"size": 811280,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Reaching Out Gesture",
+"id": "1_dAA3YSlXS76eCqIIAP3uLTRFtZE-6p-",
+"size": 715760,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Reaction To Getting Hit To The Left While Holding A Pistol",
+"id": "1SD0pSqFWsm2wqbonqkKDEFhM1LiBSQAm",
+"size": 473760,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Ready Pose To Standing Putting Back The Rifle To The Side",
+"id": "1x5eRrwaf5epTGrwbiYeM5NvsVOQkTDXg",
+"size": 553216,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Ready Pose To Standing Putting Back The Rifle",
+"id": "1H2GIESEE3EXnAsdJ4I98aGcqctAleqvk",
+"size": 633392,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Ready To Breakdance End",
+"id": "16dl5XRg0VTzgRIVGAupnS_nVNRvm6sB_",
+"size": 424704,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Ready To Breakdance Start",
+"id": "1VTNkDHUDS7xALNaE_d-qTF8VqTODtGEy",
+"size": 383120,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Receive Punch To The Body",
+"id": "1wBH0NyZwmHpFmUnCsB8UtUko6tSOIS1G",
+"size": 443600,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Receive Stomach Uppercut (1)",
+"id": "1fGKuU-8CIdw2OaeiQDzDeZds_ucJu161",
+"size": 402560,
+"category": "melee",
+"themed": false,
+"dup": true
+},
+{
+"name": "Receive Stomach Uppercut",
+"id": "18AgP3i_5lhoYaiWphdsAi3I5CJTEX1rp",
+"size": 432256,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Receiving A Big Hit In The Ribs",
+"id": "1f0GWyeJr8k1LIQa9fHyyrfak2z72Kab2",
+"size": 391760,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Receiving A Big Hit In The Stomach",
+"id": "1vtW1XlJeaQObrUASM47cCoUsuF7izzA8",
+"size": 377824,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Receiving A Big Hit To The Head From A Left Punch",
+"id": "1P8edc7yzb0qhKEuQEQH-ldMo9GMypAxS",
+"size": 395360,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Receiving A Big Hit To The Midsection While Running",
+"id": "1q5dMbCIesajlnaThzz1qpS5TviL7rTEn",
+"size": 553216,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Receiving A Body Hit By A Straight Punch",
+"id": "1tJT4NPalqkTA5RTh-JmX9CwQwLlBsMf3",
+"size": 370160,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Receiving A Football While Getting Tackled To The Ground",
+"id": "1FvVVRFLOQSiKBW-Rn2GIdTBa0aD0E7xP",
+"size": 747232,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Receiving A Hit By An Uppercut To The Body",
+"id": "1kXfz6-Vb5pBBPdfDe_kEup60-_yXKG64",
+"size": 383664,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Receiving A Hit In The Side",
+"id": "1Z3kr_nel97rV0LvhXR6Iz0dw76Gmmo4x",
+"size": 340464,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Receiving A Hit In The Stomach",
+"id": "1uRXmCvIjTxvEX2BWeg4F0wyAbSz0p1ME",
+"size": 359360,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Receiving A Hit To The Body By A Uppercut",
+"id": "1WC1fePRhVAY-bD7zdquLQ-qBNUH1J34B",
+"size": 359360,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Receiving A Light Hit From A Right Punch",
+"id": "1iPV4kzf0X4ySfeq8CWKxbbIkhVPM4aex",
+"size": 327856,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Receiving A Light Hit From A Straight Punch",
+"id": "1YIM3TceChodtoarp3xmpE0ec5-2FsQ_r",
+"size": 325232,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Receiving A Light Hit To The Head From A Left Punch",
+"id": "1uR3h3cxdS14c3-Ohn_fZ4IWJ3tqKKW9g",
+"size": 347408,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Receiving A Light Hit To The Head From A Straight Punch",
+"id": "1cWCeXFidEgqCnQRprdQs9qKyCgZDsznY",
+"size": 347408,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Receiving A Medium Hit To The Head From A Right Punch",
+"id": "19g_TTXxvOgxR179aUwg8m1QEtDV_U83I",
+"size": 354128,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Receiving A Medium Hit To The Head From A Straight Punch",
+"id": "1SQ0rODf0xqv5DnXF5vftaiSXxtrS-SzU",
+"size": 360720,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Receiving A Soccerball And Playing With It",
+"id": "1Dkw2R6dcOa2QROy5HCznvZqq6JjandIa",
+"size": 727104,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Receiving Cpr On The Ground",
+"id": "110sNqNx0jdroWmlhl-nl-csDnoj1vGPa",
+"size": 738320,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Reloading Bow",
+"id": "1Mrgxi0YdeONeoU0SGPXrFPtKQnm_dTXe",
+"size": 360368,
+"category": "rifle",
+"themed": true,
+"dup": false
+},
+{
+"name": "Repeatedly Firing A Rifle While Crouch Walking",
+"id": "1Hk4afrp1LKDa2JeidhoWJYrt2AYw29lN",
+"size": 360432,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Repeatedly Firing While Walking At Medium Speed With Rifle",
+"id": "1F1Cqz6JGls5kSNnxY9Tw8C6AyTWuuJ-C",
+"size": 403488,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Repeatedly Firing While Walking At Slow Speed With Rifle",
+"id": "1rtrjJxIx9UKUcHuWkL6O9CZ3AoKnBNGn",
+"size": 608112,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Repeatedly Firing While Walking With Rifle",
+"id": "1Y4noGD2UlpJJtVNilEGdl-lN2lFZmCVh",
+"size": 369216,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Restrained Enthusiasm Standing Fist Pump",
+"id": "1vMkszPYQjv-gQKIMnXCEYRE0Gtttc_rA",
+"size": 689296,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Aiming And Kneeling",
+"id": "1MRFQlkma02-rL7f7sOPlY20ZeWVPI13U",
+"size": 352880,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Crouch Walking To Idle",
+"id": "18LJTeTMLXIEM2vIy4f86GXQidJdXnb_d",
+"size": 591696,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Crouched Idle",
+"id": "1ztAjoi5i7fNnb8vidQmcHBmi8msTOGSy",
+"size": 427728,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Crouched Turn 90 Left (1)",
+"id": "1QlH3lmpHSj53lTRopsthmUL_KuK1PFeU",
+"size": 364752,
+"category": "rifle",
+"themed": false,
+"dup": true
+},
+{
+"name": "Rifle Crouched Turn 90 Left",
+"id": "1SGlHnERa8f59UWP8NhaKUFu0gqnBZ4ER",
+"size": 364944,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Crouched Walk Backward",
+"id": "1wQOIiEEBNRY4Pg0FhyUGblHght-Ctj2K",
+"size": 343344,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Crouched Walk Left",
+"id": "1I8-Hi409DPt5l73gM5iLu38ZxY__hGzS",
+"size": 343296,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Death From Front Headshot",
+"id": "1HqNw2BVjH7-QA4YX1V6XvAWUbPC0x6ih",
+"size": 537744,
+"category": "death",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Death From The Back",
+"id": "1QApAuKzl4b3xgh1HskFFl9UcmCwuSFjN",
+"size": 554656,
+"category": "death",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Down To Aiming",
+"id": "1aB32p1hgNr7yYrVj965-Y7qsRzbP3ntu",
+"size": 360432,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Getting Hit To Ground",
+"id": "1zxqp2LPHPJQvQw4jmJ8laC8v_GvDtyvR",
+"size": 463392,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Idle To Crouch Walk",
+"id": "1BefVhtQOh7DvuW3a5XBxTS6GAK-YkPr_",
+"size": 535472,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Jump Idle",
+"id": "1y_YsbSdVv_INnslbAlS3JoGZIwiSPuwt",
+"size": 338832,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Kneeling And Aiming",
+"id": "1_6QSexPwDxuGmDXx8s7tj2SvIYLdG336",
+"size": 352880,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Kneeling Getting Hit To Back",
+"id": "1K2i19aQd-VTVS2I-1M1fmP3kh7lrtTwy",
+"size": 449056,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Kneeling Idle",
+"id": "19J1GQB7HA0znWEH5xYW9JojjtGTufUuR",
+"size": 398016,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Kneeling To Prone",
+"id": "1e4vw8gQVieQOfUe7CQgUQWy9nEIondUz",
+"size": 487488,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Left Side Step",
+"id": "1znOYLMrLXDjnCGhZ-Xygd7kw5IEXM4de",
+"size": 382032,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Prone Hit Reaction",
+"id": "1usXukGwFTRpA1jgQNZgq9nExWyhs_OBt",
+"size": 400688,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Prone Rolling Right Game Blend",
+"id": "1g-YiQ-F7YZFFHMQ2fuSHw0ZpkYyfv_jH",
+"size": 453136,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Prone Rolling Right",
+"id": "1lcPH3PPEbp3oySbcx4ketUqjjwdmoHQj",
+"size": 632592,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Prone To Kneeling",
+"id": "1J5YCf-tCk8v4JM6Dl1WF9NGh8bgzvvNA",
+"size": 487264,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Rubbing Debris From Eyes",
+"id": "1-v1LgwPf-i6i0tzd7ZHhTsIQdG6kCP1q",
+"size": 470064,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Run Backward",
+"id": "1GO0hD4W4EFwXloYY8T5ZT5vIrJXP0m51",
+"size": 381104,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Run Forward Right",
+"id": "1ecMmvWK2IaTFLE0lTkgZKEJvrmWxIT2N",
+"size": 382864,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Run Left",
+"id": "1W946pmS-jA7WwXHzja0o-pi3ANuJdB4V",
+"size": 383664,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Run Right",
+"id": "1RK1yIQd84Bnez-Gr_skRwz4gFQDsvwyR",
+"size": 382656,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Shielding Face From Debris",
+"id": "1oMZ42UmSoYuBJiFOhB5bRG46wvMwOBBR",
+"size": 598352,
+"category": "rifle",
+"themed": true,
+"dup": false
+},
+{
+"name": "Rifle Sprint Backward Left",
+"id": "1gaPe0PXMM3sD_uKbz5NBKgejaEkl7QhQ",
+"size": 383664,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Sprint Backward Right",
+"id": "18A4uuc726FAPrlv19tE85CtzwyXi1lay",
+"size": 383120,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Sprint Forward Left",
+"id": "1wXG8HjKGaiS6gFPCbQm9KGOurYHbxiEZ",
+"size": 383664,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Sprint Left",
+"id": "1CgQXJTElUkt-pOHZs4DJ4rWRrLrUljqN",
+"size": 383264,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Standing Idle",
+"id": "1n5MFTVlMMsG0EEhVBVH65Am1Wpb-KqxE",
+"size": 427728,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Walk Backward Left",
+"id": "1waMMhtcGsNbpvPh-72UXVk91awTnmInY",
+"size": 343152,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Walk Backward Right",
+"id": "19BZijF0gUl9uBPfQuhrKnGh7GRLd49sj",
+"size": 343152,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Walk Forward",
+"id": "1st_gRudvKiBJow0q9gy0iMOjv_cKE9yR",
+"size": 343664,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Walking Backward Crouched",
+"id": "132nt9YZgwTlfqXIRiwtwmj8fZJsYEgAW",
+"size": 439280,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Walking Backward To Standing",
+"id": "1mB7vHjp_Wn9QzyjB811uHbsq2LUAzbb5",
+"size": 587232,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Walking Crouched",
+"id": "1wCJ_YaL55kVQsNwGQaxVpq621fN76WPr",
+"size": 446944,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Walking Right Crouched",
+"id": "1TpyFqQG6E_LuEgwZIfRV3sb8vWDiu7FM",
+"size": 441728,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rifle Walking To Standing",
+"id": "1zZRneo5wdx3dWRsFVFJDhSxZMCETh-SL",
+"size": 666624,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Right Hand On Hip",
+"id": "1dt5DRsnRY8CKNNec7o2orgzBztwKg0ux",
+"size": 267984,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Right Item Pick Up Into Pack When Running",
+"id": "1CWhZWl6ULvBdbZp5ql7xRoPq8oC2PAgH",
+"size": 385280,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Right Male Strafe",
+"id": "1dRiM2aNOjC2xEMeEBflpn3zQiyqnBVsW",
+"size": 356656,
+"category": "strafe",
+"themed": false,
+"dup": false
+},
+{
+"name": "Right Running Turn While Drunk",
+"id": "1bNaDEU3bP8jpQMDjPZrFBG90t3NCRtT_",
+"size": 430640,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Right Standing Sneak Behind Cover (1)",
+"id": "1z1e4O8mcFU86veKpAA8pfaaqAleanEuB",
+"size": 373536,
+"category": "crouch",
+"themed": false,
+"dup": true
+},
+{
+"name": "Right Standing Sneak Behind Cover W_ Rifle",
+"id": "1TuOTK7UYpj60yJtRRyvZ6HiIWH9bbT-S",
+"size": 353952,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Roll Kick Landing On Hands And Knees",
+"id": "1K8TuBKuPkbJQNHXLFfDI36OI9LBayt6I",
+"size": 494720,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rolling Left While Aiming Rifle Game Blend",
+"id": "1PgFXv936t8wO_u5u91QZcBd7VxLuftoC",
+"size": 433680,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Rolling Left While Aiming Rifle",
+"id": "1hS_jiQ_whMikBnKOtDUbnT3TssKiGQbp",
+"size": 545664,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Roundhouse Kick With The Rear Foot",
+"id": "1iraBOnhWHJUK_8VeH_GYQ8WmZqpyLqOr",
+"size": 383664,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Run Arc Right With An Aimed Pistol",
+"id": "1yP7gi7rRnJxe-I7TbL7lbwJlsVQuyhWx",
+"size": 310752,
+"category": "pistol",
+"themed": false,
+"dup": false
+},
+{
+"name": "Run Backward Arc Left With An Aimed Pistol",
+"id": "1poPJABZ6eYasGAoNokGpWhX7P7J3THcV",
+"size": 383664,
+"category": "pistol",
+"themed": false,
+"dup": false
+},
+{
+"name": "Run To Twist Flip To Run",
+"id": "1YHQ4ux5pC5QZtvY2wtjr7PoLZZ7cCC7E",
+"size": 511632,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Run While Reloading Rifle",
+"id": "1QwowNjXaAwdo1pROmuK4Lws0yl2FuBup",
+"size": 680192,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Running  Jump To Standing Idle",
+"id": "1zEqPleNNDr1ITakkU-7gJRIlVfIL0cP1",
+"size": 464624,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Running Backward In A Sad Disposition",
+"id": "1YuH_ZMN0ESXoUPoC6yR5-9mnHkmGwv9C",
+"size": 329552,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Running Backward With An Aimed Pistol",
+"id": "1jGlTElf-jnKaHP3wyTR8BTLFq_f8nqMI",
+"size": 305360,
+"category": "pistol",
+"themed": false,
+"dup": false
+},
+{
+"name": "Running Backwards (1)",
+"id": "1ntmh4EumwIfEintJZ2EOsp23tYVXIYP8",
+"size": 345792,
+"category": "loco",
+"themed": false,
+"dup": true
+},
+{
+"name": "Running Backwards While Aiming Rifle",
+"id": "10K4mRfDM9eViO3jEKrqcJJYdjGpCEcjB",
+"size": 319248,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Running Backwards With Axe",
+"id": "15gQ4U4wuNdAiT38ubijXU--hvOnJ-pFx",
+"size": 339920,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Running Backwards With Bow",
+"id": "1ppJjKU7s11KdlFeM-y69Rc-fQhvqflGL",
+"size": 326960,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Running Backwards With Rifle Down",
+"id": "1JoN8LM-Lp9kAYmZ6pb49MFhHeA8LvUWx",
+"size": 310752,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Running Backwards With Torch",
+"id": "1A1AZQVv6bsxQrT5v_htvprG-G12k3N9R",
+"size": 327360,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Running Crouched With Rifle",
+"id": "17-BJVDr2nmgWJbjS_fvPxlYKSv62m8ft",
+"size": 344960,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Running Down A Set Of Stairs",
+"id": "1q64IdusieMaAQZaA-0QRkuTfmfGxvInN",
+"size": 396944,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Running Fall Over A Soccer Slide Tackle",
+"id": "1j0SOEwS8pTuBDFGZtpBTr0B-1OPZ4zrw",
+"size": 572112,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Running Fast",
+"id": "1v-F-E8QusL22CeL8DT31CcNfRC5FKFsX",
+"size": 305360,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Running Forward (4)",
+"id": "127Y3K1TOpUYZAS1iBIotP7NMqC1Cq1-1",
+"size": 267888,
+"category": "loco",
+"themed": false,
+"dup": true
+},
+{
+"name": "Running Forward Quickly (1)",
+"id": "1_gzRO9ARfFl9GFPmgpD-dS-oh-ksJm41",
+"size": 340032,
+"category": "loco",
+"themed": false,
+"dup": true
+},
+{
+"name": "Running Forward While Drunk",
+"id": "1ii0_f2qrP-1WSt1LKv2P9X2AhmVO6H4P",
+"size": 468080,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Running Forwards With Torch",
+"id": "1cFJ3EYyidE_DGlOSny6b7poJ8amPEpbC",
+"size": 326960,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Running Forwards",
+"id": "1N22-h_-o6dPoewSsrfyvonk8rQXf0lRA",
+"size": 344528,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Running Jump And Landing",
+"id": "1Xg77gVk6yRjnSTDXIT3ew7xTuuyyxdn-",
+"size": 420912,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Running Jump To Run Forward",
+"id": "1VQ9o5XzbHXbXK9PO82nRnB6LYUovIjFs",
+"size": 459792,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Running Jump With Attack With Axe",
+"id": "1lkPbHxKs-GNtuN1UUmPEEO0ODNCtRXK6",
+"size": 618560,
+"category": "jump",
+"themed": true,
+"dup": false
+},
+{
+"name": "Running Leaning Back Or Forth",
+"id": "1CJ27MAAMQMTfpuzkr7eP8P98of3snCV1",
+"size": 333984,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Running On All Fours",
+"id": "1QbP8aJc5bJqLM6FHdL4mxdU07lp_es18",
+"size": 337760,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Running Right With Bow",
+"id": "1pcyRTKss8AJ8lrT5q9Zcfvmzcb17vu9r",
+"size": 335024,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Running Right With Torch",
+"id": "1a7MoKxwoDq8t3ZI8OSCN-I_GybTpSpbd",
+"size": 323712,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Running Right",
+"id": "1PcT2xxAzjVuuPU-gbDChYbiJXbXtyzUN",
+"size": 348272,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Running Strafe To The Left (1)",
+"id": "1iRE49v6i-c-02JWOES00_0_iaZjeBB4o",
+"size": 337760,
+"category": "strafe",
+"themed": false,
+"dup": true
+},
+{
+"name": "Running Strafe To The Left",
+"id": "1IZwQiCr1k4IEtJdgU-3OV1s8xDsOCApM",
+"size": 337760,
+"category": "strafe",
+"themed": false,
+"dup": false
+},
+{
+"name": "Running Strafe To The Right (1)",
+"id": "1iSHm7B5mnJgawIfIRBmM2rrmPFjFf4Tu",
+"size": 337760,
+"category": "strafe",
+"themed": false,
+"dup": true
+},
+{
+"name": "Running Tired To Dizzy",
+"id": "11LPn0HOKN7GtrcyNfkON2gsrdHUTWKnh",
+"size": 825600,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Running To Slide And Back To Running",
+"id": "11D2qa8F-h62TSHSsbxTs681Qj955MKnW",
+"size": 419472,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Running With A Sword In The Right Hand",
+"id": "1J2zSK55Y5QWiilq_lNIBiux5JTGdZcSo",
+"size": 326960,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Running With Aimed Pistol",
+"id": "1-_yybw4YOFtdAWXzf5EmVy6jpZ_bzEg6",
+"size": 331056,
+"category": "pistol",
+"themed": false,
+"dup": false
+},
+{
+"name": "Running With Rifle Aimed",
+"id": "16kT13bhylasinAax9IzGi_zrBdMCuSAS",
+"size": 342144,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sad Idle Variation 1",
+"id": "19jqs6RMSkTVUxjG4gWJs2u8Xy5iBFPYN",
+"size": 528272,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sad Idle Variation 2",
+"id": "1QwtD_aRJOQCdpTPGPWqme69cnb0bJSSq",
+"size": 478160,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Salsa Dancing Twirl And Clap",
+"id": "1LlhQ0QDd9Lqjhlq-lBG9h49JwN9bmgaJ",
+"size": 510816,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Salsa Dancing Up And Back",
+"id": "1jMKrol-IW-WLkieGwAAyCIZiT5a3_c9H",
+"size": 522336,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Samba Dance Olodum Variation Two",
+"id": "17Hmzn7yCNqhuisM-HQLb9bisG4n1OyoN",
+"size": 1792656,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sarcastically Looking Away",
+"id": "1-jEJ3Co29X8rFpgMKEobXNycdHmlQw7Y",
+"size": 526752,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sarcastically Nodding Head Yes",
+"id": "1vCDcYMfbJl4YektJWXSZNLB50n82oL6B",
+"size": 526752,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Scary Clown Ready Idle",
+"id": "1OLbjWncXLLD1uY_kQlyj_PjXsSE0fsx4",
+"size": 458720,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Scary Clown Start Walking",
+"id": "1SO90Gtk5z5l6yJcb1JVoavFsV2D0h0Z8",
+"size": 447376,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Seated Idle With Hands On A Table (1)",
+"id": "1XDwT-G2qobfWYcR8e3Oc3dY1nYV7LV9L",
+"size": 710624,
+"category": "vehicle",
+"themed": false,
+"dup": true
+},
+{
+"name": "Seated Idle With Hands On A Table Being Rude",
+"id": "14tp-T2o08k0qoKSzQwxxA5kbiTJTqmhN",
+"size": 785376,
+"category": "vehicle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Shake Off Head Pain And Focus",
+"id": "1WL_OBO3EnRh-4IX24lopgtbBbSblubNl",
+"size": 710464,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Shaking Head No Annoyed",
+"id": "17weW-acJSGwDFG3gbV4LSAJYbu_KTdTY",
+"size": 511632,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Shaking Head No Dismissively",
+"id": "1lTg2SQjDkrMjRRqkJBU5cefXiY9DkweA",
+"size": 466272,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Shaking It Off In Relief",
+"id": "13G9ihXZwfo_RRlWoaZNP5-cwQylNgvXr",
+"size": 785376,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sheath Pose To Standing",
+"id": "19LWrBYwZ2vRVgl_heKDeQrNVslAG2XzZ",
+"size": 356656,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Shifting Weight From Side To Side",
+"id": "1znyVjoUspxL_JLy3_4v_-aRfFrVA9Fdw",
+"size": 1052048,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Shooting A Pistol From Behind Cover",
+"id": "19POhL_nL1mKBQkGU_nc1QbIhAMj1b1Un",
+"size": 478160,
+"category": "pistol",
+"themed": false,
+"dup": false
+},
+{
+"name": "Shooting",
+"id": "1aublF3kpn3WitI3wbKpE8MqFv9G6XmUK",
+"size": 315408,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Shopping Cart Silly Dance",
+"id": "1l7YVbZ1s9W5oUcnqWOnipOJMl_8TYN7K",
+"size": 1518416,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Short Body Jab",
+"id": "1GnmPFA1bWZUVFUbMLx3ryuHQhJLn8_In",
+"size": 348560,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Short Boxing Step Backward",
+"id": "1_NTRgK-1fwg_T2NwWnACJP0iYUwIsUFa",
+"size": 335056,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Short Boxing Step Forward",
+"id": "1RRxUy2jlGuOkVAOl-pPAUL3CjO6-rMPQ",
+"size": 343152,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Short Hook Punch To The Body",
+"id": "1YMlDjPwWjISpXHzqG596kg5zth4vU8S6",
+"size": 477616,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Short Jab Cross",
+"id": "1OysXGwjyVGPpvL4jW9_V2pUdGoLQhW5F",
+"size": 421456,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Short Putting Shot",
+"id": "1mbJIqXoYw0CtGJwheYkO0c_lNSjOqL0Z",
+"size": 526544,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Short Yell Sitting Back",
+"id": "1n1bkNhQviGE8Wg3F8zv7aGvaaX_oVm4H",
+"size": 525424,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Short Yell Sitting Up",
+"id": "13RMeLnZEjv8YtfsxlMVE6SCs-AxtOC1g",
+"size": 525424,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Short Yell While Standing (1)",
+"id": "1uuP4krsAs-xs7uHOzHvkxEBaGV2YEkJr",
+"size": 723312,
+"category": "civil",
+"themed": false,
+"dup": true
+},
+{
+"name": "Short Yell While Standing",
+"id": "1ItkQw1OQD0WBIaef2oWHKcS5_jmeoipb",
+"size": 723312,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Shot To The Chest Falling Backwards",
+"id": "1U2KKa4tsubty1bQ67nSfi2oOwWe8CQb4",
+"size": 677328,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Shoulder Shrug",
+"id": "19GMCcEP6-hDNivFxT9vXC2lkxvU0Vgm3",
+"size": 419840,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Side Kick",
+"id": "100olE3xnYe_yMT-gpDu3gNW5Bj2KDMH7",
+"size": 426624,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Side Step",
+"id": "1mDlSS2UMb6A6os7GyIH5GBZ6pf2bDCUe",
+"size": 426896,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sideways Jumps",
+"id": "1P2_ZSSqV0RM9w0ouAcS1wY0nmSsbld-W",
+"size": 912944,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sighing In Relief",
+"id": "1pnnJjzY1Lg4-ghj_2_a6GX-sY8P-YLbQ",
+"size": 602352,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Single Step To The Right While Aiming Rifle",
+"id": "1OTn2IM5HU4u_IPqF2jwjNjfwaMPwkaqp",
+"size": 431072,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sitting Against A Wall Dazed",
+"id": "1fzi9qQeCtgF7lZbj_A0eyg8y-EOH_zxG",
+"size": 998624,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sitting Cross Legged",
+"id": "1H-DcCkg_OuAq_FP_cr-9y8uyRE5ke6Wm",
+"size": 1038736,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sitting Disbelief With Hands On Head",
+"id": "1G11giiyjk5RZ7zcH_zvNbcGaMkckRHEh",
+"size": 725664,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sitting Down Arms Outside Armrests",
+"id": "1-RasF_CVC1BHZBv6j7U4IfJzRrNwx4ta",
+"size": 659024,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sitting Ethusiastic Clap (2)",
+"id": "1M07RYvc4jp7W3jQy0ARGTN0I1krAZCgz",
+"size": 729680,
+"category": "civil",
+"themed": false,
+"dup": true
+},
+{
+"name": "Sitting Ethusiastic High Clap",
+"id": "16UIGSN5ey3LfpPkosCy2V9j0nnKVVLBy",
+"size": 657744,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sitting Highly Aggravated (2)",
+"id": "1zs58pdET99bdXNqurk0nr6wH86-F7Tn6",
+"size": 569920,
+"category": "civil",
+"themed": false,
+"dup": true
+},
+{
+"name": "Sitting In Chair Hands Resting On Thighs",
+"id": "1MHsn_VDJCFujTdOOu2yoZE-KcjZ20Qmq",
+"size": 725488,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sitting In Disbelief With Head Back",
+"id": "1cHGINb8naWi1CcrvFrTDJmX1lFU9mj3f",
+"size": 691824,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sitting In Disbelief With Head Forward",
+"id": "1s39S69rgpAEU-_IiDUKW9nBq5kS7myOQ",
+"size": 672208,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sitting In Vehicle Knock Off Enemy With Pipe",
+"id": "1akZBS8GwchpWETwzLgwl5p4d2RyDp-M3",
+"size": 549440,
+"category": "vehicle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sitting Looking Side To Side",
+"id": "1TddjU0AwQpx9DiX9BUk_SyHxDue-pjwt",
+"size": 581840,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sitting On The Floor",
+"id": "1Vz8uFejHSzVAHsB-j2noKP6djOFklV37",
+"size": 841568,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sitting Slightly Aggravated",
+"id": "1H9gUtdU6OaQLuTOfntbq80G3zVzZjjCZ",
+"size": 647792,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sitting Still In A Chair",
+"id": "16-kRBjgD8Gzw4cDfGiUNVAHK_KrYOT8o",
+"size": 588960,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sitting To Standing Big Fist Pump",
+"id": "1r7Os33VUnIFsaBjmAz8RkrCSHU-KfpgR",
+"size": 651504,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sitting To Standing Small Fist Pump",
+"id": "1JERXu_-fJX3jC27O3SKXao25X0gBfluH",
+"size": 647792,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sitting To Typing",
+"id": "18Pik5sfMD60XcCx79JWsKwAakOGx7RFf",
+"size": 398240,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sitting Unethusiastic High Clap",
+"id": "18B8NA5YuZsHG5ZMHQ0YAgscyQr3U1F1M",
+"size": 934864,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sitting With Breathing Idle",
+"id": "1VB2c_mGQOTTY1e5gsluwKJSuvzdd52OW",
+"size": 533280,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Skateboarding Idle",
+"id": "1pRQfgo-Po97LcarKlXh4wIqepMDS4wsv",
+"size": 365840,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Slashing Forward With A Bayonet",
+"id": "1dDnPxw-h86V8xt0PSRSp8ES_H7LwlQdr",
+"size": 464656,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sleeping Deeply",
+"id": "19VZqSyLiDY3I4AjDClJKC-MC2TTF-lpz",
+"size": 850288,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Slide Hip Hop Dance Variation One",
+"id": "18Qvq9blltHPb_LpPOS8nA-FpwhpH13Af",
+"size": 1619744,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Slide Hip Hop Walk",
+"id": "1C_HAh4cN_wBAwKy3SM6G0PfmrvW0h1X-",
+"size": 365520,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Slip And Fall Backwards",
+"id": "13wqJqGND5M9zQ8Pjo_ZXo5kkDHOor5N9",
+"size": 604160,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Slow Run Forward",
+"id": "1qXF-S1dSjCi8t_sLZUGpPCqDkInighvj",
+"size": 345312,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Slowly Backing Away In Fear",
+"id": "18hIhimIWCqPwq7FgJIfuidtydDMY9th2",
+"size": 654704,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Small Hit Reaction From The Front",
+"id": "1iH1njJ4WtcEaRZ9qbSI_WJX-qJ2Mx3Sd",
+"size": 398240,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Small Hit Reaction From The Left",
+"id": "1W_VmRuJuPf3Br_fKqYKQOAIQjkoQBGHg",
+"size": 398240,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Smash With Back Of Rifle Or Staff",
+"id": "14gXiPN7HbZhYQJAquLl2EzdhQwabt_cM",
+"size": 519312,
+"category": "rifle",
+"themed": true,
+"dup": false
+},
+{
+"name": "Snatch Workout",
+"id": "1e8VaKxm6snzYXQSbRzMvzp_b-OVOQpr4",
+"size": 640032,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Soccer Chip Shot While Jogging",
+"id": "1OCesNyl-JgTJyoUqCZ_bidb_DkUNvqGp",
+"size": 451152,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Soccer Jog Backward",
+"id": "1xljmzxArwG_qCNJGOL_Ivfg0T8Bi6QKh",
+"size": 352880,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Soccer Jog Diagonal Backward Left",
+"id": "1E_sDv8kUOHuLr5yI7_3y1jgirBKUsTJm",
+"size": 356656,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Soccer Jog Diagonal Forward Right",
+"id": "1wdVasJnfcA25dlNI-fz03ph-HLphw8F3",
+"size": 352880,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Soccer Jog Forward",
+"id": "1LiDbRRGA9naB81tLeu1EabH-4H1RYn6I",
+"size": 356656,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Soccer Pass From Idle Pose",
+"id": "1Bd3qsnbh3pHnSOe1RWv6A1z7cSazUYK_",
+"size": 443600,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Soccer Sideline Throw In",
+"id": "19OWYOq5sRRclO8A_a-Xzd8MCoIAFJgqE",
+"size": 576336,
+"category": "throw",
+"themed": false,
+"dup": false
+},
+{
+"name": "Soccer Slide Tackle",
+"id": "1q9YKkfHTW-3wwbXWNCAXLl7A3v4IZWJL",
+"size": 462496,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Soccer Strafe Left",
+"id": "1m055dufPBOZTEZQ5i0_H_zD09ANLYQYK",
+"size": 328688,
+"category": "strafe",
+"themed": false,
+"dup": false
+},
+{
+"name": "Soccer Strafe Right",
+"id": "1UJCpAOES7kodBD1s3NV77dCqt3Zt_kkR",
+"size": 331856,
+"category": "strafe",
+"themed": false,
+"dup": false
+},
+{
+"name": "Spank Twice",
+"id": "1MZ4b2G85E3k7Y6yx6yUSxLdeWyy3RjIO",
+"size": 662832,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Spell Casting With A Two Handed Sword",
+"id": "1jI7vYSjte7yzveEZkvxzbvbXVPQVGO4N",
+"size": 390672,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Spinning Flip Kick",
+"id": "1gtagtUEPD9DAkyNqrzF3kCtYGuT__Trl",
+"size": 681744,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sporty Granny Defeat Idle",
+"id": "16I6j_K6CWcfOMwabvCB9GDbU4SC8ZgIR",
+"size": 416160,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sporty Granny Vicotry Idle",
+"id": "13TWEhGE2VBYqzVF06Mv_4kp68eBloLco",
+"size": 442944,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sprint To Backslide",
+"id": "1_nouLo9SB6rjVN5Ifz47tfLJ9ZlSHhfe",
+"size": 500320,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sprint To Forward Roll To Sprinting",
+"id": "15D5X3xIHbarUbc5k8-bqHDzaYcsrd0X6",
+"size": 381856,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sprint To Wall Climb To Crouch Idle",
+"id": "1uwUa6-lu60tXVG4GYy_gxDs0pNfkAGMZ",
+"size": 446832,
+"category": "climb",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sprinting",
+"id": "131trlHqsyU6kTaSwelj1uAxmQo5_Syg-",
+"size": 267888,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Squatting Down To Gather Objects",
+"id": "1ONIJ9SYQnLnq1r94GYRJ9GTLvm5NNrt6",
+"size": 746096,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standard Drive",
+"id": "1dtTDFMxS7RNkKo3d1Mt3CJ4oUzWDaXZG",
+"size": 601008,
+"category": "vehicle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standard Idle",
+"id": "1N4hjcTklOlRvPZT2W9y2IVgxiR8od2MB",
+"size": 595872,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standard Sprint",
+"id": "1SQBnBjLKb0QuuyBwlOtK9DUAIxZEGQ4L",
+"size": 316304,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standard T-Pose",
+"id": "1Bi0okXNyqNeZsYW_JEhLzTntTylvHe35",
+"size": 267888,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing 180 Left Turn",
+"id": "14BLXZFiEN_0S8Gucu3lcG28U3TRIFEPH",
+"size": 443840,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing 180 Right Turn",
+"id": "1x9DpvutHKXMNYGR2LcHbdCxxIpQRQqF_",
+"size": 443856,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Aim Fire Arrow",
+"id": "1OCUUpOudu66emsiRryV-Rwn63kZD3Dab",
+"size": 328800,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Around Bored Idle",
+"id": "1Pnnj2Msft0Qu0McqZDlWTDj6-wGCPKYP",
+"size": 1157504,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Backflip",
+"id": "1DiZFI3DsYoFZJK3qcMyWmUkLTzlrClC3",
+"size": 484464,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Clap From Sitting",
+"id": "1QYOyP4CMxNsWl3n9E3BV_pEEPhdME0Aa",
+"size": 734656,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Cover Against Object",
+"id": "1FV7VIUYen1VtojtM0lFkWgET2jWlbylI",
+"size": 489824,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Cover To Standing Ready (1)",
+"id": "166Od95SrzsU5TNo62M-HThAKMw3U917L",
+"size": 405792,
+"category": "misc",
+"themed": false,
+"dup": true
+},
+{
+"name": "Standing Cover To Standing Ready",
+"id": "1dq-_A0DGqs8oVHyXjuQqEsGtpPKnAL8x",
+"size": 405792,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Fall Over A Soccer Slide Tackle",
+"id": "1v3YWOgrYEbda0rG1DqZpM-6UUETspKkQ",
+"size": 522976,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing From A Crouch",
+"id": "10L2hfSEccWG3Y-D1VvjoO0FE5ogG0lQG",
+"size": 614416,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing From Crouched Hands On Ground",
+"id": "1HZapcJVD1JC0ZErYa_r3LjHe-azGTGNu",
+"size": 613696,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Happily",
+"id": "1Rh0RZqDywX8F7juaTRDLFUX0_sJzWc8q",
+"size": 1092800,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Idle (4)",
+"id": "1pZYRlC20GLsseEi2r47xl9O66NVRpu38",
+"size": 998624,
+"category": "loco",
+"themed": false,
+"dup": true
+},
+{
+"name": "Standing Idle (5)",
+"id": "1HqnluVHQLU-FsWhvjjEGU6JHI0z83aje",
+"size": 1002432,
+"category": "loco",
+"themed": false,
+"dup": true
+},
+{
+"name": "Standing Idle (6)",
+"id": "1WiKErwtW0k1scQw7ZbtjVAGL2cPL7gX1",
+"size": 727904,
+"category": "loco",
+"themed": false,
+"dup": true
+},
+{
+"name": "Standing Idle Looking Around (1)",
+"id": "1OBzxEyrHeyJYd8Te4CCcCLWofH7w6bwC",
+"size": 889504,
+"category": "loco",
+"themed": false,
+"dup": true
+},
+{
+"name": "Standing Idle Looking Behind Over Right Side",
+"id": "1sN9KUPdjYo3AqUop75gDlOGsUL9PuYme",
+"size": 636768,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Idle Ready To Cast Spell",
+"id": "1-2opg6h389xxt4WMW5zF6_abJ6MpXuwy",
+"size": 473840,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Standing Idle With Axe",
+"id": "1wroSbgRyxQSAl8M0OHr9AmR-TW6JSdB2",
+"size": 434416,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Standing Idle With Bow",
+"id": "1dNe-tpi4Ez8eXtpHdASjic2S9CSGEU7c",
+"size": 649184,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Standing In A Sad Disposition",
+"id": "19EFu_c5vl3-JTrnwclswhekgC4rdLwMS",
+"size": 707120,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Into Fighting Stance From Crouching",
+"id": "1YKDxpxkGp0lZ5xgUREFvMBIpiZQWniGG",
+"size": 655456,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Jump With Aimed Pistol",
+"id": "1gaWpmENeLHOUbQn0UjzBHs4gHCHI2LBe",
+"size": 424160,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Jumping Game Blend",
+"id": "1ygjHFlojmThwF3Pi3KUUZ4U1vo0XxmUU",
+"size": 324624,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Jumping In Place",
+"id": "1gyvvr3dSknjR7ccFcWmuBctVZL-9U3rv",
+"size": 481392,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Jumping",
+"id": "1ARZv6Yi3lznUXi4mGBM6LKGnAaSvb57q",
+"size": 519200,
+"category": "jump",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Left Turn (4)",
+"id": "1sIIBIlUDXFr_VCGqEaz-RRVXRpYwlQ3T",
+"size": 365984,
+"category": "turn",
+"themed": false,
+"dup": true
+},
+{
+"name": "Standing Left Turn Game Blend (1)",
+"id": "1lObBLu2rIrCULpCqwoD-UC9IexfRMI8Q",
+"size": 394464,
+"category": "turn",
+"themed": false,
+"dup": true
+},
+{
+"name": "Standing Left Turn Game Blend",
+"id": "1FUIfdclgiB1posWoAUEIvlX0yBGO7HfP",
+"size": 447552,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Long Yell",
+"id": "1r1HwYSDJUNMEcLHV9opPN4_csdIz8J9f",
+"size": 753168,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Low Clap From Sitting",
+"id": "1-zg8ZMONEj4NRvE4a4kKu6jwT9naUxRX",
+"size": 680160,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Pulling Up A Plant",
+"id": "1ncFPGwHStTOQE-JDWJD1YO_mx1Ei_9D8",
+"size": 685936,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Reaction To Shove",
+"id": "1QSw5bRGrmyRLd22fBL_1w_jHhPip650g",
+"size": 602352,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Right Turn (1)",
+"id": "1cGdHG-_MpFUrtCHO1ic12rhxcmWjD8pG",
+"size": 365984,
+"category": "turn",
+"themed": false,
+"dup": true
+},
+{
+"name": "Standing Right Turn (2)",
+"id": "1jhiFhGauBSBjCs35I3bn6zEU_YKuziqF",
+"size": 365984,
+"category": "turn",
+"themed": false,
+"dup": true
+},
+{
+"name": "Standing Right Turn (3)",
+"id": "1AYiMZJ5Qr55io-7FYMXxLosxU8-coBNf",
+"size": 368176,
+"category": "turn",
+"themed": false,
+"dup": true
+},
+{
+"name": "Standing Right Turn Game Blend",
+"id": "124gDwUsb0HinAAg96lfn68e9TZjU5qww",
+"size": 394464,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Right Turn Sans Rotation",
+"id": "1_wWxjCreNCqUzaUPFque-ktzIJOldYMF",
+"size": 368176,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Shooting Rapid Fire (1)",
+"id": "1Qqd5jJL2zjkYXlkKsgWfQytby_czIMBZ",
+"size": 319040,
+"category": "rifle",
+"themed": false,
+"dup": true
+},
+{
+"name": "Standing Shooting Rapid Fire",
+"id": "1qiAni2oLEw6Bcwrwn7eK3FFg24NTMFy6",
+"size": 318528,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Start To Run Backwards",
+"id": "1IJNgZLs3BHpR-jFkss2VyAKHgFh_fVTq",
+"size": 348992,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing To Crouching Transition",
+"id": "1OuQvijvgvyKjc4BDwHUNpkuU5aqP1AMs",
+"size": 406336,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing To Ready Pose Grabbing Rifle From The Back",
+"id": "1GT5MuZIMkJFbckwVpI4mqgpI6K-3tzZ6",
+"size": 593072,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing To Sitting Transition",
+"id": "1kmIgvpbrDm26vLVH5UclRxQEDqQaiubD",
+"size": 513008,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Up And Looking Around",
+"id": "1aoLsKszwiHFzeqRAJgVAJhNTg5yN19FS",
+"size": 665712,
+"category": "getup",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Up From A Soccer Fall",
+"id": "1srsVe6yNUzonzy5eVyj3q1vbSTuTNXXH",
+"size": 451152,
+"category": "getup",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Up From Back",
+"id": "18hYe45BFCab_SuUEWnQZ-4IVZSbPRCmw",
+"size": 992960,
+"category": "getup",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Up From Lying On Stomach",
+"id": "1pTyWtLXRFvTT30zs-lFQz2YLGnfZxdmL",
+"size": 1221472,
+"category": "getup",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Up From Seated Position",
+"id": "10vppAXAE5iA7umNMZm38HCEBirg-lZM5",
+"size": 695216,
+"category": "vehicle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Standing Wide Clap From Sitting (1)",
+"id": "1kEtuK7O-jwUKmRcP_7h9ey_MI31HIAri",
+"size": 712288,
+"category": "civil",
+"themed": false,
+"dup": true
+},
+{
+"name": "Standing Wide Clap From Sitting",
+"id": "1kKYeCoNsB27fK6cpRNCtqg_kKtT6OLXs",
+"size": 706000,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Start Bicycle Sit Up From Fitness Idle",
+"id": "1gkNqYsOiJ8vXBdWsrL5ny-H5sbMOi8e2",
+"size": 814032,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Start Left Crouch Strafe Run",
+"id": "1k-sQktvCN3o3Kof7wt-iSVVTXfZFvgoF",
+"size": 357024,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Start Left Crouch Strafe Walk",
+"id": "1bHTDDm2YEXkMTb2T7SI8mwKQcc46uYaN",
+"size": 353952,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Start Overhead Squat Workout From Fitness Idle",
+"id": "1pVH2g1cbzT9aoPcNlcL2s9m27IJ_SmMy",
+"size": 782848,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Start Pistol Workout From Fitness Idle",
+"id": "1ELfx9fo4NZH008HZ5ZYCViT33xAVpsbp",
+"size": 458688,
+"category": "pistol",
+"themed": false,
+"dup": false
+},
+{
+"name": "Start Running While Aiming Rifle",
+"id": "1RjhNQSoL2XBdpgBd5O_xCxug-i5L7HsM",
+"size": 344848,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Start Russian Kettlebell Swing From Fitness Idle",
+"id": "1BDHyLuF9CUK1c907RhfUKFbMNB5PZaBB",
+"size": 785376,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Start Snatch Workout From Fitness Idle",
+"id": "1OssT9b8FWQ3wvRkTuAprxURkkrjE0M4v",
+"size": 674496,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Start Sprint From Action Idle",
+"id": "1ChHFDywFnXxcnZspumlk-4HmD5qP463R",
+"size": 344240,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Start Strafe Walk Right",
+"id": "1u4ZwjvX72-4axWXjP53fa38nqunfigyR",
+"size": 434384,
+"category": "strafe",
+"themed": false,
+"dup": false
+},
+{
+"name": "Start To Pull A Heavy Object",
+"id": "1Orh8fphES6nt3hqp_mKEBsyGZtQmK9ih",
+"size": 402384,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Start Walking Backwards While Aiming Rifle",
+"id": "1AZobBuwTBCuSZqZ_9SkMiBt3khiPexlV",
+"size": 490544,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Starting Breakdance Uprock Var. 1",
+"id": "1SXYZkDTg7EE78NMJtgIG6H0T3aS645f4",
+"size": 432256,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Starting To Climb Onto A Box Or Short Fence",
+"id": "1pRtrgj3FfcQAQ4IhJsD32K07l53OiGHm",
+"size": 494720,
+"category": "climb",
+"themed": false,
+"dup": false
+},
+{
+"name": "Starting To Run With A Aimed Rifle",
+"id": "1kWhaMn5gtmcBCPKypkpdhquF_RXoZho_",
+"size": 440000,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Stealth Assassination From Behind - Assassin",
+"id": "1XP0dA_XxePNwJQbjp4hI0IpiSAcdyeP4",
+"size": 884912,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Stealth Assassination From Behind - Victim",
+"id": "1V_V1md8FimR3uhPGOpQBmQT21dYb61ZO",
+"size": 885232,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Step Hip Hop Dance",
+"id": "1VLCjyYgvT7gvdj4_upix1IVMiWwnCWkS",
+"size": 755360,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Stepping Forward Looking Left",
+"id": "1kxpsBB5Y5S2hjrcgN6z8mbLINTH5c6Vo",
+"size": 267888,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Stomping Foot On Ground",
+"id": "1Z7VIPFK4sbzADultvQ2t6IrE-Yr2cl9L",
+"size": 466272,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Stop Pulling A Heavy Object",
+"id": "1qv1VAugaosrE89HJ8wcpr0jExiHidSmd",
+"size": 398960,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Strafe Left With An Aimed Pistol",
+"id": "1v-aKwlOaRtNExLOqU26LM7XVvXuc-J5Y",
+"size": 308064,
+"category": "pistol",
+"themed": false,
+"dup": false
+},
+{
+"name": "Strafe Right With An Aimed Pistol",
+"id": "1xzxv-3NUfKsQKndtg1T1t9pULPHfJEr2",
+"size": 310752,
+"category": "pistol",
+"themed": false,
+"dup": false
+},
+{
+"name": "Strafe Right With Rifle (1)",
+"id": "1I4b--pt07cBN4ZkX2ONaiqBi4RgKsACl",
+"size": 316160,
+"category": "rifle",
+"themed": false,
+"dup": true
+},
+{
+"name": "Strafing Run Right To Stop",
+"id": "1zkDIgqvvX5SJzGzWV4_P4CO1-7UwIKsU",
+"size": 358272,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Street Fighter Hadouken (1)",
+"id": "1AtZ58sqEkgwHZE-ch0DdZLxovBMp_YA4",
+"size": 646336,
+"category": "melee",
+"themed": false,
+"dup": true
+},
+{
+"name": "Stretching Neck Rolling Side To Side",
+"id": "1ntv6QNpF0JVeQzuTiAd8Ci-UMrnlw92b",
+"size": 625040,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Stroke Victim Laying Nodding",
+"id": "1eUyMMX8s4nqzMf1e6uKLY74yTX0eZq6R",
+"size": 394464,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Struck In Head While Sitting",
+"id": "1JwocabP-CzhkXHbq09nB9udeM-X4L290",
+"size": 746096,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Superhuman One Hand Choke Lift",
+"id": "1zOMhXWzJ6DvheMNBx0icjPz46YLvtwt2",
+"size": 706432,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Surprised Jumping Out Of Seat",
+"id": "1emqU2rF4TTdLzk-tMmH2G11SozcZgbmo",
+"size": 1121040,
+"category": "vehicle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Swimming Breastroke To Edge Of Pool",
+"id": "1Ztav6lM5V3r8gXSZvixQDcEqldSV2VXm",
+"size": 654464,
+"category": "swim",
+"themed": false,
+"dup": false
+},
+{
+"name": "Swing Backflip To Superhero Pose",
+"id": "1eREl4k5YzaiRrViWIeWDwCgQ2tzA5W2a",
+"size": 473872,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Swing Club And Triple Knee Kicks",
+"id": "12q5W55VcgabFj3ysNZV-TG-EVxXV0ITB",
+"size": 799552,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Swing Dance Charleston Variation 2",
+"id": "1BkkkMfg4k-ddI3pSxWaSUr0-cZSBStRE",
+"size": 2074304,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Swing Dance Charleston _Crazy Legs_",
+"id": "1V5Z7jADdf6spznlhoVMpHqC9qt8oGn7b",
+"size": 525888,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Swing In Hit Wall To Crouched Land",
+"id": "1_G7-EMvLVynRYJhHKM08gQWVHPvX6P8D",
+"size": 602864,
+"category": "hit",
+"themed": false,
+"dup": false
+},
+{
+"name": "Swinging Melee Weapon While Sitting",
+"id": "1jfC8pRqfReE_m-ssornmfAvFEhT1qkUf",
+"size": 634512,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Sword And Shield 90 Degree Left Turn",
+"id": "1kw-UDJaqWIr9rueK1tnJXzm_HsxCfslS",
+"size": 337760,
+"category": "turn",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Backward Run",
+"id": "12bF3-vL_Ce232gvzhMp6YBbg9MnTBi1i",
+"size": 305360,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Backward Walk",
+"id": "1Qq8uFHlFwe5_CX47jBBnOPayuRQRL0Wu",
+"size": 366128,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Block Idle",
+"id": "1Kk8vEWYu5L183FpIs5_O-iybWwIQAqC-",
+"size": 413360,
+"category": "melee",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Block To Crouch",
+"id": "198hW1pD41eFBZp8etDlKdbq5_PfyJHeX",
+"size": 328864,
+"category": "melee",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Block To Idle",
+"id": "1sr9gMEgs7xM10KTyBN8uee1QjjKToz-F",
+"size": 317136,
+"category": "melee",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Cross Slash",
+"id": "1PWWieR1U1q_sroABTAsdV1WxoyTyFlcP",
+"size": 397152,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Falling Forward Death",
+"id": "1b6Su2AhILM94AZ4S8QRuKTQ9jip1ZFmj",
+"size": 577936,
+"category": "death",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Head Impact",
+"id": "1ONA5eDEUFsEuKrpHNqr91-JrvatOhW6S",
+"size": 321120,
+"category": "hit",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Hilt Melee",
+"id": "1G3WhVqW6buQNB7B9Co-uKvey9B4_50Rh",
+"size": 343152,
+"category": "melee",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Idle",
+"id": "1I2LGu2lKzCcIWr_SndURiR5H0OliilW0",
+"size": 535760,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Left Crouch  To Block",
+"id": "1fwrTtR2eWv_5FWoNKWPcjoQYO_raQA5l",
+"size": 427392,
+"category": "melee",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Left Run Strafe",
+"id": "1xNBBqEciAMvCXC5ffW0aIOPq7wwhGvip",
+"size": 331280,
+"category": "strafe",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Left Strafe Walk",
+"id": "1Rs7RqrxxL_XrQL0jAB_aanB137plvquF",
+"size": 367456,
+"category": "strafe",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Right Run Strafe",
+"id": "1wC2uC615_zhCWmBBe1z0XtVQlaORSaaN",
+"size": 318096,
+"category": "strafe",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Run 180 Turn",
+"id": "1992Wsb0IDrNWKoB4zI_5S9sUOWTj-BJT",
+"size": 329664,
+"category": "turn",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Slash Combo",
+"id": "1nMz6rRfNnDSFh6SG7QBsfZcDo9wyvt5H",
+"size": 606064,
+"category": "melee",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Sparta Kick",
+"id": "1-3YvUjXkBxambyQ-z8B5FLom4eGwSwWE",
+"size": 378800,
+"category": "melee",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Spell Casting (1)",
+"id": "1iOQ29g051HxT3ycV3AQeZrcDCleqyDCQ",
+"size": 361264,
+"category": "misc",
+"themed": true,
+"dup": true
+},
+{
+"name": "Sword And Shield Stand To Crouch",
+"id": "1UtB3WAncswoQqCUudPTMkHqwfpMXrn92",
+"size": 308064,
+"category": "crouch",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Stretch Idle",
+"id": "1maEc7A3tP40rat2Rx0jHU65yXSwjY0e5",
+"size": 743968,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Sword Play Idle",
+"id": "1ss1XI4gS5-qWr_oyXKbGUxuVA9DMNz9a",
+"size": 733024,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Unblocked Impact (1)",
+"id": "16T6akubIPoH7AXLK32nUTC4e8DYHS45B",
+"size": 340464,
+"category": "hit",
+"themed": true,
+"dup": true
+},
+{
+"name": "Sword And Shield Unblocked Impact",
+"id": "1NR-ZEW9DcDsBzBCe1gb7GMzZRpfp5Z12",
+"size": 313456,
+"category": "hit",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Walk 180 Turn",
+"id": "1d3NkBu64r6Foa_N5XGSC5LU36VVi3v8C",
+"size": 328144,
+"category": "turn",
+"themed": true,
+"dup": false
+},
+{
+"name": "Sword And Shield Walk",
+"id": "1NLfy44KcV0uJSbXgrmdnd5Li5pgzSHT2",
+"size": 383328,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Taking A Step To The Left While Aiming Rifle",
+"id": "1zUTB5DshzIdpi7lEehhQXBpTYYEm2EnU",
+"size": 426896,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Taking Cover Against A Wall With Rifle",
+"id": "1fYsgZkOKJcWHxwYl2fDHNWX5imRkPFDf",
+"size": 446944,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Talking Finding Something Funny",
+"id": "1XUZSn8qQijqHdg_FlSKRmAtPiiCTD0iN",
+"size": 793872,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Tapping Fingers From A Sitting Position (1)",
+"id": "1ttPc7vaFvonEba23WNblIDrgGU9fo6rQ",
+"size": 610416,
+"category": "civil",
+"themed": false,
+"dup": true
+},
+{
+"name": "Tenderly Placing Someone On A Bed",
+"id": "1CfmnaF826dy2NycaRtNvt77JVVlytld8",
+"size": 990128,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "The Popular K-Pop Dance",
+"id": "1PC1sUQNUvI8G277smpMef5PJjYj6ake_",
+"size": 1225744,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Thinking While Standing",
+"id": "1rhMLEaXDfo2CoHWgy5uuIBiNNU8AXSKL",
+"size": 635168,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Three Hit Combo Attack With Axe",
+"id": "1ebJveA4UQWvdJWG-7jgSiBMst29Gf2-f",
+"size": 671152,
+"category": "hit",
+"themed": true,
+"dup": false
+},
+{
+"name": "Thriller Dance Beginning Idle",
+"id": "1CopSYwoWQVkSETSHSSoHe36JrxYGCFmK",
+"size": 654960,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Thriller Dance Part 1",
+"id": "10dSrcje7rYla256-ClyO4dDnOVc1akwo",
+"size": 2755680,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Throw Grenade While Running",
+"id": "1dHvh9ufwzhn4JZoY9-4O0lzemG6HArxj",
+"size": 590160,
+"category": "throw",
+"themed": false,
+"dup": false
+},
+{
+"name": "Throwing A Grenade While Kneeling Pulling Pin With Teeth (1)",
+"id": "1iDkb-ClsyCDnnwYkD-NNL9peGjmhkzmu",
+"size": 780016,
+"category": "throw",
+"themed": false,
+"dup": true
+},
+{
+"name": "Throwing A Grenade While Walking",
+"id": "1KK__vt_una1n6tgJ8VsHN5jsRA0OCbjV",
+"size": 553264,
+"category": "throw",
+"themed": false,
+"dup": false
+},
+{
+"name": "Throwing And Object",
+"id": "1WxftQg1Ea93EjN8BHaj7dZNS0TpoTWl0",
+"size": 715024,
+"category": "throw",
+"themed": false,
+"dup": false
+},
+{
+"name": "Throwing Dice From A Sitting Position",
+"id": "1uxB2YkD03piz4dwaCLNtRw5PfpRpS5y_",
+"size": 600736,
+"category": "throw",
+"themed": false,
+"dup": false
+},
+{
+"name": "Throwing Grenade While Crouched",
+"id": "1_QOBpDE3EivTgCAyx1ibgKFyMNFgC00Z",
+"size": 655280,
+"category": "throw",
+"themed": false,
+"dup": false
+},
+{
+"name": "Throwing Opponent Over The Shoulder With A Leg Hook",
+"id": "1WnUwMFaI37sNyEns-87A_BKHjUbPufD6",
+"size": 861808,
+"category": "throw",
+"themed": false,
+"dup": false
+},
+{
+"name": "Throwing Something Holding Rifle Aimed",
+"id": "1nLYdYDgOzQRvw_YgNIc6YrmDVzJLzVNX",
+"size": 619616,
+"category": "throw",
+"themed": false,
+"dup": false
+},
+{
+"name": "Thrown Over The Shoulder With A Leg Hook By An Aggressor",
+"id": "1WAWhJOQhovUlSYqmrAieePnCPShO54iu",
+"size": 856560,
+"category": "throw",
+"themed": false,
+"dup": false
+},
+{
+"name": "Thrust And Slash With Blade",
+"id": "1QovrgWGqKEkticTshj8h_V4qqjbiO6Pq",
+"size": 556624,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Timid Dancing",
+"id": "10bbtojTO0RBSfkNTAF8E1N5-_lkmx7PD",
+"size": 1259648,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Transition From Crouch Idle To Standing Idle",
+"id": "1KyYynPZNm7cIsv0NhuPJKK28G2R1xDmX",
+"size": 427392,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Transition From Crouch To Standing Idle",
+"id": "1-kOIGnYX_-uhYvYK8dkh5_LkGQNThAIS",
+"size": 323040,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Transition From Crouching To Standing With Bow",
+"id": "1fALdQM7CRypWsdoOUgtRJMVp_lnAYwYu",
+"size": 353888,
+"category": "crouch",
+"themed": true,
+"dup": false
+},
+{
+"name": "Transition From Fight Idle To Action Idle",
+"id": "1XdlwDCABK2OMg512nt5c1MCBh6nGd2Js",
+"size": 356656,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Transition From Fitness Idle To Idle",
+"id": "110l4jPbRdJEJYdYgEgyhB9cNH9tm0cjN",
+"size": 469808,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Transition From Prone To Crouch",
+"id": "1UdNF2Q8Ne4IbLtv-8unY7vxh_0IeoJcS",
+"size": 464336,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Transition From Standing Idle To Action Idle",
+"id": "1fKAigIv_buVK-vJ1T6d_G3sLXOB7f0UH",
+"size": 375552,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Transition From Standing Idle To Block Idle (1)",
+"id": "1ovKa4nE9YnBW5boDzIgzS8pzpN4JlOLp",
+"size": 432256,
+"category": "melee",
+"themed": false,
+"dup": true
+},
+{
+"name": "Transition From Standing Idle To Crouch Idle (3)",
+"id": "1y1MZFmwEt9G1ChgyedxERvzPk5K8GNRS",
+"size": 375552,
+"category": "crouch",
+"themed": false,
+"dup": true
+},
+{
+"name": "Transition From Standing To Drawing Great Sword",
+"id": "164GN5ucqB1LEK95igXjasG2WGqtnz6dc",
+"size": 407952,
+"category": "civil",
+"themed": true,
+"dup": false
+},
+{
+"name": "Transition From Standing To Drawing Sword",
+"id": "1C6hF0mzQ2CSLbKxr-kdUjTtnQZrcFg6n",
+"size": 336672,
+"category": "civil",
+"themed": true,
+"dup": false
+},
+{
+"name": "Transition Into Prone Backwards From Prone",
+"id": "1YtNf8p1OCb2P9reIB6a0xaLzgBLwgLHI",
+"size": 334160,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Transitioning From Walking To Teetering",
+"id": "1arLPsjnnlN_zkoVMds4KuAQXLedJb0iH",
+"size": 352880,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Triple Knee Jabs To Uppercut Combo",
+"id": "1EeHB1EGVOdMGFePU-rKlsLEf0oHc3dVV",
+"size": 771520,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Tripping Forward While Walking",
+"id": "1U5GKTJtuUSod5LTc0hSSpEk-nhUEbTW-",
+"size": 575904,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Turn Left While Crouching Game Blend",
+"id": "1dRJW_W-I9yFhWJiHDzXhBMrn3zgola7_",
+"size": 332352,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Turn Left While Crouching",
+"id": "1sb2UTXoZCC0L9jaRjVIVWABIHRjXpCvC",
+"size": 362048,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Turn Right And Run",
+"id": "1gh8JvIV90EJA9QIws-ioW9TBupm_xmN-",
+"size": 431152,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Turning 180 Degrees While Running",
+"id": "1wKSd1_rI6fKf3-HKjH7mKbV0p1XExkPS",
+"size": 330560,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Turning 180 Degrees While Walking",
+"id": "1prkSKdCKs9xKX_9cxRmkc3kwxFC17anA",
+"size": 364576,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Turning 90 Degrees Left (3)",
+"id": "1brD2MDLS9dL8tDwEfo1ZRC28bfdd_N6f",
+"size": 409216,
+"category": "turn",
+"themed": false,
+"dup": true
+},
+{
+"name": "Turning 90 Degrees Left (4)",
+"id": "1hCr3aK7fiFaExa2JV89yKsmh5kLTvCNe",
+"size": 471824,
+"category": "turn",
+"themed": false,
+"dup": true
+},
+{
+"name": "Turning 90 Degrees Left With Bow (1)",
+"id": "1uTqYox0t3EFYbBaNOUZiyXYgmcr9rB0o",
+"size": 401472,
+"category": "turn",
+"themed": true,
+"dup": true
+},
+{
+"name": "Turning 90 Degrees Left With Bow",
+"id": "1NggAvN9fqKFzSRnLpFbQGfk0xg3eUgH6",
+"size": 385280,
+"category": "turn",
+"themed": true,
+"dup": false
+},
+{
+"name": "Turning 90 Degrees Left With Torch",
+"id": "1dNjfd0jsOdU1MdOk0XMjm9d5qteFByNA",
+"size": 430640,
+"category": "turn",
+"themed": true,
+"dup": false
+},
+{
+"name": "Turning 90 Degrees Right (1)",
+"id": "1zaf4MpHSBqbgp6NMUD5MOBFkngYqOkpL",
+"size": 428192,
+"category": "turn",
+"themed": false,
+"dup": true
+},
+{
+"name": "Turning 90 Degrees Right With Bow (1)",
+"id": "19vA5G0OTWtgGMYSMXoewY432CaYlNCCE",
+"size": 369072,
+"category": "turn",
+"themed": true,
+"dup": true
+},
+{
+"name": "Turning 90 Degrees Right With Bow",
+"id": "1Ec_Mw-5SFzxdSGym1J5MW5kD7sVA_4Yp",
+"size": 401472,
+"category": "turn",
+"themed": true,
+"dup": false
+},
+{
+"name": "Turning 90 Degrees Right With Torch",
+"id": "1WN56uRl28iLWQd6PYt0Ts5NmqtyLr3iN",
+"size": 421776,
+"category": "turn",
+"themed": true,
+"dup": false
+},
+{
+"name": "Turning Around To Aim Gun (1)",
+"id": "1y9TZX96fUu_8E8I0mYsUET6GgxPH9bBk",
+"size": 466384,
+"category": "rifle",
+"themed": false,
+"dup": true
+},
+{
+"name": "Turning Head To The Side In A Cocky Manner (1)",
+"id": "1rAY9jZgK-gZ111QqMQCbt7I8IsP_kBFS",
+"size": 549440,
+"category": "turn",
+"themed": false,
+"dup": true
+},
+{
+"name": "Turning In Place",
+"id": "17f92kGqvaIf1DUC-vT8qsu40zAT4ajVG",
+"size": 559152,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Turning Left Carrying A Box",
+"id": "1MCHKmbYSoDv0vpEQ1SFxbBvsc3qJcv3q",
+"size": 426928,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Turning Left While Walking",
+"id": "1e5H1wZFPbueD5zUcBlRw3879Ezg0DlT4",
+"size": 395648,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Turning Left With Rifle",
+"id": "1DzlsKz8ysFKq6E1YRBfnqAKm3E03odGp",
+"size": 425776,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Turning Right (1)",
+"id": "1zSgziQh6xk-C69cZ5uKh39EXG4eGEohN",
+"size": 373392,
+"category": "turn",
+"themed": false,
+"dup": true
+},
+{
+"name": "Turning Right Carrying A Box",
+"id": "1frBl1vF3QQkf4wjTrpBProXKvMWm6dLE",
+"size": 381856,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Turning Right In A Sad Disposition",
+"id": "1QsLkI8wmenD1GlqBxwECoK2TQVN_jLm-",
+"size": 359360,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Turning Right While Prone Game Blend",
+"id": "1hSLRvw2E91LJ0thumFq5CXWZC5RVNUOg",
+"size": 412096,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Turning Right While Prone",
+"id": "1Ozd1Gjepf-HelU7quFLc1pDpOvE6-7zo",
+"size": 408288,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Turning Right While Running",
+"id": "1XukCBqlZkPTQU1z1NFxarHZEloQzeAeO",
+"size": 347440,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Turning Right With Rifle",
+"id": "1oPoM-L-Xb91vZyy5gwX3rF_-9ZSHdUhR",
+"size": 407952,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Turning Right",
+"id": "1E5kxSuX1uaevyocLf41AeqlNVb5ns-LW",
+"size": 345216,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Turning While Sprinting",
+"id": "1sbW6gQ78bVuFZnMJIHj1tUSvsdQ3zZmN",
+"size": 343152,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Tut Hip Hop Dance Variation Two",
+"id": "1r88gxPpxK0EOJgaHolismCb15usiTN9b",
+"size": 1236880,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Two Hand Lowered Gun Rifle Idle",
+"id": "1Us6LRqDbbe31VGniBaFZsUcXIlMeVdLH",
+"size": 742832,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Two Hand Rifle Idle",
+"id": "1EKCvKfR5NbOBmYSCK1Pwz0K4OE3so-Ib",
+"size": 718176,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Two Handed Casting Spell Forwards Sustained (1)",
+"id": "1lDUVRaclfALsFU1tzHNfitBGu_dMD94A",
+"size": 652128,
+"category": "misc",
+"themed": true,
+"dup": true
+},
+{
+"name": "Two Handed Casting Spell Forwards Sustained",
+"id": "1THSX_WfTbhYzuLDnV1wwpbXn0GbxmIkE",
+"size": 632960,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Two Handed Casting Spell Fowards (2)",
+"id": "1a5uB6tVMX8_Q4MV63s8jJp93_DKGPcA6",
+"size": 560784,
+"category": "misc",
+"themed": true,
+"dup": true
+},
+{
+"name": "Two Handed Casting Spell Pull In Blast Out",
+"id": "1qX5W1otJcyDGz2bVH6e8wDj24JPa8ryB",
+"size": 632592,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Two Handed Casting Spell Pull Up And Clap Hands",
+"id": "1ygLHYwNjVo_FxxvupT6NizMr9w1uQgfN",
+"size": 664176,
+"category": "civil",
+"themed": true,
+"dup": false
+},
+{
+"name": "Two Handed Casting Spell Towards Ground",
+"id": "1RJvzM9Co7ked2pqtUxJDytSfpEg54_us",
+"size": 599600,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Two Handed Casting Spell Upward Pull",
+"id": "1qYLlsNTvwCQ67N9hbLG2bNA4_H_7HcIh",
+"size": 514176,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Two Handed Club Combo Attack",
+"id": "1XC0tKY176nRTpvf1c0CwedO5f_Ymj83P",
+"size": 625136,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Two Handed Forward Gesture",
+"id": "1xOOVqIQWjmsceO2a8e8ekxvpKsbi0FsN",
+"size": 613696,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Two Handed Heavy Weapon Swing",
+"id": "1tzrCnwfW8bXz3-kQdN3YX8w7DJYSPGd0",
+"size": 598528,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Two Handed Sword Combo Attack",
+"id": "12EYdFY10eZkDwwgEQBQ8n3FCmMpf8dSD",
+"size": 589264,
+"category": "melee",
+"themed": true,
+"dup": false
+},
+{
+"name": "Two Handed Weapon Stance",
+"id": "13T8CWgQCyXjxKGaAmlGnlmIejOPSOXlG",
+"size": 569056,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Two Hit Combo Attack With Axe (1)",
+"id": "1Hp26UsR7anidEddhmV_bCbWXYTXluAbI",
+"size": 533312,
+"category": "hit",
+"themed": true,
+"dup": true
+},
+{
+"name": "Two Hit Combo Attack With Axe",
+"id": "1Dst8_vWXokyQlnHS70Bm4NDBkj9-1I8s",
+"size": 629296,
+"category": "hit",
+"themed": true,
+"dup": false
+},
+{
+"name": "Two Hit Combo Attack With Torch (2)",
+"id": "1v3lPBl29Wyq7N9HR7N073M_YwkuQA5Le",
+"size": 578384,
+"category": "hit",
+"themed": true,
+"dup": true
+},
+{
+"name": "Two Hit Combo Attack With Torch (3)",
+"id": "1fzGlbyzVtHPsaiRh9XKS0ADzuS3Cn5aW",
+"size": 604032,
+"category": "hit",
+"themed": true,
+"dup": true
+},
+{
+"name": "Typing To Sitting Idle",
+"id": "1_HXqtkIySr4ClqavxV_37ErGjbhXX7Ky",
+"size": 365984,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Umpire Calling A Strike",
+"id": "1CfioaIiJL_Oz8TzdfVFMNiGPfNYHuKYd",
+"size": 512432,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Uppercut Jab And Open Palm Strike Combo",
+"id": "1EwcE017cdi6yLSBY7SBtV9OpO3Cv2LKQ",
+"size": 608192,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Upward Rifle Butt Strike While Sitting",
+"id": "12PGmSUsJ1s8YC8a2WPanKX6q9elD0fWn",
+"size": 487872,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Upward Weapon Thrust",
+"id": "1pMgfGHUjyvf5XTVLWxUEvOiAd9nfkHFw",
+"size": 478432,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Using The Top Drawer Of A Filing Cabinet",
+"id": "1zpG1FLjp64tTpekJ6NGfUjNtJQKMEBPU",
+"size": 1095760,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Variation Two",
+"id": "1KZpfAzSWyNpdEv72MTTtyGjWRONFFuTF",
+"size": 482480,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Vault Over Box And Hide",
+"id": "16ZuFpjZdhk7zQyAzdG-Maj4eyRJHXUhX",
+"size": 624672,
+"category": "climb",
+"themed": false,
+"dup": false
+},
+{
+"name": "Vertical Elbow And Solar Plexus Strike",
+"id": "14m3zE8lkVq3NKl5x5rG-YENVzryjBMkY",
+"size": 716512,
+"category": "melee",
+"themed": true,
+"dup": false
+},
+{
+"name": "Vexed Shaking Of The Fist",
+"id": "1JAuH0krYLbsjdVPwueRQZXFrt5Zh2DeI",
+"size": 524960,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Victim Chased Down Given Surprise Uppercut",
+"id": "1aWVOFzahLXOnOaK6aTEa5CbhPE3XhNJt",
+"size": 665744,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Victory From A Boxing Win",
+"id": "1PVEHuo8PmCIMmY7YZ9lfbon5Npib3mNd",
+"size": 548544,
+"category": "melee",
+"themed": false,
+"dup": false
+},
+{
+"name": "Waking Up While Sitting",
+"id": "1vibzCQytMq_0II_yoSfdcvDg2LZfLcEk",
+"size": 424512,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walk Arc Left With An Aimed Pistol",
+"id": "1PtIm1ICdu-MTRG-DYshK5dHHHJ5QRaOW",
+"size": 324256,
+"category": "pistol",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walk Arc Right With An Aimed Pistol",
+"id": "1MvUwL9mWPYrohw16KtevAzbwfuRMfNU-",
+"size": 321552,
+"category": "pistol",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walk Backward Arc Left With An Aimed Pistol",
+"id": "1fHvwJIFtwbS_P9Pct_ELY9-1Wtrr3v8W",
+"size": 310752,
+"category": "pistol",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walk Backward Arc Right With An Aimed Pistol (1)",
+"id": "1vkIRu1GUssUAEahgmFIFEEtvo6tB1xtP",
+"size": 310752,
+"category": "pistol",
+"themed": false,
+"dup": true
+},
+{
+"name": "Walk Turn With An Empty Wheelbarrow",
+"id": "17V_rwcitMPss6Xj6tYyD0yEPnkRSKXhH",
+"size": 379664,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walk Turn With An Full Wheelbarrow",
+"id": "1qzKPydqodMek5BoguWc7MFWYH45NsLFu",
+"size": 379664,
+"category": "turn",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking (1)",
+"id": "1Q8AX56UStgJBoANf0uFDr7vDJHtIc_Q9",
+"size": 267888,
+"category": "loco",
+"themed": false,
+"dup": true
+},
+{
+"name": "Walking Backward In A Sad Disposition",
+"id": "1bn45EqPQvXAtb6HL_-eminuKyjuIvzIe",
+"size": 399360,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking Backward With An Aimed Pistol",
+"id": "1MC8MmWmthZuUCMcpbH0JZ2HBAd7ByUDz",
+"size": 345856,
+"category": "pistol",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking Backwards (1)",
+"id": "1mhDnDPvCviQYxAaENe7uwFsL8ngDxJhz",
+"size": 409584,
+"category": "loco",
+"themed": false,
+"dup": true
+},
+{
+"name": "Walking Backwards While Aiming Rifle To Stopping",
+"id": "1kEqbSMP0gGTh_Iy67-cYu4NY3t9ZM2JP",
+"size": 414192,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking Backwards While Aiming Rifle",
+"id": "1i7h-xM1SHyN43YNVTcHoHRPOkcOr6MHl",
+"size": 419408,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking Backwards While Aiming With Bow",
+"id": "1TgdHsufkCojjxwL_dvd4pPu4CCtZpU6p",
+"size": 380960,
+"category": "rifle",
+"themed": true,
+"dup": false
+},
+{
+"name": "Walking Backwards While Crouched (1)",
+"id": "1Bc92QvkhXEBAoqlOpYVpHqLKenmZIwHS",
+"size": 394464,
+"category": "crouch",
+"themed": false,
+"dup": true
+},
+{
+"name": "Walking Backwards While Crouched",
+"id": "18TzH-bs4ypxxg_b7WBCUHo1xd0jU_CdV",
+"size": 402016,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking Backwards With Axe",
+"id": "13cTn2fViznngT1y__hmVpV9sT-VRWW59",
+"size": 393520,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Walking Backwards With Bow (1)",
+"id": "1f6zAbzJXn-xyT-YQUxYmAhAl4dGOYkqY",
+"size": 399968,
+"category": "loco",
+"themed": true,
+"dup": true
+},
+{
+"name": "Walking Backwards With Bow",
+"id": "1aRluikTXqMquSUYcWqomsVcujBm92IY7",
+"size": 392048,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Walking Backwards With Torch (1)",
+"id": "1MQuDhzPV34SslBxxxzhGZus4Llk09ExA",
+"size": 390672,
+"category": "loco",
+"themed": true,
+"dup": true
+},
+{
+"name": "Walking Coming To A Stop From Left Foot Passing",
+"id": "1oqQVHH_Y08ZJ6cIs5vCH5hI-w-DzeRiO",
+"size": 519200,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking Coming To A Stop From Right Foot Passing",
+"id": "1Z6luP0EKu3HB2GXhqX3BDbL1QzuaV7b2",
+"size": 519200,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking Forward To Stopping At Edge",
+"id": "1LtNXLfnpq8lkhdGVtxCLBw0rHNKMg-Ln",
+"size": 555920,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking Forward While Aiming With Bow",
+"id": "1pZjQB7BvlxYC-h3HcGmvh_-GMgeX8_Gs",
+"size": 359360,
+"category": "rifle",
+"themed": true,
+"dup": false
+},
+{
+"name": "Walking Forward While Crouched (1)",
+"id": "1qXYMO9f2PyJmpmdKv4yrVvFJ8y0dboec",
+"size": 366704,
+"category": "crouch",
+"themed": false,
+"dup": true
+},
+{
+"name": "Walking Forward While Crouched (2)",
+"id": "102aEuQ-tVJI97YEVx0MUjvcKZfFBtzZV",
+"size": 390672,
+"category": "crouch",
+"themed": false,
+"dup": true
+},
+{
+"name": "Walking Forward With Axe",
+"id": "1b0iXxYG3mUtoRioHD1hYeNEuOuuCmuqA",
+"size": 390320,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Walking Forward With Bow (1)",
+"id": "1lWScV5m5Ut_7XQFHmHTzZCTaEoncZRao",
+"size": 374912,
+"category": "loco",
+"themed": true,
+"dup": true
+},
+{
+"name": "Walking Forward With Bow",
+"id": "1NGXkUtXQ7ygWugYkAYJ39EFqmeuhgYg8",
+"size": 380704,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Walking Forward With Torch",
+"id": "1W-kE6lOIwl4_LzU6Oxb-z9F-fvru0e7-",
+"size": 367888,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Walking Forwards",
+"id": "1bXod2lDJic-XFEfC2DYpDLgBbLbTpn7K",
+"size": 390672,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking Left While Crouched (1)",
+"id": "1D0aYjlVgdlCvkGeZINDOg7NxQT-lzCFy",
+"size": 386896,
+"category": "crouch",
+"themed": false,
+"dup": true
+},
+{
+"name": "Walking Left While Crouched",
+"id": "1-2iMfQ5M1mUa6wJN9fRUixYcH3i2-8YT",
+"size": 394464,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking Left With Axe (1)",
+"id": "14pDJJJFDf3aEPJJkLhvHVr1mCnnVTkhH",
+"size": 380704,
+"category": "loco",
+"themed": true,
+"dup": true
+},
+{
+"name": "Walking Left With Bow (1)",
+"id": "1l-tSltvuX07DdW41rQn8a9KbvXfWosJi",
+"size": 385280,
+"category": "loco",
+"themed": true,
+"dup": true
+},
+{
+"name": "Walking Left With Torch",
+"id": "1Yu5-75Cqrq8AJJLyUiPzfxaG5VbE-Sn7",
+"size": 387008,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Walking Left",
+"id": "1ZnSPDzLynhc1P7ysYcT4-z7yTVwRqCNf",
+"size": 394464,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking Right While Aiming With Bow",
+"id": "1-XvpicgBpZqFWT-kTKpiT5rnA9JfObQF",
+"size": 367456,
+"category": "rifle",
+"themed": true,
+"dup": false
+},
+{
+"name": "Walking Right While Crouched (1)",
+"id": "1l5X7mmWBwkiV4M8-O7Tvt3Uoy5lM6vxP",
+"size": 369072,
+"category": "crouch",
+"themed": false,
+"dup": true
+},
+{
+"name": "Walking Right While Crouched",
+"id": "1L8cBQaJX_gmNJ8lqum44jn5L5gnq9kg4",
+"size": 405792,
+"category": "crouch",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking Right With Axe",
+"id": "1BxUS-EpMRatvKEPbb33fxkRW_gfTkVlJ",
+"size": 383904,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Walking Right With Bow (2)",
+"id": "15dKHNyZXWGyzMTCSAIyRH9VEcU6Z6F-p",
+"size": 374912,
+"category": "loco",
+"themed": true,
+"dup": true
+},
+{
+"name": "Walking Right With Torch (1)",
+"id": "1Zq6-7bHHZdZB-7KvGemH64ZttikUwtwH",
+"size": 374304,
+"category": "loco",
+"themed": true,
+"dup": true
+},
+{
+"name": "Walking Strafe To The Left (1)",
+"id": "1XR5djlmMYE2idYlON8akM22Jo2cGA-4j",
+"size": 368064,
+"category": "strafe",
+"themed": false,
+"dup": true
+},
+{
+"name": "Walking Strafe To The Right (1)",
+"id": "1hIct9cukjJbfqFLnmVaUWmKamH5JKeoV",
+"size": 380960,
+"category": "strafe",
+"themed": false,
+"dup": true
+},
+{
+"name": "Walking Up A Set Of Stairs",
+"id": "19ktIvMNpGEBTQu3tsG4yOpM4uX4nruQ4",
+"size": 417136,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking While Aiming Rifle To Dying",
+"id": "1YPEkLmKrGOmrr7Ot-wfaBmixf2uCPge0",
+"size": 589376,
+"category": "death",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking While Aiming Rifle To Immediate Dying",
+"id": "17e3m0Y_dTkpUgfXQLwXv-nfTmbu_MN4z",
+"size": 604192,
+"category": "death",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking While Aiming Rifle",
+"id": "1jiu9uLu50r7IKSUa9Fmbd6n3-pseEniX",
+"size": 371376,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking While Drunk Backwards",
+"id": "1jC_usiYN42zZE3J6prr-iiOD6-Pgk89B",
+"size": 436432,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking While Swatting At Bugs In The Air",
+"id": "1nOHZP94BLjPdZFAbnVU13wrIltp7ECjo",
+"size": 801712,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking With A Swagger (1)",
+"id": "1hg2yo4UhAovklINxU0IUodB_6EC2TcWQ",
+"size": 377104,
+"category": "loco",
+"themed": false,
+"dup": true
+},
+{
+"name": "Walking With A Swagger",
+"id": "1_kpP7UwKmoGbCSmJvjaEtAkSzSt4V_p9",
+"size": 365952,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking With An Aimed Pistol",
+"id": "15Ty7zBq9ay0TMWtgHLzU0CEM8F5-dYMj",
+"size": 326960,
+"category": "pistol",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking With An Iv Pole",
+"id": "16I1u-Krp8IBys9hIBu4QpaGzm1oVzfpu",
+"size": 414432,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking With Rifle At Waist Level",
+"id": "1lPRKXZTc5zwCRAE1MOKtdTcaID5-3O-r",
+"size": 341760,
+"category": "rifle",
+"themed": false,
+"dup": false
+},
+{
+"name": "Walking With Walker",
+"id": "1SlIRRu092w3Q7hXqicqayTptkiNYsR8B",
+"size": 561856,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Wall Run To Jump Pose",
+"id": "1-KCkfwWnf3Ka1x7gMXL4Wwq2Tqyx_XIJ",
+"size": 357920,
+"category": "climb",
+"themed": false,
+"dup": false
+},
+{
+"name": "Warrior Stretching Idle",
+"id": "1ZyikoTjx8rLfotStr2hkXVWDSFjKJ1Dg",
+"size": 1231536,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Watering With A Hose",
+"id": "1M0TD9Xr2Dzpc5cwZb-CxajFXqZQ_xEh2",
+"size": 765840,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Wave Hip Hop Dance Variation One",
+"id": "1iCWuU6RonosA8EoXhFA_AazSAn0c7lXj",
+"size": 1603600,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Waving Torch Back And Forth (1)",
+"id": "1_JUxiSDBIcJ_XMNzflDHvYNF-ZHdy3b0",
+"size": 676928,
+"category": "misc",
+"themed": true,
+"dup": true
+},
+{
+"name": "Waving With Both Hands",
+"id": "1c4rJtyy0GJNqrDSijt3rNlTJ9G2y49xQ",
+"size": 590032,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Waving",
+"id": "1dbdSpzqoVsLmhpd94tENQOBYMzsflhR4",
+"size": 304784,
+"category": "misc",
+"themed": false,
+"dup": false
+},
+{
+"name": "Wiping Sweat Idle",
+"id": "17zPln26AZPl05haSJEZsqA7_Jp45qCj5",
+"size": 520960,
+"category": "loco",
+"themed": false,
+"dup": false
+},
+{
+"name": "Withdrawing A Sword",
+"id": "1Oc5BzNePZLSQANslHKHTbCBxnhe7wGSU",
+"size": 430640,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Wobbling On A Ledge",
+"id": "1n4HYqxM2p57wUdBrSKQY10mtKL18NQvr",
+"size": 681744,
+"category": "climb",
+"themed": false,
+"dup": false
+},
+{
+"name": "Yelling While Sitting Back",
+"id": "1dekWDT8Yyn4ch6eM03FQqnWsY6OAOPWv",
+"size": 647792,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Yelling While Sitting Forward",
+"id": "1dLSIb9lvFGiamtClOTRhfbV8wPQ5ccqc",
+"size": 710832,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Yelling While Standing Leaning Forward",
+"id": "16QNlLxoE0k8uX7WSYoejnoQjUbNWsjt4",
+"size": 719536,
+"category": "civil",
+"themed": false,
+"dup": false
+},
+{
+"name": "Zombie Alert Idle",
+"id": "10OwuxjRvKCWFYRSixMOiHQ_DoV1Sz5_a",
+"size": 646880,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Zombie Attack With Right Hand",
+"id": "1R3iBb6LNvgEJLdERiqALjpnpE4w6YViy",
+"size": 623856,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Zombie Getting Hit And Falling Onto Back",
+"id": "1YqKW3QWCNX3D2H3t0I_5QNxfMwZiSI36",
+"size": 598576,
+"category": "hit",
+"themed": true,
+"dup": false
+},
+{
+"name": "Zombie In Agony",
+"id": "1qzVpdhGVIgXJavu9zyV9sylUngEma0zK",
+"size": 1031424,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Zombie Laying On Side To Standing Up",
+"id": "1Rkm1OmJDTjUAkXkb3tWbjNisOpfq197Q",
+"size": 783408,
+"category": "getup",
+"themed": true,
+"dup": false
+},
+{
+"name": "Zombie Laying On Stomach To Standing Up",
+"id": "1Sa-9rbsg7bGQy7s8OBwiiIVDGM5T0MKO",
+"size": 802352,
+"category": "getup",
+"themed": true,
+"dup": false
+},
+{
+"name": "Zombie Looking Around",
+"id": "1is3xLwQCLYZw88r70R6MFFo90QutGtfu",
+"size": 581840,
+"category": "civil",
+"themed": true,
+"dup": false
+},
+{
+"name": "Zombie Reaction Hit Flinches",
+"id": "1SbSud9MEgN8aR-P2TMCwMJPlkoKythmX",
+"size": 488960,
+"category": "hit",
+"themed": true,
+"dup": false
+},
+{
+"name": "Zombie Reaction Hit Stumble Back",
+"id": "1r1NmcAH2vPaoTU3nedXiRhmYQmO7SbTZ",
+"size": 507856,
+"category": "hit",
+"themed": true,
+"dup": false
+},
+{
+"name": "Zombie Running",
+"id": "1IBBLEDer9xTJFcM9Mjp-POio4WfD5_RF",
+"size": 326960,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Zombie Scratching Idle",
+"id": "1o5ok2YGykd4cWvb8DKeqFDjsXVRvzq-F",
+"size": 621536,
+"category": "loco",
+"themed": true,
+"dup": false
+},
+{
+"name": "Zombie Screaming",
+"id": "12A2otqZ6ynSqYqESBFjYyyg6hzaNV6r-",
+"size": 579680,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Zombie Snap Kick With Rear Foot",
+"id": "1ZHAAkR_NGvsAkYbD9bLXflINqqrD5Ors",
+"size": 622128,
+"category": "melee",
+"themed": true,
+"dup": false
+},
+{
+"name": "Zombie Swipe Attack",
+"id": "134EKnNNvctyrkeuqKG76YRhajkmrJLMq",
+"size": 552240,
+"category": "misc",
+"themed": true,
+"dup": false
+},
+{
+"name": "Zombie Transition Ready To Alert",
+"id": "1dUK1ZWtNoEFNWacmGXMMdlgLxIj-18g4",
+"size": 393200,
+"category": "civil",
+"themed": true,
+"dup": false
+},
+{
+"name": "Zombie Turning Right Standing In Place",
+"id": "1FVsfNICxnGBRkv4KcRHaap4toG3DFaeG",
+"size": 505152,
+"category": "turn",
+"themed": true,
+"dup": false
+},
+{
+"name": "Zombie Walking (1)",
+"id": "11-u9pTtxnW6jHSWeSgC_sruGP-1EKsXI",
+"size": 386352,
+"category": "loco",
+"themed": true,
+"dup": true
+}
+]

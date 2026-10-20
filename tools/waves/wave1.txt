@@ -1,0 +1,88 @@
+# unarmed locomotion
+Standard Idle
+Male Standing Idle 01
+Female Standing Idle
+Standing Around Bored Idle
+Walking Forwards
+Male Walk Forward 03
+Female Walk Forward
+Walking With A Swagger
+Running Forwards
+Running Fast
+Sprinting
+Female Run Backward
+Walking Left
+Running Right
+Running Strafe To The Left
+Start Strafe Walk Right
+Right Male Strafe
+Walking Coming To A Stop From Left Foot Passing
+Walking Coming To A Stop From Right Foot Passing
+Start Sprint From Action Idle
+Standing Left Turn Game Blend
+Standing Right Turn Game Blend
+Standing 180 Left Turn
+Turning Left While Walking
+Turning Right While Running
+Turning 180 Degrees While Running
+Walking Up A Set Of Stairs
+Running Down A Set Of Stairs
+# jump fall land
+Jumping Up From Action Idle Game Blend
+Standing Jumping In Place
+Jumping While Running
+Running Jump To Run Forward
+Mid-Air Falling Idle
+Land From Fall A To Standing Idle
+Land From Fall A To Run Forward
+Mid-Air Falling To A Hard Landing Game Blend
+# crouch
+Low Crouching Idle
+Crouch Idle Looking Around
+Standing To Crouching Transition
+Transition From Crouch To Standing Idle
+Walking Left While Crouched
+Walking Right While Crouched
+Walking Backwards While Crouched
+Turn Left While Crouching Game Blend
+# vehicle
+Male Driving A Car
+Standard Drive
+Hitting Steering Wheel In Driving Idle
+Pulled Out Of Pilot Seat
+Standing Up From Seated Position
+# pistol
+Walking With An Aimed Pistol
+Running With Aimed Pistol
+Strafe Left With An Aimed Pistol
+Strafe Right With An Aimed Pistol
+Walking Backward With An Aimed Pistol
+Running Backward With An Aimed Pistol
+Pistol Aim To Holster Idle
+Shooting A Pistol From Behind Cover
+Pistol Standing To Kneeling
+Firing A Gun
+# rifle
+Rifle Standing Idle
+Two Hand Rifle Idle
+Two Hand Lowered Gun Rifle Idle
+Rifle Walk Forward
+Walking While Aiming Rifle
+Running With Rifle Aimed
+Rifle Run Left
+Rifle Run Right
+Rifle Run Backward
+Rifle Walk Backward Left
+Rifle Walk Backward Right
+Rifle Sprint Left
+Rifle Crouched Idle
+Rifle Walking Crouched
+Rifle Crouched Walk Left
+Rifle Walking Right Crouched
+Rifle Crouched Walk Backward
+Rifle Down To Aiming
+Shooting
+Standing Shooting Rapid Fire
+Fire Rifle While Crouched
+Run While Reloading Rifle
+Grabbing Rifle From Behind The Shoulder
