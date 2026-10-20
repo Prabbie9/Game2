@@ -56,6 +56,7 @@ renderer, lighting, materials, world, streaming, vehicles, damage, camera, chara
 - Bundles in assets/processed/anim/<bundle>.{json,bin}: per clip Int16 quaternions (frames x bones x 4) + Float32 hips position normalised by rest hips height. Loop locomotion has linear XZ drift removed (inPlace) and `speed`/`dir` recorded for speed matching. Bundles: core, pistol, rifle, vehicle (+react, civil, melee in later waves).
 
 ## CLIPS_USED (wave 1, 82): see tools/waves/wave1.txt (names + Drive IDs in tools/waves/wave1.json, metadata in assets/catalog/clipmeta.json).
+## CLIPS_USED (wave 2, 62): see tools/waves/wave2.txt — reactions, falls/deaths, get-ups, civilian idles/sitting/phone, panic, vault/climb/drop, swim, cover. Total 144 clips in 6 bundles (5.2MB).
 
 ## Cast (M0)
 - Drive characters unreachable (size). Stand-ins: three.js-repo Mixamo characters (Michelle = civilian female, Soldier = tactical; Xbot = test mannequin only, sci-fi look so never in the cast). M4: source 12+ modern realistic Mixamo-rigged humanoids from Sketchfab (verify `mixamorig` bones), palette variants to 40+ looks.

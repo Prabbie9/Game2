@@ -85,7 +85,17 @@
 "size": 760912,
 "category": "crouch",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "crouch_idle_looking_around",
+"bundle": "core",
+"duration": 6.6,
+"fps": 30,
+"frames": 199,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Crouched Rifle Walk Strafe Left",
@@ -349,7 +359,17 @@
 "size": 308064,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "female_run_backward",
+"bundle": "core",
+"duration": 0.567,
+"fps": 30,
+"frames": 18,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.855,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Female Standing Idle",
@@ -357,7 +377,17 @@
 "size": 1038512,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "female_standing_idle",
+"bundle": "core",
+"duration": 10,
+"fps": 30,
+"frames": 301,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Female Start Walking",
@@ -445,7 +475,17 @@
 "size": 398240,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "female_walk_forward",
+"bundle": "core",
+"duration": 1.2,
+"fps": 30,
+"frames": 37,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.17,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Female Walk Like A Cowgirl - 1 Stride Loop",
@@ -461,7 +501,17 @@
 "size": 377104,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "fire_rifle_while_crouched",
+"bundle": "rifle",
+"duration": 1.033,
+"fps": 30,
+"frames": 32,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Firing A Gun",
@@ -469,7 +519,17 @@
 "size": 381856,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "firing_a_gun",
+"bundle": "pistol",
+"duration": 1.167,
+"fps": 30,
+"frames": 36,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Fishing Idle",
@@ -733,7 +793,17 @@
 "size": 663536,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "grabbing_rifle_from_behind_the_shoulder",
+"bundle": "rifle",
+"duration": 3.533,
+"fps": 30,
+"frames": 107,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 0.261,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Great Sword Backward Walk",
@@ -1005,7 +1075,17 @@
 "size": 593360,
 "category": "vehicle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "hitting_steering_wheel_in_driving_idle",
+"bundle": "vehicle",
+"duration": 3.333,
+"fps": 30,
+"frames": 101,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Holding An Object Idle",
@@ -1301,7 +1381,17 @@
 "size": 333984,
 "category": "jump",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "jumping_up_from_action_idle_game_blend",
+"bundle": "core",
+"duration": 0.233,
+"fps": 30,
+"frames": 8,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0.083,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Jumping Up From Action Idle",
@@ -1333,7 +1423,17 @@
 "size": 381968,
 "category": "jump",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "jumping_while_running",
+"bundle": "core",
+"duration": 1.067,
+"fps": 30,
+"frames": 33,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 4.01,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Jumping While Strafing Left- Loop",
@@ -1429,7 +1529,17 @@
 "size": 368000,
 "category": "jump",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "land_from_fall_a_to_run_forward",
+"bundle": "core",
+"duration": 0.933,
+"fps": 30,
+"frames": 29,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 1.707,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Land From Fall A To Standing Idle (1)",
@@ -1445,7 +1555,17 @@
 "size": 439824,
 "category": "jump",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "land_from_fall_a_to_standing_idle",
+"bundle": "core",
+"duration": 1.567,
+"fps": 30,
+"frames": 48,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 1.849,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Large Hit Reaction From The Right",
@@ -1773,7 +1893,17 @@
 "size": 515952,
 "category": "crouch",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "low_crouching_idle",
+"bundle": "core",
+"duration": 2.5,
+"fps": 30,
+"frames": 76,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Low Enthusiasm Fist Pump While Sitting",
@@ -1869,7 +1999,17 @@
 "size": 581168,
 "category": "vehicle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "male_driving_a_car",
+"bundle": "vehicle",
+"duration": 5,
+"fps": 30,
+"frames": 151,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Male Drunk Walk - Two Cycle Loop",
@@ -2029,7 +2169,17 @@
 "size": 655200,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "male_standing_idle_01",
+"bundle": "core",
+"duration": 4.433,
+"fps": 30,
+"frames": 134,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Male Stepping Onto Platform",
@@ -2101,7 +2251,17 @@
 "size": 386896,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "male_walk_forward_03",
+"bundle": "core",
+"duration": 1.1,
+"fps": 30,
+"frames": 34,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.635,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Male Walk Forward In A Tight Turn To The Left",
@@ -2205,7 +2365,17 @@
 "size": 333984,
 "category": "jump",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "mid_air_falling_idle",
+"bundle": "core",
+"duration": 0.7,
+"fps": 30,
+"frames": 22,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Mid-Air Falling To A Hard Landing Game Blend",
@@ -2213,7 +2383,17 @@
 "size": 467360,
 "category": "jump",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "mid_air_falling_to_a_hard_landing_game_blend",
+"bundle": "core",
+"duration": 2,
+"fps": 30,
+"frames": 61,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 0.168,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Military Signal _Look_ While Crouched (1)",
@@ -2437,7 +2617,17 @@
 "size": 833296,
 "category": "pistol",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "pistol_aim_to_holster_idle",
+"bundle": "pistol",
+"duration": 7.1,
+"fps": 30,
+"frames": 214,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0.106,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Pistol Kneeling To Standing",
@@ -2453,7 +2643,17 @@
 "size": 342080,
 "category": "melee",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "pistol_standing_to_kneeling",
+"bundle": "pistol",
+"duration": 1,
+"fps": 30,
+"frames": 31,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0.072,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Pistol Workout",
@@ -2557,7 +2757,17 @@
 "size": 643200,
 "category": "vehicle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "pulled_out_of_pilot_seat",
+"bundle": "vehicle",
+"duration": 4.667,
+"fps": 30,
+"frames": 141,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 2.037,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Pulling A Heavy Object",
@@ -2941,7 +3151,17 @@
 "size": 427728,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "rifle_crouched_idle",
+"bundle": "rifle",
+"duration": 2.1,
+"fps": 30,
+"frames": 64,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Rifle Crouched Turn 90 Left (1)",
@@ -2965,7 +3185,17 @@
 "size": 343344,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "rifle_crouched_walk_backward",
+"bundle": "rifle",
+"duration": 1,
+"fps": 30,
+"frames": 31,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.989,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Rifle Crouched Walk Left",
@@ -2973,7 +3203,17 @@
 "size": 343296,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "rifle_crouched_walk_left",
+"bundle": "rifle",
+"duration": 1,
+"fps": 30,
+"frames": 31,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.989,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Rifle Death From Front Headshot",
@@ -2997,7 +3237,17 @@
 "size": 360432,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "rifle_down_to_aiming",
+"bundle": "rifle",
+"duration": 0.867,
+"fps": 30,
+"frames": 27,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0.11,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Rifle Getting Hit To Ground",
@@ -3109,7 +3359,17 @@
 "size": 381104,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "rifle_run_backward",
+"bundle": "rifle",
+"duration": 0.5,
+"fps": 30,
+"frames": 16,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 2.342,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Rifle Run Forward Right",
@@ -3125,7 +3385,17 @@
 "size": 383664,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "rifle_run_left",
+"bundle": "rifle",
+"duration": 0.5,
+"fps": 30,
+"frames": 16,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 2.342,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Rifle Run Right",
@@ -3133,7 +3403,17 @@
 "size": 382656,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "rifle_run_right",
+"bundle": "rifle",
+"duration": 0.5,
+"fps": 30,
+"frames": 16,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 2.342,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Rifle Shielding Face From Debris",
@@ -3173,7 +3453,17 @@
 "size": 383264,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "rifle_sprint_left",
+"bundle": "rifle",
+"duration": 0.5,
+"fps": 30,
+"frames": 16,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 3.513,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Rifle Standing Idle",
@@ -3181,7 +3471,17 @@
 "size": 427728,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "rifle_standing_idle",
+"bundle": "rifle",
+"duration": 2.1,
+"fps": 30,
+"frames": 64,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Rifle Walk Backward Left",
@@ -3189,7 +3489,17 @@
 "size": 343152,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "rifle_walk_backward_left",
+"bundle": "rifle",
+"duration": 1,
+"fps": 30,
+"frames": 31,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.874,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Rifle Walk Backward Right",
@@ -3197,7 +3507,17 @@
 "size": 343152,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "rifle_walk_backward_right",
+"bundle": "rifle",
+"duration": 1,
+"fps": 30,
+"frames": 31,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.874,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Rifle Walk Forward",
@@ -3205,7 +3525,17 @@
 "size": 343664,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "rifle_walk_forward",
+"bundle": "rifle",
+"duration": 1,
+"fps": 30,
+"frames": 31,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.874,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Rifle Walking Backward Crouched",
@@ -3229,7 +3559,17 @@
 "size": 446944,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "rifle_walking_crouched",
+"bundle": "rifle",
+"duration": 1.967,
+"fps": 30,
+"frames": 60,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.164,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Rifle Walking Right Crouched",
@@ -3237,7 +3577,17 @@
 "size": 441728,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "rifle_walking_right_crouched",
+"bundle": "rifle",
+"duration": 1.933,
+"fps": 30,
+"frames": 59,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0.567,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Rifle Walking To Standing",
@@ -3269,7 +3619,17 @@
 "size": 356656,
 "category": "strafe",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "right_male_strafe",
+"bundle": "core",
+"duration": 1.167,
+"fps": 30,
+"frames": 36,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 2.022,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Right Running Turn While Drunk",
@@ -3357,7 +3717,17 @@
 "size": 680192,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "run_while_reloading_rifle",
+"bundle": "rifle",
+"duration": 3.667,
+"fps": 30,
+"frames": 111,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 11.495,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Running  Jump To Standing Idle",
@@ -3381,7 +3751,17 @@
 "size": 305360,
 "category": "pistol",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "running_backward_with_an_aimed_pistol",
+"bundle": "pistol",
+"duration": 0.533,
+"fps": 30,
+"frames": 17,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.787,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Running Backwards (1)",
@@ -3445,7 +3825,17 @@
 "size": 396944,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "running_down_a_set_of_stairs",
+"bundle": "core",
+"duration": 0.4,
+"fps": 30,
+"frames": 13,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0.466,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Running Fall Over A Soccer Slide Tackle",
@@ -3461,7 +3851,17 @@
 "size": 305360,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "running_fast",
+"bundle": "core",
+"duration": 0.533,
+"fps": 30,
+"frames": 17,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 2.922,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Running Forward (4)",
@@ -3501,7 +3901,17 @@
 "size": 344528,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "running_forwards",
+"bundle": "core",
+"duration": 0.733,
+"fps": 30,
+"frames": 23,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 2.788,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Running Jump And Landing",
@@ -3517,7 +3927,17 @@
 "size": 459792,
 "category": "jump",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "running_jump_to_run_forward",
+"bundle": "core",
+"duration": 2.033,
+"fps": 30,
+"frames": 62,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 6.958,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Running Jump With Attack With Axe",
@@ -3565,7 +3985,17 @@
 "size": 348272,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "running_right",
+"bundle": "core",
+"duration": 0.767,
+"fps": 30,
+"frames": 24,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 2.931,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Running Strafe To The Left (1)",
@@ -3581,7 +4011,17 @@
 "size": 337760,
 "category": "strafe",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "running_strafe_to_the_left",
+"bundle": "core",
+"duration": 0.667,
+"fps": 30,
+"frames": 21,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 2.918,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Running Strafe To The Right (1)",
@@ -3621,7 +4061,17 @@
 "size": 331056,
 "category": "pistol",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "running_with_aimed_pistol",
+"bundle": "pistol",
+"duration": 0.733,
+"fps": 30,
+"frames": 23,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 2.246,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Running With Rifle Aimed",
@@ -3629,7 +4079,17 @@
 "size": 342144,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "running_with_rifle_aimed",
+"bundle": "rifle",
+"duration": 0.733,
+"fps": 30,
+"frames": 23,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 2.247,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Sad Idle Variation 1",
@@ -3773,7 +4233,17 @@
 "size": 478160,
 "category": "pistol",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "shooting_a_pistol_from_behind_cover",
+"bundle": "pistol",
+"duration": 2.667,
+"fps": 30,
+"frames": 81,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Shooting",
@@ -3781,7 +4251,17 @@
 "size": 315408,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "shooting",
+"bundle": "rifle",
+"duration": 0.567,
+"fps": 30,
+"frames": 18,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Shopping Cart Silly Dance",
@@ -4333,7 +4813,17 @@
 "size": 267888,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "sprinting",
+"bundle": "core",
+"duration": 0.033,
+"fps": 30,
+"frames": 2,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Squatting Down To Gather Objects",
@@ -4349,7 +4839,17 @@
 "size": 601008,
 "category": "vehicle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "standard_drive",
+"bundle": "vehicle",
+"duration": 3.133,
+"fps": 30,
+"frames": 95,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0.226,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Standard Idle",
@@ -4357,7 +4857,17 @@
 "size": 595872,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "standard_idle",
+"bundle": "core",
+"duration": 3,
+"fps": 30,
+"frames": 91,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Standard Sprint",
@@ -4381,7 +4891,17 @@
 "size": 443840,
 "category": "turn",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "standing_180_left_turn",
+"bundle": "core",
+"duration": 1.633,
+"fps": 30,
+"frames": 50,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0.005,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Standing 180 Right Turn",
@@ -4405,7 +4925,17 @@
 "size": 1157504,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "standing_around_bored_idle",
+"bundle": "core",
+"duration": 10.667,
+"fps": 30,
+"frames": 321,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Standing Backflip",
@@ -4581,7 +5111,17 @@
 "size": 481392,
 "category": "jump",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "standing_jumping_in_place",
+"bundle": "core",
+"duration": 1.933,
+"fps": 30,
+"frames": 59,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0.002,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Standing Jumping",
@@ -4613,7 +5153,17 @@
 "size": 447552,
 "category": "turn",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "standing_left_turn_game_blend",
+"bundle": "core",
+"duration": 1.667,
+"fps": 30,
+"frames": 51,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Standing Long Yell",
@@ -4677,7 +5227,17 @@
 "size": 394464,
 "category": "turn",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "standing_right_turn_game_blend",
+"bundle": "core",
+"duration": 1.167,
+"fps": 30,
+"frames": 36,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Standing Right Turn Sans Rotation",
@@ -4701,7 +5261,17 @@
 "size": 318528,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "standing_shooting_rapid_fire",
+"bundle": "rifle",
+"duration": 0.2,
+"fps": 30,
+"frames": 7,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Standing Start To Run Backwards",
@@ -4717,7 +5287,17 @@
 "size": 406336,
 "category": "crouch",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "standing_to_crouching_transition",
+"bundle": "core",
+"duration": 1.5,
+"fps": 30,
+"frames": 46,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0.008,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Standing To Ready Pose Grabbing Rifle From The Back",
@@ -4773,7 +5353,17 @@
 "size": 695216,
 "category": "vehicle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "standing_up_from_seated_position",
+"bundle": "vehicle",
+"duration": 4.833,
+"fps": 30,
+"frames": 146,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 0.417,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Standing Wide Clap From Sitting (1)",
@@ -4861,7 +5451,17 @@
 "size": 344240,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "start_sprint_from_action_idle",
+"bundle": "core",
+"duration": 0.8,
+"fps": 30,
+"frames": 25,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 1.614,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Start Strafe Walk Right",
@@ -4869,7 +5469,17 @@
 "size": 434384,
 "category": "strafe",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "start_strafe_walk_right",
+"bundle": "core",
+"duration": 1.533,
+"fps": 30,
+"frames": 47,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 0.603,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Start To Pull A Heavy Object",
@@ -4965,7 +5575,17 @@
 "size": 308064,
 "category": "pistol",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "strafe_left_with_an_aimed_pistol",
+"bundle": "pistol",
+"duration": 0.567,
+"fps": 30,
+"frames": 18,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.239,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Strafe Right With An Aimed Pistol",
@@ -4973,7 +5593,17 @@
 "size": 310752,
 "category": "pistol",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "strafe_right_with_an_aimed_pistol",
+"bundle": "pistol",
+"duration": 0.6,
+"fps": 30,
+"frames": 19,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.472,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Strafe Right With Rifle (1)",
@@ -5485,7 +6115,17 @@
 "size": 323040,
 "category": "crouch",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "transition_from_crouch_to_standing_idle",
+"bundle": "core",
+"duration": 0.633,
+"fps": 30,
+"frames": 20,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0.005,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Transition From Crouching To Standing With Bow",
@@ -5597,7 +6237,17 @@
 "size": 332352,
 "category": "crouch",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "turn_left_while_crouching_game_blend",
+"bundle": "core",
+"duration": 0.867,
+"fps": 30,
+"frames": 27,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0.002,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Turn Left While Crouching",
@@ -5621,7 +6271,17 @@
 "size": 330560,
 "category": "turn",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "turning_180_degrees_while_running",
+"bundle": "core",
+"duration": 0.667,
+"fps": 30,
+"frames": 21,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0.02,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Turning 180 Degrees While Walking",
@@ -5741,7 +6401,17 @@
 "size": 395648,
 "category": "turn",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "turning_left_while_walking",
+"bundle": "core",
+"duration": 1.2,
+"fps": 30,
+"frames": 37,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 1.624,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Turning Left With Rifle",
@@ -5797,7 +6467,17 @@
 "size": 347440,
 "category": "turn",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "turning_right_while_running",
+"bundle": "core",
+"duration": 0.767,
+"fps": 30,
+"frames": 24,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 2.974,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Turning Right With Rifle",
@@ -5837,7 +6517,17 @@
 "size": 742832,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "two_hand_lowered_gun_rifle_idle",
+"bundle": "rifle",
+"duration": 7.7,
+"fps": 30,
+"frames": 232,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Two Hand Rifle Idle",
@@ -5845,7 +6535,17 @@
 "size": 718176,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "two_hand_rifle_idle",
+"bundle": "rifle",
+"duration": 8.567,
+"fps": 30,
+"frames": 258,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Two Handed Casting Spell Forwards Sustained (1)",
@@ -6149,7 +6849,17 @@
 "size": 345856,
 "category": "pistol",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "walking_backward_with_an_aimed_pistol",
+"bundle": "pistol",
+"duration": 1.033,
+"fps": 30,
+"frames": 32,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.473,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Walking Backwards (1)",
@@ -6197,7 +6907,17 @@
 "size": 402016,
 "category": "crouch",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "walking_backwards_while_crouched",
+"bundle": "core",
+"duration": 1.233,
+"fps": 30,
+"frames": 38,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.536,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Walking Backwards With Axe",
@@ -6237,7 +6957,17 @@
 "size": 519200,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "walking_coming_to_a_stop_from_left_foot_passing",
+"bundle": "core",
+"duration": 2.267,
+"fps": 30,
+"frames": 69,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 0.782,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Walking Coming To A Stop From Right Foot Passing",
@@ -6245,7 +6975,17 @@
 "size": 519200,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "walking_coming_to_a_stop_from_right_foot_passing",
+"bundle": "core",
+"duration": 2.267,
+"fps": 30,
+"frames": 69,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 0.79,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Walking Forward To Stopping At Edge",
@@ -6317,7 +7057,17 @@
 "size": 390672,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "walking_forwards",
+"bundle": "core",
+"duration": 1.133,
+"fps": 30,
+"frames": 35,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.831,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Walking Left While Crouched (1)",
@@ -6333,7 +7083,17 @@
 "size": 394464,
 "category": "crouch",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "walking_left_while_crouched",
+"bundle": "core",
+"duration": 1.167,
+"fps": 30,
+"frames": 36,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.611,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Walking Left With Axe (1)",
@@ -6365,7 +7125,17 @@
 "size": 394464,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "walking_left",
+"bundle": "core",
+"duration": 1.167,
+"fps": 30,
+"frames": 36,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.504,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Walking Right While Aiming With Bow",
@@ -6389,7 +7159,17 @@
 "size": 405792,
 "category": "crouch",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "walking_right_while_crouched",
+"bundle": "core",
+"duration": 1.267,
+"fps": 30,
+"frames": 39,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.501,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Walking Right With Axe",
@@ -6437,7 +7217,17 @@
 "size": 417136,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "walking_up_a_set_of_stairs",
+"bundle": "core",
+"duration": 1.367,
+"fps": 30,
+"frames": 42,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0.506,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Walking While Aiming Rifle To Dying",
@@ -6461,7 +7251,17 @@
 "size": 371376,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "walking_while_aiming_rifle",
+"bundle": "rifle",
+"duration": 1.367,
+"fps": 30,
+"frames": 42,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.323,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Walking While Drunk Backwards",
@@ -6493,7 +7293,17 @@
 "size": 365952,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "walking_with_a_swagger",
+"bundle": "core",
+"duration": 1.033,
+"fps": 30,
+"frames": 32,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.787,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Walking With An Aimed Pistol",
@@ -6501,7 +7311,17 @@
 "size": 326960,
 "category": "pistol",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "walking_with_an_aimed_pistol",
+"bundle": "pistol",
+"duration": 0.8,
+"fps": 30,
+"frames": 25,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 2.074,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Walking With An Iv Pole",

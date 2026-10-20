@@ -1,0 +1,68 @@
+# hit reactions (direction / weapon stance)
+Small Hit Reaction From The Front
+Small Hit Reaction From The Left
+Male Reaction Hit On The Right Side
+Getting Hit From Back
+Large Hit Reaction From The Right
+Hit Reaction
+Receiving A Hit In The Stomach
+Receiving A Light Hit To The Head From A Straight Punch
+Standing Reaction To Shove
+Reaction To Getting Hit To The Left While Holding A Pistol
+Hit Reaction When Walking While Aiming Rifle
+Left Reaction To Front Hit Holding A Rifle
+# falls / knockdowns / deaths
+Hit In The Shoulder And Falls To The Ground
+Shot To The Chest Falling Backwards
+Knocked Out Falling To Back
+Knocked Out Falling To Stomach
+Getting Hit By A Car While Tired
+Laying On The Ground Dying
+Rifle Death From Front Headshot
+Rifle Death From The Back
+Walking While Aiming Rifle To Immediate Dying
+Slip And Fall Backwards
+# get-ups
+Standing Up From Back
+Standing Up From Lying On Stomach
+Standing Up And Looking Around
+Standing From A Crouch
+Standing From Crouched Hands On Ground
+# civilian idles, gestures, sitting
+Male Talking On The Cell Phone
+Male Talking On The Cell Phone While Pacing Back And Forth
+Laughing Standing
+Looking With Hand Shading Eyes
+Pointing With Arm Bent
+Shoulder Shrug
+Standing In A Sad Disposition
+Male With Headphones Listening To Music
+Sad Idle Variation 1
+Looking Forward
+Quickly Pointing Angrily Forward
+Short Yell While Standing
+Waving
+Holding An Object Idle
+Sitting Still In A Chair
+Sitting On The Floor
+Standing To Sitting Transition
+Sitting Against A Wall Dazed
+Sitting Looking Side To Side
+# civilian walks + panic
+Male Walk With Briefcase
+Male Injured Walk
+Male Drunk Walk - Two Cycle Loop
+Happy Walking Forward Arc Left
+Slowly Backing Away In Fear
+Running Backward In A Sad Disposition
+# vault / climb / swim / fall
+Vault Over Box And Hide
+Starting To Climb Onto A Box Or Short Fence
+Climbing Up A Wall
+Jumping Down From Higher Level
+Male Jumping Down From 4 Feet
+Fast Run To Jump Up Onto Higher Level
+Swimming Breastroke To Edge Of Pool
+Losing Balance And Falling Forward Into A Pool
+Standing Cover Against Object
+Taking Cover Against A Wall With Rifle

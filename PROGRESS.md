@@ -1,7 +1,7 @@
 # PROGRESS
-NEXT STEP: M4 — fetch clip wave 2 (reactions, deaths, get-ups, civilian idles, vault/climb, panic) via tools/waves/wave2.txt, then search Sketchfab for realistic Mixamo-rigged humanoids (verify mixamorig bones).
+NEXT STEP: M4 — search Sketchfab for realistic Mixamo-rigged humanoids (verify mixamorig bones, CC-BY/CC0), then player controller + anim state machine.
 
-STEPS_USED: ~440 (M0 ~80, M1 ~75, M2 ~190, M3 ~95)   DRIVE_CALLS_USED: 103 / 300
+STEPS_USED: ~450 (M0 ~80, M1 ~75, M2 ~190, M3 ~95, M4 ~10)   DRIVE_CALLS_USED: 165 / 300
 MILESTONE: M3 done (checkpoint 4) — look gate BELOW target (5.4/7), carried forward
 
 ## Milestones
