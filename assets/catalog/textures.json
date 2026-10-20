@@ -1,0 +1,17 @@
+{
+ "sidewalk": "PavingStones151",
+ "concrete": "Concrete034",
+ "brick": "Bricks113A",
+ "plaster": "PaintedPlaster017",
+ "metal": "Metal027",
+ "rust": "Metal063",
+ "wood": "WoodFloor064",
+ "tiles": "Tiles141",
+ "kerb": "Concrete034",
+ "grass": "Grass005",
+ "fabric": "Fabric085",
+ "facade": "PaintedPlaster006",
+ "asphalt": "Asphalt033",
+ "gravel": "Ground111",
+ "roof": "RoofingTiles013A"
+}

@@ -37,7 +37,7 @@ for (const job of [].concat(jobs)) {
     if (job.ready) await page.waitForFunction(job.ready, null, { timeout: job.timeout || 180000, polling: 500 });
     if (job.wait) await page.waitForTimeout(job.wait);
     if (job.eval) info = JSON.stringify(await page.evaluate(job.eval)).slice(0, job.evalMax || 600);
-    if (job.out) { fs.mkdirSync(path.dirname(path.join(ROOT, job.out)), { recursive: true }); await page.screenshot({ path: path.join(ROOT, job.out) }); }
+    if (job.out) { fs.mkdirSync(path.dirname(path.join(ROOT, job.out)), { recursive: true }); await page.screenshot({ path: path.join(ROOT, job.out), timeout: 180000 }); }
   } catch (e) { status = 'FAIL ' + String(e.message).split('\n')[0].slice(0, 160); }
   if (errors.length || status !== 'ok') bad++;
   console.log(`${status} ${job.url} ${((Date.now() - t0) / 1000).toFixed(1)}s errors=${errors.length}${errors.length ? ' [' + errors.slice(0, 3).join(' | ') + ']' : ''} ${info}`);

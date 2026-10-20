@@ -4,6 +4,7 @@
 import * as THREE from 'three';
 import { Sky } from 'three/addons/objects/Sky.js';
 import type { Renderer } from '../renderer/renderer';
+import { SkyDome } from './skydome';
 
 export type WeatherName = 'clear' | 'overcast' | 'rain' | 'fog' | 'storm';
 const WEATHER: Record<WeatherName, { overcast: number; rain: number; fog: number; wet: number }> = {
@@ -18,12 +19,13 @@ export class Environment {
   hours = 17.6; weatherName: WeatherName = 'clear'; target = { ...WEATHER.clear }; cur = { ...WEATHER.clear };
   sunDir = new THREE.Vector3(); fog = new THREE.FogExp2(0xbfc8d0, 0.0015); timeSpeed = 0; // game-hours per real second
   private pmrem: THREE.PMREMGenerator; private envRT: THREE.WebGLRenderTarget | null = null; private skyScene = new THREE.Scene();
-  private lastBake = { hours: -99, overcast: -1 }; exposure = 1; night = 0;
+  private lastBake = { hours: -99, overcast: -1 }; exposure = 1; night = 0; dome: SkyDome; sunColor = new THREE.Color();
   constructor(public R: Renderer) {
     this.sky.scale.setScalar(3500); this.sky.frustumCulled = false;
     R.scene.add(this.sky, this.hemi); R.scene.fog = this.fog;
     this.pmrem = new THREE.PMREMGenerator(R.renderer);
     this.skyScene.add(new Sky()); (this.skyScene.children[0] as Sky).scale.setScalar(1000);
+    this.dome = new SkyDome(R.scene);
   }
   setTime(h: number) { this.hours = ((h % 24) + 24) % 24; }
   setWeather(w: WeatherName, instant = false) { this.weatherName = w; this.target = { ...WEATHER[w] }; if (instant) this.cur = { ...this.target }; }
@@ -47,7 +49,8 @@ export class Environment {
     const dir = this.sunDir.y > -0.05 ? this.sunDir.clone() : new THREE.Vector3(-0.3, 0.75, 0.4).normalize();
     const intensity = sunUp * (4.6 - overcast * 3.6) + this.night * 0.22;
     for (const l of this.R.csm.lights) { l.color.copy(sunUp > 0.01 ? sunCol : moonCol); l.intensity = intensity; }
-    this.R.csm.lightDirection.copy(dir).negate();
+    this.R.csm.lightDirection.copy(dir).negate(); this.sunColor.copy(sunCol);
+    this.dome.update(this.R.camera, this.sunDir, sunCol, overcast, this.night);
     // hemisphere fill: sky-ish above, warm ground bounce below (bounce-light stand-in)
     this.hemi.color.setRGB(0.55 + low * 0.25, 0.68 + low * 0.08, 0.95 - low * 0.25).lerp(new THREE.Color(0.7, 0.72, 0.75), overcast).multiplyScalar(1 - this.night * 0.9);
     this.hemi.groundColor.setRGB(0.32, 0.27, 0.22).multiplyScalar(0.6 + sunUp * 0.4);

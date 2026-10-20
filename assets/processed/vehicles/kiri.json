@@ -1,0 +1,82 @@
+{
+ "name": "kiri",
+ "length": 4.45,
+ "width": 1.816,
+ "height": 1.361,
+ "wheels": [
+  {
+   "name": "FL",
+   "center": [
+    0.7339,
+    0.2963,
+    1.3651
+   ],
+   "radius": 0.2949,
+   "width": 0.1969
+  },
+  {
+   "name": "FR",
+   "center": [
+    -0.7327,
+    0.2949,
+    1.3651
+   ],
+   "radius": 0.2949,
+   "width": 0.1969
+  },
+  {
+   "name": "RL",
+   "center": [
+    0.7339,
+    0.2963,
+    -1.1716
+   ],
+   "radius": 0.2949,
+   "width": 0.1969
+  },
+  {
+   "name": "RR",
+   "center": [
+    -0.7327,
+    0.2949,
+    -1.1716
+   ],
+   "radius": 0.2949,
+   "width": 0.1969
+  }
+ ],
+ "parts": [
+  "kiri86_Blinkers_UCB_Lights_and_Glass_0",
+  "kiri86_Body_Badges_Carbadges_misc_U_0",
+  "kiri86_Body_Glass_UCB_Lights_and_Glass_Transperent_0",
+  "kiri86_Body_kiri86_Bodymat_0",
+  "kiri86_Bottom_UCB_BOTTOM_GT_0",
+  "kiri86_Brakelights001_UCB_Lights_and_Glass_0",
+  "kiri86_Bumper_Front_Inner_UCB_BOTTOM_GT_0",
+  "kiri86_Bumper_front_kiri86_Bodymat_0",
+  "kiri86_Bumper_rear_kiri86_Bodymat_0",
+  "kiri86_Glass_Driver_UCB_Lights_and_Glass_Transperent_0",
+  "kiri86_Glass_Passenger_UCB_Lights_and_Glass_Transperent_0",
+  "kiri86_Headlights_Glass_UCB_Lights_and_Glass_Transperent_0",
+  "kiri86_Headlights_UCB_Lights_and_Glass_0",
+  "kiri86_Hood_kiri86_Bodymat_0",
+  "kiri86_Interior_UCB_Interior_Trim_0",
+  "kiri86_Numberplates_Front_Numberplates_Misk_U_0",
+  "kiri86_Numberplates_Rear_Numberplates_Misk_U_0",
+  "kiri86_Rear_window_UCB_Lights_and_Glass_Transperent_0",
+  "kiri86_Reverse_UCB_Lights_and_Glass_0",
+  "kiri86_Steering_Wheel_UCB_Interior_Trim_0",
+  "kiri86_Suspension_front_UCB_BOTTOM_GT_0",
+  "kiri86_Taillights_Glass_UCB_Lights_and_Glass_Transperent_0",
+  "kiri86_Trunk_door_inner_UCB_BOTTOM_GT_0",
+  "kiri86_Trunk_door_kiri86_Bodymat_0",
+  "kiri86_Windshield_UCB_Lights_and_Glass_Transperent_0",
+  "kiri86_bumper_rear_inner_UCB_BOTTOM_GT_0",
+  "wheel_FL",
+  "wheel_FR",
+  "wheel_RL",
+  "wheel_RR"
+ ],
+ "faces": 20314,
+ "scale": 1.0316
+}

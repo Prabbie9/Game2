@@ -4,8 +4,20 @@
 import * as THREE from 'three';
 import type { Renderer } from '../renderer/renderer';
 import type { VehState } from '../physics/client';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 
-export interface CarVisualOpts { color?: number; wheelRadius: number; wheelWidth: number; track: number; wheelbase: number; wheelY: number; frontOffset: number }
+/** Collapse all child meshes of `g` into one mesh per material (bakes child transforms). Keeps non-mesh children (lights). */
+export function mergeByMaterial(g: THREE.Object3D) {
+  g.updateMatrixWorld(true); const inv = new THREE.Matrix4().copy(g.matrixWorld).invert();
+  const groups = new Map<THREE.Material, THREE.BufferGeometry[]>(); const drop: THREE.Mesh[] = [];
+  g.traverse((o) => { const m = o as THREE.Mesh; if (!m.isMesh || m === g) return; const geo = m.geometry.clone().applyMatrix4(new THREE.Matrix4().multiplyMatrices(inv, m.matrixWorld));
+    const mat = m.material as THREE.Material; (groups.get(mat) ?? groups.set(mat, []).get(mat)!).push(geo.index ? geo.toNonIndexed() : geo); drop.push(m); });
+  for (const m of drop) m.parent!.remove(m);
+  for (const [mat, geos] of groups) { for (const x of geos) for (const k of Object.keys(x.attributes)) if (!['position', 'normal', 'uv'].includes(k)) x.deleteAttribute(k);
+    const mm = new THREE.Mesh(mergeGeometries(geos), mat); mm.castShadow = (mat as any).transparent !== true; mm.receiveShadow = true; g.add(mm); }
+}
+
+export interface CarVisualOpts { color?: number; beams?: boolean; static?: boolean; wheelRadius: number; wheelWidth: number; track: number; wheelbase: number; wheelY: number; frontOffset: number }
 const S = (pts: [number, number][]) => { const s = new THREE.Shape(); s.moveTo(...pts[0]); for (const p of pts.slice(1)) s.lineTo(...p); return s; };
 
 export class CarVisual {
@@ -51,8 +63,8 @@ export class CarVisual {
       const tl = new THREE.Mesh(new THREE.BoxGeometry(0.46, 0.1, 0.05), this.tail); tl.position.set(x * 0.6, 0.04, -2.43); this.body.add(tl);
       const mir = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.1, 0.12), this.paint); mir.position.set(x * 0.98, 0.25, 0.85); this.body.add(mir);
       const handle = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.025, 0.14), chrome); handle.position.set(x * 0.92, 0.07, -0.1); this.body.add(handle);
-      const beam = new THREE.SpotLight(0xfff1dc, 0, 70, 0.42, 0.55, 1.6); beam.position.set(x * 0.62, -0.06, 2.3); beam.target.position.set(x * 0.9, -0.6, 22);
-      this.body.add(beam, beam.target); this.beams.push(beam);
+      if (o.beams) { const beam = new THREE.SpotLight(0xfff1dc, 0, 70, 0.42, 0.55, 1.6); beam.position.set(x * 0.62, -0.06, 2.3); beam.target.position.set(x * 0.9, -0.6, 22);
+        this.body.add(beam, beam.target); this.beams.push(beam); }
     }
     // wheels: lathe tyre, rim with 5 spokes, brake disc
     const r = o.wheelRadius, w = o.wheelWidth;
@@ -73,14 +85,17 @@ export class CarVisual {
       void i; this.root.add(pivot); this.wheels.push({ pivot, spin });
     });
     this.root.add(this.body);
-    this.root.traverse((m) => { if ((m as THREE.Mesh).isMesh) { (m as THREE.Mesh).castShadow = true; } });
-    cab.castShadow = false;
+    // draw-call budget: one mesh per material for the body; wheels keep spin/pivot groups unless the car is static
+    mergeByMaterial(this.body); for (const w of this.wheels) mergeByMaterial(w.spin);
+    void cab;
   }
+  /** Parked/static cars: bake the wheels at rest into the body for minimal draw calls. */
+  freeze(suspension = 0.26) { for (const w of this.wheels) w.pivot.position.y = this.o.wheelY - suspension; mergeByMaterial(this.root); this.wheels = []; }
   setLights(on: boolean) { this.lightsOn = on; for (const b of this.beams) b.intensity = on ? 60 : 0; this.head.emissiveIntensity = on ? 6 : 0.4; }
   /** Apply interpolated physics state; wheel centre = hardpoint pushed down by suspension length. */
   update(s: VehState, braking: number) {
     this.root.position.set(s.pos[0], s.pos[1], s.pos[2]); this.root.quaternion.set(s.quat[0], s.quat[1], s.quat[2], s.quat[3]);
-    s.wheels.forEach((w, i) => { const v = this.wheels[i]; v.pivot.position.y = this.o.wheelY - w.susp; v.pivot.rotation.y = w.steer; v.spin.rotation.x = w.rot; });
+    s.wheels.forEach((w, i) => { const v = this.wheels[i]; if (!v) return; v.pivot.position.y = this.o.wheelY - w.susp; v.pivot.rotation.y = w.steer; v.spin.rotation.x = w.rot; });
     this.braking += (braking - this.braking) * 0.3;
     this.tail.emissiveIntensity = (this.lightsOn ? 2.2 : 0.4) + this.braking * 9;
   }

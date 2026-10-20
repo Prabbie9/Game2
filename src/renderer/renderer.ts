@@ -6,6 +6,7 @@ import { EffectComposer, RenderPass, EffectPass, BloomEffect, ToneMappingEffect,
 import { N8AOPostPass } from 'n8ao';
 import { CSM } from 'three/addons/csm/CSM.js';
 import { TIERS, type TierSettings } from './tiers';
+import { SSREffect } from './ssr';
 
 /** Exposure + simple filmic grade (lift/gamma/gain/saturation) applied before/after tonemapping. */
 class ExposureEffect extends Effect {
@@ -42,6 +43,7 @@ export class Renderer {
   camera = new THREE.PerspectiveCamera(60, 1, 0.1, 4000);
   csm!: CSM; ao!: N8AOPostPass; bloom!: BloomEffect; exposure = new ExposureEffect(); grade = new GradeEffect(); speedBlur = new SpeedBlurEffect();
   tone!: ToneMappingEffect; vignette!: VignetteEffect; noise!: NoiseEffect; ca!: ChromaticAberrationEffect; smaa!: SMAAEffect;
+  ssr!: SSREffect; ssrPass!: EffectPass;
   tier: TierSettings; materials = new Set<THREE.Material>(); resScale = 1; comfort = { motionBlur: true, lens: true, shake: true, reduceFlashing: false };
   stats = { drawCalls: 0, triangles: 0, textures: 0, geometries: 0 };
   constructor(public container: HTMLElement, tierName: keyof typeof TIERS = 'high') {
@@ -62,6 +64,7 @@ export class Renderer {
     this.ao = new N8AOPostPass(this.scene, this.camera, 1, 1);
     Object.assign(this.ao.configuration, { aoRadius: 1.6, distanceFalloff: 0.6, intensity: 2.2, aoSamples: 16, denoiseSamples: 8, denoiseRadius: 10, halfRes: true, gammaCorrection: false });
     this.ao.enabled = this.tier.ao; c.addPass(this.ao);
+    this.ssr = new SSREffect(this.camera); this.ssrPass = new EffectPass(this.camera, this.ssr); this.ssrPass.enabled = this.tier.ssr; c.addPass(this.ssrPass);
     this.bloom = new BloomEffect({ intensity: 0.85, luminanceThreshold: 0.9, luminanceSmoothing: 0.25, mipmapBlur: true, radius: 0.72, levels: 7 });
     this.tone = new ToneMappingEffect({ mode: ToneMappingMode.AGX });
     this.vignette = new VignetteEffect({ darkness: 0.42, offset: 0.32 });
@@ -89,7 +92,7 @@ export class Renderer {
   }
   /** Register a lit material for cascaded shadows (idempotent). */
   setupMaterial<M extends THREE.Material>(m: M): M { if (!this.materials.has(m)) { this.materials.add(m); this.hook(m); } return m; }
-  setTier(name: keyof typeof TIERS) { this.tier = TIERS[name]; this.ao.enabled = this.tier.ao; this.buildCSM(); this.resize(); }
+  setTier(name: keyof typeof TIERS) { this.tier = TIERS[name]; this.ao.enabled = this.tier.ao; this.ssrPass.enabled = this.tier.ssr; this.buildCSM(); this.resize(); }
   resize() {
     const w = this.container.clientWidth || innerWidth, h = this.container.clientHeight || innerHeight;
     const pr = Math.min(devicePixelRatio, this.tier.maxPixelRatio) * this.tier.renderScale * this.resScale;
@@ -97,7 +100,7 @@ export class Renderer {
     this.camera.aspect = w / h; this.camera.updateProjectionMatrix(); this.csm?.updateFrustums();
   }
   render(dt: number) {
-    this.csm.update();
+    this.csm.update(); this.camera.updateMatrixWorld(); this.ssr.update();
     this.renderer.info.reset();
     this.composer.render(dt);
     const i = this.renderer.info; this.stats.drawCalls = i.render.calls; this.stats.triangles = i.render.triangles; this.stats.textures = i.memory.textures; this.stats.geometries = i.memory.geometries;

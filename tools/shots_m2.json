@@ -1,0 +1,45 @@
+[
+ {
+  "url": "index.html?shot=m2_golden&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m2_golden.png",
+  "timeout": 240000,
+  "eval": "HARBOURLINE_DEBUG.stats()"
+ },
+ {
+  "url": "index.html?shot=m2_overcast&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m2_overcast.png",
+  "timeout": 240000
+ },
+ {
+  "url": "index.html?shot=m2_night_wet&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m2_night_wet.png",
+  "timeout": 240000
+ },
+ {
+  "url": "index.html?shot=m2_tower&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m2_tower.png",
+  "timeout": 240000
+ },
+ {
+  "url": "index.html?shot=m2_intersection&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m2_intersection.png",
+  "timeout": 240000
+ },
+ {
+  "url": "index.html?shot=m2_hero_car&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m2_hero_car.png",
+  "timeout": 240000
+ },
+ {
+  "url": "index.html?shot=m2_hero_char&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m2_hero_char.png",
+  "timeout": 240000
+ }
+]

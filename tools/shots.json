@@ -1,8 +1,16 @@
 [
- {"url": "index.html?shot=m1_golden&tier=high", "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready", "out": "shots/latest/m1_golden.png", "eval": "HARBOURLINE_DEBUG.stats()"},
- {"url": "index.html?shot=m1_overcast&tier=high", "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready", "out": "shots/latest/m1_overcast.png"},
- {"url": "index.html?shot=m1_rain_night&tier=high", "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready", "out": "shots/latest/m1_rain_night.png"},
- {"url": "index.html?shot=m1_speed&tier=high", "w": 960, "h": 540, "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready", "out": "shots/latest/m1_speed.png", "eval": "HARBOURLINE_DEBUG.stats()"},
- {"url": "index.html?shot=m1_drift&tier=high", "w": 960, "h": 540, "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready", "out": "shots/latest/m1_drift.png"},
- {"url": "tests/delivery/index.html", "ready": "window.DELIVERY&&window.DELIVERY.done"}
+ {
+  "url": "index.html?shot=m2_golden&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "eval": "HARBOURLINE_DEBUG.stats()",
+  "timeout": 240000
+ },
+ {
+  "url": "index.html?shot=m1_speed&tier=low",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready"
+ },
+ {
+  "url": "tests/delivery/index.html",
+  "ready": "window.DELIVERY&&window.DELIVERY.done"
+ }
 ]

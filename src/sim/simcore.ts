@@ -34,7 +34,7 @@ export class SimCore {
   }
   addDynamic(id: number, d: DynamicDesc) {
     const R = this.RAPIER;
-    const rb = this.world.createRigidBody(R.RigidBodyDesc.dynamic().setTranslation(...d.pos).setRotation(d.rot ? { x: d.rot[0], y: d.rot[1], z: d.rot[2], w: d.rot[3] } : { x: 0, y: 0, z: 0, w: 1 }).setCanSleep(true));
+    const rb = this.world.createRigidBody(R.RigidBodyDesc.dynamic().setTranslation(...d.pos).setRotation(d.rot ? { x: d.rot[0], y: d.rot[1], z: d.rot[2], w: d.rot[3] } : { x: 0, y: 0, z: 0, w: 1 }).setCanSleep(true).setAngularDamping(0.6).setLinearDamping(0.05));
     const cd = d.kind === 'box' ? R.ColliderDesc.cuboid(...d.half) : d.kind === 'ball' ? R.ColliderDesc.ball(d.half[0]) : R.ColliderDesc.cylinder(d.half[1], d.half[0]);
     cd.setMass(d.mass).setFriction(d.friction ?? 0.7).setRestitution(d.restitution ?? 0.1);
     this.world.createCollider(cd, rb);

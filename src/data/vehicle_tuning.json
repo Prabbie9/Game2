@@ -9,11 +9,11 @@
     "sedan": {
       "label": "Sedan",
       "base": {
-        "mass": 1450, "halfExtents": [0.88, 0.42, 2.2], "comOffset": [0, -0.32, 0.05],
-        "wheelRadius": 0.33, "wheelWidth": 0.22, "track": 1.56, "wheelbase": 2.72, "wheelY": -0.18, "frontOffset": 0.0,
+        "model": "kiri", "mass": 1350, "halfExtents": [0.848, 0.42, 2.145], "comOffset": [0, -0.32, 0.05],
+        "wheelRadius": 0.2949, "wheelWidth": 0.197, "track": 1.467, "wheelbase": 2.537, "wheelY": -0.18, "frontOffset": 0.097,
         "suspRest": 0.34, "suspTravel": 0.24, "suspStiffness": 28, "suspCompression": 2.6, "suspRelaxation": 2.9, "suspMaxForce": 60000,
         "frictionSlip": 2.0, "rearGrip": 0.96, "sideStiffness": 1.0,
-        "powerW": 125000, "maxDriveForce": 6600, "driveSplitFront": 0.0, "brakeForce": 52, "handbrakeForce": 120, "handbrakeRearGrip": 0.38, "driftRearGrip": 0.5, "driftAngle": 30, "driftControl": 0.8,
+        "powerW": 116000, "maxDriveForce": 6600, "driveSplitFront": 0.0, "brakeForce": 52, "handbrakeForce": 120, "handbrakeRearGrip": 0.38, "driftRearGrip": 0.5, "driftAngle": 30, "driftControl": 0.8,
         "dragCdA": 0.62, "rollResist": 160, "downforce": 0.35, "topSpeed": 58,
         "steerMax": 0.58, "steerMinAtSpeed": 0.14, "steerSpeedRef": 40, "steerRate": 3.2, "steerReturn": 5.0,
         "yawAssist": 0.5, "countersteer": 0.75, "antiFlip": 1.0, "airDamp": 0.6, "boostForce": 3500, "boostSeconds": 4,
