@@ -14,7 +14,7 @@ export class Pedestrian {
     const buf = await loadBin(`chars/${this.model}.glb`);
     const gltf = await new GLTFLoader().parseAsync(buf, '');
     const ch = gltf.scene; ch.traverse((o) => { const m = o as THREE.Mesh; if (m.isMesh) { m.castShadow = true; m.receiveShadow = true; const mats = Array.isArray(m.material) ? m.material : [m.material];
-      for (const mt of mats) { const s = mt as THREE.MeshStandardMaterial; if (s.isMeshStandardMaterial) { s.roughness = Math.max(0.55, s.roughness); this.R.setupMaterial(s); } } } });
+      for (const mt of mats) { const s = mt as THREE.MeshStandardMaterial; if (s.isMeshStandardMaterial) { s.roughness = Math.max(0.55, s.roughness); s.emissive?.set(0); s.emissiveMap = null; this.R.setupMaterial(s); } } } });
     const rig = rigOf(ch); const core = await loadBundle('core');
     const walk = makeClip(core, this.walkKey, rig, { inPlaceXZ: true })!, idle = makeClip(core, this.idleKey, rig, { inPlaceXZ: true })!;
     // speed-match: clip root speed (metres for a 0.99 m hips height) scaled to this character's leg length

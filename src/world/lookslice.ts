@@ -20,14 +20,15 @@ function worldUV(g: THREE.BufferGeometry, s: number) { const p = g.attributes.po
 const rnd = (s: number) => () => ((s = (s * 16807) % 2147483647) / 2147483647);
 const merge = (gs: THREE.BufferGeometry[]) => mergeGeometries(gs.map((g) => (g.index ? g.toNonIndexed() : g)));
 
-export interface Slice { group: THREE.Group; statics: StaticDesc[]; colliders: THREE.Object3D[]; update: (dt: number, night: number) => void; parked: SourcedCar[]; spawn: [number, number, number]; phase: (axis: number) => 'g' | 'a' | 'r' }
+export interface Slice { group: THREE.Group; statics: StaticDesc[]; colliders: THREE.Object3D[]; update: (dt: number, night: number) => void; parked: SourcedCar[]; spawn: [number, number, number]; phase: (axis: number) => 'g' | 'a' | 'r'; steamVents: THREE.Vector3[] }
 
+let skyMat: THREE.MeshStandardMaterial | null = null;
 export function buildLookSlice(R: Renderer, pool: LightPool): Slice {
   const group = new THREE.Group(); const statics: StaticDesc[] = []; const colliders: THREE.Object3D[] = []; const r = rnd(42);
   const mesh = (g: THREE.BufferGeometry, m: THREE.Material, cast = true, collide = false) => { const o = new THREE.Mesh(g, m); o.castShadow = cast; o.receiveShadow = true; group.add(o); if (collide) colliders.push(o); return o; };
   // --- ground: one asphalt slab for the whole slice; sidewalks are raised blocks on top
   const asphalt = R.setupMaterial(pbr('asphalt', { antiTile: true, grime: 0.55, puddles: 1, normalScale: 1.1 }, 'road'));
-  mesh(planeUV(new THREE.PlaneGeometry(HALF * 2, HALF * 2).rotateX(-Math.PI / 2), 4.5), asphalt, false, true);
+  mesh(planeUV(new THREE.PlaneGeometry(1400, 1400).rotateX(-Math.PI / 2), 4.5), asphalt, false, true); // extends under the distant skyline
   statics.push({ kind: 'box', half: [HALF + 300, 0.5, HALF + 300], pos: [0, -0.5, 0], friction: 0.9 });
   const walkMat = R.setupMaterial(pbr('sidewalk', { antiTile: true, grime: 0.6, puddles: 0.45 }, 'walk'));
   const kerbMat = R.setupMaterial(pbr('kerb', { grime: 0.5, tint: 0xcfcac2, puddles: 0.2 }, 'kerbstone'));
@@ -61,10 +62,10 @@ export function buildLookSlice(R: Renderer, pool: LightPool): Slice {
   for (const [x, z] of [[3.5, 30], [-4, -45], [40, -3.5], [-60, 4], [2, 70], [-3, -82]]) { const g = new THREE.CylinderGeometry(0.42, 0.42, 0.02, 24); g.translate(x, 0.008, z); hardware.push(g); }
   for (let t = ROAD + 10; t < HALF; t += 22) for (const s of [-1, 1]) for (const ax of [0, 1]) { const [x, z] = ax ? [s * t, s * (ROAD - 0.35)] : [s * (ROAD - 0.35), s * t]; hardware.push(box(ax ? 0.9 : 0.4, 0.02, ax ? 0.4 : 0.9, x, 0.008, z)); }
   mesh(merge(hardware), iron, false);
-  const tar = new THREE.MeshStandardMaterial({ color: 0x0f1012, roughness: 0.55, transparent: true, opacity: 0.55, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -3 });
+  const tar = new THREE.MeshStandardMaterial({ color: 0x1c1d1f, roughness: 0.45, transparent: true, opacity: 0.22, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -3 });
   R.setupMaterial(tar);
   const tars: THREE.BufferGeometry[] = [];
-  for (let i = 0; i < 26; i++) { const ax = r() < 0.5; const t = (r() - 0.5) * HALF * 1.8, o = (r() - 0.5) * ROAD * 1.6; const g = new THREE.CircleGeometry(0.6 + r() * 1.6, 7 + Math.floor(r() * 4)).rotateX(-Math.PI / 2); g.scale(1 + r() * 2, 1, 0.5 + r()); g.rotateY(r() * 3); g.translate(ax ? t : o, 0.006, ax ? o : t); tars.push(g); }
+  for (let i = 0; i < 26; i++) { const ax = r() < 0.5; const t = (r() - 0.5) * HALF * 1.8, o = (r() - 0.5) * ROAD * 1.6; const g = new THREE.CircleGeometry(0.4 + r() * 0.8, 7 + Math.floor(r() * 4)).rotateX(-Math.PI / 2); g.scale(1 + r() * 1.5, 1, 0.4 + r() * 0.6); g.rotateY(r() * 3); g.translate(ax ? t : o, 0.006, ax ? o : t); tars.push(g); }
   mesh(merge(tars), tar, false);
   // --- buildings on the four corner blocks
   const specs: BuildingSpec[] = [
@@ -111,7 +112,7 @@ export function buildLookSlice(R: Renderer, pool: LightPool): Slice {
     const p = new THREE.CylinderGeometry(0.09, 0.13, 7.5, 10); p.translate(x, KERB + 3.75, z); poles.push(p);
     const arm = new THREE.CylinderGeometry(0.05, 0.05, 2.2, 6); arm.rotateZ(Math.PI / 2); arm.rotateY(Math.atan2(-dz, dx)); arm.translate(x + dx * 1.1, KERB + 7.4, z + dz * 1.1); poles.push(arm);
     const h = new THREE.BoxGeometry(0.7, 0.14, 0.32); h.rotateY(Math.atan2(-dz, dx)); h.translate(x + dx * 2.1, KERB + 7.3, z + dz * 2.1); heads.push(h);
-    pool.add({ pos: new THREE.Vector3(x + dx * 2.1, KERB + 6.9, z + dz * 2.1), color: new THREE.Color(1, 0.8, 0.56), intensity: 160, distance: 26, nightOnly: true });
+    pool.add({ pos: new THREE.Vector3(x + dx * 2.1, KERB + 6.9, z + dz * 2.1), color: new THREE.Color(1, 0.8, 0.56), intensity: 260, distance: 30, nightOnly: true });
   };
   for (let t = ROAD + 12; t < HALF; t += 24) for (const s of [-1, 1]) { lampAt(s * (ROAD + 0.9), t * s, -s, 0); lampAt(-t * s, s * (ROAD + 0.9), 0, -s); }
   mesh(merge(poles), poleMat); const headMesh = mesh(merge(heads), headMat, false);
@@ -146,8 +147,8 @@ export function buildLookSlice(R: Renderer, pool: LightPool): Slice {
     const tr = new THREE.CylinderGeometry(0.14, 0.22, 4.2, 8); tr.translate(x, KERB + 2.1, z); trunks.push(tr);
     const cx = x, cy = KERB + 5.3, cz = z;
     for (let k = 0; k < 3; k++) { const b = new THREE.IcosahedronGeometry(1.0 + r() * 0.5, 1); b.translate(cx + (r() - 0.5) * 1.5, cy + (r() - 0.5) * 1.2, cz + (r() - 0.5) * 1.5); innerG.push(b); }
-    for (let k = 0; k < 46; k++) { const card = new THREE.PlaneGeometry(1.3, 1.3); const dir = new THREE.Vector3(r() - 0.5, (r() - 0.35) * 0.9, r() - 0.5).normalize();
-      card.lookAt(dir); const d = 1.4 + r() * 1.3; card.translate(cx + dir.x * d * 1.15, cy + dir.y * d * 0.85, cz + dir.z * d * 1.15); foliage.push(card);
+    for (let k = 0; k < 70; k++) { const card = new THREE.PlaneGeometry(1.1, 1.1); const dir = new THREE.Vector3(r() - 0.5, (r() - 0.35) * 0.9, r() - 0.5).normalize();
+      card.rotateX(r() * Math.PI); card.rotateY(r() * Math.PI * 2); card.rotateZ(r() * Math.PI); const d = Math.sqrt(r()) * 2.5; card.translate(cx + dir.x * d * 1.1, cy + dir.y * d * 0.8, cz + dir.z * d * 1.1); foliage.push(card);
       if (k % 9 === 0) { const br = new THREE.CylinderGeometry(0.03, 0.06, d, 5); br.translate(0, d / 2, 0); br.lookAt(dir); br.rotateX(Math.PI / 2); br.translate(cx, cy - 0.6, cz); trunks.push(br); } }
     const pit = box(1.4, 0.02, 1.4, x, KERB + 0.011, z); trunks.push(pit);
   }
@@ -169,11 +170,21 @@ export function buildLookSlice(R: Renderer, pool: LightPool): Slice {
   // --- parked cars along the kerbs
   const parked: SourcedCar[] = []; const paints = [0x1f3e66, 0x8f8f92, 0x1b1b1d, 0xd8d6cf, 0x5b1d24, 0x2f4b37, 0xb08d3c];
   for (let t = ROAD + 22; t < HALF - 8; t += 7.2) for (const s of [-1, 1]) { if (r() < 0.45) continue;
-    const c = new SourcedCar(R, 'kiri', { paint: paints[Math.floor(r() * paints.length)], frozen: true }); const along = r() < 0.5;
+    const c = new SourcedCar(R, 'kiri', { paint: paints[Math.floor(r() * paints.length)], frozen: true, lod: 1 }); const along = r() < 0.5;
     const yaw = along ? (s > 0 ? Math.PI : 0) : (s > 0 ? -Math.PI / 2 : Math.PI / 2);
     c.root.position.set(along ? s * (ROAD - 1.2) : t * s, 0.725, along ? t * -s : s * (ROAD - 1.2)); c.root.rotation.y = yaw;
     group.add(c.root); parked.push(c); c.load().catch((e) => console.warn('parked car', e?.message));
     statics.push({ kind: 'box', half: [0.9, 0.6, 2.3], pos: [c.root.position.x, 0.7, c.root.position.z], rot: [0, Math.sin(yaw / 2), 0, Math.cos(yaw / 2)], friction: 0.4 }); }
+  // distant skyline: ring of simplified towers (window-grid emissive) so streets end in a city, not a fog void
+  { const wc = document.createElement('canvas'); wc.width = 64; wc.height = 128; const wg = wc.getContext('2d')!; wg.fillStyle = '#000'; wg.fillRect(0, 0, 64, 128);
+    for (let y = 0; y < 32; y++) for (let x = 0; x < 8; x++) if (r() < 0.4) { wg.fillStyle = `hsl(${32 + r() * 20},60%,${35 + r() * 30}%)`; wg.fillRect(x * 8 + 2, y * 4 + 1, 4, 2); }
+    const wt = new THREE.CanvasTexture(wc); wt.wrapS = wt.wrapT = THREE.RepeatWrapping; wt.colorSpace = THREE.SRGBColorSpace;
+    skyMat = R.setupMaterial(new THREE.MeshStandardMaterial({ color: 0x7e8288, roughness: 0.7, metalness: 0.1, emissive: 0xffd8a8, emissiveMap: wt, emissiveIntensity: 0 }));
+    const gs: THREE.BufferGeometry[] = [];
+    for (let i = 0; i < 90; i++) { const a = r() * Math.PI * 2, d = 170 + r() * 380, w = 18 + r() * 26, h = 20 + r() * (d > 300 ? 140 : 80);
+      const g = new THREE.BoxGeometry(w, h, w * (0.7 + r() * 0.6)); const uv = g.attributes.uv as THREE.BufferAttribute; for (let k = 0; k < uv.count; k++) uv.setXY(k, uv.getX(k) * w / 16, uv.getY(k) * h / 16);
+      g.rotateY(r() * Math.PI); g.translate(Math.cos(a) * d, h / 2, Math.sin(a) * d); gs.push(g); }
+    const sky = new THREE.Mesh(merge(gs), skyMat); sky.castShadow = false; sky.receiveShadow = true; group.add(sky); }
   R.scene.add(group);
   // traffic light cycle: 14 s per axis (green 10, amber 3, all-red 1)
   let tlT = 0;
@@ -181,8 +192,8 @@ export function buildLookSlice(R: Renderer, pool: LightPool): Slice {
   const update = (dt: number, night: number) => {
     tlT = (tlT + dt) % 28;
     for (const l of tlLamps) l.mat.emissiveIntensity = phase(l.axis) === l.col ? 9 : 0.08;
-    headMat.emissiveIntensity = night * 16; for (const sm of signMat) sm.emissiveIntensity = 0.7 + night * 4;
+    headMat.emissiveIntensity = night * 16; if (skyMat) skyMat.emissiveIntensity = night * 1.6; for (const sm of signMat) sm.emissiveIntensity = 0.7 + night * 4;
     void headMesh;
   };
-  return { group, statics, colliders, update, parked, spawn: [3.8, 1.2, -60], phase };
+  return { group, statics, colliders, update, parked, spawn: [3.8, 1.2, -60], phase, steamVents: [new THREE.Vector3(-4, 0.05, -45), new THREE.Vector3(3.5, 0.05, 30)] };
 }

@@ -9,9 +9,16 @@ import { mergeByMaterial } from './carvisual';
 
 export interface VehicleMeta { name: string; length: number; width: number; height: number; wheels: { name: string; center: number[]; radius: number; width: number }[]; parts: string[]; faces: number }
 const models = new Map<string, Promise<{ scene: THREE.Group; meta: VehicleMeta }>>();
-function loadModel(name: string) {
-  if (!models.has(name)) models.set(name, Promise.all([loadBin(`vehicles/${name}.glb`), loadJSON<VehicleMeta>(`vehicles/${name}.json`)]).then(async ([buf, meta]) => ({ scene: (await new GLTFLoader().parseAsync(buf, '')).scene, meta })));
-  return models.get(name)!;
+let _contact: THREE.MeshBasicMaterial | null = null;
+function contactMat() {
+  if (_contact) return _contact; const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d')!;
+  const gr = g.createRadialGradient(32, 32, 4, 32, 32, 32); gr.addColorStop(0, 'rgba(0,0,0,0.75)'); gr.addColorStop(0.6, 'rgba(0,0,0,0.45)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = gr; g.fillRect(0, 0, 64, 64);
+  return (_contact = new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(c), transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4 }));
+}
+function loadModel(name: string, lod = 0) {
+  const key = name + lod;
+  if (!models.has(key)) models.set(key, Promise.all([loadBin(`vehicles/${name}${lod ? '_lod' + lod : ''}.glb`), loadJSON<VehicleMeta>(`vehicles/${name}.json`)]).then(async ([buf, meta]) => ({ scene: (await new GLTFLoader().parseAsync(buf, '')).scene, meta })));
+  return models.get(key)!;
 }
 /** Physics geometry for a prepped model (feeds the vehicle tuning: track, wheelbase, radius, chassis box). */
 export function geometryFromMeta(m: VehicleMeta, wheelY = -0.18) {
@@ -24,9 +31,9 @@ export class SourcedCar {
   root = new THREE.Group(); body = new THREE.Group(); wheels: { pivot: THREE.Group; spin: THREE.Group }[] = []; ready = false;
   lights: { head: THREE.MeshStandardMaterial[]; brake: THREE.MeshStandardMaterial[]; reverse: THREE.MeshStandardMaterial[]; blink: THREE.MeshStandardMaterial[] } = { head: [], brake: [], reverse: [], blink: [] };
   beams: THREE.SpotLight[] = []; braking = 0; lightsOn = false; geo!: ReturnType<typeof geometryFromMeta>; restSusp = 0.25;
-  constructor(public R: Renderer, public model: string, public opts: { paint?: number; beams?: boolean; frozen?: boolean } = {}) { this.root.add(this.body); }
+  constructor(public R: Renderer, public model: string, public opts: { paint?: number; beams?: boolean; frozen?: boolean; lod?: number } = {}) { this.root.add(this.body); }
   async load() {
-    const { scene, meta } = await loadModel(this.model); const R = this.R; this.geo = geometryFromMeta(meta);
+    const { scene, meta } = await loadModel(this.model, this.opts.lod ?? 0); const R = this.R; this.geo = geometryFromMeta(meta);
     const src = scene.clone(true); const mats = new Map<THREE.Material, THREE.Material>();
     const conv = (m: THREE.MeshStandardMaterial, nodeName: string) => {
       const key = m; const role = /glass|window|windshield/i.test(nodeName) ? 'glass' : /bodymat/i.test(m.name + nodeName) && !/inner|bottom/i.test(nodeName) ? 'paint'
@@ -47,6 +54,8 @@ export class SourcedCar {
       pivot.position.set(w.center[0], w.center[1] + bodyY, w.center[2]); mesh.position.set(0, 0, 0); spin.add(mesh); pivot.add(spin); this.root.add(pivot); this.wheels.push({ pivot, spin });
     }
     src.position.y = bodyY; this.body.add(src);
+    // contact shadow: soft dark blob under the chassis grounds the car where cascaded shadows are too coarse
+    const blob = new THREE.Mesh(new THREE.PlaneGeometry(meta.width * 1.25, meta.length * 1.12), contactMat()); blob.rotation.x = -Math.PI / 2; blob.position.y = bodyY + 0.02; blob.renderOrder = 2; this.body.add(blob);
     if (this.opts.beams) for (const x of [-1, 1]) { const b = new THREE.SpotLight(0xfff1dc, 0, 70, 0.42, 0.55, 1.6); b.position.set(x * 0.6, 0.6 + bodyY, meta.length / 2 - 0.1); b.target.position.set(x * 0.9, -0.6 + bodyY, 22); this.body.add(b, b.target); this.beams.push(b); }
     if (this.opts.frozen) { mergeByMaterial(this.root); this.wheels = []; }
     else mergeByMaterial(this.body);

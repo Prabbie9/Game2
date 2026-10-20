@@ -1,13 +1,14 @@
 # PROGRESS
-NEXT STEP: M2 — source CC0 PBR sets (ambientCG: asphalt, concrete, brick, painted metal) + one Poly Haven HDRI; build tools/textures.mjs (resize, KTX2 or webp) and the look-slice city block (src/world/lookslice.ts).
+NEXT STEP: M3 — write src/world/citygen.ts (seeded road graph + lots for Downtown, 128 m chunks) and src/world/streaming.ts (chunk build in a worker, LOD), reusing buildings.ts/lookslice.ts street kit; then fix GRAPHICS_BACKLOG item 0.
 
-STEPS_USED: ~150 (M0 ~80, M1 ~70)   DRIVE_CALLS_USED: 103 / 300
-MILESTONE: M1 done (checkpoint 2)
+STEPS_USED: ~345 (M0 ~80, M1 ~75, M2 ~190)   DRIVE_CALLS_USED: 103 / 300
+MILESTONE: M2 done (checkpoint 3) — look gate BELOW target (5.3/7), carried into M3
 
 ## Milestones
 - M0 Setup: DONE. Drive indexed (846 clips, 23 chars), wave 1 (82 clips) fetched + ingested (2.0MB bundles), Sketchfab working, Artifact route published, renderer = WebGL + postprocessing.
 
 - M1 Vehicle feel grey-box: DONE. Rapier ray-cast vehicle in a worker + arcade assists (drift state + angle limiter, yaw assist, countersteer, anti-flip, self-right), chase cam, tuning panel (K) with presets + copy, synthesized audio, rain/night mood test. Fun gate proxies pass for all presets (PLAYTEST.md).
+- M2 Look slice: DONE with shortfall. PBR KTX2 library, building kit + interior mapping, intersection slice, SSR, sky dome, scene probe, sourced car via prep tool (Kiri '86), Mixamo peds, rest test (props pass).
 
 ## DECISIONS
 - Renderer (a) WebGL2 + pmndrs postprocessing (see DESIGN.md).
@@ -16,6 +17,9 @@ MILESTONE: M1 done (checkpoint 2)
 - Known-good build = commit hash in builds/known-good/COMMIT (no build outputs in git; rebuild with npm run build).
 - Physics worker protocol: main posts 'step n' with inputs, worker replies with transferable snapshot; main interpolates. Weapon/IK raycasts will use a main-thread query world of statics (M4/M5).
 - Shot mode simulates warm-up frames without rendering (SwiftShader is slow) and renders the last 4 frames at 1/30 s fixed dt.
+- Artifact build ships 1k textures only (download size); 2k on other routes for High/Ultra.
+- Sourced vehicle family: DanielZhabotinsky's CC-BY low-poly 80s cars (Kiri, Fairheaven, Negotiator, Riverside, Illinois, Canyon taxi, Cop cruiser) for cohesion.
+- SSR pass must run BEFORE N8AO (N8AO drops later pass output).
 - Sprint uses "Running Fast" (Drive "Sprinting" is a 2-key pose).
 
 ## MISSING CLIPS

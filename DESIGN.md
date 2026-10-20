@@ -59,3 +59,13 @@ renderer, lighting, materials, world, streaming, vehicles, damage, camera, chara
 
 ## Cast (M0)
 - Drive characters unreachable (size). Stand-ins: three.js-repo Mixamo characters (Michelle = civilian female, Soldier = tactical; Xbot = test mannequin only, sci-fi look so never in the cast). M4: source 12+ modern realistic Mixamo-rigged humanoids from Sketchfab (verify `mixamorig` bones), palette variants to 40+ looks.
+
+## M2 look slice (architecture)
+- Materials: src/materials/pbr.ts — KTX2 sets in assets/processed/tex/<slot>/{albedo,normal,orm}_{2k,1k}.ktx2 (tools/fetch_textures.py + tools/textures.py; ETC1S albedo/ORM, UASTC+RDO normals). High/Ultra load 2k, Medium/Low 1k. World-space shader patch: IQ anti-tiling, fbm grime, wet response + puddles + rain ripples (shared uniforms in WORLD_UNIFORMS).
+- Buildings: src/world/buildings.ts — facades with real depth (piers/spandrels/recessed glass), cornice, parapet, rooftop clutter, shopfronts + awnings + signs, curtain-wall towers. Windows/shops use interior mapping (rooms, blinds, furniture silhouettes, shelves, lights at night) via emissive.
+- Street: src/world/lookslice.ts — 16 m roads, 15 cm kerbs, paint, zebras, manholes/drains/tar, lamps (pooled lights), traffic lights (28 s cycle), leaf-card trees with wind, furniture, parked sourced cars (LOD1, frozen/merged).
+- Reflections: SSR (src/renderer/ssr.ts) for wet up-facing surfaces (no G-buffer: depth + derivatives + world-space puddle mask); scene cube probe at the slice centre prefiltered by PMREM, re-baked when streaming settles and on TOD/weather change.
+- Sky: Preetham + SkyDome overlay (fbm clouds lit by sun, stars, moon, city glow).
+- Vehicles: tools/vehicle_prep.py (Blender): flatten, detect wheels (names/corners), orient +Z, scale, pivots, part names, LOD1, WebP 1024 textures, JSON meta -> src/vehicles/sourced.ts. First model: Kiri '86 (CC-BY, DanielZhabotinsky) replaces the procedural sedan (better look; passes the vehicle gate after geometry re-tune). Procedural CarVisual remains the fallback.
+- Animation runtime: src/animation/clips.ts binds bundles by bare bone name and retargets the hips into the rig's parent space (handles rotated/cm armatures like three.js Michelle/Soldier).
+- Shots wait for `pendingLoads()==0` before capture; shot mode renders only the final frames.

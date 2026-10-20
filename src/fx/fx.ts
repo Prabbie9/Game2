@@ -14,9 +14,9 @@ export class Rain {
         void main(){ vec3 seed = instanceMatrix[3].xyz; float box = 36.0;
           vec3 p = seed; p.y = mod(seed.y - uTime * 11.0, 22.0) - 4.0; p.xz += uWind * (22.0 - p.y) * 0.05;
           p.xz = mod(p.xz - uCam.xz + box * 0.5, box) - box * 0.5 + uCam.xz; p.y += uCam.y - 6.0;
-          vec3 toCam = normalize(cameraPosition - p); vec3 up = normalize(vec3(-uWind.x * 0.05, 1.0, -uWind.y * 0.05)); vec3 side = normalize(cross(up, toCam));
-          vec3 wp = p + side * position.x + up * position.y;
-          float d = length(cameraPosition - wp); vA = smoothstep(36.0, 4.0, d) * smoothstep(0.3, 1.5, d);
+          float lenK = 0.55 + fract(seed.x * 7.13 + seed.z * 3.1) * 0.9; vec3 toCam = normalize(cameraPosition - p); vec3 up = normalize(vec3(-uWind.x * 0.05, 1.0, -uWind.y * 0.05)); vec3 side = normalize(cross(up, toCam));
+          vec3 wp = p + side * position.x + up * position.y * lenK;
+          float d = length(cameraPosition - wp); vA = smoothstep(36.0, 4.0, d) * smoothstep(0.3, 1.5, d) * (0.4 + 0.6 * fract(seed.x * 13.7 + seed.y));
           gl_Position = projectionMatrix * viewMatrix * vec4(wp, 1.0); }`,
       fragmentShader: `uniform float uRain; uniform float uBright; varying float vA; void main(){ gl_FragColor = vec4(vec3(0.6, 0.65, 0.72) * uBright, vA * 0.15 * uRain); }`,
     });

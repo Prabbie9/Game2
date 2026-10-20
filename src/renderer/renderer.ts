@@ -62,13 +62,13 @@ export class Renderer {
     const c = this.composer; c.removeAllPasses();
     c.addPass(new RenderPass(this.scene, this.camera));
     this.ao = new N8AOPostPass(this.scene, this.camera, 1, 1);
-    Object.assign(this.ao.configuration, { aoRadius: 1.6, distanceFalloff: 0.6, intensity: 2.2, aoSamples: 16, denoiseSamples: 8, denoiseRadius: 10, halfRes: true, gammaCorrection: false });
-    this.ao.enabled = this.tier.ao; c.addPass(this.ao);
-    this.ssr = new SSREffect(this.camera); this.ssrPass = new EffectPass(this.camera, this.ssr); this.ssrPass.enabled = this.tier.ssr; c.addPass(this.ssrPass);
+    Object.assign(this.ao.configuration, { aoRadius: 2.4, distanceFalloff: 1.0, intensity: 3.6, aoSamples: 16, denoiseSamples: 8, denoiseRadius: 10, halfRes: true, gammaCorrection: false });
+    this.ssr = new SSREffect(this.camera); this.ssrPass = new EffectPass(this.camera, this.ssr); this.ssrPass.enabled = this.tier.ssr; c.addPass(this.ssrPass); // before N8AO: passes after N8AO lose its output chain
+    this.ao.enabled = this.tier.ao && !new URLSearchParams(location.search).has('noao'); c.addPass(this.ao);
     this.bloom = new BloomEffect({ intensity: 0.85, luminanceThreshold: 0.9, luminanceSmoothing: 0.25, mipmapBlur: true, radius: 0.72, levels: 7 });
     this.tone = new ToneMappingEffect({ mode: ToneMappingMode.AGX });
     this.vignette = new VignetteEffect({ darkness: 0.42, offset: 0.32 });
-    this.noise = new NoiseEffect({ blendFunction: BlendFunction.OVERLAY, premultiply: false }); this.noise.blendMode.opacity.value = 0.06;
+    this.noise = new NoiseEffect({ blendFunction: BlendFunction.OVERLAY, premultiply: false }); this.noise.blendMode.opacity.value = 0.025;
     this.ca = new ChromaticAberrationEffect({ offset: new THREE.Vector2(0.0006, 0.0004), radialModulation: true, modulationOffset: 0.35 });
     this.smaa = new SMAAEffect({ preset: SMAAPreset.HIGH });
     c.addPass(new EffectPass(this.camera, this.bloom, this.speedBlur));

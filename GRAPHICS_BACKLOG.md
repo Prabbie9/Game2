@@ -1,6 +1,19 @@
-# GRAPHICS BACKLOG (ordered by visual impact)
-1. Build the lighting stack: CSM 4 cascades, AgX + per-TOD LUT, auto-exposure, sky-tinted height fog (M1/M2).
-2. PBR asphalt/concrete/brick sets from ambientCG/Poly Haven with wet response and puddles (M2).
-3. Custom SSR for wet roads + probe IBL fallback (M2).
-4. Night lighting: pooled streetlights, emissive windows with interior mapping, car lights (M2).
-5. Rain particles, splashes, lens droplets (M1 mood test, polished M2).
+# GRAPHICS BACKLOG (ordered by visual impact; done items move to the bottom)
+
+## Open
+0. (M2 look gate shortfall, avg 5.3 vs 7) — fix first in M3: (a) density: clutter/decals/signage/litter, more traffic+peds, real streamed blocks instead of skyline boxes; (b) facade materials: edge wear, window variety, trims with grime masks; (c) tower glass: stronger probe reflections per block, panel variation; (d) night sky + light shafts; (e) effects in M5.
+1. Characters: Michelle/Soldier stand-ins are stylised; need realistic Mixamo-rigged humans (Sketchfab, M4) with skin SSS fake, hair, cloth variation.
+2. Vegetation: leaf-card trees are serviceable; source proper tree models (Sketchfab/Poly Haven CC0) with alpha cards + wind + LOD/impostors (M3/M8).
+3. Golden hour warmth/aerial perspective: sky-tinted height fog + per-TOD LUT (3D LUT) instead of lift/gain grade; sun glare/flare; god rays.
+4. Auto-exposure is per-TOD (deterministic); real luminance adaptation (downsampled avg luminance) still REPLACED.
+5. Decals: cracks/oil/graffiti/tyre marks atlas (currently tar patches + manholes + skid ribbons).
+6. Building variety: corner pieces, balconies, fire escapes, signage text, rooftop cables; ground-floor door details.
+7. Night: light shafts in rain, wet-road light streaks (SSR covers part), headlight volumetric cone fakes.
+8. SSR: half-res + temporal reuse for cost; currently full-res 40 steps on High/Ultra only.
+9. Motion blur REPLACED by radial speed blur; per-object velocity blur not available.
+10. Lens dirt + bloom streaks; heat haze for exhaust.
+11. Texture budget: 2k normals dominate (39 MB); consider 1k normals on High with 2k albedo.
+
+## Done
+- M1: HDR pipeline (N8AO, bloom, AgX, grade, vignette, grain, CA, SMAA), CSM 4 cascades, Preetham sky + IBL, wet/puddle shader, rain.
+- M2: KTX2 PBR sets (15 CC0), anti-tiling + grime, building kit with interior-mapped windows, look-slice street (paint, kerbs, manholes, lamps, traffic lights, trees, furniture, parked cars), SSR for wet surfaces, cloud/star/moon dome, scene reflection probe, sourced car (Kiri '86) via prep tool.

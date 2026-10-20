@@ -14,12 +14,12 @@ let del = fs.readFileSync(path.join(ROOT, 'tests/delivery/index.html'), 'utf8').
 fs.writeFileSync(path.join(D, 'delivery.html'), del);
 // Artifact hosting serves only web media types; other binaries ship as base64 JSON ({b64}) next to the original path.
 const SERVED = /\.(html|css|js|mjs|wasm|json|map|txt|svg|png|jpe?g|gif|webp|avif|ico|woff2?|ttf|otf|mp3|wav|ogg|mp4|webm|pdf)$/i;
-const files = {}; const walk = (d) => { for (const f of fs.readdirSync(d)) { const p = path.join(d, f); const rel = path.relative(D, p);
+const files = {}; const walk = (d) => { for (const f of fs.readdirSync(d)) { const p = path.join(d, f); const rel = path.relative(D, p); if (/_2k\.ktx2/.test(rel)) continue;
   if (fs.statSync(p).isDirectory()) { if (!/^(tests|protob)$/.test(rel)) walk(p); } else if (!/^(index|artifact)\.html$|artifact-files\.json$|\.b64\.json$/.test(rel)) {
     if (SERVED.test(rel)) files[rel] = path.relative(ROOT, p);
     else { const out = p + '.b64.json'; fs.writeFileSync(out, JSON.stringify({ b64: fs.readFileSync(p).toString('base64') })); files[rel + '.b64.json'] = path.relative(ROOT, out); }
   } } };
-walk(D); for (const k of Object.keys(files)) if (/(^|\/)proto/.test(k)) delete files[k];
+walk(D); for (const k of Object.keys(files)) if (/(^|\/)proto/.test(k) || /_2k\.ktx2/.test(k)) delete files[k];
 fs.writeFileSync(path.join(D, 'artifact-files.json'), JSON.stringify(files, null, 1));
 // publish map: current files + null for anything the last publish had that no longer exists (keeps the artifact tidy)
 const manPath = path.join(ROOT, 'tools/artifact_manifest.json'); const prev = fs.existsSync(manPath) ? JSON.parse(fs.readFileSync(manPath, 'utf8')) : [];

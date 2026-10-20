@@ -10,9 +10,9 @@ import { WORLD_UNIFORMS } from '../lighting/environment';
 export interface BuildingSpec { x: number; z: number; w: number; d: number; floors: number; floorH?: number; style: 'brick' | 'plaster' | 'tower' | 'concrete'; seed: number; rot?: number; shop?: boolean; tint?: number }
 
 /** Interior-mapped glass: room cells behind the facade plane, room colour/lights per cell hash, reflections via envMap + fresnel. */
-export function interiorGlass(R: Renderer, cell: [number, number], depth: number, office = false) {
-  const m = new THREE.MeshStandardMaterial({ color: 0x0a0d10, roughness: 0.06, metalness: 0.2, envMapIntensity: 1.4 });
-  m.userData.patchKey = 'interior' + cell.join() + depth + office;
+export function interiorGlass(R: Renderer, cell: [number, number], depth: number, office = false, shop = false) {
+  const m = new THREE.MeshStandardMaterial({ color: 0x07090b, roughness: 0.04, metalness: 0.0, envMapIntensity: office ? 2.2 : 1.4 });
+  m.userData.patchKey = 'interior' + cell.join() + depth + office + shop;
   m.userData.patch = (sh: any) => {
     Object.assign(sh.uniforms, { uNight: WORLD_UNIFORMS.uNight, uCell: { value: new THREE.Vector2(...cell) }, uDepth: { value: depth } });
     sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying vec3 vObj; varying vec3 vObjCam; varying vec3 vObjN;')
@@ -38,8 +38,15 @@ export function interiorGlass(R: Renderer, cell: [number, number], depth: number
         col = mix(col, vec3(0.7, 0.66, 0.58), blinds * 0.85);
         col *= mix(1.0, 0.45, step(vy, 0.28) * step(0.35, fract((hit.x - lo.x) / uCell.x * 2.0 + h)) * step(th, tz - 0.1));
         float lit = step(0.42, ihash(vec3(cellId, 11.0)));
+        ${shop ? `{ // shop: dark warm room, dark shelving with many small saturated products, ceiling spots, a counter
+          float u2 = (hit.x - lo.x) / uCell.x; vec3 base = vec3(0.16, 0.12, 0.09);
+          float shelfBand = step(0.12, vy) * step(vy, 0.72); float row = floor(vy * 9.0); float along = th == tx ? hit.z : hit.x; float slot = floor(along * 6.5 + row * 3.7);
+          vec3 prod = mix(vec3(0.08), 0.12 + 0.42 * vec3(ihash(vec3(slot, row, 1.0)), ihash(vec3(slot, row, 2.0)), ihash(vec3(slot, row, 3.0))), step(0.25, fract(vy * 9.0)) * step(0.15, ihash(vec3(slot, row, 4.0))));
+          col = (th == tz || th == tx) ? mix(base, prod, shelfBand) : col;
+          if (th == ty && r.y < 0.0) col = vec3(0.32, 0.27, 0.22); if (th == ty && r.y > 0.0) col = mix(vec3(0.2), vec3(2.2, 2.0, 1.7), step(0.82, fract((hit.x - lo.x) * 0.9)) * step(0.82, fract(hit.z * 0.9 + 0.3)));
+          col *= mix(1.0, 0.55, step(vy, 0.33) * step(th, tz * 0.5)); }` : ''}
         vec3 lamp = mix(vec3(1.0, 0.78, 0.5), vec3(0.85, 0.92, 1.0), step(0.7, ihash(vec3(cellId, 13.0)))${office ? ' * 1.0 + 0.0' : ''});
-        float dayLevel = 0.11 + 0.05 * h; float nightLevel = lit * (1.1 + h * 0.8);
+        float dayLevel = ${shop ? '0.38' : office ? '0.07' : '0.16'} + 0.06 * h; float nightLevel = ${shop ? '0.42 + h * 0.18' : 'lit * (0.45 + h * 0.4)'};
         float depthFade = exp(-th * 0.12);
         totalEmissiveRadiance += col * mix(dayLevel, nightLevel, uNight) * mix(vec3(1.0), lamp, uNight) * depthFade;
       }`);
@@ -66,15 +73,16 @@ export function buildBuilding(R: Renderer, b: BuildingSpec) {
   const trimMat = R.setupMaterial(pbr('concrete', { grime: 0.5, tint: 0xd8d2c8 }, 'trim'));
   const winCell: [number, number] = [b.style === 'tower' ? 1.6 : 2.2, fh];
   const glass = interiorGlass(R, winCell, b.style === 'tower' ? 6 : 4.5, b.style === 'tower');
+  const shopGlass = interiorGlass(R, [5.5, 4.6], 7, false, true);
   const frameMat = R.setupMaterial(new THREE.MeshStandardMaterial({ color: b.style === 'tower' ? 0x2b3036 : 0x26221e, roughness: 0.45, metalness: b.style === 'tower' ? 0.9 : 0.2 }));
-  const walls: THREE.BufferGeometry[] = [], trims: THREE.BufferGeometry[] = [], glassG: THREE.BufferGeometry[] = [], frames: THREE.BufferGeometry[] = [];
+  const walls: THREE.BufferGeometry[] = [], trims: THREE.BufferGeometry[] = [], glassG: THREE.BufferGeometry[] = [], frames: THREE.BufferGeometry[] = [], shopG: THREE.BufferGeometry[] = [];
   const faces: { len: number; place: (g: THREE.BufferGeometry) => THREE.BufferGeometry }[] = [
     { len: b.w, place: (g) => g.translate(0, 0, b.d / 2) }, { len: b.w, place: (g) => g.rotateY(Math.PI).translate(0, 0, -b.d / 2) },
     { len: b.d, place: (g) => g.rotateY(Math.PI / 2).translate(b.w / 2, 0, 0) }, { len: b.d, place: (g) => g.rotateY(-Math.PI / 2).translate(-b.w / 2, 0, 0) },
   ];
-  const recess = 0.22;
+  const recess = 0.22; const WS = wallSlot === 'brick' ? 1.7 : 2.6; // metres per texture tile
   // core volume slightly inset so facade elements sit proud of it
-  walls.push(worldUV(box(b.w - recess * 2, totalH, b.d - recess * 2, 0, totalH / 2, 0), 3));
+  walls.push(worldUV(box(b.w - recess * 2, totalH, b.d - recess * 2, 0, totalH / 2, 0), WS));
   for (const f of faces) {
     if (b.style === 'tower') {
       // curtain wall: full-height glass with mullion grid, spandrel band per floor
@@ -87,9 +95,9 @@ export function buildBuilding(R: Renderer, b: BuildingSpec) {
       for (let k = 1; k < b.floors; k++) {
         const y0 = gfH + (k - 1) * fh;
         // spandrel below window + lintel above, piers between windows: real depth around recessed glass
-        walls.push(worldUV(f.place(box(f.len, 0.95, recess, 0, y0 + 0.475, recess / 2)), 3));
-        walls.push(worldUV(f.place(box(f.len, fh - 0.95 - 1.75, recess, 0, y0 + 0.95 + 1.75 + (fh - 2.7) / 2, recess / 2)), 3));
-        for (let i = 0; i <= n; i++) { const x = -f.len / 2 + pierW / 2 + i * (pierW + 1.25); walls.push(worldUV(f.place(box(pierW, 1.75, recess, x, y0 + 0.95 + 0.875, recess / 2)), 3)); }
+        walls.push(worldUV(f.place(box(f.len, 0.95, recess, 0, y0 + 0.475, recess / 2)), WS));
+        walls.push(worldUV(f.place(box(f.len, fh - 0.95 - 1.75, recess, 0, y0 + 0.95 + 1.75 + (fh - 2.7) / 2, recess / 2)), WS));
+        for (let i = 0; i <= n; i++) { const x = -f.len / 2 + pierW / 2 + i * (pierW + 1.25); walls.push(worldUV(f.place(box(pierW, 1.75, recess, x, y0 + 0.95 + 0.875, recess / 2)), WS)); }
         for (let i = 0; i < n; i++) { const x = -f.len / 2 + pierW + 0.625 + i * (pierW + 1.25);
           glassG.push(f.place(box(1.25, 1.75, 0.04, x, y0 + 0.95 + 0.875, 0.02)));
           frames.push(f.place(box(1.25, 0.06, 0.08, x, y0 + 0.95 + 0.875, 0.06)), f.place(box(0.05, 1.75, 0.08, x, y0 + 0.95 + 0.875, 0.06)));
@@ -101,16 +109,16 @@ export function buildBuilding(R: Renderer, b: BuildingSpec) {
     if (b.shop) {
       const bays = Math.max(1, Math.round(f.len / 5.5)); const bw = f.len / bays;
       for (let i = 0; i < bays; i++) { const x = -f.len / 2 + bw * (i + 0.5);
-        glassG.push(f.place(box(bw - 0.7, 3.2, 0.05, x, 1.95, 0.05)));
+        shopG.push(f.place(box(bw - 0.7, 3.2, 0.05, x, 1.95, 0.05)));
         frames.push(f.place(box(bw - 0.5, 0.12, 0.14, x, 3.6, 0.12)), f.place(box(0.1, 3.3, 0.12, x - bw / 2 + 0.35, 1.95, 0.1)), f.place(box(bw - 0.6, 0.35, 0.16, x, 0.18, 0.12)));
-        walls.push(worldUV(f.place(box(0.6, gfH, recess + 0.08, -f.len / 2 + bw * i + 0.3, gfH / 2, recess / 2 + 0.04)), 3)); }
-      walls.push(worldUV(f.place(box(f.len, gfH - 3.85, recess + 0.08, 0, 3.85 + (gfH - 3.85) / 2, recess / 2 + 0.04)), 3));
-    } else walls.push(worldUV(f.place(box(f.len, gfH, recess + 0.06, 0, gfH / 2, recess / 2 + 0.03)), 3));
+        walls.push(worldUV(f.place(box(0.6, gfH, recess + 0.08, -f.len / 2 + bw * i + 0.3, gfH / 2, recess / 2 + 0.04)), WS)); }
+      walls.push(worldUV(f.place(box(f.len, gfH - 3.85, recess + 0.08, 0, 3.85 + (gfH - 3.85) / 2, recess / 2 + 0.04)), WS));
+    } else walls.push(worldUV(f.place(box(f.len, gfH, recess + 0.06, 0, gfH / 2, recess / 2 + 0.03)), WS));
     trims.push(f.place(box(f.len + 0.4, 0.5, 0.45, 0, totalH - 0.25, recess + 0.12))); // cornice
     trims.push(f.place(box(f.len + 0.1, 0.9, 0.25, 0, totalH + 0.45, 0.0))); // parapet
   }
   const add = (geos: THREE.BufferGeometry[], mat: THREE.Material, cast = true) => { if (!geos.length) return; const g = mergeGeometries(geos.map((x) => x.index ? x.toNonIndexed() : x)); const m = new THREE.Mesh(g, mat); m.castShadow = cast; m.receiveShadow = true; group.add(m); return m; };
-  add(walls, wallMat); add(trims, trimMat); add(frames, frameMat); add(glassG, glass, false);
+  add(walls, wallMat); add(trims, trimMat); add(frames, frameMat); add(glassG, glass, false); add(shopG, shopGlass, false);
   // rooftop: roof slab, AC units, vents, water tank, antenna
   const roof = new THREE.Mesh(worldUV(box(b.w - 0.3, 0.2, b.d - 0.3, 0, totalH + 0.1, 0), 4), R.setupMaterial(pbr('gravel', { grime: 0.3 }, 'roof'))); roof.receiveShadow = true; group.add(roof);
   const metal = R.setupMaterial(pbr('metal', { grime: 0.6, tint: 0xb8bcc0, roughness: 0.8 }, 'rooftop'));

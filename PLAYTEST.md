@@ -24,3 +24,28 @@ FUN GATE M1: proxies PASS (all presets). **UNPLAYED: needs human.** Questions:
 3. Is the chase camera distance/FOV comfortable, and does the speed blur + FOV kick feel fast without causing discomfort (Esc > comfort toggles)?
 4. Do braking distance and reverse speed feel natural for a sedan?
 5. Does the synthesized engine/tyre audio match what the car is doing (shifts, slides), or is it distracting?
+
+## M2 — REALISM GATE: rest test (props) — tools/resttest.ts
+200 mixed props (boxes, cylinders, balls; 5-29 kg) dropped on flat ground and on a 15 cm slab, simulated 12 s:
+floating 0, sinking 0 (max contact gap 0.3 cm), asleep 199/200, 1 ball still rolling slowly (3.9 cm over the last 2 s = 2 cm/s; props now have angular damping 0.6 to emulate rolling resistance).
+Ragdolls: UNVERIFIED (ragdolls arrive in M4).
+
+## M2 — LOOK GATE (shots/m2/, before/after: shots/m2/before_after.jpg)
+Rounds: 4 self critique-fix rounds + 1 fix pass on the independent review. Defects fixed along the way: white unlit roads (texture fallback), Z-up rig retarget, inside-building camera, crushed shadow-side facades, flat/striped shop interiors, SSR silently disabled by N8AO pass order, ghost steam, too-bright night, missing contact shadows, white horizon void (distant skyline + ground), heavy grain, clipped day sky.
+
+| Category | Independent reviewer (pre-fix) | Self, after final fixes | Evidence |
+|---|---|---|---|
+| Lighting & shadows | 5 | 6 | crisp CSM shadows, warm golden hour at 19:10, AO + car contact blobs now visible; no bounce light |
+| Materials | 5 | 6 | KTX2 PBR asphalt/pavers/brick with anti-tiling + grime; plaster/concrete facades still flat, no edge wear |
+| Reflections & glass | 4 | 5.5 | SSR on wet roads now works (cars/buildings reflected at night); tower glass reflections still weak |
+| Atmosphere | 5 | 5.5 | clouds, fog, rain with varied streaks, steam; night sky flat, no light shafts |
+| Density & detail | 3 | 5 | 6 traffic cars, 8 peds, skyline ring; still sparse clutter/decals/signage |
+| Character & vehicle shading | 5 | 5.5 | sourced Kiri '86 cars good; stand-in character is stylised (replaced in M4) |
+| Effects | 3 | 3.5 | rain, steam, tyre smoke only; combat/fire effects arrive in M5 |
+| Post & colour | 5 | 6 | AgX + TOD grade, lighter grain, bloom; per-TOD LUT and auto-exposure still REPLACED |
+| Cohesion | 4 | 5 | cars cohesive; stylised stand-in character and box skyline break realism |
+| **Average** | **4.3** | **5.3** | **BELOW the M2 target of 7** |
+
+DECISION: round cap (4 for M2) reached and M2 is at its step cap; per spec the remaining shortfall is logged and its causes are at the top of GRAPHICS_BACKLOG.md. M3 (world generator) carries the "average >= 7 by M3" requirement and starts with the backlog's top items (density, facade materials, glass reflections, vegetation, night sky).
+Checklist: wet-road reflections PASS (night), glass reflections PARTIAL, crushed blacks FIXED, clipped highlights FIXED (day exposure), bloom OK (sun only), shadows stable PASS, distinct materials PARTIAL, tiling at street scale PASS (anti-tiling), flat-lit surfaces PARTIAL (overcast), focal point PARTIAL, consistent style FAIL (stand-in character), roads readable PASS, convincing night PARTIAL, popping N/A (no streaming yet).
+Budgets (High, golden shot): 2096 draw calls, 2.84 M triangles incl. 4 shadow cascades, 135 textures, JS heap ~240 MB -> must drop in M3 (LOD, instancing, shadow-caster culling).
