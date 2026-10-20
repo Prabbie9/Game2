@@ -2,6 +2,14 @@
 import type { WeatherName } from '../lighting/environment';
 export interface Shot { t: number; w: WeatherName; scene?: string; cam?: { pos: number[]; look: number[]; fov?: number }; start?: number[]; yaw?: number; route?: string; speed?: number; frames?: number; hideHud?: boolean }
 export const SHOTS: Record<string, Shot> = {
+  m3_golden: { t: 19.1, w: 'clear', start: [-4.2, 1.2, -150], frames: 120, hideHud: true, cam: { pos: [-11, 1.7, -175], look: [-2, 7, -60], fov: 58 } },
+  m3_overcast: { t: 13.5, w: 'overcast', start: [-4.2, 1.2, -150], frames: 120, hideHud: true, cam: { pos: [-11, 1.7, -175], look: [-2, 7, -60], fov: 58 } },
+  m3_night_wet: { t: 23, w: 'rain', start: [-4.2, 1.2, -150], frames: 120, hideHud: true, cam: { pos: [-11, 1.6, -175], look: [-2, 3, -80], fov: 58 } },
+  m3_tower: { t: 17.5, w: 'clear', start: [-4.2, 1.2, -150], frames: 120, hideHud: true, cam: { pos: [-14, 1.8, -105], look: [-40, 40, -60], fov: 62 } },
+  m3_intersection: { t: 16.5, w: 'clear', start: [-4.2, 1.2, -150], frames: 150, hideHud: true, cam: { pos: [-2, 24, -150], look: [0, 0, -96], fov: 55 } },
+  m3_highway: { t: 17.8, w: 'clear', start: [-955, 1.6, 388], yaw: Math.PI / 2, route: 'highway', speed: 30, frames: 520 },
+  m3_tunnel: { t: 15, w: 'clear', start: [-292.2, 1.2, -330], yaw: 0, route: 'tunnel', speed: 16, frames: 460 },
+  m3_aerial: { t: 18.6, w: 'clear', start: [-4.2, 1.2, -150], frames: 120, hideHud: true, cam: { pos: [260, 190, -420], look: [0, 0, 0], fov: 55 } },
   m2_golden: { t: 19.1, w: 'clear', start: [4.2, 1.2, -70], frames: 90, hideHud: true, cam: { pos: [-5.5, 1.7, -78], look: [2, 6, 10], fov: 58 } },
   m2_overcast: { t: 13.5, w: 'overcast', start: [4.2, 1.2, -70], frames: 90, hideHud: true, cam: { pos: [-5.5, 1.7, -78], look: [2, 6, 10], fov: 58 } },
   m2_night_wet: { t: 23, w: 'rain', start: [4.2, 1.2, -40], frames: 120, hideHud: true, cam: { pos: [-6, 1.6, -58], look: [3, 2.5, 5], fov: 58 } },

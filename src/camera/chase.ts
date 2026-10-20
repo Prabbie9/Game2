@@ -7,6 +7,8 @@ export class ChaseCamera {
   yawOff = 0; pitchOff = 0.12; idle = 0; mode = 0; // 0 = chase, 1 = far chase, 2 = bumper
   distance = 6.2; height = 2.0; baseFov = 62; shake = true;
   private ray = new THREE.Raycaster(); private heading = new THREE.Vector3(0, 0, 1);
+  /** Optional custom ray cast (e.g. against streamed collider boxes); returns hit distance or null. */
+  cast: ((o: THREE.Vector3, d: THREE.Vector3, far: number) => number | null) | null = null;
   constructor(public cam: THREE.PerspectiveCamera, public colliders: THREE.Object3D[]) {}
   cycle() { this.mode = (this.mode + 1) % 3; }
   orbit(dx: number, dy: number) { if (dx || dy) { this.yawOff -= dx; this.pitchOff = THREE.MathUtils.clamp(this.pitchOff + dy, -0.2, 0.9); this.idle = 0; } }
@@ -27,16 +29,17 @@ export class ChaseCamera {
     // collision: pull the camera in front of any world geometry between anchor and desired position
     if (this.mode !== 2) {
       const dir = desired.clone().sub(anchor); const len = dir.length(); dir.normalize();
-      this.ray.set(anchor, dir); this.ray.far = len + 0.3;
-      const hit = this.ray.intersectObjects(this.colliders, false)[0];
-      if (hit) desired.copy(anchor).addScaledVector(dir, Math.max(0.8, hit.distance - 0.35));
+      let hitD: number | null = null;
+      if (this.cast) hitD = this.cast(anchor, dir, len + 0.3);
+      else { this.ray.set(anchor, dir); this.ray.far = len + 0.3; const hit = this.ray.intersectObjects(this.colliders, false)[0]; if (hit) hitD = hit.distance; }
+      if (hitD !== null) desired.copy(anchor).addScaledVector(dir, Math.max(0.8, hitD - 0.35));
     }
     // spring (critically damped) — stiffer when close to avoid lag through corners
     const k = this.mode === 2 ? 400 : 60, c = 2 * Math.sqrt(k);
     const acc = desired.clone().sub(this.pos).multiplyScalar(k).addScaledVector(this.vel, -c);
     this.vel.addScaledVector(acc, dt); this.pos.addScaledVector(this.vel, dt);
     if (this.pos.distanceTo(desired) > 25) { this.pos.copy(desired); this.vel.set(0, 0, 0); }
-    if (this.pos.y < 0.4) this.pos.y = 0.4;
+    if (this.pos.y < target.y - 0.3) this.pos.y = target.y - 0.3;
     // look-ahead: aim slightly ahead along velocity
     const ahead = target.clone().addScaledVector(velocity, this.mode === 2 ? 0.5 : 0.18).add(new THREE.Vector3(0, this.mode === 2 ? 1.0 : 1.0, 0));
     if (this.mode === 2) ahead.copy(target).addScaledVector(fwd, 20).add(new THREE.Vector3(0, 1, 0));

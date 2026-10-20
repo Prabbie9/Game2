@@ -8,6 +8,8 @@ function handle(m: any) {
   if (!sim) { queue.push(m); return; }
   switch (m.type) {
     case 'static': for (const s of m.list) sim.addStatic(s); break;
+    case 'group': sim.addGroup(m.gid, m.list); break;
+    case 'removeGroup': sim.removeGroup(m.gid); break;
     case 'dynamic': for (const d of m.list) sim.addDynamic(d.id, d); break;
     case 'spawnVehicle': sim.spawnVehicle(m.id, m.tuning, m.pos, m.yaw); break;
     case 'removeVehicle': sim.removeVehicle(m.id); break;

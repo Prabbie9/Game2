@@ -1,14 +1,15 @@
 # PROGRESS
-NEXT STEP: M3 — write src/world/citygen.ts (seeded road graph + lots for Downtown, 128 m chunks) and src/world/streaming.ts (chunk build in a worker, LOD), reusing buildings.ts/lookslice.ts street kit; then fix GRAPHICS_BACKLOG item 0.
+NEXT STEP: M4 — fetch clip wave 2 (reactions, deaths, get-ups, civilian idles, vault/climb, panic) via tools/waves/wave2.txt, then search Sketchfab for realistic Mixamo-rigged humanoids (verify mixamorig bones).
 
-STEPS_USED: ~345 (M0 ~80, M1 ~75, M2 ~190)   DRIVE_CALLS_USED: 103 / 300
-MILESTONE: M2 done (checkpoint 3) — look gate BELOW target (5.3/7), carried into M3
+STEPS_USED: ~440 (M0 ~80, M1 ~75, M2 ~190, M3 ~95)   DRIVE_CALLS_USED: 103 / 300
+MILESTONE: M3 done (checkpoint 4) — look gate BELOW target (5.4/7), carried forward
 
 ## Milestones
 - M0 Setup: DONE. Drive indexed (846 clips, 23 chars), wave 1 (82 clips) fetched + ingested (2.0MB bundles), Sketchfab working, Artifact route published, renderer = WebGL + postprocessing.
 
 - M1 Vehicle feel grey-box: DONE. Rapier ray-cast vehicle in a worker + arcade assists (drift state + angle limiter, yaw assist, countersteer, anti-flip, self-right), chase cam, tuning panel (K) with presets + copy, synthesized audio, rain/night mood test. Fun gate proxies pass for all presets (PLAYTEST.md).
 - M2 Look slice: DONE with shortfall. PBR KTX2 library, building kit + interior mapping, intersection slice, SSR, sky dome, scene probe, sourced car via prep tool (Kiri '86), Mixamo peds, rest test (props pass).
+- M3 World generator + streaming: DONE. Seeded Downtown (grid, arterials, plaza, underpass/tunnel, elevated highway), 128 m chunks built in 2 workers, near/far LOD, physics groups, time-sliced apply, shader pre-warm, bot budget reports.
 
 ## DECISIONS
 - Renderer (a) WebGL2 + pmndrs postprocessing (see DESIGN.md).
@@ -20,6 +21,8 @@ MILESTONE: M2 done (checkpoint 3) — look gate BELOW target (5.3/7), carried in
 - Artifact build ships 1k textures only (download size); 2k on other routes for High/Ultra.
 - Sourced vehicle family: DanielZhabotinsky's CC-BY low-poly 80s cars (Kiri, Fairheaven, Negotiator, Riverside, Illinois, Canyon taxi, Cop cruiser) for cohesion.
 - SSR pass must run BEFORE N8AO (N8AO drops later pass output).
+- Default scene is the streamed city; ?scene=slice keeps the M2 look slice, ?scene=test the M1 track.
+- Ground heights are analytic from the city layout (useful for foot IK / props without physics queries).
 - Sprint uses "Running Fast" (Drive "Sprinting" is a 2-key pose).
 
 ## MISSING CLIPS

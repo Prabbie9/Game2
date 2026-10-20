@@ -21,6 +21,8 @@ export class PhysicsClient {
     this.simTime = d.time;
   }
   addStatics(list: StaticDesc[]) { this.worker.postMessage({ type: 'static', list }); }
+  addGroup(gid: string, list: StaticDesc[]) { this.worker.postMessage({ type: 'group', gid, list }); }
+  removeGroup(gid: string) { this.worker.postMessage({ type: 'removeGroup', gid }); }
   addDynamics(list: (DynamicDesc & { id: number })[]) { this.worker.postMessage({ type: 'dynamic', list }); }
   spawnVehicle(id: number, tuning: any, pos: number[], yaw = 0) { this.worker.postMessage({ type: 'spawnVehicle', id, tuning, pos, yaw }); }
   setTuning(id: number, tuning: any) { this.worker.postMessage({ type: 'tuning', id, tuning }); }

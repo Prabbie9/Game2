@@ -24,13 +24,17 @@ export class SimCore {
     this.world = new RAPIER.World({ x: 0, y: gravity, z: 0 });
     this.world.timestep = STEP;
   }
+  groups = new Map<string, RAPIER_NS.Collider[]>();
+  /** Add a named group of static colliders (a streamed chunk); removeGroup drops them all. */
+  addGroup(gid: string, list: StaticDesc[]) { this.removeGroup(gid); this.groups.set(gid, list.map((d) => this.addStatic(d))); }
+  removeGroup(gid: string) { const g = this.groups.get(gid); if (g) { for (const c of g) this.world.removeCollider(c, false); this.groups.delete(gid); } }
   addStatic(d: StaticDesc) {
     const R = this.RAPIER; let cd: RAPIER_NS.ColliderDesc;
     if (d.kind === 'box') { cd = R.ColliderDesc.cuboid(...d.half).setTranslation(...d.pos); if (d.rot) cd.setRotation({ x: d.rot[0], y: d.rot[1], z: d.rot[2], w: d.rot[3] }); }
     else if (d.kind === 'trimesh') cd = R.ColliderDesc.trimesh(d.vertices, d.indices);
     else cd = R.ColliderDesc.heightfield(d.nrows, d.ncols, d.heights, { x: d.scale[0], y: d.scale[1], z: d.scale[2] }).setTranslation(...d.pos);
     cd.setFriction(d.friction ?? 0.9);
-    this.world.createCollider(cd);
+    return this.world.createCollider(cd);
   }
   addDynamic(id: number, d: DynamicDesc) {
     const R = this.RAPIER;

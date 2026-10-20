@@ -49,3 +49,29 @@ Rounds: 4 self critique-fix rounds + 1 fix pass on the independent review. Defec
 DECISION: round cap (4 for M2) reached and M2 is at its step cap; per spec the remaining shortfall is logged and its causes are at the top of GRAPHICS_BACKLOG.md. M3 (world generator) carries the "average >= 7 by M3" requirement and starts with the backlog's top items (density, facade materials, glass reflections, vegetation, night sky).
 Checklist: wet-road reflections PASS (night), glass reflections PARTIAL, crushed blacks FIXED, clipped highlights FIXED (day exposure), bloom OK (sun only), shadows stable PASS, distinct materials PARTIAL, tiling at street scale PASS (anti-tiling), flat-lit surfaces PARTIAL (overcast), focal point PARTIAL, consistent style FAIL (stand-in character), roads readable PASS, convincing night PARTIAL, popping N/A (no streaming yet).
 Budgets (High, golden shot): 2096 draw calls, 2.84 M triangles incl. 4 shadow cascades, 135 textures, JS heap ~240 MB -> must drop in M3 (LOD, instancing, shadow-caster culling).
+
+## M3 — bot drives: streaming budgets (headless SwiftShader; frame times NOT meaningful)
+Report mode (`?bot=<route>&report=1`) simulates at 1/30 s and renders every 30th frame, sampling stats.
+| Run | samples | max km/h | draw calls | triangles (incl. 4 shadow cascades) | JS heap MB | worker chunk build max ms | main-thread chunk apply max ms |
+|---|---|---|---|---|---|---|---|
+| High, downtown avenue | 18 | 59 | 1263-2494 | 1.74-2.15 M | 273-300 | 790 | 84 (before time-slicing) |
+| High, elevated highway | 16 | 109 | 933-2268 | 1.20-3.20 M | 254-345 | 1729 | **22** (time-sliced + pre-compiled shaders) |
+| Low, elevated highway | 25 | 108 | 518-995 | 0.83-1.68 M | 141-200 | 987 | 33 |
+Hitches: chunk application moved to a 4 ms/frame time slice and all kit shaders pre-compile at start (149 ms -> 22 ms worst case). Worker build time is off the main thread.
+Budget targets (logged against in M9): High <= 2500 draws / 3.5 M tris; Low <= 1000 draws / 1.0 M tris — **Low exceeds the triangle target (1.68 M)**: Low needs a mid-detail near LOD (flat facades) — GRAPHICS_BACKLOG.
+Drivability: the bot drove the avenue (-150 -> +108) and the highway ramp + deck (-960 -> -344) with no stalls; the tunnel route descends the 11% ramp and passes the covered section (m3_tunnel shot at 67 km/h).
+
+## M3 — LOOK GATE (self-scored; shots/m3/)
+| Category | Score | Evidence |
+|---|---|---|
+| Lighting & shadows | 6 | stable CSM over streamed chunks, canyon shadows with blue skylight fill, tower lobbies lit |
+| Materials | 5.5 | PBR streets/sidewalks; facades still uniform per building, no edge wear |
+| Reflections & glass | 6 | SSR wet avenues at night, curtain-wall towers with interiors; probe follows player |
+| Atmosphere | 5.5 | haze hides LOD edge well (aerial), clouds; no light shafts |
+| Density & detail | 5.5 | lamps, trees, furniture, parked cars, fire escapes, water towers, billboards, road wear; still few people/traffic |
+| Character & vehicle | 5.5 | sourced cars good; stand-in characters (M4) |
+| Effects | 3.5 | rain/steam/tyre smoke only (M5) |
+| Post & colour | 6 | AgX + grade, light grain |
+| Cohesion | 5.5 | consistent kit; far LOD massing plain |
+| **Average** | **5.4** | **BELOW 7 (required by M3)** — remaining gap is mostly characters (M4) and effects (M5); GRAPHICS_BACKLOG item 0 updated |
+Gates: FUN (vehicle) unchanged PASS on the shared sim; REALISM rest test props PASS, ragdolls UNVERIFIED; city drivable end to end incl. highway + tunnel (bot).

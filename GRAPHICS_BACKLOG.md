@@ -1,7 +1,8 @@
 # GRAPHICS BACKLOG (ordered by visual impact; done items move to the bottom)
 
 ## Open
-0. (M2 look gate shortfall, avg 5.3 vs 7) — fix first in M3: (a) density: clutter/decals/signage/litter, more traffic+peds, real streamed blocks instead of skyline boxes; (b) facade materials: edge wear, window variety, trims with grime masks; (c) tower glass: stronger probe reflections per block, panel variation; (d) night sky + light shafts; (e) effects in M5.
+0. (M2 5.3, M3 5.4 vs 7) Low tier near LOD needs flat-facade mid detail (Low tris 1.68 M > 1.0 M target); far LOD massing could get roof/facade variation.
+0b. (M2 look gate shortfall, avg 5.3 vs 7) — fix first in M3: (a) density: clutter/decals/signage/litter, more traffic+peds, real streamed blocks instead of skyline boxes; (b) facade materials: edge wear, window variety, trims with grime masks; (c) tower glass: stronger probe reflections per block, panel variation; (d) night sky + light shafts; (e) effects in M5.
 1. Characters: Michelle/Soldier stand-ins are stylised; need realistic Mixamo-rigged humans (Sketchfab, M4) with skin SSS fake, hair, cloth variation.
 2. Vegetation: leaf-card trees are serviceable; source proper tree models (Sketchfab/Poly Haven CC0) with alpha cards + wind + LOD/impostors (M3/M8).
 3. Golden hour warmth/aerial perspective: sky-tinted height fog + per-TOD LUT (3D LUT) instead of lift/gain grade; sun glare/flare; god rays.

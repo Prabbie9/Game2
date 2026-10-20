@@ -1,0 +1,60 @@
+[
+ {
+  "url": "index.html?shot=m3_golden&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m3_golden.png",
+  "timeout": 400000,
+  "eval": "HARBOURLINE_DEBUG.stats()",
+  "evalMax": 900
+ },
+ {
+  "url": "index.html?shot=m3_overcast&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m3_overcast.png",
+  "timeout": 400000
+ },
+ {
+  "url": "index.html?shot=m3_night_wet&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m3_night_wet.png",
+  "timeout": 400000
+ },
+ {
+  "url": "index.html?shot=m3_tower&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m3_tower.png",
+  "timeout": 400000
+ },
+ {
+  "url": "index.html?shot=m3_intersection&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m3_intersection.png",
+  "timeout": 400000
+ },
+ {
+  "url": "index.html?shot=m3_aerial&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m3_aerial.png",
+  "timeout": 400000
+ },
+ {
+  "url": "index.html?shot=m3_highway&tier=high",
+  "w": 960,
+  "h": 540,
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m3_highway.png",
+  "timeout": 500000,
+  "eval": "HARBOURLINE_DEBUG.stats()",
+  "evalMax": 900
+ },
+ {
+  "url": "index.html?shot=m3_tunnel&tier=high",
+  "w": 960,
+  "h": 540,
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m3_tunnel.png",
+  "timeout": 500000,
+  "eval": "HARBOURLINE_DEBUG.stats()",
+  "evalMax": 900
+ }
+]
