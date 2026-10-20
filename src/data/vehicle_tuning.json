@@ -1,0 +1,25 @@
+{
+  "_doc": "ONE data file for all vehicle tuning. Units: SI (kg, m, N, W, m/s). Presets override 'base' keys. Live-editable via the tuning panel (Tab key / pause menu).",
+  "presets": {
+    "Grippy":   { "frictionSlip": 2.4, "rearGrip": 1.0,  "sideStiffness": 1.15, "handbrakeRearGrip": 0.55, "driftRearGrip": 0.8, "yawAssist": 0.75, "countersteer": 0.85, "steerMax": 0.55 },
+    "Balanced": {},
+    "Drifty":   { "frictionSlip": 1.7, "rearGrip": 0.86, "sideStiffness": 0.9,  "handbrakeRearGrip": 0.3, "driftRearGrip": 0.46, "yawAssist": 0.35, "countersteer": 0.65, "steerMax": 0.62 }
+  },
+  "classes": {
+    "sedan": {
+      "label": "Sedan",
+      "base": {
+        "mass": 1450, "halfExtents": [0.88, 0.42, 2.2], "comOffset": [0, -0.32, 0.05],
+        "wheelRadius": 0.33, "wheelWidth": 0.22, "track": 1.56, "wheelbase": 2.72, "wheelY": -0.18, "frontOffset": 0.0,
+        "suspRest": 0.34, "suspTravel": 0.24, "suspStiffness": 28, "suspCompression": 2.6, "suspRelaxation": 2.9, "suspMaxForce": 60000,
+        "frictionSlip": 2.0, "rearGrip": 0.96, "sideStiffness": 1.0,
+        "powerW": 125000, "maxDriveForce": 6600, "driveSplitFront": 0.0, "brakeForce": 52, "handbrakeForce": 120, "handbrakeRearGrip": 0.38, "driftRearGrip": 0.5, "driftAngle": 30, "driftControl": 0.8,
+        "dragCdA": 0.62, "rollResist": 160, "downforce": 0.35, "topSpeed": 58,
+        "steerMax": 0.58, "steerMinAtSpeed": 0.14, "steerSpeedRef": 40, "steerRate": 3.2, "steerReturn": 5.0,
+        "yawAssist": 0.5, "countersteer": 0.75, "antiFlip": 1.0, "airDamp": 0.6, "boostForce": 3500, "boostSeconds": 4,
+        "gears": [3.4, 2.1, 1.45, 1.1, 0.88, 0.72], "finalDrive": 3.6, "idleRpm": 850, "redlineRpm": 6800, "shiftUpRpm": 6200, "shiftDownRpm": 2600,
+        "engineSound": "v6", "cruiseKmh": 100, "accelBand": [6.5, 11.0]
+      }
+    }
+  }
+}

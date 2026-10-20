@@ -7,3 +7,4 @@ assets/sources/
 incoming/**/*.fbx.part
 public/test/blob10mb.bin
 shots/latest/
+tools/out/

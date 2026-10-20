@@ -3,7 +3,7 @@
 ## 1. Easiest: the private preview link (nothing to install)
 1. Open https://claude.ai/artifact/KXHuxRYKPx7unuEtpcf6wW while signed in to claude.ai (it is private to you).
 2. Click inside the game view to give it keyboard/mouse focus.
-The delivery self-test is at the same link with `delivery.html` (open the artifact's file list). Current checkpoint: M0 (environment shell — the first drivable build arrives with M1).
+The delivery self-test is at the same link with `delivery.html` (open the artifact's file list). Current checkpoint: M1 — vehicle test area. Click the view, then W/S drive, A/D steer, Space handbrake, Shift boost, V camera, K tuning panel, T time & weather, L frame-time overlay, Esc menu (quality, comfort, key list).
 
 ## 2. GitHub Codespace (private, runs on your own GPU)
 1. On GitHub open the Game2 repo, branch `claude/hopeful-planck-6zmdbo`.
