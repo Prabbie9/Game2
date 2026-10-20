@@ -1,0 +1,17 @@
+{
+ "lod_andrew": "civilian",
+ "lod_paul": "civilian",
+ "lod_nancy": "civilian",
+ "lod_jessica": "civilian",
+ "lod_dude": "civilian",
+ "man_coat": "civilian",
+ "oldman_coat": "civilian",
+ "debra": "civilian",
+ "police_m": "police",
+ "police_f": "police",
+ "swat_op": "tactical",
+ "fsb_op": "faction",
+ "standing_man": "player",
+ "young_female": "civilian",
+ "biz_jj": "civilian"
+}

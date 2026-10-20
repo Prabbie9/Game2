@@ -25,7 +25,7 @@ export function rigOf(root: THREE.Object3D): Rig {
   return { bones, hipsHeight: hipsRel.y, parentInv: parentRel.clone().invert(), parentQInv: pq.invert() };
 }
 /** Build a clip for a rig. The hips track is stored normalised by rest hips height and rescaled to this rig. */
-export function makeClip(b: Bundle, key: string, rig: Rig, opts: { inPlaceXZ?: boolean } = {}): THREE.AnimationClip | null {
+export function makeClip(b: Bundle, key: string, rig: Rig, opts: { inPlaceXZ?: boolean; removeYaw?: boolean } = {}): THREE.AnimationClip | null {
   const bones = rig.bones;
   const c = b.clips.find((x) => x.key === key); if (!c) return null;
   const q = new Int16Array(b.bin, c.rotOffset, c.frames * c.bones.length * 4); const p = new Float32Array(b.bin, c.posOffset, c.frames * 3);
@@ -33,11 +33,16 @@ export function makeClip(b: Bundle, key: string, rig: Rig, opts: { inPlaceXZ?: b
   const tracks: THREE.KeyframeTrack[] = [];
   c.bones.forEach((bi, j) => { const node = bones.get(b.bones[bi]); if (!node) return;
     const v = new Float32Array(c.frames * 4); for (let i = 0; i < c.frames; i++) for (let k = 0; k < 4; k++) v[i * 4 + k] = q[(i * c.bones.length + j) * 4 + k] / 32767;
-    if (b.bones[bi] === 'Hips') { const t = new THREE.Quaternion(); for (let i = 0; i < c.frames; i++) { t.fromArray(v, i * 4).normalize().premultiply(rig.parentQInv); t.toArray(v, i * 4); } }
+    if (b.bones[bi] === 'Hips') { const t = new THREE.Quaternion(); const yawQ = new THREE.Quaternion(); const Y = new THREE.Vector3(0, 1, 0); let yaw0 = 0, yaw = 0;
+      for (let i = 0; i < c.frames; i++) { t.fromArray(v, i * 4).normalize();
+        // removeYaw: strip the hips' heading change (turn-in-place clips) so the root can be turned procedurally instead
+        if (opts.removeYaw) { const f = new THREE.Vector3(0, 0, 1).applyQuaternion(t); const h = Math.atan2(f.x, f.z); if (i === 0) yaw0 = h; let d = h - yaw0; while (d > Math.PI) d -= 2 * Math.PI; while (d < -Math.PI) d += 2 * Math.PI; yaw = d; t.premultiply(yawQ.setFromAxisAngle(Y, -d)); }
+        t.premultiply(rig.parentQInv); t.toArray(v, i * 4); }
+      (opts as any).yawTotal = yaw; }
     tracks.push(new THREE.QuaternionKeyframeTrack(`${node}.quaternion`, times, v)); });
   const hips = bones.get('Hips');
   if (hips) { const v = new Float32Array(c.frames * 3); const t = new THREE.Vector3(); const h = rig.hipsHeight;
     for (let i = 0; i < c.frames; i++) { t.set(opts.inPlaceXZ ? 0 : p[i * 3] * h, p[i * 3 + 1] * h, opts.inPlaceXZ ? 0 : p[i * 3 + 2] * h).applyMatrix4(rig.parentInv); t.toArray(v, i * 3); }
     tracks.push(new THREE.VectorKeyframeTrack(`${hips}.position`, times, v)); }
-  const clip = new THREE.AnimationClip(key, c.duration, tracks); (clip as any).meta = c; return clip;
+  const clip = new THREE.AnimationClip(key, c.duration, tracks); (clip as any).meta = c; (clip as any).yawTotal = (opts as any).yawTotal ?? 0; return clip;
 }

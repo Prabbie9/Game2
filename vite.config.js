@@ -20,6 +20,8 @@ export default defineConfig({
       main: resolve(__dirname, 'index.html'),
       delivery: resolve(__dirname, 'tests/delivery/index.html'),
       proto: resolve(__dirname, 'tests/proto/index.html'),
+      lineup: resolve(__dirname, 'tests/lineup/index.html'),
+      anim: resolve(__dirname, 'tests/anim/index.html'),
     } },
   },
   worker: { format: 'es' },

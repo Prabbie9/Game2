@@ -1,11 +1,13 @@
 // Main-thread side of the physics worker: fixed-step accumulator, command channel, and snapshot interpolation.
 import { STEP, VEH_STRIDE, DYN_STRIDE, type StaticDesc, type DynamicDesc } from '../sim/simcore';
 import type { VehicleInput } from '../sim/vehicle';
+import { CHAR_STRIDE, type CharInput } from '../sim/charsim';
+export interface CharState { pos: number[]; vel: number[]; grounded: boolean; crouched: boolean; footY: number[]; footN: number[][]; obstacle: { dist: number; top: number; depth: number }; groundY: number }
 export interface VehState { pos: number[]; quat: number[]; wheels: { susp: number; steer: number; rot: number; contact: number; skid: number }[]; speed: number; vf: number; slip: number; rpm: number; gear: number; contacts: number; boost: number; throttle: number }
 export class PhysicsClient {
   worker: Worker; ready: Promise<void>; acc = 0; pending = false; timeScale = 1;
   prev: Map<number, Float32Array> = new Map(); curr: Map<number, Float32Array> = new Map();
-  inputs: Record<number, Partial<VehicleInput>> = {}; simTime = 0; lastStepMs = 0; snaps = 0;
+  inputs: Record<number, Partial<VehicleInput>> = {}; charInputs: Record<number, Partial<CharInput>> = {}; simTime = 0; lastStepMs = 0; snaps = 0;
   constructor() {
     this.worker = new Worker(new URL('../sim/worker.ts', import.meta.url), { type: 'module' });
     this.ready = new Promise((res) => { const h = (e: MessageEvent) => { if (e.data.type === 'ready') { res(); } }; this.worker.addEventListener('message', h); });
@@ -13,11 +15,12 @@ export class PhysicsClient {
     this.worker.postMessage({ type: 'init' });
   }
   private t0 = 0;
-  private onSnap(d: { buf: Float32Array; vehIds: number[]; dynIds: number[]; time: number }) {
+  private onSnap(d: { buf: Float32Array; vehIds: number[]; dynIds: number[]; charIds: number[]; time: number }) {
     this.pending = false; this.lastStepMs = performance.now() - this.t0; this.snaps++;
     this.prev = this.curr; this.curr = new Map(); let o = 0;
     for (const id of d.vehIds) { this.curr.set(id, d.buf.subarray(o, o + VEH_STRIDE)); o += VEH_STRIDE; }
     for (const id of d.dynIds) { this.curr.set(id, d.buf.subarray(o, o + DYN_STRIDE)); o += DYN_STRIDE; }
+    for (const id of d.charIds) { this.curr.set(-id, d.buf.subarray(o, o + CHAR_STRIDE)); o += CHAR_STRIDE; } // characters keyed by -id
     this.simTime = d.time;
   }
   addStatics(list: StaticDesc[]) { this.worker.postMessage({ type: 'static', list }); }
@@ -28,13 +31,21 @@ export class PhysicsClient {
   setTuning(id: number, tuning: any) { this.worker.postMessage({ type: 'tuning', id, tuning }); }
   teleportVehicle(id: number, pos: number[], yaw: number) { this.worker.postMessage({ type: 'teleportVehicle', id, pos, yaw }); }
   setVelocity(id: number, v: number[]) { this.worker.postMessage({ type: 'velocity', id, v }); }
+  spawnChar(id: number, pos: number[]) { this.worker.postMessage({ type: 'spawnChar', id, pos }); }
+  removeChar(id: number) { this.worker.postMessage({ type: 'removeChar', id }); }
+  teleportChar(id: number, pos: number[]) { this.worker.postMessage({ type: 'teleportChar', id, pos }); }
+  /** Interpolated on-foot character state (feet position, velocity, ground + foot rays, obstacle probe). */
+  char(id: number): CharState | null {
+    const c = this.curr.get(-id); if (!c) return null; const p = this.prev.get(-id) ?? c; const a = this.alpha; const L = (i: number) => p[i] + (c[i] - p[i]) * a;
+    return { pos: [L(0), L(1), L(2)], vel: [c[3], c[4], c[5]], grounded: c[6] > 0.5, crouched: c[7] > 0.5, footY: [c[8], c[9]], footN: [[c[10], c[11], c[12]], [c[13], c[14], c[15]]], obstacle: { dist: c[16], top: c[17], depth: c[18] }, groundY: c[19] };
+  }
   setGravity(g: number) { this.worker.postMessage({ type: 'gravity', g }); }
   /** Advance the accumulator; posts a step request when at least one fixed step is due and no request is in flight. */
   update(dt: number) {
     this.acc += Math.min(dt, 0.1) * this.timeScale;
     if (this.pending) return;
     const n = Math.min(4, Math.floor(this.acc / STEP));
-    if (n > 0) { this.acc -= n * STEP; this.pending = true; this.t0 = performance.now(); this.worker.postMessage({ type: 'step', n, inputs: this.inputs }); }
+    if (n > 0) { this.acc -= n * STEP; this.pending = true; this.t0 = performance.now(); this.worker.postMessage({ type: 'step', n, inputs: this.inputs, charInputs: this.charInputs }); }
   }
   /** Interpolation factor between the previous and current snapshot. */
   get alpha() { return Math.min(1, this.acc / STEP); }

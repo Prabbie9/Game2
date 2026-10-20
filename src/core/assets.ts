@@ -1,7 +1,7 @@
 // Asset loading: binary (base64-JSON aware for the Artifact host), JSON, KTX2 textures (Basis transcoder), cached.
 import * as THREE from 'three';
 import { KTX2Loader } from 'three/addons/loaders/KTX2Loader.js';
-export const DATA_URL = new URL('./data/', document.baseURI).href;
+export const DATA_URL: string = (window as any).HL_DATA ?? new URL('./data/', document.baseURI).href; // test pages in subfolders set HL_DATA
 const b64 = () => (window as any).HL_B64 === true;
 const cache = new Map<string, Promise<any>>();
 let inflight = 0; export const pendingLoads = () => inflight;

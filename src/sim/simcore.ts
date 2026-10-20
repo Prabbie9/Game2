@@ -2,6 +2,7 @@
 // Fixed 60Hz step. Static world geometry arrives as plain descriptors so the same data builds visuals and colliders.
 import type RAPIER_NS from '@dimforge/rapier3d-compat';
 import { VehicleSim, type VehicleInput, type Tuning } from './vehicle';
+import { CharacterSim, CHAR_STRIDE, type CharInput } from './charsim';
 type R = typeof RAPIER_NS;
 
 export type StaticDesc =
@@ -19,6 +20,7 @@ export class SimCore {
   world: RAPIER_NS.World;
   vehicles = new Map<number, VehicleSim>();
   dynamics = new Map<number, RAPIER_NS.RigidBody>();
+  chars = new Map<number, CharacterSim>();
   time = 0; steps = 0;
   constructor(public RAPIER: R, gravity = -9.81) {
     this.world = new RAPIER.World({ x: 0, y: gravity, z: 0 });
@@ -49,18 +51,22 @@ export class SimCore {
     const v = new VehicleSim(this.RAPIER, this.world, id, tuning, pos, yaw);
     this.vehicles.set(id, v); return v;
   }
+  spawnChar(id: number, pos: number[]) { this.chars.get(id)?.dispose(); const c = new CharacterSim(this.RAPIER, this.world, id, pos); this.chars.set(id, c); return c; }
+  removeChar(id: number) { this.chars.get(id)?.dispose(); this.chars.delete(id); }
+  setCharInput(id: number, inp: Partial<CharInput>) { const c = this.chars.get(id); if (c) Object.assign(c.input, inp); }
   removeVehicle(id: number) { this.vehicles.get(id)?.dispose(); this.vehicles.delete(id); }
   setInput(id: number, inp: Partial<VehicleInput>) { const v = this.vehicles.get(id); if (v) Object.assign(v.input, inp); }
   setTuning(id: number, t: Tuning) { const v = this.vehicles.get(id); if (v) { Object.assign(v.t, t); v.applyTuning(); } }
   step() {
     for (const v of this.vehicles.values()) v.step(STEP);
+    for (const c of this.chars.values()) c.step(STEP, this.world.gravity.y);
     this.world.step();
     this.time += STEP; this.steps++;
   }
   /** Pack vehicle + dynamic body state into one Float32Array (transferable). */
-  snapshot(): { buf: Float32Array; vehIds: number[]; dynIds: number[] } {
-    const vehIds = [...this.vehicles.keys()], dynIds = [...this.dynamics.keys()];
-    const buf = new Float32Array(vehIds.length * VEH_STRIDE + dynIds.length * DYN_STRIDE);
+  snapshot(): { buf: Float32Array; vehIds: number[]; dynIds: number[]; charIds: number[] } {
+    const vehIds = [...this.vehicles.keys()], dynIds = [...this.dynamics.keys()], charIds = [...this.chars.keys()];
+    const buf = new Float32Array(vehIds.length * VEH_STRIDE + dynIds.length * DYN_STRIDE + charIds.length * CHAR_STRIDE);
     let o = 0;
     for (const id of vehIds) {
       const v = this.vehicles.get(id)!, p = v.body.translation(), q = v.body.rotation(), c = v.ctrl;
@@ -69,6 +75,7 @@ export class SimCore {
       const T = v.telemetry; buf.set([T.speed, T.vf, T.slip, T.rpm, T.gear, T.contacts, T.boost, T.throttle], o); o += 8;
     }
     for (const id of dynIds) { const b = this.dynamics.get(id)!, p = b.translation(), q = b.rotation(); buf.set([p.x, p.y, p.z, q.x, q.y, q.z, q.w], o); o += 7; }
-    return { buf, vehIds, dynIds };
+    for (const id of charIds) { this.chars.get(id)!.pack(buf, o); o += CHAR_STRIDE; }
+    return { buf, vehIds, dynIds, charIds };
   }
 }

@@ -8,3 +8,4 @@ incoming/**/*.fbx.part
 public/test/blob10mb.bin
 shots/latest/
 tools/out/
+tools/out_prep.log
