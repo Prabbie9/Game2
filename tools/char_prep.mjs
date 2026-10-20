@@ -38,6 +38,22 @@ function skinnedBounds(r) {
   return { min: mn, max: mx };
 }
 
+// Drop triangles that bridge the two legs (a vertex driven by one lower leg and another by the other leg): they stretch
+// into a visible thread between the knees in every stride. Returns the number removed.
+function dropCrossLegTris(r) {
+  let removed = 0;
+  for (const n of r.listNodes()) { const m = n.getMesh(), sk = n.getSkin(); if (!m || !sk) continue; const names = sk.listJoints().map((j) => j.getName());
+    const side = names.map((nm) => (/^Left(Leg|Foot|ToeBase|Toe_End)$/.test(nm) ? 'L' : /^Right(Leg|Foot|ToeBase|Toe_End)$/.test(nm) ? 'R' : /^LeftUpLeg$/.test(nm) ? 'l' : /^RightUpLeg$/.test(nm) ? 'r' : ''));
+    for (const p of m.listPrimitives()) { const J = p.getAttribute('JOINTS_0'), W = p.getAttribute('WEIGHTS_0'), I = p.getIndices(); if (!J || !W || !I) continue;
+      const dom = (v) => { const j = J.getElement(v, [0, 0, 0, 0]), w = W.getElement(v, [0, 0, 0, 0]); let b = 0; for (let k = 1; k < 4; k++) if (w[k] > w[b]) b = k; return side[j[b]]; };
+      const idx = I.getArray(); const keep = [];
+      for (let t = 0; t < idx.length; t += 3) { const s3 = [dom(idx[t]), dom(idx[t + 1]), dom(idx[t + 2])];
+        const bad = (s3.includes('L') && (s3.includes('R') || s3.includes('r'))) || (s3.includes('R') && s3.includes('l'));
+        if (bad) removed++; else keep.push(idx[t], idx[t + 1], idx[t + 2]); }
+      if (keep.length !== idx.length) I.setArray(new (idx.constructor)(keep)); } }
+  return removed;
+}
+
 async function build(target, texSize, suffix) {
   const doc = await io.read(src); const r = doc.getRoot();
   for (const an of r.listAnimations()) an.dispose();
@@ -52,7 +68,7 @@ async function build(target, texSize, suffix) {
   for (const n of top) { n.setScale(n.getScale().map((v) => (v * H) / h0)); n.setTranslation(n.getTranslation().map((v, k) => (k === 1 ? v - (b0.min[1] * H) / h0 : v * H / h0))); } // feet on y=0
   for (const m of r.listMeshes()) for (const p of m.listPrimitives()) for (const t of p.listTargets()) { p.removeTarget(t); t.dispose(); } // no facial blendshapes in game
   for (const m of r.listMeshes()) m.setWeights([]);
-  await doc.transform(metalRough(), dedup(), weld());
+  await doc.transform(metalRough(), dedup(), weld()); const cut = dropCrossLegTris(r); if (cut) console.log(`  ${suffix || 'lod0'}: dropped ${cut} cross-leg triangles`);
   await MeshoptSimplifier.ready;
   const t0 = tris(doc); const ratio = Math.min(1, target / t0);
   if (ratio < 0.98) await doc.transform(simplify({ simplifier: MeshoptSimplifier, ratio, error: suffix ? 0.02 : 0.004, lockBorder: !suffix }));

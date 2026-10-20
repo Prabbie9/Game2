@@ -7,21 +7,22 @@ import type { Character } from '../character/character';
 
 interface Gait { a: THREE.AnimationAction; speed: number; stride: number; off: number; dur: number; rev?: boolean }
 export interface OneShot { a: THREE.AnimationAction; fadeIn: number; fadeOut: number; w: number; t: number; dur: number; done: (() => void) | null; hold: boolean; yawRate: number }
-export const LOCO = { idle: 'standard_idle', walk: 'walking_forwards', run: 'running_forwards', sprint: 'running_fast', crouchIdle: 'low_crouching_idle', crouchWalk: 'walking_backwards_while_crouched' };
+export const LOCO = { idle: 'standard_idle', walk: 'male_walk_forward_03', run: 'running_forwards', sprint: 'running_fast', crouchIdle: 'low_crouching_idle', crouchWalk: 'walking_backwards_while_crouched' };
 
 export class Animator {
   idle!: THREE.AnimationAction; crouchIdle!: THREE.AnimationAction; gaits: Gait[] = []; crouchGait!: Gait;
   phase = 0; speed = 0; crouch = 0; scale = 1; shot: OneShot | null = null; ready = false; locoWeight = 1;
   constructor(public ch: Character) {}
-  async init(idleKey = LOCO.idle) {
+  async init(idleKey = LOCO.idle, set: Partial<typeof LOCO> = {}) {
+    const L = { ...LOCO, ...set };
     const ch = this.ch; this.scale = ch.rig.hipsHeight / 0.99;
-    this.idle = await ch.action('core', idleKey); this.crouchIdle = await ch.action('core', LOCO.crouchIdle);
+    this.idle = await ch.action('core', idleKey); this.crouchIdle = await ch.action('core', L.crouchIdle);
     for (const a of [this.idle, this.crouchIdle]) { a.play(); a.setEffectiveWeight(0); }
     this.idle.setEffectiveWeight(1);
     const mk = async (key: string, rev = false): Promise<Gait> => { const a = await ch.action('core', key); const c = a.getClip(); const m = (c as any).meta;
       const g: Gait = { a, speed: m.speed * this.scale, stride: m.speed * this.scale * c.duration, off: 0, dur: c.duration, rev }; a.play(); a.timeScale = 0; a.setEffectiveWeight(0); g.off = this.strikePhase(g); return g; };
-    this.gaits = [await mk(LOCO.walk), await mk(LOCO.run), await mk(LOCO.sprint)];
-    this.crouchGait = await mk(LOCO.crouchWalk, true); // no forward crouch-walk in the library: the backward one reversed
+    this.gaits = [await mk(L.walk), await mk(L.run), await mk(L.sprint)];
+    this.crouchGait = await mk(L.crouchWalk, true); // no forward crouch-walk in the library: the backward one reversed
     this.ready = true; return this;
   }
   /** Phase (0..1) of the left-foot strike: the sample where the left foot is furthest ahead of the right. */

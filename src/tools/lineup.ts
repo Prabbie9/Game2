@@ -9,7 +9,7 @@ import { Character, loadCast } from '../character/character';
 
 const p = new URLSearchParams(location.search);
 const R = new Renderer(document.getElementById('app')!, (p.get('tier') as any) || 'high'); initKTX2(R.renderer); setTextureRes('1k');
-const env = new Environment(R); env.setTime(+(p.get('t') ?? 17.2)); env.setWeather((p.get('w') as WeatherName) || 'clear', true);
+const env = new Environment(R); env.setTime(+(p.get('t') ?? 17.2)); env.setWeather((p.get('w') as WeatherName) || 'clear', true); for (let i = 0; i < 300; i++) env.update(1 / 30); // settle auto-exposure
 const ground = new THREE.Mesh(new THREE.PlaneGeometry(60, 60).rotateX(-Math.PI / 2), R.setupMaterial(pbr('tiles', { antiTile: true, grime: 0.4 }, 'plaza')));
 ground.receiveShadow = true; R.scene.add(ground);
 const wall = new THREE.Mesh(new THREE.BoxGeometry(60, 8, 0.5), R.setupMaterial(pbr('concrete', { grime: 0.5, tint: 0xc8c3ba }, 'struct'))); wall.position.set(0, 4, -4); wall.receiveShadow = wall.castShadow = true; R.scene.add(wall);

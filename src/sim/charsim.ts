@@ -8,7 +8,7 @@ export interface CharInput { vx: number; vz: number; jump: number; crouch: numbe
 /** pos(3) vel(3) grounded crouch footY(2) footN(2x3) obstacleDist obstacleTop obstacleDepth groundY */
 export const CHAR_STRIDE = 3 + 3 + 1 + 1 + 2 + 6 + 3 + 1;
 export const CHAR_MODE = { walk: 0, scripted: 1, disabled: 2 } as const;
-const RADIUS = 0.28, HALF_STAND = 0.58, HALF_CROUCH = 0.28;
+const RADIUS = 0.28, HALF_STAND = 0.58, HALF_CROUCH = 0.28, SKIN = 0.02; // SKIN = controller offset (gap kept to the ground)
 
 export class CharacterSim {
   body: RAPIER_NS.RigidBody; col: RAPIER_NS.Collider; ctrl: RAPIER_NS.KinematicCharacterController;
@@ -23,7 +23,7 @@ export class CharacterSim {
     c.enableAutostep(0.36, 0.18, false); c.enableSnapToGround(0.32); c.setApplyImpulsesToDynamicBodies(true); c.setCharacterMass(80); c.setSlideEnabled(true);
   }
   get half() { return this.crouched ? HALF_CROUCH : HALF_STAND; }
-  feetPos() { const t = this.body.translation(); return [t.x, t.y - this.half - RADIUS, t.z]; }
+  feetPos() { const t = this.body.translation(); return [t.x, t.y - this.half - RADIUS - SKIN, t.z]; }
   private ray(o: number[], d: number[], len: number) {
     const hit = this.world.castRayAndGetNormal(new this.RAPIER.Ray({ x: o[0], y: o[1], z: o[2] }, { x: d[0], y: d[1], z: d[2] }), len, true, undefined, undefined, this.col, this.body);
     return hit ? { toi: hit.timeOfImpact, n: [hit.normal.x, hit.normal.y, hit.normal.z] } : null;
@@ -33,10 +33,10 @@ export class CharacterSim {
     if (!on) { const up = this.ray([f[0], f[1] + 0.3, f[2]], [0, 1, 0], 1.5); if (up && up.toi < 1.35) return; } // no room to stand
     this.crouched = on; this.col.setHalfHeight(this.half); this.body.setTranslation({ x: f[0], y: f[1] + this.half + RADIUS, z: f[2] }, true);
   }
-  teleport(p: number[]) { this.body.setTranslation({ x: p[0], y: p[1] + this.half + RADIUS, z: p[2] }, true); this.body.setNextKinematicTranslation({ x: p[0], y: p[1] + this.half + RADIUS, z: p[2] }); this.vy = 0; }
+  teleport(p: number[]) { const y = p[1] + this.half + RADIUS + SKIN; this.body.setTranslation({ x: p[0], y, z: p[2] }, true); this.body.setNextKinematicTranslation({ x: p[0], y, z: p[2] }); this.vy = 0; }
   step(dt: number, g: number) {
-    const inp = this.input; const t = this.body.translation(); const off = this.half + RADIUS;
-    this.col.setEnabled(inp.mode !== CHAR_MODE.disabled);
+    const inp = this.input; const t = this.body.translation(); const off = this.half + RADIUS + SKIN;
+    this.col.setEnabled(inp.mode === CHAR_MODE.walk); // scripted moves (vault, seat) pass through: no shoving cars or props
     if (inp.mode !== CHAR_MODE.walk) { // scripted (vault, seat, get-up) or disabled (in a vehicle): follow the target, no collision response
       const p = inp.target ?? [t.x, t.y - off, t.z]; this.vel = [(p[0] - t.x) / dt, (p[1] + off - t.y) / dt, (p[2] - t.z) / dt];
       this.body.setNextKinematicTranslation({ x: p[0], y: p[1] + off, z: p[2] }); this.vy = 0; this.grounded = inp.mode === CHAR_MODE.scripted ? this.grounded : false;

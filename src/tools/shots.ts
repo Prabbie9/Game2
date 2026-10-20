@@ -1,7 +1,19 @@
 // Named reference shots (URL ?shot=<name>). Captured headless by tools/shoot.mjs via tools/shots.json.
 import type { WeatherName } from '../lighting/environment';
-export interface Shot { t: number; w: WeatherName; scene?: string; cam?: { pos: number[]; look: number[]; fov?: number }; start?: number[]; yaw?: number; route?: string; speed?: number; frames?: number; hideHud?: boolean }
+export interface Shot { t: number; w: WeatherName; scene?: string; cam?: { pos: number[]; look: number[]; fov?: number }; start?: number[]; yaw?: number; route?: string; speed?: number; frames?: number; hideHud?: boolean;
+  /** on-foot shots: start beside the car; scripted input; camera relative to the player (right, up, forward) looking at a point relative to the player */
+  foot?: { move?: [number, number]; sprint?: boolean; interactAt?: number; knockAt?: number; camRel?: { pos: number[]; look: number[]; fov?: number }; camYaw?: number; camFixed?: boolean } }
 export const SHOTS: Record<string, Shot> = {
+  m4_hero_char: { t: 18.4, w: 'clear', frames: 90, hideHud: true, foot: { camRel: { pos: [0.55, 1.62, 1.55], look: [0, 1.45, 0], fov: 38 } } },
+  m4_hero_char_night: { t: 22.5, w: 'rain', frames: 90, hideHud: true, foot: { camRel: { pos: [0.55, 1.62, 1.55], look: [0, 1.45, 0], fov: 38 } } },
+  m4_walk: { t: 17.6, w: 'clear', frames: 150, hideHud: true, foot: { move: [0, 1], camYaw: Math.PI / 2 } },
+  m4_sprint: { t: 17.6, w: 'clear', frames: 150, hideHud: true, foot: { move: [0, 1], sprint: true, camRel: { pos: [-2.6, 1.3, 1.2], look: [0, 1.0, 0.4], fov: 45 } } },
+  m4_enter: { t: 16.5, w: 'clear', frames: 150, hideHud: true, foot: { interactAt: 20, camRel: { pos: [3.2, 1.7, -2.6], look: [0, 0.9, 0.5], fov: 42 } } },
+  m4_seated: { t: 16.5, w: 'clear', frames: 240, hideHud: true, foot: { interactAt: 20, camRel: { pos: [2.4, 1.45, 1.1], look: [0, 0.9, 0], fov: 40 } } },
+  m4_ragdoll: { t: 16.5, w: 'clear', frames: 48, hideHud: true, foot: { knockAt: 30, camRel: { pos: [5.5, 1.6, 2.5], look: [0, 0.9, 2.6], fov: 48 }, camFixed: true } },
+  m4_ragdoll_rest: { t: 16.5, w: 'clear', frames: 120, hideHud: true, foot: { knockAt: 30, camRel: { pos: [4.0, 1.5, 3.5], look: [0, 0.3, 4.0], fov: 45 }, camFixed: true } },
+  m4_getup: { t: 16.5, w: 'clear', frames: 175, hideHud: true, foot: { knockAt: 30, camRel: { pos: [4.0, 1.5, 3.5], look: [0, 0.6, 4.0], fov: 45 }, camFixed: true } },
+  m4_crowd: { t: 17.2, w: 'clear', frames: 150, hideHud: true, cam: { pos: [-17.5, 1.7, -186], look: [-12, 1.2, -140], fov: 50 } },
   m3_golden: { t: 19.1, w: 'clear', start: [-4.2, 1.2, -150], frames: 120, hideHud: true, cam: { pos: [-11, 1.7, -175], look: [-2, 7, -60], fov: 58 } },
   m3_overcast: { t: 13.5, w: 'overcast', start: [-4.2, 1.2, -150], frames: 120, hideHud: true, cam: { pos: [-11, 1.7, -175], look: [-2, 7, -60], fov: 58 } },
   m3_night_wet: { t: 23, w: 'rain', start: [-4.2, 1.2, -150], frames: 120, hideHud: true, cam: { pos: [-11, 1.6, -175], look: [-2, 3, -80], fov: 58 } },

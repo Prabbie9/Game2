@@ -10,6 +10,6 @@ police_m m
 police_f f
 swat_op m
 fsb_op m
-standing_man m
+standing_man m --lod0 60000
 young_female f
 biz_jj m

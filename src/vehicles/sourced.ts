@@ -30,7 +30,7 @@ export function geometryFromMeta(m: VehicleMeta, wheelY = -0.18) {
 export class SourcedCar {
   root = new THREE.Group(); body = new THREE.Group(); wheels: { pivot: THREE.Group; spin: THREE.Group }[] = []; ready = false;
   lights: { head: THREE.MeshStandardMaterial[]; brake: THREE.MeshStandardMaterial[]; reverse: THREE.MeshStandardMaterial[]; blink: THREE.MeshStandardMaterial[] } = { head: [], brake: [], reverse: [], blink: [] };
-  beams: THREE.SpotLight[] = []; braking = 0; lightsOn = false; geo!: ReturnType<typeof geometryFromMeta>; restSusp = 0.25;
+  beams: THREE.SpotLight[] = []; braking = 0; lightsOn = false; geo!: ReturnType<typeof geometryFromMeta>; restSusp = 0.25; modelSpace: THREE.Object3D = this.body; // model space: origin on the ground, +Z forward, +X = driver side
   constructor(public R: Renderer, public model: string, public opts: { paint?: number; beams?: boolean; frozen?: boolean; lod?: number } = {}) { this.root.add(this.body); }
   async load() {
     const { scene, meta } = await loadModel(this.model, this.opts.lod ?? 0); const R = this.R; this.geo = geometryFromMeta(meta);
@@ -53,7 +53,7 @@ export class SourcedCar {
       const mesh = src.getObjectByName('wheel_' + w.name)!; const pivot = new THREE.Group(), spin = new THREE.Group();
       pivot.position.set(w.center[0], w.center[1] + bodyY, w.center[2]); mesh.position.set(0, 0, 0); spin.add(mesh); pivot.add(spin); this.root.add(pivot); this.wheels.push({ pivot, spin });
     }
-    src.position.y = bodyY; this.body.add(src);
+    src.position.y = bodyY; this.body.add(src); this.modelSpace = src;
     // contact shadow: soft dark blob under the chassis grounds the car where cascaded shadows are too coarse
     const blob = new THREE.Mesh(new THREE.PlaneGeometry(meta.width * 1.25, meta.length * 1.12), contactMat()); blob.rotation.x = -Math.PI / 2; blob.position.y = bodyY + 0.02; blob.renderOrder = 2; this.body.add(blob);
     if (this.opts.beams) for (const x of [-1, 1]) { const b = new THREE.SpotLight(0xfff1dc, 0, 70, 0.42, 0.55, 1.6); b.position.set(x * 0.6, 0.6 + bodyY, meta.length / 2 - 0.1); b.target.position.set(x * 0.9, -0.6 + bodyY, 22); this.body.add(b, b.target); this.beams.push(b); }

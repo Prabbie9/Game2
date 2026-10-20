@@ -13,7 +13,7 @@ import { FootIK } from '../ik/footik';
 
 const p = new URLSearchParams(location.search);
 const R = new Renderer(document.getElementById('app')!, 'high'); initKTX2(R.renderer); setTextureRes('1k');
-const env = new Environment(R); env.setTime(+(p.get('t') ?? 15)); env.setWeather('clear', true);
+const env = new Environment(R); env.setTime(+(p.get('t') ?? 15)); env.setWeather('clear', true); for (let i = 0; i < 300; i++) env.update(1 / 30); // settle auto-exposure
 const surf = p.get('surf') ?? 'flat';
 // analytic surfaces along z: slope 10deg from z=2; stairs 0.17 rise / 0.30 run from z=2; kerb 0.15 step up at z=3, down at z=7
 export function surface(x: number, z: number): { y: number; n: THREE.Vector3 } {
@@ -31,8 +31,8 @@ const geo = new THREE.BufferGeometry(); { const pos: number[] = []; const N = 40
 const ground = new THREE.Mesh(geo, mat); ground.receiveShadow = true; R.scene.add(ground);
 const dbg: any = ((window as any).HARBOURLINE_DEBUG = { ready: false, R, result: null });
 (async () => {
-  const ch = await new Character(R, p.get('id') ?? 'standing_man').load(); R.scene.add(ch.root);
-  const an = await new Animator(ch).init(); const ik = new FootIK(ch); an.update(0, 0, 0); ik.calibrate(); ik.enabled = !p.has('noik');
+  const ch = await new Character(R, p.get('id') ?? 'standing_man', { lod: (+(p.get('lod') ?? 0)) as 0 | 1 }).load(); R.scene.add(ch.root);
+  const an = await new Animator(ch).init(undefined, p.get('walk') ? { walk: p.get('walk')! } : {}); const ik = new FootIK(ch); an.update(0, 0, 0); ik.calibrate(); ik.enabled = !p.has('noik');
   const speeds = (p.get('speeds') ?? '1.4').split(',').map(Number); const crouch = +(p.get('crouch') ?? 0); const T = +(p.get('secs') ?? 4);
   const dt = 1 / 60; let visY = 0; const wasPlanted = [false, false]; let z = +(p.get('z0') ?? -1.5); const log: any = { planted: [] as number[], pen: [] as number[], slide: [] as number[], pelvisJump: 0, frames: 0 };
   const strip: string[] = []; const stripN = +(p.get('strip') ?? 0); const prevFoot = [new THREE.Vector3(), new THREE.Vector3()]; let prevPelvis = NaN;
@@ -49,7 +49,7 @@ const dbg: any = ((window as any).HARBOURLINE_DEBUG = { ready: false, R, result:
     const py = hips.getWorldPosition(new THREE.Vector3()).y; if (!Number.isNaN(prevPelvis) && f % (T * 60) > 2) log.pelvisJump = Math.max(log.pelvisJump, Math.abs(py - prevPelvis) - v * dt * 0.6); prevPelvis = py;
     f++; log.frames = f;
   };
-  const camAt = () => { const t = ch.root.position; R.camera.fov = 28; R.camera.position.set(t.x + 3.6, t.y + 0.7, t.z + 0.6); R.camera.lookAt(t.x, t.y + 0.45, t.z); R.camera.updateProjectionMatrix(); };
+  const camAt = () => { const t = ch.root.position; R.camera.fov = 30; R.camera.position.set(t.x + 4.2, t.y + 1.0, t.z + 0.4); R.camera.lookAt(t.x, t.y + 0.85, t.z); R.camera.updateProjectionMatrix(); };
   const pct = (a: number[], q: number) => { if (!a.length) return 0; const s = [...a].sort((x, y) => x - y); return s[Math.min(s.length - 1, Math.floor(q * s.length))]; };
   const finish = () => { dbg.result = { id: ch.id, surf, speeds, crouch, ik: ik.enabled, frames: log.frames, plantedP95cm: +(pct(log.planted, 0.95) * 100).toFixed(2), plantedMeanCm: +((log.planted.reduce((a: number, b: number) => a + b, 0) / Math.max(1, log.planted.length)) * 100).toFixed(2), penMaxCm: +(Math.max(0, pct(log.pen, 0.99)) * 100).toFixed(2), slideP95cms: +(pct(log.slide, 0.95) * 100).toFixed(1), slideMedCms: +(pct(log.slide, 0.5) * 100).toFixed(1), slideP90cms: +(pct(log.slide, 0.9) * 100).toFixed(1), slideMeanCms: +((log.slide.reduce((a: number, b: number) => a + b, 0) / Math.max(1, log.slide.length)) * 100).toFixed(1), pelvisJumpCm: +(log.pelvisJump * 100).toFixed(2), plantedFrac: +(log.planted.length / Math.max(1, log.pen.length)).toFixed(2) }; };
   // frame-strip mode: advance to the requested frame and render once

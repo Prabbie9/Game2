@@ -15,12 +15,14 @@ export class PhysicsClient {
     this.worker.postMessage({ type: 'init' });
   }
   private t0 = 0;
-  private onSnap(d: { buf: Float32Array; vehIds: number[]; dynIds: number[]; charIds: number[]; time: number }) {
+  rag = new Map<number, Float32Array>(); ragPrev = new Map<number, Float32Array>();
+  private onSnap(d: { buf: Float32Array; vehIds: number[]; dynIds: number[]; charIds: number[]; rag: [number, number][]; time: number }) {
     this.pending = false; this.lastStepMs = performance.now() - this.t0; this.snaps++;
     this.prev = this.curr; this.curr = new Map(); let o = 0;
     for (const id of d.vehIds) { this.curr.set(id, d.buf.subarray(o, o + VEH_STRIDE)); o += VEH_STRIDE; }
     for (const id of d.dynIds) { this.curr.set(id, d.buf.subarray(o, o + DYN_STRIDE)); o += DYN_STRIDE; }
     for (const id of d.charIds) { this.curr.set(-id, d.buf.subarray(o, o + CHAR_STRIDE)); o += CHAR_STRIDE; } // characters keyed by -id
+    this.ragPrev = this.rag; this.rag = new Map(); for (const [id, n] of d.rag) { this.rag.set(id, d.buf.subarray(o, o + n)); o += n; }
     this.simTime = d.time;
   }
   addStatics(list: StaticDesc[]) { this.worker.postMessage({ type: 'static', list }); }
@@ -33,6 +35,15 @@ export class PhysicsClient {
   setVelocity(id: number, v: number[]) { this.worker.postMessage({ type: 'velocity', id, v }); }
   spawnChar(id: number, pos: number[]) { this.worker.postMessage({ type: 'spawnChar', id, pos }); }
   removeChar(id: number) { this.worker.postMessage({ type: 'removeChar', id }); }
+  spawnRagdoll(id: number, segs: any[], vel: number[], spin: number[] = [0, 0, 0]) { this.worker.postMessage({ type: 'spawnRagdoll', id, segs, vel, spin }); }
+  removeRagdoll(id: number) { this.worker.postMessage({ type: 'removeRagdoll', id }); }
+  ragImpulse(id: number, seg: number, imp: number[]) { this.worker.postMessage({ type: 'ragImpulse', id, seg, imp }); }
+  /** Ragdoll segment transforms (interpolated): [x,y,z,qx,qy,qz,qw] per segment, then mean speed. */
+  ragdoll(id: number): { segs: number[][]; speed: number } | null {
+    const c = this.rag.get(id); if (!c) return null; const p = this.ragPrev.get(id); const a = p && p.length === c.length ? this.alpha : 1; const n = (c.length - 1) / 7; const segs: number[][] = [];
+    for (let i = 0; i < n; i++) { const o = i * 7; const P = p && a < 1 ? p : c; segs.push([P[o] + (c[o] - P[o]) * a, P[o + 1] + (c[o + 1] - P[o + 1]) * a, P[o + 2] + (c[o + 2] - P[o + 2]) * a, ...slerp([P[o + 3], P[o + 4], P[o + 5], P[o + 6]], [c[o + 3], c[o + 4], c[o + 5], c[o + 6]], a)]); }
+    return { segs, speed: c[c.length - 1] };
+  }
   teleportChar(id: number, pos: number[]) { this.worker.postMessage({ type: 'teleportChar', id, pos }); }
   /** Interpolated on-foot character state (feet position, velocity, ground + foot rays, obstacle probe). */
   char(id: number): CharState | null {

@@ -16,6 +16,9 @@ function handle(m: any) {
     case 'spawnChar': sim.spawnChar(m.id, m.pos); break;
     case 'removeChar': sim.removeChar(m.id); break;
     case 'teleportChar': sim.chars.get(m.id)?.teleport(m.pos); break;
+    case 'spawnRagdoll': sim.spawnRagdoll(m.id, m.segs, m.vel, m.spin); break;
+    case 'removeRagdoll': sim.removeRagdoll(m.id); break;
+    case 'ragImpulse': sim.ragdolls.get(m.id)?.impulse(m.seg, m.imp); break;
     case 'tuning': sim.setTuning(m.id, m.tuning); break;
     case 'teleportVehicle': { const v = sim.vehicles.get(m.id); if (v) { v.body.setTranslation({ x: m.pos[0], y: m.pos[1], z: m.pos[2] }, true); v.body.setRotation({ x: 0, y: Math.sin(m.yaw / 2), z: 0, w: Math.cos(m.yaw / 2) }, true); v.body.setLinvel({ x: 0, y: 0, z: 0 }, true); v.body.setAngvel({ x: 0, y: 0, z: 0 }, true); } break; }
     case 'velocity': { const v = sim.vehicles.get(m.id); v?.body.setLinvel({ x: m.v[0], y: m.v[1], z: m.v[2] }, true); break; }

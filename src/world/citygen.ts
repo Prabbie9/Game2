@@ -20,6 +20,13 @@ export const trenchY = (z: number) => { const d = Math.min(z - UNDER.z0, UNDER.z
 /** Rects for the citywide far ground plane (everything minus the trench). */
 export function groundRects(size = 4200) { const all = { x0: -size / 2, x1: size / 2, z0: -size / 2, z1: size / 2 }; return subtract(all, { x0: UNDER.x - roadW(-3) / 2, x1: UNDER.x + roadW(-3) / 2, z0: UNDER.z0, z1: UNDER.z1 }); }
 export const inTrench = (x: number, z: number) => Math.abs(x - UNDER.x) < roadW(-3) / 2 && z > UNDER.z0 && z < UNDER.z1;
+/** Analytic walking surface height (roads 0, sidewalk blocks at kerb height, underpass trench, highway deck when near it). */
+export function groundAt(x: number, z: number, nearY = 0): number {
+  if (inTrench(x, z)) return trenchY(z);
+  if (Math.abs(z - HWY.z) < HWY.w / 2 && nearY > 2.5) return hwyY(x);
+  const i = Math.floor(x / BLOCK), j = Math.floor(z / BLOCK); if (Math.abs(i) > GRID || Math.abs(j) > GRID) return 0;
+  const r = blockRect(i, j); return x >= r.x0 && x <= r.x1 && z >= r.z0 && z <= r.z1 ? KERB : 0;
+}
 
 /** Block interior (sidewalk outer edge) for block between lines i,i+1 (x) and j,j+1 (z). */
 export function blockRect(i: number, j: number) { return { x0: line(i) + roadW(i) / 2, x1: line(i + 1) - roadW(i + 1) / 2, z0: line(j) + roadW(j) / 2, z1: line(j + 1) - roadW(j + 1) / 2 }; }

@@ -3,6 +3,7 @@
 import type RAPIER_NS from '@dimforge/rapier3d-compat';
 import { VehicleSim, type VehicleInput, type Tuning } from './vehicle';
 import { CharacterSim, CHAR_STRIDE, type CharInput } from './charsim';
+import { RagdollSim, type SegDesc } from './ragdoll';
 type R = typeof RAPIER_NS;
 
 export type StaticDesc =
@@ -21,6 +22,7 @@ export class SimCore {
   vehicles = new Map<number, VehicleSim>();
   dynamics = new Map<number, RAPIER_NS.RigidBody>();
   chars = new Map<number, CharacterSim>();
+  ragdolls = new Map<number, RagdollSim>();
   time = 0; steps = 0;
   constructor(public RAPIER: R, gravity = -9.81) {
     this.world = new RAPIER.World({ x: 0, y: gravity, z: 0 });
@@ -52,6 +54,8 @@ export class SimCore {
     this.vehicles.set(id, v); return v;
   }
   spawnChar(id: number, pos: number[]) { this.chars.get(id)?.dispose(); const c = new CharacterSim(this.RAPIER, this.world, id, pos); this.chars.set(id, c); return c; }
+  spawnRagdoll(id: number, segs: SegDesc[], vel: number[], spin: number[]) { this.ragdolls.get(id)?.dispose(); this.ragdolls.set(id, new RagdollSim(this.RAPIER, this.world, id, segs, vel, spin)); }
+  removeRagdoll(id: number) { this.ragdolls.get(id)?.dispose(); this.ragdolls.delete(id); }
   removeChar(id: number) { this.chars.get(id)?.dispose(); this.chars.delete(id); }
   setCharInput(id: number, inp: Partial<CharInput>) { const c = this.chars.get(id); if (c) Object.assign(c.input, inp); }
   removeVehicle(id: number) { this.vehicles.get(id)?.dispose(); this.vehicles.delete(id); }
@@ -64,9 +68,10 @@ export class SimCore {
     this.time += STEP; this.steps++;
   }
   /** Pack vehicle + dynamic body state into one Float32Array (transferable). */
-  snapshot(): { buf: Float32Array; vehIds: number[]; dynIds: number[]; charIds: number[] } {
+  snapshot(): { buf: Float32Array; vehIds: number[]; dynIds: number[]; charIds: number[]; rag: [number, number][] } {
     const vehIds = [...this.vehicles.keys()], dynIds = [...this.dynamics.keys()], charIds = [...this.chars.keys()];
-    const buf = new Float32Array(vehIds.length * VEH_STRIDE + dynIds.length * DYN_STRIDE + charIds.length * CHAR_STRIDE);
+    const rag = [...this.ragdolls].map(([id, r]) => [id, r.stride] as [number, number]); const ragLen = rag.reduce((a, [, n]) => a + n, 0);
+    const buf = new Float32Array(vehIds.length * VEH_STRIDE + dynIds.length * DYN_STRIDE + charIds.length * CHAR_STRIDE + ragLen);
     let o = 0;
     for (const id of vehIds) {
       const v = this.vehicles.get(id)!, p = v.body.translation(), q = v.body.rotation(), c = v.ctrl;
@@ -76,6 +81,7 @@ export class SimCore {
     }
     for (const id of dynIds) { const b = this.dynamics.get(id)!, p = b.translation(), q = b.rotation(); buf.set([p.x, p.y, p.z, q.x, q.y, q.z, q.w], o); o += 7; }
     for (const id of charIds) { this.chars.get(id)!.pack(buf, o); o += CHAR_STRIDE; }
-    return { buf, vehIds, dynIds, charIds };
+    for (const [id, n] of rag) { this.ragdolls.get(id)!.pack(buf, o); o += n; }
+    return { buf, vehIds, dynIds, charIds, rag };
   }
 }

@@ -193,10 +193,10 @@
  "standing_man": {
   "sex": "m",
   "uid": "8401da7cb2564fc08681836cbeff39bc",
-  "height": 1.773,
+  "height": 1.775,
   "lod0": {
-   "tris": 24780,
-   "kb": 1131
+   "tris": 60611,
+   "kb": 1552
   },
   "lod1": {
    "tris": 8384,

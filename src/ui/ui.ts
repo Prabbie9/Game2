@@ -17,7 +17,7 @@ export class HUD {
     this.hint = el('div', 'hint', this.root); this.overlay = el('pre', 'overlay', this.root); this.overlay.hidden = true;
     this.toast = el('div', 'toast', this.root); this.toast.hidden = true;
   }
-  setHint(s: string) { this.hint.innerHTML = s; }
+  private lastHint = ""; setHint(s: string) { if (s !== this.lastHint) { this.lastHint = s; this.hint.innerHTML = s; } }
   say(s: string, sec = 2.5) { this.toast.textContent = s; this.toast.hidden = false; this.toastT = sec; }
   update(dt: number, v: { speed: number; vf: number; gear: number; rpm: number; boost: number; redline: number } | null, stats: Record<string, number | string>) {
     if (this.toastT > 0 && (this.toastT -= dt) <= 0) this.toast.hidden = true;
