@@ -14,6 +14,7 @@ import { setTextureRes } from './materials/pbr';
 import { resolveTuning } from './vehicles/tuning';
 import { CarVisual } from './vehicles/carvisual';
 import { SourcedCar } from './vehicles/sourced';
+import { VehicleDamage } from './vehicles/damage';
 import { ChaseCamera } from './camera/chase';
 import { Input } from './input/input';
 import { AudioSys, EngineSound } from './audio/engine';
@@ -55,16 +56,18 @@ export async function startGame(app: HTMLElement) {
     slice = buildLookSlice(R, pool); colliders = slice.colliders; spawn = slice.spawn; phys.addStatics(slice.statics);
     env.setProbe(new THREE.Vector3(0, 6, 0), R.tier.name === 'Low' ? 128 : 256);
   }
-  let tuning = resolveTuning('sedan', 'Balanced');
+  let tuning = resolveTuning(params.get('vclass') ?? 'sedan', 'Balanced');
   let spawned = !city; if (!city) phys.spawnVehicle(PLAYER, tuning, spawn, 0);
-  const makeCar = (paint: number, beams = false): CarVisual | SourcedCar => { if (tuning.model) { const c = new SourcedCar(R, tuning.model, { paint, beams }); c.load().catch((e) => console.warn('vehicle model', e?.message)); return c; } return new CarVisual(R, { color: paint, beams, ...tuning }); };
+  // traffic fleet: one class per car slot (sourced models from the same family)
+  const TRAFFIC_CLASSES = ['sedan2', 'taxi', 'sedan3', 'compact', 'van', 'sports', 'muscle', 'suv', 'pickup', 'police', 'wagon', 'truck', 'ambulance'];
+  const makeCar = (paint: number, beams = false, cls?: string): CarVisual | SourcedCar => { const tt = cls ? resolveTuning(cls, 'Grippy') : tuning; const model = tt.model; if (model) { const c = new SourcedCar(R, model, { paint, beams, seatFront: (tt as any).seatFront }); c.load().catch((e) => console.warn('vehicle model', e?.message)); return c; } return new CarVisual(R, { color: paint, beams, ...tuning }); };
   // ambient traffic (look slice): bot cars on fixed lanes, stopping at red lights, wrapping at the slice edge
-  const traffic: { id: number; vis: CarVisual | SourcedCar; lane: [number, number]; axis: number; dir: number; bot: BotDriver; wrap?: number; y?: number }[] = [];
+  const traffic: { id: number; vis: CarVisual | SourcedCar; lane: [number, number]; axis: number; dir: number; bot: BotDriver; wrap?: number; y?: number; cls?: string; dmg?: VehicleDamage }[] = [];
   // city traffic (M3 placeholder for M7's lane-graph traffic): right-hand lanes on the highway deck and the main arterial
   if (city) [[HWY.z + 4, 1, 1, 0x2a4d7a, -600, 10.2], [HWY.z - 4, 1, -1, 0xd9d6cc, 400, 10.2], [HWY.z + 8, 1, 1, 0x6b6e72, -200, 10.2], [4.2, 0, -1, 0x1b1c1e, 300, 1.2], [-8.4, 0, 1, 0x7a1f1f, -60, 1.2], [8.4, 0, -1, 0xc8b78a, 100, 1.2]].forEach(([lane, axis, dir, col, start, y], i) => {
     const id = 10 + i; const pos = axis ? [start, y, lane] : [lane, y, start]; const yaw = axis ? (dir > 0 ? Math.PI / 2 : -Math.PI / 2) : dir > 0 ? 0 : Math.PI;
-    const v = makeCar(col as number); R.scene.add(v.root); const pts: [number, number][] = axis ? [[-2000 * dir, lane], [2000 * dir, lane]] : [[lane, -2000 * dir], [lane, 2000 * dir]];
-    traffic.push({ id, vis: v, lane: [lane, 0], axis, dir, bot: new BotDriver(pts, axis ? 22 : 13), wrap: axis ? 780 : 600, y }); void pos; void yaw;
+    const cls = TRAFFIC_CLASSES[i % TRAFFIC_CLASSES.length]; const v = makeCar(col as number, false, cls); R.scene.add(v.root); const pts: [number, number][] = axis ? [[-2000 * dir, lane], [2000 * dir, lane]] : [[lane, -2000 * dir], [lane, 2000 * dir]];
+    traffic.push({ id, vis: v, lane: [lane, 0], axis, dir, bot: new BotDriver(pts, axis ? 22 : 13), wrap: axis ? 780 : 600, y, cls }); void pos; void yaw;
   });
   if (slice) [[4.2, -1, 0, 1, 0x2a4d7a, 20], [-4.2, 1, 0, -1, 0xd9d6cc, -50], [-4.2, 1, 1, 1, 0x1b1c1e, 30], [1.4, -1, 0, 1, 0x6b6e72, -40], [-1.4, 1, 0, -1, 0x7a1f1f, 60], [4.2, 1, 1, -1, 0xc8b78a, -20]].forEach(([lane, , axis, dir, col, start], i) => {
     const id = 10 + i; const z0 = start as number; const pos = axis ? [z0, 1.2, lane as number] : [lane as number, 1.2, z0];
@@ -81,7 +84,12 @@ export async function startGame(app: HTMLElement) {
   if (slice) ([[[10.5, -60], [10.5, -14], [14, -11]], [[-10.6, -30], [-10.6, -80]], [[-40, 10.6], [-12, 10.6]], [[20, -10.6], [60, -10.6]], [[-10.6, 20], [-10.6, 70]], [[12, 40], [12, 12], [40, 11]], [[-60, -10.6], [-14, -10.6]], [[30, 10.6], [80, 10.6]]] as [number, number][][])
     .forEach((path, i) => peds.push(new Pedestrian(R, CIV[(i * 3) % CIV.length], path, 0.15, i % 4, 0)));
   peds.forEach((p) => { p.phys = phys; p.load().catch((e) => console.warn('ped load', e?.message)); });
-  const car = makeCar(0x7d1520, true); R.scene.add(car.root);
+  const cfxHolder: { fx: CombatFX | null } = { fx: null }; const cfxRef = () => cfxHolder.fx!;
+  let car = makeCar(0x7d1520, true); R.scene.add(car.root);
+  const damages = new Map<number, VehicleDamage>(); const prevPos = new Map<number, THREE.Vector3>();
+  const addDamage = (id: number, vis: { root: THREE.Object3D; modelSpace?: THREE.Object3D }, massK = 1) => { const d = new VehicleDamage(vis, cfxRef(), massK); d.onExplode = (p) => { combat.explode(p.clone().add(new THREE.Vector3(0, 0.5, 0)), 6, 260, 14, 'car' + id);
+      phys.setTuning(id, { ...(id === PLAYER ? tuning : resolveTuning(traffic.find((t) => t.id === id)?.cls ?? 'sedan', 'Grippy')), maxDriveForce: 0, powerW: 0, boostForce: 0 });
+      if (id === PLAYER && player.state === 'drive') { player.exit(); } }; damages.set(id, d); return d; };
   const chase = new ChaseCamera(R.camera, colliders); if (city) chase.cast = (o, d, f) => city!.cast(o, d, f);
   const follow = new FollowCamera(R.camera); if (city) follow.cast = (o, d, f) => city!.cast(o, d, f);
   const player = new Player(R, phys, PLAYER_CHAR, params.get('char') ?? 'standing_man'); let playerLoading = false;
@@ -90,20 +98,21 @@ export async function startGame(app: HTMLElement) {
     const pos = onFootStart ? [spawn[0] - 3.4, city ? 0.16 : 0.05, spawn[2] + 3] : [spawn[0], 0, spawn[2]];
     player.load(pos, shot?.foot?.faceYaw ?? yaw0 + Math.PI / 2).then(() => { arsenal = new Arsenal(R, player, combat, input, follow, app); if (shot?.foot?.weapon) arsenal.equip(shot.foot.weapon as WeaponId); if (city && !params.has('nocrowd')) crowd.load().catch((e) => console.warn('crowd', e?.message)); if (!onFootStart) player.seatIn(car); else follow.snapBehind(shot?.foot?.camYaw ?? shot?.foot?.faceYaw ?? yaw0 + Math.PI / 2); void st; }).catch((e) => console.warn('player', e?.message)); };
   // combat: FX pools, world ray (streamed boxes + analytic ground), targets (pedestrians, player, cars)
-  const cfx = new CombatFX(R.scene, R.tier.maxLights > 6 ? 4 : 2); cfx.ground = (x, z) => (city ? groundAt(x, z) : 0.15);
+  const cfx = new CombatFX(R.scene, R.tier.maxLights > 6 ? 4 : 2); cfxHolder.fx = cfx; cfx.ground = (x, z) => (city ? groundAt(x, z) : 0.15);
   const castWorld = (o: THREE.Vector3, d: THREE.Vector3, far: number): WorldHit | null => { let best: WorldHit | null = null;
     const h = city?.castHit(o, d, far); if (h) best = { t: h.t, p: h.p, n: h.n, kind: h.n.y > 0.7 ? 'concrete' : Math.random() < 0.3 ? 'glass' : 'concrete' };
     if (d.y < -1e-4) { let t = (cfx.ground(o.x, o.z) - o.y) / d.y; for (let i = 0; i < 2; i++) { const q = o.clone().addScaledVector(d, t); t = (cfx.ground(q.x, q.z) - o.y) / d.y; }
       if (t > 0 && t < far && (!best || t < best.t)) best = { t, p: o.clone().addScaledVector(d, t), n: new THREE.Vector3(0, 1, 0), kind: 'concrete' }; }
     return best; };
-  const combat = new Combat(cfx, castWorld); combat.onExplode = (p, r, st) => phys.explode(p.toArray(), r, st * 60);
+  const combat = new Combat(cfx, castWorld); combat.onExplode = (p, r, st) => phys.explode(p.toArray(), r, st); // st = delta-v (m/s) at the centre
   const pedTarget = (pd: Pedestrian, i: number): Target => ({ id: 'ped' + i, ch: pd.ch, team: 2, get alive() { return !pd.dead; }, get health() { return pd.health; }, pos: () => pd.worldPos, hit: (dmg, dir, _z, force) => pd.hit(dmg, dir, force) });
   let playerHealth = 200; const playerTarget: Target & { speed: number } = { id: 'player', ch: player.ch, team: 0, alive: true, get speed() { return player.speed; }, get health() { return playerHealth; }, pos: () => player.position,
     hit: (dmg, dir, _z, force) => { playerHealth -= dmg; if ((playerHealth <= 0 || force > 7) && player.onFoot) { player.knockDown(dir.clone().setY(0).normalize().multiplyScalar(Math.min(8, force)).add(new THREE.Vector3(0, 1.5, 0))); if (playerHealth <= 0) playerHealth = 200; } } };
   combat.targets.push(playerTarget); peds.forEach((pd, i) => combat.targets.push(pedTarget(pd, i)));
-  const carTarget = (id: number): Target => ({ id: 'car' + id, ch: null, team: 3, alive: true, health: 1000, pos: () => { const st = phys.vehicle(id); return st ? new THREE.Vector3(...st.pos) : new THREE.Vector3(0, -99, 0); }, hit: () => {},
+  const carTarget = (id: number): Target => ({ id: 'car' + id, ch: null, team: 3, alive: true, health: 1000, pos: () => { const st = phys.vehicle(id); return st ? new THREE.Vector3(...st.pos) : new THREE.Vector3(0, -99, 0); }, hit: (dmg, dir) => { const st = phys.vehicle(id); if (st) damages.get(id)?.hit(dmg * 1.4, new THREE.Vector3(...st.pos).addScaledVector(dir, -1).add(new THREE.Vector3(0, 0.7, 0)), dir); },
     get vehicle() { const st = phys.vehicle(id); return st ? { pos: new THREE.Vector3(...st.pos), quat: new THREE.Quaternion(...st.quat), half: tuning.halfExtents } : undefined; } });
   combat.targets.push(carTarget(PLAYER)); traffic.forEach((t) => combat.targets.push(carTarget(t.id)));
+  addDamage(PLAYER, car as any); traffic.forEach((t) => { t.dmg = addDamage(t.id, t.vis as any, resolveTuning(t.cls ?? 'sedan', 'Grippy').mass / 1350); });
   let arsenal: Arsenal | null = null; const hostiles: Combatant[] = [];
   const spawnHostiles = (n = 3, dist = 26, body = 'fsb_op') => { const base = player.position.clone(); const f = new THREE.Vector3(Math.sin(player.yaw), 0, Math.cos(player.yaw));
     for (let i = 0; i < n; i++) { const p = base.clone().addScaledVector(f, dist + i * 3).add(new THREE.Vector3((i - (n - 1) / 2) * 2.5, 0, 0).applyAxisAngle(new THREE.Vector3(0, 1, 0), player.yaw)); p.y = city ? groundAt(p.x, p.z) : 0.15;
@@ -145,7 +154,9 @@ export async function startGame(app: HTMLElement) {
     ready: false, frames: 0, R, env, phys, report: [] as any[], player, crowd,
     teleport: (x: number, y: number, z: number, yaw = 0) => phys.teleportVehicle(PLAYER, [x, y, z], yaw),
     setTime: (h: number) => env.setTime(h), setWeather: (w: WeatherName) => env.setWeather(w, true),
-    spawnVehicle: (cls = 'sedan') => { tuning = resolveTuning(cls, 'Balanced'); phys.spawnVehicle(PLAYER, tuning, [state?.pos[0] ?? 0, (state?.pos[1] ?? 0) + 2, state?.pos[2] ?? 0], 0); },
+    spawnVehicle: (cls = 'sedan') => { tuning = resolveTuning(cls, 'Balanced'); phys.spawnVehicle(PLAYER, tuning, [state?.pos[0] ?? 0, (state?.pos[1] ?? 0) + 2, state?.pos[2] ?? 0], 0); R.scene.remove(car.root); car = makeCar(0x7d1520, true); R.scene.add(car.root); addDamage(PLAYER, car as any); if (engine) { engine.dispose(); engine = new EngineSound(audio, tuning.engineSound); } if (player.state === 'drive') player.seatIn(car); },
+    dmgState: (id = PLAYER) => { const d: any = damages.get(id); return d && { hp: d.health, wrecked: d.wrecked, charred: d.charred, ready: (d.car as any).ready, same: d.car === car, burnT: d.burnT, pos: d.car.root.position.toArray().map((v: number) => +v.toFixed(1)), vis: d.car.root.visible, inScene: !!d.car.root.parent, cols: (() => { const a: string[] = []; d.car.root.traverse((o: any) => { if (o.isMesh && a.length < 6) a.push(o.material.color?.getHexString() + ':' + o.material.clearcoat); }); return a; })() }; },
+    damage: (id = PLAYER, dmg = 300) => { const st = phys.vehicle(id); if (st) damages.get(id)?.hit(dmg, new THREE.Vector3(...st.pos).add(new THREE.Vector3(0, 0.7, 1.8)), new THREE.Vector3(0, 0, -1)); return damages.get(id)?.health; },
     setVelocity: (kmh: number) => { const f = new THREE.Vector3(0, 0, 1).applyQuaternion(tmp.q); phys.setVelocity(PLAYER, [f.x * kmh / 3.6, 0, f.z * kmh / 3.6]); },
     bot: (route = 'loop', speed = 22) => { bot = route ? new BotDriver(ROUTES[route], speed) : null; },
     stats: () => ({ ...R.stats, chunks: city?.stats, fps: Math.round(1 / Math.max(1e-3, clock.getDelta())), physicsMs: +phys.lastStepMs.toFixed(2), vehicle: state && { kmh: +(state.vf * 3.6).toFixed(1), slipDeg: +(state.slip * 57.3).toFixed(1), contacts: state.contacts }, tier: R.tier.name, heapMB: Math.round(((performance as any).memory?.usedJSHeapSize ?? 0) / 1e6) }),
@@ -168,7 +179,7 @@ export async function startGame(app: HTMLElement) {
     if (city) {
       const focus = state ? new THREE.Vector3(state.pos[0], state.pos[1], state.pos[2]) : new THREE.Vector3(spawn[0], 0, spawn[2]); city.update(focus);
       if (!spawned && city.readyAt(spawn[0], spawn[2])) { phys.spawnVehicle(PLAYER, tuning, spawn, spawnYaw); spawned = true; loadPlayer();
-        for (const t of traffic) phys.spawnVehicle(t.id, resolveTuning('sedan', 'Grippy'), t.axis ? [t.bot.pts[0][0] * 0 + (t.dir > 0 ? -600 + t.id * 90 : 500 - t.id * 60), t.y!, t.lane[0]] : [t.lane[0], t.y!, t.dir > 0 ? -300 + t.id * 40 : 300 - t.id * 40], t.axis ? (t.dir > 0 ? Math.PI / 2 : -Math.PI / 2) : t.dir > 0 ? 0 : Math.PI); }
+        for (const t of traffic) phys.spawnVehicle(t.id, resolveTuning(t.cls ?? 'sedan', 'Grippy'), t.axis ? [t.bot.pts[0][0] * 0 + (t.dir > 0 ? -600 + t.id * 90 : 500 - t.id * 60), t.y!, t.lane[0]] : [t.lane[0], t.y!, t.dir > 0 ? -300 + t.id * 40 : 300 - t.id * 40], t.axis ? (t.dir > 0 ? Math.PI / 2 : -Math.PI / 2) : t.dir > 0 ? 0 : Math.PI); }
       lightT = (lightT + sim) % 28; city.mats.update(env.night, (axis) => { const t = (lightT - axis * 14 + 28) % 28; return t < 10 ? 'g' : t < 13 ? 'a' : 'r'; });
       if (state && env.probe && Math.hypot(state.pos[0] - env.probe.pos.x, state.pos[2] - env.probe.pos.z) > 160 && city.pending === 0) { env.probe.pos.set(state.pos[0], state.pos[1] + 6, state.pos[2]); env.probe.cube.position.copy(env.probe.pos); env.bakeEnv(); }
     }
@@ -195,6 +206,7 @@ export async function startGame(app: HTMLElement) {
       if (sf?.camYaw !== undefined && frames < 3) follow.snapBehind(sf.camYaw);
       if (sf?.knockAt !== undefined && pf === sf.knockAt && player.ready) player.knockDown(new THREE.Vector3(0.6, 3.0, 5.0).applyAxisAngle(new THREE.Vector3(0, 1, 0), player.yaw), new THREE.Vector3(2, 0, 0).applyAxisAngle(new THREE.Vector3(0, 1, 0), player.yaw));
       if (arsenal) { arsenal.update(dt, R.camera, player.onFoot && !paused); if (sf?.aim) { arsenal.aiming = true; arsenal.aimToggle = true; } if (sf?.fireEvery && player.ready && frames % sf.fireEvery === 0) (input as any).pressedEdge.add('Mouse0'); if (sf?.fireEvery) (input as any).down.add('Mouse0');
+        for (const [at, dmg] of sf?.carDamage ?? []) if (pf === at) (dbg as any).damage(PLAYER, dmg);
         if (sf?.hostiles && pf === 5) spawnHostiles(sf.hostiles, sf.hostileDist ?? 24);
         if (sf?.explodeAt !== undefined && pf === sf.explodeAt) combat.explode(player.position.clone().add(new THREE.Vector3(...(sf.explodeRel ?? [3, 0, 0])).applyAxisAngle(new THREE.Vector3(0, 1, 0), player.yaw)), 6, 250, 12, 'shot'); }
       if (player.ready) player.update(sim, { move: sf ? (sf.move ?? [0, 0]) : [input.axis('moveLeft', 'moveRight'), input.axis('moveBack', 'moveForward')], sprint: sf ? !!sf.sprint : input.held('sprint'), jump: !sf && input.pressed('jump'), crouch: !sf && input.pressed('crouch'), interact: false }, follow.headingYaw, groundFn);
@@ -216,11 +228,14 @@ export async function startGame(app: HTMLElement) {
       const inp = t.bot.drive(st, q); if (red && before && Math.abs(along - stopAt) < 22) { inp.throttle = 0; inp.brake = Math.abs(along - stopAt) < 12 ? 1 : 0.4; }
       phys.inputs[t.id] = inp; t.vis.update(st, inp.brake > 0.1 ? 1 : 0);
       const W = t.wrap ?? 105; if (along * t.dir > W) phys.teleportVehicle(t.id, t.axis ? [-(W - 5) * t.dir, t.y ?? 1.2, t.lane[0]] : [t.lane[0], t.y ?? 1.2, -(W - 5) * t.dir], t.axis ? (t.dir > 0 ? Math.PI / 2 : -Math.PI / 2) : t.dir > 0 ? 0 : Math.PI);
-      t.vis.setLights(env.night > 0.3 || env.cur.overcast > 0.8);
+      t.vis.setLights((env.night > 0.3 || env.cur.overcast > 0.8) && !damages.get(t.id)?.wrecked);
     }
+    if (city && state && frames % 15 === 0) city.clearParked(state.pos[0], state.pos[2], 4.5);
+    if (sim > 0) for (const [id, d] of damages) { const st = phys.vehicle(id); if (!st) continue; const p = new THREE.Vector3(...st.pos); const pp = prevPos.get(id); const v = pp ? p.clone().sub(pp).divideScalar(sim) : new THREE.Vector3(); prevPos.set(id, p);
+      if (v.length() < 90) d.update(sim, p, v, new THREE.Quaternion(...st.quat)); }
     if (vis) for (const [id, mesh] of vis.dyn) { const b = phys.body(id); if (b) { mesh.position.set(b.pos[0], b.pos[1], b.pos[2]); mesh.quaternion.set(b.quat[0], b.quat[1], b.quat[2], b.quat[3]); } }
     env.update(sim);
-    car.setLights(env.night > 0.3 || env.cur.overcast > 0.8 || env.cur.fog > 0.6);
+    car.setLights((env.night > 0.3 || env.cur.overcast > 0.8 || env.cur.fog > 0.6) && !damages.get(PLAYER)?.wrecked);
     if (vis) { vis.lampHeadMat.emissiveIntensity = env.night * 14; vis.buildingMat.emissiveIntensity = env.night * 2.5; }
     slice?.update(sim, env.night); const gY = (x: number, z: number) => (city ? groundAt(x, z) : 0.15); for (const p of peds) p.update(sim, gY); crowd.update(sim, R.camera.position); combat.update(sim, cfx.ground); Combatant.frame(); for (const h of hostiles) h.update(sim, playerTarget, hostiles); cfx.update(sim, R.camera);
     if (cfx.shake > 0.02 && R.comfort.shake) { R.camera.position.x += (Math.random() - 0.5) * cfx.shake * 0.12; R.camera.position.y += (Math.random() - 0.5) * cfx.shake * 0.12; }

@@ -6,11 +6,18 @@ import type { Renderer } from '../renderer/renderer';
 import type { VehState } from '../physics/client';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 
+/** Quantised (meshopt-packed) attributes -> Float32 so transforms, merges and dents work in plain units. */
+export function dequantize(g: THREE.BufferGeometry) {
+  for (const k of Object.keys(g.attributes)) { const a = g.attributes[k] as THREE.BufferAttribute; if (a.array instanceof Float32Array && !(a as any).isInterleavedBufferAttribute) continue;
+    const out = new Float32Array(a.count * a.itemSize); const get = [a.getX, a.getY, a.getZ, a.getW]; for (let i = 0; i < a.count; i++) for (let c = 0; c < a.itemSize; c++) out[i * a.itemSize + c] = get[c].call(a, i);
+    g.setAttribute(k, new THREE.BufferAttribute(out, a.itemSize)); }
+  return g;
+}
 /** Collapse all child meshes of `g` into one mesh per material (bakes child transforms). Keeps non-mesh children (lights). */
 export function mergeByMaterial(g: THREE.Object3D) {
   g.updateMatrixWorld(true); const inv = new THREE.Matrix4().copy(g.matrixWorld).invert();
   const groups = new Map<THREE.Material, THREE.BufferGeometry[]>(); const drop: THREE.Mesh[] = [];
-  g.traverse((o) => { const m = o as THREE.Mesh; if (!m.isMesh || m === g) return; const geo = m.geometry.clone().applyMatrix4(new THREE.Matrix4().multiplyMatrices(inv, m.matrixWorld));
+  g.traverse((o) => { const m = o as THREE.Mesh; if (!m.isMesh || m === g) return; const geo = dequantize(m.geometry.clone()).applyMatrix4(new THREE.Matrix4().multiplyMatrices(inv, m.matrixWorld));
     const mat = m.material as THREE.Material; (groups.get(mat) ?? groups.set(mat, []).get(mat)!).push(geo.index ? geo.toNonIndexed() : geo); drop.push(m); });
   for (const m of drop) m.parent!.remove(m);
   for (const [mat, geos] of groups) { for (const x of geos) for (const k of Object.keys(x.attributes)) if (!['position', 'normal', 'uv'].includes(k)) x.deleteAttribute(k);

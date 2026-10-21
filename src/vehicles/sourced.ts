@@ -2,6 +2,7 @@
 // wheel pivots/spin groups, lights (head, brake, reverse, blinkers) driven by part names, clearcoat paint, tuned glass.
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import { loadBin, loadJSON } from '../core/assets';
 import type { Renderer } from '../renderer/renderer';
 import type { VehState } from '../physics/client';
@@ -17,7 +18,7 @@ function contactMat() {
 }
 function loadModel(name: string, lod = 0) {
   const key = name + lod;
-  if (!models.has(key)) models.set(key, Promise.all([loadBin(`vehicles/${name}${lod ? '_lod' + lod : ''}.glb`), loadJSON<VehicleMeta>(`vehicles/${name}.json`)]).then(async ([buf, meta]) => ({ scene: (await new GLTFLoader().parseAsync(buf, '')).scene, meta })));
+  if (!models.has(key)) models.set(key, Promise.all([loadBin(`vehicles/${name}${lod ? '_lod' + lod : ''}.glb`), loadJSON<VehicleMeta>(`vehicles/${name}.json`)]).then(async ([buf, meta]) => ({ scene: (await new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).parseAsync(buf, '')).scene, meta })));
   return models.get(key)!;
 }
 /** Physics geometry for a prepped model (feeds the vehicle tuning: track, wheelbase, radius, chassis box). */
@@ -30,10 +31,11 @@ export function geometryFromMeta(m: VehicleMeta, wheelY = -0.18) {
 export class SourcedCar {
   root = new THREE.Group(); body = new THREE.Group(); wheels: { pivot: THREE.Group; spin: THREE.Group }[] = []; ready = false;
   lights: { head: THREE.MeshStandardMaterial[]; brake: THREE.MeshStandardMaterial[]; reverse: THREE.MeshStandardMaterial[]; blink: THREE.MeshStandardMaterial[] } = { head: [], brake: [], reverse: [], blink: [] };
-  beams: THREE.SpotLight[] = []; braking = 0; lightsOn = false; geo!: ReturnType<typeof geometryFromMeta>; restSusp = 0.25; modelSpace: THREE.Object3D = this.body; // model space: origin on the ground, +Z forward, +X = driver side
-  constructor(public R: Renderer, public model: string, public opts: { paint?: number; beams?: boolean; frozen?: boolean; lod?: number } = {}) { this.root.add(this.body); }
+  beams: THREE.SpotLight[] = []; braking = 0; lightsOn = false; geo!: ReturnType<typeof geometryFromMeta>; restSusp = 0.25; modelSpace: THREE.Object3D = this.body; seat?: THREE.Vector3; door?: THREE.Vector3; // driver H-point / door stand point in model space (derived from the model size) // model space: origin on the ground, +Z forward, +X = driver side
+  constructor(public R: Renderer, public model: string, public opts: { paint?: number; beams?: boolean; frozen?: boolean; lod?: number; seatFront?: number } = {}) { this.root.add(this.body); }
   async load() {
     const { scene, meta } = await loadModel(this.model, this.opts.lod ?? 0); const R = this.R; this.geo = geometryFromMeta(meta);
+    { const hw = meta.width / 2, z = meta.length / 2 - (this.opts.seatFront ?? 2.5); this.seat = new THREE.Vector3(hw * 0.41, 0.5 + Math.max(0, meta.height - 1.36) * 0.45, z); this.door = new THREE.Vector3(hw + 0.42, 0, z + 0.23); }
     const src = scene.clone(true); const mats = new Map<THREE.Material, THREE.Material>();
     const conv = (m: THREE.MeshStandardMaterial, nodeName: string) => {
       const key = m; const role = /glass|window|windshield/i.test(nodeName) ? 'glass' : /bodymat/i.test(m.name + nodeName) && !/inner|bottom/i.test(nodeName) ? 'paint'
@@ -51,7 +53,7 @@ export class SourcedCar {
     const bodyY = this.geo.wheelY - this.restSusp - this.geo.wheelCenterY;
     for (const w of meta.wheels) {
       const mesh = src.getObjectByName('wheel_' + w.name)!; const pivot = new THREE.Group(), spin = new THREE.Group();
-      pivot.position.set(w.center[0], w.center[1] + bodyY, w.center[2]); mesh.position.set(0, 0, 0); spin.add(mesh); pivot.add(spin); this.root.add(pivot); this.wheels.push({ pivot, spin });
+      pivot.position.set(w.center[0], w.center[1] + bodyY, w.center[2]); mesh.position.x -= w.center[0]; mesh.position.y -= w.center[1]; mesh.position.z -= w.center[2]; /* keeps any packing offset on the node (meshopt quantisation) */ spin.add(mesh); pivot.add(spin); this.root.add(pivot); this.wheels.push({ pivot, spin });
     }
     src.position.y = bodyY; this.body.add(src); this.modelSpace = src;
     // contact shadow: soft dark blob under the chassis grounds the car where cascaded shadows are too coarse

@@ -1,0 +1,79 @@
+{
+ "name": "lct",
+ "length": 6.8,
+ "width": 2.951,
+ "height": 3.222,
+ "wheels": [
+  {
+   "name": "FL",
+   "center": [
+    1.0757,
+    0.419,
+    2.021
+   ],
+   "radius": 0.4029,
+   "width": 0.2864
+  },
+  {
+   "name": "FR",
+   "center": [
+    -1.0557,
+    0.4035,
+    2.021
+   ],
+   "radius": 0.4029,
+   "width": 0.2864
+  },
+  {
+   "name": "RL",
+   "center": [
+    1.0048,
+    0.4186,
+    -1.7556
+   ],
+   "radius": 0.4039,
+   "width": 0.4968
+  },
+  {
+   "name": "RR",
+   "center": [
+    -0.9846,
+    0.4039,
+    -1.7556
+   ],
+   "radius": 0.4039,
+   "width": 0.4968
+  }
+ ],
+ "parts": [
+  "LCT300095_Blinkers_UCB_Lights_and_Glass_0",
+  "LCT300095_Body_Badges_Carbadges_misc_U_0",
+  "LCT300095_Body_lct3000_Bodymat_0",
+  "LCT300095_Bottom_UCB_BOTTOM_0",
+  "LCT300095_Brakelights_UCB_Lights_and_Glass_0",
+  "LCT300095_Bumper_front_UCB_BOTTOM_0",
+  "LCT300095_Bumper_rear_UCB_BOTTOM_0",
+  "LCT300095_Glass_Driver_UCB_Lights_and_Glass_Transperent_0",
+  "LCT300095_Glass_Passenger_UCB_Lights_and_Glass_Transperent_0",
+  "LCT300095_Headlights_Glass_UCB_Lights_and_Glass_Transperent_0",
+  "LCT300095_Headlights_UCB_Lights_and_Glass_0",
+  "LCT300095_Interior_UCB_Interiors_2_0",
+  "LCT300095_Numberplate_front_Numberplates_Misk_U_0",
+  "LCT300095_Numberplate_rear_Numberplates_Misk_U_0",
+  "LCT300095_Reardoor_Left_Inner_UCB_BOTTOM_0",
+  "LCT300095_Reardoor_Left_lct3000_Bodymat_0",
+  "LCT300095_Reardoor_Right_Inner_UCB_BOTTOM_0",
+  "LCT300095_Reardoor_Right_lct3000_Bodymat_0",
+  "LCT300095_Reverse_UCB_Lights_and_Glass_0",
+  "LCT300095_Steering_Wheel_UCB_Interiors_2_0",
+  "LCT300095_Suspension_UCB_BOTTOM_0",
+  "LCT300095_Taillights_Glass_UCB_Lights_and_Glass_Transperent_0",
+  "LCT300095_Windshield_UCB_Lights_and_Glass_Transperent_0",
+  "wheel_FL",
+  "wheel_FR",
+  "wheel_RL",
+  "wheel_RR"
+ ],
+ "faces": 18939,
+ "scale": 1.1291
+}

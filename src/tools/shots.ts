@@ -2,7 +2,7 @@
 import type { WeatherName } from '../lighting/environment';
 export interface Shot { t: number; w: WeatherName; scene?: string; cam?: { pos: number[]; look: number[]; fov?: number }; start?: number[]; yaw?: number; route?: string; speed?: number; frames?: number; hideHud?: boolean;
   /** on-foot shots: start beside the car; scripted input; camera relative to the player (right, up, forward) looking at a point relative to the player */
-  foot?: { move?: [number, number]; sprint?: boolean; interactAt?: number; knockAt?: number; camRel?: { pos: number[]; look: number[]; fov?: number }; camYaw?: number; camFixed?: boolean; faceYaw?: number; weapon?: string; aim?: boolean; fireEvery?: number; explodeAt?: number; explodeRel?: number[]; hostiles?: number; hostileDist?: number } }
+  foot?: { move?: [number, number]; sprint?: boolean; interactAt?: number; knockAt?: number; camRel?: { pos: number[]; look: number[]; fov?: number }; camYaw?: number; camFixed?: boolean; faceYaw?: number; weapon?: string; aim?: boolean; fireEvery?: number; explodeAt?: number; explodeRel?: number[]; hostiles?: number; hostileDist?: number; carDamage?: [number, number][] } }
 export const SHOTS: Record<string, Shot> = {
   m4_hero_char: { t: 18.6, w: 'clear', frames: 90, hideHud: true, foot: { faceYaw: Math.PI, camRel: { pos: [0.5, 1.62, 1.7], look: [0, 1.42, 0], fov: 34 } } },
   m4_hero_char_night: { t: 22.5, w: 'rain', frames: 90, hideHud: true, foot: { faceYaw: Math.PI, camRel: { pos: [0.5, 1.62, 1.7], look: [0, 1.42, 0], fov: 34 } } },
@@ -20,6 +20,10 @@ export const SHOTS: Record<string, Shot> = {
   m5_explosion: { t: 20.6, w: 'clear', frames: 64, hideHud: true, cam: { pos: [-4.5, 2.4, -138], look: [-11, 1.0, -150], fov: 55 }, foot: { weapon: 'rifle', explodeAt: 55, explodeRel: [0, 0, 6], faceYaw: Math.PI } },
   m5_ai: { t: 22.6, w: 'rain', frames: 210, foot: { weapon: 'rifle', aim: true, hostiles: 3, hostileDist: 24, faceYaw: Math.PI, camYaw: Math.PI } },
   m5_ai_fight: { t: 22.6, w: 'rain', frames: 200, hideHud: true, foot: { weapon: 'rifle', aim: true, fireEvery: 2, hostiles: 3, hostileDist: 20, faceYaw: Math.PI, camYaw: Math.PI } },
+  m6_damage: { t: 17.4, w: 'clear', frames: 90, hideHud: true, cam: { pos: [-5.6, 1.6, -145.0], look: [-10.4, 0.8, -150.5], fov: 45 }, foot: { carDamage: [[10, 380], [20, 300], [40, 140]] } },
+  m6_car_explosion: { t: 20.4, w: 'clear', frames: 70, hideHud: true, cam: { pos: [-1.5, 2.6, -138.0], look: [-10.4, 1.0, -150.5], fov: 50 }, foot: { carDamage: [[10, 400], [30, 700]] } },
+  m6_wreck: { t: 16.2, w: 'clear', frames: 260, hideHud: true, cam: { pos: [-5.6, 1.6, -145.0], look: [-10.4, 0.8, -150.5], fov: 45 }, foot: { carDamage: [[10, 1200]] } },
+  m6_fleet: { t: 17.8, w: 'clear', frames: 240, hideHud: true, cam: { pos: [14, 13.5, 360], look: [0, 9, 384], fov: 55 } },
   m4_crowd: { t: 17.2, w: 'clear', frames: 150, hideHud: true, cam: { pos: [-17.5, 1.7, -186], look: [-12, 1.2, -140], fov: 50 } },
   m3_golden: { t: 19.1, w: 'clear', start: [-4.2, 1.2, -150], frames: 120, hideHud: true, cam: { pos: [-11, 1.7, -175], look: [-2, 7, -60], fov: 58 } },
   m3_overcast: { t: 13.5, w: 'overcast', start: [-4.2, 1.2, -150], frames: 120, hideHud: true, cam: { pos: [-11, 1.7, -175], look: [-2, 7, -60], fov: 58 } },

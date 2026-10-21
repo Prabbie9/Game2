@@ -97,6 +97,8 @@ export class Streaming {
       if (n.lengthSq() === 0) n.copy(d).negate(); best = { t, n: n.normalize(), p: hit.clone() }; } } }
     return best;
   }
+  /** Hide streamed parked cars overlapping a point (the player's car spot, spawned vehicles). */
+  clearParked(x: number, z: number, r = 4) { for (const c of this.chunks.values()) for (const car of c.parked) { const p = car.root.position; if (Math.hypot(p.x - x, p.z - z) < r) car.root.visible = false; } }
   /** All near-chunk blocker boxes (AI cover generation and routing). */
   allBoxes() { const out: THREE.Box3[] = []; for (const c of this.chunks.values()) out.push(...c.boxes); return out; }
   /** True once the near chunk under (x, z) has its colliders. */

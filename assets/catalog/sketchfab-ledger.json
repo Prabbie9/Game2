@@ -516,6 +516,160 @@
    "url": "https://sketchfab.com/3d-models/low-poly-rpg-7-5243ac034391491f9a47f797ea212afe",
    "role": "weapon",
    "date": "2026-10-21"
+  },
+  {
+   "uid": "bc2f89ad9ace4f45b074b13172c7168f",
+   "name": "Colby '80 - Low poly model",
+   "file": "v_colby.glb",
+   "author": "DanielZhabotinsky",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/colby-80-low-poly-model-bc2f89ad9ace4f45b074b13172c7168f",
+   "role": "vehicle",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "892b2684fb37442299bfad9222cf331c",
+   "name": "Negotiator '80 - Low poly model",
+   "file": "v_negotiator.glb",
+   "author": "DanielZhabotinsky",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/negotiator-80-low-poly-model-892b2684fb37442299bfad9222cf331c",
+   "role": "vehicle",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "67beae18c3d24be68f9c8f0ec382d8e3",
+   "name": "Lightbody Lifted '85 - Low poly model",
+   "file": "v_lightbody.glb",
+   "author": "DanielZhabotinsky",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/lightbody-lifted-85-low-poly-model-67beae18c3d24be68f9c8f0ec382d8e3",
+   "role": "vehicle",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "8918b07a427443cd8d1b334d9ad213a5",
+   "name": "Tiara GT '83 - Low Poly model",
+   "file": "v_tiara.glb",
+   "author": "DanielZhabotinsky",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/tiara-gt-83-low-poly-model-8918b07a427443cd8d1b334d9ad213a5",
+   "role": "vehicle",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "955edc733c6d44fabc0ad7c246a15896",
+   "name": "Phoenix 455 '71 - Low poly model",
+   "file": "v_phoenix.glb",
+   "author": "DanielZhabotinsky",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/phoenix-455-71-low-poly-model-955edc733c6d44fabc0ad7c246a15896",
+   "role": "vehicle",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "41b3a5c0bc534817b3311c3736c403e6",
+   "name": "El Alamo '78 - Low Poly model",
+   "file": "v_elalamo.glb",
+   "author": "DanielZhabotinsky",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/el-alamo-78-low-poly-model-41b3a5c0bc534817b3311c3736c403e6",
+   "role": "vehicle",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "09d718c9cf72401b8534d265a06a803f",
+   "name": "Shvan '92 - Low poly model",
+   "file": "v_shvan.glb",
+   "author": "DanielZhabotinsky",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/shvan-92-low-poly-model-09d718c9cf72401b8534d265a06a803f",
+   "role": "vehicle",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "2856dd3c61f940909dced9a5c0379484",
+   "name": "Shvan '92 Ambulance - Low Poly model",
+   "file": "v_ambulance.glb",
+   "author": "DanielZhabotinsky",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/shvan-92-ambulance-low-poly-model-2856dd3c61f940909dced9a5c0379484",
+   "role": "vehicle",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "31f0ac0f03ad42e3bbf236b3ecb2049e",
+   "name": "Murphy '97 Cruiser - Low Poly model",
+   "file": "v_murphy_cop.glb",
+   "author": "DanielZhabotinsky",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/murphy-97-cruiser-low-poly-model-31f0ac0f03ad42e3bbf236b3ecb2049e",
+   "role": "vehicle",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "72d91f4bce814818b3cd1f2de60f8ef2",
+   "name": "Illinois '90 Taxi #1 - Low poly model",
+   "file": "v_illinois_taxi.glb",
+   "author": "DanielZhabotinsky",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/illinois-90-taxi-1-low-poly-model-72d91f4bce814818b3cd1f2de60f8ef2",
+   "role": "vehicle",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "0cd661aaab6949ba9d77dbb13ab146c5",
+   "name": "Fairheaven SW '80 Fire Dept. - Low poly model",
+   "file": "v_fire_sw.glb",
+   "author": "DanielZhabotinsky",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/fairheaven-sw-80-fire-dept-low-poly-model-0cd661aaab6949ba9d77dbb13ab146c5",
+   "role": "vehicle",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "663a0953c038434a918cb85725c88ffa",
+   "name": "LCT 3000 '95 - Low poly model",
+   "file": "v_lct.glb",
+   "author": "DanielZhabotinsky",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/lct-3000-95-low-poly-model-663a0953c038434a918cb85725c88ffa",
+   "role": "vehicle",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "d604871eee5b4181bb298163b0b675b7",
+   "name": "Illinois '90 - Low poly model",
+   "file": "v_illinois.glb",
+   "author": "DanielZhabotinsky",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/illinois-90-low-poly-model-d604871eee5b4181bb298163b0b675b7",
+   "role": "vehicle",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "dc81625478a744649b210c7f248b0b6a",
+   "name": "Illinois '90 Police cruiser - Low poly model",
+   "file": "v_illinois_cop.glb",
+   "author": "DanielZhabotinsky",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/illinois-90-police-cruiser-low-poly-model-dc81625478a744649b210c7f248b0b6a",
+   "role": "vehicle",
+   "date": "2026-10-21"
   }
  ]
 }

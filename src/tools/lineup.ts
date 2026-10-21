@@ -6,6 +6,7 @@ import { Environment, type WeatherName } from '../lighting/environment';
 import { initKTX2, pendingLoads } from '../core/assets';
 import { pbr, setTextureRes } from '../materials/pbr';
 import { Character, loadCast } from '../character/character';
+import { SourcedCar } from '../vehicles/sourced';
 
 const p = new URLSearchParams(location.search);
 const R = new Renderer(document.getElementById('app')!, (p.get('tier') as any) || 'high'); initKTX2(R.renderer); setTextureRes('1k');
@@ -15,6 +16,10 @@ ground.receiveShadow = true; R.scene.add(ground);
 const wall = new THREE.Mesh(new THREE.BoxGeometry(60, 8, 0.5), R.setupMaterial(pbr('concrete', { grime: 0.5, tint: 0xc8c3ba }, 'struct'))); wall.position.set(0, 4, -4); wall.receiveShadow = wall.castShadow = true; R.scene.add(wall);
 const dbg: any = ((window as any).HARBOURLINE_DEBUG = { ready: false, R, chars: [] as Character[] });
 (async () => {
+  if (p.get('cars')) { const ids = p.get('cars')!.split(','); let x = 0; const cars: SourcedCar[] = [];
+    for (const id of ids) { const c = new SourcedCar(R, id, { paint: 0x8a1c1c, frozen: true }); await c.load(); const w = c.geo.halfExtents[0] * 2; x += w / 2 + 0.6; c.root.position.set(x, 0, 0); c.root.updateMatrixWorld(true); c.root.position.y = -new THREE.Box3().setFromObject(c.root).min.y; c.root.rotation.y = Math.PI / 2 + 0.35; R.scene.add(c.root); x += w / 2 + 0.6; cars.push(c); }
+    for (const c of cars) c.root.position.x -= x / 2; R.camera.fov = 30; R.camera.position.set(0, 4.5, 3 + x * 0.95); R.camera.lookAt(0, 0.8, 0); R.camera.updateProjectionMatrix();
+    let f = 0; const loop = () => { requestAnimationFrame(loop); env.update(1 / 30); if (f === 3) env.bakeEnv(); R.render(1 / 30); f++; if (f > 8 && pendingLoads() === 0) dbg.ready = true; }; loop(); return; }
   const cast = await loadCast(); const ids = p.get('ids')?.split(',') ?? Object.keys(cast);
   const gap = +(p.get('gap') ?? 0.85); const lod = (+(p.get('lod') ?? 0)) as 0 | 1; const clip = p.get('clip') ?? 'standard_idle'; const at = +(p.get('at') ?? 1.0);
   const chars = await Promise.all(ids.map((id, i) => new Character(R, id, { lod, variant: +(p.get('v') ?? 0) + (p.has('vary') ? i : 0) }).load()));

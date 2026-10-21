@@ -1,0 +1,87 @@
+{
+ "name": "firesw",
+ "length": 5.1,
+ "width": 1.842,
+ "height": 1.497,
+ "wheels": [
+  {
+   "name": "FL",
+   "center": [
+    0.7343,
+    0.3046,
+    1.4039
+   ],
+   "radius": 0.3046,
+   "width": 0.225
+  },
+  {
+   "name": "FR",
+   "center": [
+    -0.737,
+    0.3046,
+    1.4039
+   ],
+   "radius": 0.3046,
+   "width": 0.225
+  },
+  {
+   "name": "RL",
+   "center": [
+    -0.737,
+    0.3046,
+    -1.261
+   ],
+   "radius": 0.3046,
+   "width": 0.225
+  },
+  {
+   "name": "RR",
+   "center": [
+    0.7343,
+    0.3046,
+    -1.261
+   ],
+   "radius": 0.3046,
+   "width": 0.225
+  }
+ ],
+ "parts": [
+  "Fairheaven_LT80_Bottom007_UCB_BOTTOM_GT_0",
+  "Fairheaven_LT80_Brakelights007_UCB_Lights_and_Glass_0",
+  "Fairheaven_LT80_Bullbar002_UCB_BOTTOM_GT_0",
+  "Fairheaven_LT80_Bumper_Front005_UCB_BOTTOM_GT_0",
+  "Fairheaven_LT80_Front_Plate005_Fairheaven_LT80_Bodymat_0",
+  "Fairheaven_LT80_Front_Plate_Badges005_Carbadges_misc_U_0",
+  "Fairheaven_LT80_Front_Plate_Inner005_UCB_BOTTOM_GT_0",
+  "Fairheaven_LT80_Glass_Driver008_UCB_Lights_and_Glass_Transperen",
+  "Fairheaven_LT80_Glass_Passanger008_UCB_Lights_and_Glass_Transpe",
+  "Fairheaven_LT80_Headlights005_UCB_Lights_and_Glass_0",
+  "Fairheaven_LT80_Headlights_Glass005_UCB_Lights_and_Glass_Transp",
+  "Fairheaven_LT80_Hood005_Fairheaven_LT80_Bodymat_0",
+  "Fairheaven_LT80_Interior_Trim007_UCB_Interior_Trim_0",
+  "Fairheaven_LT80_LightbarEMS_UCB_BOTTOM_GT_0",
+  "Fairheaven_LT80_LightbarEMS_UCB_Lights_and_Glass_Transperent_0",
+  "Fairheaven_LT80_Reverse007_UCB_Lights_and_Glass_0",
+  "Fairheaven_LT80_Steering_Wheel007_UCB_Interior_Trim_0",
+  "Fairheaven_LT80_Suspension007_UCB_BOTTOM_GT_0",
+  "Fairheaven_LT80_Taillights_Glass007_UCB_Lights_and_Glass_Transp",
+  "Fairheaven_LT80_Trunkdoor002_Fairheaven_LT80_Bodymat_0",
+  "Fairheaven_LT80_Windshield007_UCB_Lights_and_Glass_Transperent_",
+  "Fairheaven_LT80_bumper_rear005_UCB_BOTTOM_GT_0",
+  "Fairheaven_SW80_FIRE_Numberplate_Front001_Numberplates_Misk_U_0",
+  "Fairheaven_SW80_FIRE_Numberplate_Rear001_Numberplates_Misk_U_0",
+  "Fairheaven_SW80_Glass_Body002_UCB_Lights_and_Glass_Transperent_",
+  "Fairheaven_SW80_Glass_Rear002_UCB_Lights_and_Glass_Transperent_",
+  "Fairheaven_SW80_Grand_Trim001_UCB_BOTTOM_GT_0",
+  "Fairheaven_SW80_Interior002_UCB_Interior_Trim_0",
+  "Fairheaven_SW80_Trunk_door_inner002_UCB_BOTTOM_GT_0",
+  "Fairheaven_SW80_body002_Fairheaven_LT80_Bodymat_0",
+  "Fairheaven_SW80_trunk_door_Badges007_Carbadges_misc_U_0",
+  "wheel_FL",
+  "wheel_FR",
+  "wheel_RL",
+  "wheel_RR"
+ ],
+ "faces": 21325,
+ "scale": 1.005
+}

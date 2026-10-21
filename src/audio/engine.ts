@@ -31,4 +31,7 @@ export class EngineSound {
     this.wind.gain.setTargetAtTime(Math.min(0.18, speed * speed * 0.00006), t, 0.2);
     this.horn.gain.setTargetAtTime(horn ? 0.12 : 0, t, 0.01);
   }
+  /** Fade out and disconnect (vehicle swap: the next class builds its own harmonic profile). */
+  dispose() { const t = this.A.ctx!.currentTime; for (const g of [this.out, this.squeal, this.wind, this.horn]) g.gain.setTargetAtTime(0, t, 0.05);
+    setTimeout(() => { for (const g of [this.lp, this.squeal, this.wind, this.horn]) g.disconnect(); for (const o of [...this.oscs, ...this.hornOsc]) { try { o.stop(); } catch { /* already stopped */ } } }, 400); }
 }

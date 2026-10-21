@@ -1,0 +1,84 @@
+{
+ "name": "illinois",
+ "length": 5.0,
+ "width": 2.027,
+ "height": 1.381,
+ "wheels": [
+  {
+   "name": "FL",
+   "center": [
+    0.7483,
+    0.3116,
+    1.4698
+   ],
+   "radius": 0.3116,
+   "width": 0.2399
+  },
+  {
+   "name": "FR",
+   "center": [
+    -0.7482,
+    0.3116,
+    1.4698
+   ],
+   "radius": 0.3116,
+   "width": 0.2399
+  },
+  {
+   "name": "RL",
+   "center": [
+    0.7483,
+    0.3116,
+    -1.2939
+   ],
+   "radius": 0.3116,
+   "width": 0.2399
+  },
+  {
+   "name": "RR",
+   "center": [
+    -0.7482,
+    0.3116,
+    -1.2939
+   ],
+   "radius": 0.3116,
+   "width": 0.2399
+  }
+ ],
+ "parts": [
+  "Illinois90_Blinkers_UCB_Lights_and_Glass_0",
+  "Illinois90_Body_Badges_Carbadges_misc_U_0",
+  "Illinois90_Body_Glass_UCB_Lights_and_Glass_Transperent_0",
+  "Illinois90_Body_Illinois90_Bodymat_0",
+  "Illinois90_Bottom_UCB_BOTTOM_0",
+  "Illinois90_Brakelights_UCB_Lights_and_Glass_0",
+  "Illinois90_Bumper_front_Illinois90_Bodymat_0",
+  "Illinois90_Bumper_front_inner_UCB_BOTTOM_0",
+  "Illinois90_Bumper_rear_Illinois90_Bodymat_0",
+  "Illinois90_Bumper_rear_inner_UCB_BOTTOM_0",
+  "Illinois90_Glass_Passenger_UCB_Lights_and_Glass_Transperent_0",
+  "Illinois90_Headlights_Glass_UCB_Lights_and_Glass_Transperent_0",
+  "Illinois90_Headlights_UCB_Lights_and_Glass_0",
+  "Illinois90_Hood_Illinois90_Bodymat_0",
+  "Illinois90_Interior_UCB_Interiors_2_0",
+  "Illinois90_Numberplate_front_Numberplates_Misk_U_0",
+  "Illinois90_Rear_Glass_UCB_Lights_and_Glass_Transperent_0",
+  "Illinois90_Reverse_UCB_Lights_and_Glass_0",
+  "Illinois90_Reverse_UCB_Lights_and_Glass_Transperent_0",
+  "Illinois90_SUSPENSION_UCB_BOTTOM_0",
+  "Illinois90_Steering_Wheel_UCB_Interiors_2_0",
+  "Illinois90_Taillights_glass_UCB_Lights_and_Glass_Transperent_0",
+  "Illinois90_Trunkdoor_Badges_Carbadges_misc_U_0",
+  "Illinois90_Trunkdoor_Illinois90_Bodymat_0",
+  "Illinois90_Trunkdoor_Numberplates_Numberplates_Misk_U_0",
+  "Illinois90_Trunkdoor_inner_UCB_BOTTOM_0",
+  "Illinois90_Windshield_UCB_Lights_and_Glass_Transperent_0",
+  "Illinois90_glass_Driver_UCB_Lights_and_Glass_Transperent_0",
+  "wheel_FL",
+  "wheel_FR",
+  "wheel_RL",
+  "wheel_RR"
+ ],
+ "faces": 19328,
+ "scale": 0.9679
+}

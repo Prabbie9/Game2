@@ -1,0 +1,80 @@
+{
+ "name": "negotiator",
+ "length": 5.0,
+ "width": 1.898,
+ "height": 1.41,
+ "wheels": [
+  {
+   "name": "FL",
+   "center": [
+    0.7691,
+    0.317,
+    1.4362
+   ],
+   "radius": 0.3129,
+   "width": 0.2455
+  },
+  {
+   "name": "FR",
+   "center": [
+    -0.7664,
+    0.3129,
+    1.4362
+   ],
+   "radius": 0.3129,
+   "width": 0.2455
+  },
+  {
+   "name": "RL",
+   "center": [
+    0.7691,
+    0.317,
+    -1.2456
+   ],
+   "radius": 0.3129,
+   "width": 0.2455
+  },
+  {
+   "name": "RR",
+   "center": [
+    -0.7664,
+    0.3129,
+    -1.2456
+   ],
+   "radius": 0.3129,
+   "width": 0.2455
+  }
+ ],
+ "parts": [
+  "Negotiator80_Blinkers_UCB_Lights_and_Glass_0",
+  "Negotiator80_Body_Negotiator80_Bodymat_0",
+  "Negotiator80_Bodyglass_UCB_Lights_and_Glass_Transperent_0",
+  "Negotiator80_Brakelights_UCB_Lights_and_Glass_0",
+  "Negotiator80_Bumper_Front_UCB_BOTTOM_0",
+  "Negotiator80_Bumper_Rear_UCB_BOTTOM_0",
+  "Negotiator80_Glass_Driver_UCB_Lights_and_Glass_Transperent_0",
+  "Negotiator80_Glass_Passanger_UCB_Lights_and_Glass_Transperent_0",
+  "Negotiator80_Glass_back_UCB_Lights_and_Glass_Transperent_0",
+  "Negotiator80_Headlights_Glass_UCB_Lights_and_Glass_Transperent_",
+  "Negotiator80_Headlights_UCB_Lights_and_Glass_0",
+  "Negotiator80_Hood_Negotiator80_Bodymat_0",
+  "Negotiator80_Interior_UCB_Interiors_2_0",
+  "Negotiator80_Numberplate_front_Numberplates_Misk_U_0",
+  "Negotiator80_Numberplate_rear_Numberplates_Misk_U_0",
+  "Negotiator80_Reverse_UCB_Lights_and_Glass_0",
+  "Negotiator80_Steering_Wheel_UCB_Interiors_2_0",
+  "Negotiator80_Taillights_Glass_UCB_Lights_and_Glass_Transperent_",
+  "Negotiator80_Trunk_door_Badges_Carbadges_misc_U_0",
+  "Negotiator80_Trunk_door_Negotiator80_Bodymat_0",
+  "Negotiator80_Trunk_door_inner_UCB_BOTTOM_0",
+  "Negotiator80_Windshield_UCB_Lights_and_Glass_Transperent_0",
+  "Negotiator80_bottom_UCB_BOTTOM_0",
+  "Negotiator80_suspension_UCB_BOTTOM_0",
+  "wheel_FL",
+  "wheel_FR",
+  "wheel_RL",
+  "wheel_RR"
+ ],
+ "faces": 19764,
+ "scale": 1.0122
+}

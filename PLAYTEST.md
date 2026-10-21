@@ -146,3 +146,46 @@ Hostiles alert on sight/gunfire (0.4 s sight confirmation), pick separate cover 
 ## M5 — LOOK GATE (shots/m5/combat_sheet.png, ai_fight.png, explosion.png)
 Effects category 4 -> 5.5 (muzzle flash + pooled light, tracers, decals, sparks/dust, shells, explosion fireball + shockwave + smoke + debris + light). Night firefight with rain and wet reflections reads well. Average ~6.0 (still below 7: interiors repeat, no volumetric smoke, no fire spread yet).
 - Human questions (M5): 1) Does aiming (RMB) feel responsive and is the over-the-shoulder zoom too tight? 2) Is the rifle too accurate when hip-firing? 3) Do AI opponents feel fair (warning, grace, accuracy)? 4) Is the recoil kick readable without being nauseating? 5) Are grenade arcs predictable enough without a trajectory preview?
+
+
+## M6 — vehicle fleet, damage (checkpoint 7)
+
+### Fleet fun gate (tools/fungate.ts, Balanced preset, per-class bands from `gate` in vehicle_tuning.json)
+| class | 0→cruise s (band) | top km/h | 100→0 m | drift slip ° | wall exit km/h | ramp air s | result |
+|---|---|---|---|---|---|---|---|
+| ambulance | 10.2 (8–14) | 158.4 | 40.8 | n/a (not required) | 53.3 | 0.82 | PASS |
+| compact | 7.93 (7–13) | 150.9 | 36.4 | n/a (not required) | 53.7 | 0.88 | PASS |
+| muscle | 4.63 (3.5–7) | 237.6 | 40.3 | 14.4 | 60.5 | 1.03 | PASS |
+| pickup | 7.25 (6.5–11) | 180 | 40.4 | 10 | 55.3 | 0.9 | PASS |
+| police | 5.48 (4–8) | 230.3 | 40.3 | 13 | 57.8 | 0.95 | PASS |
+| sedan2 | 7.18 (6.5–11) | 198 | 40.3 | 12.1 | 55.7 | 0.9 | PASS |
+| sedan3 | 6.83 (6.5–11) | 201.6 | 40.2 | 12 | 56 | 0.9 | PASS |
+| sedan | 6.63 (6.5–11) | 208.8 | 40.2 | 12 | 56.4 | 0.92 | PASS |
+| sports | 4.2 (3.5–7) | 244.8 | 39.9 | 12.8 | 60.7 | 1.02 | PASS |
+| suv | 7.28 (6–11) | 180 | 40.5 | n/a (not required) | 55.9 | 0.9 | PASS |
+| taxi | 7.33 (6.5–11) | 198 | 40.4 | 10.2 | 55.3 | 0.9 | PASS |
+| truck | 10.12 (8–22) | 118.7 | 67.6 | n/a (not required) | 0 | 0.73 | PASS |
+| van | 10.2 (8–14) | 158.4 | 40.7 | n/a (not required) | 52.3 | 0.82 | PASS |
+| wagon | 6.53 (6.5–11) | 208.8 | 40.4 | 10.6 | 56.6 | 0.93 | PASS |
+
+All 14 classes pass. Braking converges on ~40 m for every car (the tyre friction model caps it, not brake force); the
+box truck is detuned (67.6 m). Drift is only required of rear-drive cars with a low centre of mass.
+
+### Damage test (shots/m6/m6_sheet.png, shots m6_damage / m6_car_explosion)
+- Collision damage from horizontal Δv > ~3.5 g (2 s spawn grace); bullets and explosions via `hit()`.
+- Dents: vertex displacement around the hit point (per-car geometry copies). Glass shatters (hidden + particles).
+- Health: smoke < 45%, fire < 20%, explosion at 0 or after 7 s burning → charred, immobile wreck with lights off.
+- Bug found and fixed: loaded cars merge their meshes under the body at load, so damage walked an empty node. It now
+  walks the whole car root. A parked city car spawned on the player car's spot was also hiding the wreck; parked cars
+  near the player's car are now hidden.
+- Not done (logged): detachable parts (doors/bumpers), motorbike (no CC-BY bike with a usable rig found in budget).
+
+### Fleet visuals (shots/m6/fleet_sheet.png)
+14 sourced models (DanielZhabotinsky 80s family, CC-BY). Packed with tools/vehicle_pack.mjs: meshopt + WebP
+(LOD0 1024, LOD1 256): 58 MB → 29 MB. Per-model seat H-point and door point derived from the model size
+(+ `seatFront` override for cab-forward vans, ambulance, truck, colby). Engine audio profile (i4/v6/v8) follows the class.
+
+### Human questions (M6)
+1. Does each class feel distinct (sports/muscle vs. van/truck)? Is the truck too sluggish?
+2. Are dents readable enough, or should impacts deform more?
+3. Is the charred wreck dark enough at night?

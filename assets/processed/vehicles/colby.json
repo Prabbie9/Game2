@@ -1,0 +1,76 @@
+{
+ "name": "colby",
+ "length": 4.2,
+ "width": 2.123,
+ "height": 2.05,
+ "wheels": [
+  {
+   "name": "FL",
+   "center": [
+    0.8582,
+    0.3157,
+    1.1635
+   ],
+   "radius": 0.3146,
+   "width": 0.1985
+  },
+  {
+   "name": "FR",
+   "center": [
+    -0.8574,
+    0.3146,
+    1.1635
+   ],
+   "radius": 0.3146,
+   "width": 0.1985
+  },
+  {
+   "name": "RL",
+   "center": [
+    0.8582,
+    0.3157,
+    -1.1822
+   ],
+   "radius": 0.3146,
+   "width": 0.1985
+  },
+  {
+   "name": "RR",
+   "center": [
+    -0.8574,
+    0.3146,
+    -1.1822
+   ],
+   "radius": 0.3146,
+   "width": 0.1985
+  }
+ ],
+ "parts": [
+  "Colby80_Bottom_UCB_BOTTOM_0",
+  "Colby80_Brakelights_UCB_Lights_and_Glass_0",
+  "Colby80_Bumper_Front_Inner_UCB_BOTTOM_0",
+  "Colby80_Bumper_Front_SHTYCAR80_bodymat_0",
+  "Colby80_Bumper_Rear_SHTYCAR80_bodymat_0",
+  "Colby80_Bumper_rear_Inner_UCB_BOTTOM_0",
+  "Colby80_Glass_Driver_UCB_Lights_and_Glass_Transperent_0",
+  "Colby80_Glass_Passenger_UCB_Lights_and_Glass_Transperent_0",
+  "Colby80_Headlights_UCB_Lights_and_Glass_0",
+  "Colby80_Interior_UCB_Interiors_2_0",
+  "Colby80_Numberplate_front_Numberplates_Misk_U_0",
+  "Colby80_Numberplate_rear_Numberplates_Misk_U_0",
+  "Colby80_Rear_window_UCB_Lights_and_Glass_Transperent_0",
+  "Colby80_Reverse_UCB_Lights_and_Glass_0",
+  "Colby80_Steering_Wheel_UCB_Interiors_2_0",
+  "Colby80_Suspension_UCB_BOTTOM_0",
+  "Colby80_Vynil_Trim_UCB_BOTTOM_0",
+  "Colby80_Windshield_UCB_Lights_and_Glass_Transperent_0",
+  "Colby80_body_Badges_Carbadges_misc_U_0",
+  "Colby80_body_SHTYCAR80_bodymat_0",
+  "wheel_FL",
+  "wheel_FR",
+  "wheel_RL",
+  "wheel_RR"
+ ],
+ "faces": 12316,
+ "scale": 1.3684
+}

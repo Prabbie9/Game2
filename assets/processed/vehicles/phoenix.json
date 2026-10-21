@@ -1,0 +1,78 @@
+{
+ "name": "phoenix",
+ "length": 5.0,
+ "width": 2.134,
+ "height": 1.359,
+ "wheels": [
+  {
+   "name": "FL",
+   "center": [
+    0.8765,
+    0.3324,
+    1.5786
+   ],
+   "radius": 0.3294,
+   "width": 0.2978
+  },
+  {
+   "name": "FR",
+   "center": [
+    -0.8741,
+    0.3294,
+    1.5786
+   ],
+   "radius": 0.3294,
+   "width": 0.2978
+  },
+  {
+   "name": "RL",
+   "center": [
+    0.8765,
+    0.3324,
+    -1.2234
+   ],
+   "radius": 0.3294,
+   "width": 0.2978
+  },
+  {
+   "name": "RR",
+   "center": [
+    -0.8741,
+    0.3294,
+    -1.2234
+   ],
+   "radius": 0.3294,
+   "width": 0.2978
+  }
+ ],
+ "parts": [
+  "Phoenix445_Blinkers_UCB_Lights_and_Glass_0",
+  "Phoenix445_Body_Badges_Carbadges_misc_U_0",
+  "Phoenix445_Body_Phoenix445_Bodymat_0",
+  "Phoenix445_Bottom_UCB_BOTTOM_0",
+  "Phoenix445_Brakelights_UCB_Lights_and_Glass_0",
+  "Phoenix445_Bumper_rear_UCB_BOTTOM_0",
+  "Phoenix445_Glass_Driver_UCB_Lights_and_Glass_Transperent_0",
+  "Phoenix445_Glass_Passenger_UCB_Lights_and_Glass_Transperent_0",
+  "Phoenix445_Glass_rear_UCB_Lights_and_Glass_Transperent_0",
+  "Phoenix445_Headlights_Glass001_UCB_Lights_and_Glass_Transperent",
+  "Phoenix445_Headlights_UCB_Lights_and_Glass_0",
+  "Phoenix445_Headlights_glass_UCB_Lights_and_Glass_Transperent_0",
+  "Phoenix445_Hood_Inner_UCB_BOTTOM_0",
+  "Phoenix445_Hood_Phoenix445_Bodymat_0",
+  "Phoenix445_Interior_UCB_Interiors_2_0",
+  "Phoenix445_Reverse_UCB_Lights_and_Glass_0",
+  "Phoenix445_Steering_Wheel_UCB_Interiors_2_0",
+  "Phoenix445_Suspension_UCB_BOTTOM_0",
+  "Phoenix445_Taillights_Glass_UCB_Lights_and_Glass_Transperent_0",
+  "Phoenix445_Trunkdoor_Phoenix445_Bodymat_0",
+  "Phoenix445_Windshield_UCB_Lights_and_Glass_Transperent_0",
+  "Phoenix455_np_Numberplates_Misk_U_0",
+  "wheel_FL",
+  "wheel_FR",
+  "wheel_RL",
+  "wheel_RR"
+ ],
+ "faces": 25943,
+ "scale": 1.0224
+}

@@ -60,10 +60,12 @@ export class SimCore {
   setCharInput(id: number, inp: Partial<CharInput>) { const c = this.chars.get(id); if (c) Object.assign(c.input, inp); }
   /** Radial impulse (explosions): dynamic props, vehicles and ragdoll segments within radius, falloff to the edge. */
   explode(c: number[], radius: number, strength: number) {
-    const hit = (b: RAPIER_NS.RigidBody, massK: number) => { const p = b.translation(); const d = [p.x - c[0], p.y - c[1] + 0.5, p.z - c[2]]; const L = Math.hypot(d[0], d[1], d[2]); if (L > radius) return;
-      const k = strength * (1 - L / radius) * massK / Math.max(0.5, L); b.applyImpulse({ x: d[0] * k, y: Math.abs(d[1]) * k + strength * (1 - L / radius) * massK * 0.6, z: d[2] * k }, true); };
-    for (const b of this.dynamics.values()) hit(b, b.mass()); for (const v of this.vehicles.values()) hit(v.body, v.body.mass() * 0.5);
-    for (const r of this.ragdolls.values()) for (const b of r.bodies) hit(b, b.mass());
+    // strength = velocity change (m/s) at the centre, falling off linearly; direction outward with an upward bias
+    const hit = (b: RAPIER_NS.RigidBody, k0: number) => { const p = b.translation(); const d = [p.x - c[0], p.y - c[1] + 0.3, p.z - c[2]]; const L = Math.hypot(d[0], d[1], d[2]); if (L > radius) return;
+      const n = [d[0] / (L || 1), Math.max(0.35, d[1] / (L || 1)) + 0.4, d[2] / (L || 1)]; const nl = Math.hypot(n[0], n[1], n[2]); const dv = strength * (1 - L / radius) * k0; const m = b.mass();
+      b.applyImpulse({ x: (n[0] / nl) * dv * m, y: (n[1] / nl) * dv * m, z: (n[2] / nl) * dv * m }, true);
+      b.applyTorqueImpulse({ x: (Math.random() - 0.5) * dv * m * 0.6, y: (Math.random() - 0.5) * dv * m * 0.3, z: (Math.random() - 0.5) * dv * m * 0.6 }, true); };
+    for (const b of this.dynamics.values()) hit(b, 1); for (const v of this.vehicles.values()) hit(v.body, 0.45); for (const r of this.ragdolls.values()) for (const b of r.bodies) hit(b, 1);
   }
   removeVehicle(id: number) { this.vehicles.get(id)?.dispose(); this.vehicles.delete(id); }
   setInput(id: number, inp: Partial<VehicleInput>) { const v = this.vehicles.get(id); if (v) Object.assign(v.input, inp); }

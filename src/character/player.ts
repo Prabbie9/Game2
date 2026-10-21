@@ -40,11 +40,11 @@ export class Player {
   seatIn(car: Car) { this.car = car; this.state = 'drive'; this.pinK = 1; this.physics.charInputs[this.id] = { mode: CHAR_MODE.disabled }; this.an.play('vehicle', 'standard_drive', { fadeIn: 0.01, hold: true }); }
   private modelPoint(car: Car, local: THREE.Vector3) { (car.modelSpace ?? car.root).updateWorldMatrix(true, false); return (car.modelSpace ?? car.root).localToWorld(local.clone()); }
   private carYaw(car: Car) { const f = new THREE.Vector3(0, 0, 1).applyQuaternion(car.root.getWorldQuaternion(new THREE.Quaternion())); return Math.atan2(f.x, f.z); }
-  doorDistance(car: Car) { return this.modelPoint(car, DOOR).setY(0).distanceTo(this.position.clone().setY(0)); }
+  doorDistance(car: Car) { return this.modelPoint(car, (car as any).door ?? DOOR).setY(0).distanceTo(this.position.clone().setY(0)); }
   enter(car: Car) { if (!this.onFoot) return; this.car = car; this.state = 'toDoor'; }
   exit() { if (this.state !== 'drive' || !this.car) return; const car = this.car; this.state = 'exit';
-    const seat = this.modelPoint(car, SEAT), door = this.modelPoint(car, DOOR); const y = this.carYaw(car);
-    this.startSeq(1.25, seat, door, y, y, (k) => { const d = this.modelPoint(car, DOOR), s = this.modelPoint(car, SEAT); this.pinK = 1 - THREE.MathUtils.smoothstep(k, 0.05, 0.6); return s.clone().lerp(d, THREE.MathUtils.smoothstep(k, 0.25, 0.95)).setY(d.y); });
+    const seat = this.modelPoint(car, (car as any).seat ?? SEAT), door = this.modelPoint(car, (car as any).door ?? DOOR); const y = this.carYaw(car);
+    this.startSeq(1.25, seat, door, y, y, (k) => { const d = this.modelPoint(car, (car as any).door ?? DOOR), s = this.modelPoint(car, (car as any).seat ?? SEAT); this.pinK = 1 - THREE.MathUtils.smoothstep(k, 0.05, 0.6); return s.clone().lerp(d, THREE.MathUtils.smoothstep(k, 0.25, 0.95)).setY(d.y); });
     this.an.play('vehicle', 'standing_up_from_seated_position', { fadeIn: 0.15, timeScale: 1.35, fadeOut: 0.3 });
   }
   private startSeq(dur: number, from: THREE.Vector3, to: THREE.Vector3, fromYaw: number, toYaw: number, path: ((k: number) => THREE.Vector3) | null = null) {
@@ -64,7 +64,7 @@ export class Player {
     if (this.state === 'foot' || this.state === 'toDoor') {
       // desired planar velocity: camera relative input, or auto-walk to the car door
       let mx = inp.move[0], my = inp.move[1]; let want = 0;
-      if (this.state === 'toDoor' && this.car) { const door = this.modelPoint(this.car, DOOR);
+      if (this.state === 'toDoor' && this.car) { const door = this.modelPoint(this.car, (this.car as any).door ?? DOOR);
         // route around the car body: from the far side or the ends, go via the nearest driver-side corner first
         const ms = this.car.modelSpace ?? this.car.root; const lp = ms.worldToLocal(this.position.clone()); let goal = door;
         if (lp.x < 1.05 && Math.abs(lp.z) < 2.75) goal = this.modelPoint(this.car, new THREE.Vector3(1.35, 0, lp.z >= 0 ? 2.85 : -2.85));
@@ -107,7 +107,7 @@ export class Player {
         else if (this.state === 'enter') { this.state = 'drive'; Object.assign(ci, { mode: CHAR_MODE.disabled }); this.an.play('vehicle', 'standard_drive', { fadeIn: 0.25, hold: true }); }
         else if (this.state === 'exit') { this.state = 'foot'; this.physics.teleportChar(this.id, [p.x, p.y + 0.02, p.z]); this.car = null; this.speed = 0; } }
     } else if (this.state === 'drive' && this.car) {
-      const seat = this.modelPoint(this.car, SEAT); this.yaw = this.carYaw(this.car); this.target.copy(seat); this.pinK = 1;
+      const seat = this.modelPoint(this.car, (this.car as any).seat ?? SEAT); this.yaw = this.carYaw(this.car); this.target.copy(seat); this.pinK = 1;
       Object.assign(ci, { mode: CHAR_MODE.disabled, target: [seat.x, seat.y, seat.z] });
     }
     // visual root: physics feet (smoothed height for steps) or the scripted / seated target
@@ -123,11 +123,11 @@ export class Player {
     this.ik.weight += (ikW - this.ik.weight) * Math.min(1, dt * 10); this.ik.update(dt, ground, root.position.y, animSpeed);
     // seat constraint: move the whole body so the hips sit on the seat's H-point (blended in/out while entering/exiting)
     if (this.car && this.pinK > 0 && (this.state === 'drive' || this.state === 'enter' || this.state === 'exit')) { const hips = this.ch.bone('Hips')!; this.ch.model.updateMatrixWorld(true);
-      const want = this.modelPoint(this.car, SEAT); const off = want.sub(hips.getWorldPosition(new THREE.Vector3())).multiplyScalar(this.pinK); root.position.add(off); root.updateMatrixWorld(true); }
+      const want = this.modelPoint(this.car, (this.car as any).seat ?? SEAT); const off = want.sub(hips.getWorldPosition(new THREE.Vector3())).multiplyScalar(this.pinK); root.position.add(off); root.updateMatrixWorld(true); }
     if (this.state === 'drive') this.seatedPose(); else if (this.state !== 'enter' && this.state !== 'exit') this.pinK = 0;
   }
-  private beginEnter() { if (!this.car) return; const car = this.car; const door = this.modelPoint(car, DOOR), seat = this.modelPoint(car, SEAT); const y = this.carYaw(car);
-    this.state = 'enter'; this.speed = 0; void door; void seat; this.startSeq(1.35, door, seat, this.yaw, y, (k) => { const d = this.modelPoint(car, DOOR), s = this.modelPoint(car, SEAT); const q = THREE.MathUtils.smoothstep(k, 0.3, 0.95);
+  private beginEnter() { if (!this.car) return; const car = this.car; const door = this.modelPoint(car, (car as any).door ?? DOOR), seat = this.modelPoint(car, (car as any).seat ?? SEAT); const y = this.carYaw(car);
+    this.state = 'enter'; this.speed = 0; void door; void seat; this.startSeq(1.35, door, seat, this.yaw, y, (k) => { const d = this.modelPoint(car, (car as any).door ?? DOOR), s = this.modelPoint(car, (car as any).seat ?? SEAT); const q = THREE.MathUtils.smoothstep(k, 0.3, 0.95);
       this.pinK = THREE.MathUtils.smoothstep(k, 0.35, 1); return d.clone().lerp(s, q).setY(d.y); });
     this.an.play('civil', 'standing_to_sitting_transition', { fadeIn: 0.2, timeScale: 1.25, hold: true }); }
   private beginTraverse(ps: CharState) {

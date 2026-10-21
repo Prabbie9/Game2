@@ -1,0 +1,85 @@
+{
+ "name": "lightbody",
+ "length": 4.7,
+ "width": 2.043,
+ "height": 1.832,
+ "wheels": [
+  {
+   "name": "FL",
+   "center": [
+    0.7463,
+    0.3353,
+    1.5134
+   ],
+   "radius": 0.3326,
+   "width": 0.3064
+  },
+  {
+   "name": "FR",
+   "center": [
+    -0.7421,
+    0.3326,
+    1.5134
+   ],
+   "radius": 0.3326,
+   "width": 0.3064
+  },
+  {
+   "name": "RL",
+   "center": [
+    0.7463,
+    0.3353,
+    -1.2541
+   ],
+   "radius": 0.3326,
+   "width": 0.3064
+  },
+  {
+   "name": "RR",
+   "center": [
+    -0.7421,
+    0.3326,
+    -1.2541
+   ],
+   "radius": 0.3326,
+   "width": 0.3064
+  }
+ ],
+ "parts": [
+  "krmlgtbdy85_Blinkers_UCB_Lights_and_Glass_0",
+  "krmlgtbdy85_Body_Badges_Carbadges_misc_U_0",
+  "krmlgtbdy85_Body_Glass_UCB_Lights_and_Glass_Transperent_0",
+  "krmlgtbdy85_Body_krmlgtbdy85_Bodymat_0",
+  "krmlgtbdy85_Bottom_UCB_BOTTOM_0",
+  "krmlgtbdy85_Brakelights_UCB_Lights_and_Glass_0",
+  "krmlgtbdy85_Bullbar_UCB_BOTTOM_0",
+  "krmlgtbdy85_Bumper_Front_krmlgtbdy85_Bodymat_0",
+  "krmlgtbdy85_Bumper_Rear_UCB_BOTTOM_0",
+  "krmlgtbdy85_Bumper_front_inner_UCB_BOTTOM_0",
+  "krmlgtbdy85_Extra_A_UCB_BOTTOM_0",
+  "krmlgtbdy85_Glass_Driver_UCB_Lights_and_Glass_Transperent_0",
+  "krmlgtbdy85_Glass_Passanger_UCB_Lights_and_Glass_Transperent_0",
+  "krmlgtbdy85_Glass_Rear_UCB_Lights_and_Glass_Transperent_0",
+  "krmlgtbdy85_Headlights_Glass_UCB_Lights_and_Glass_Transperent_0",
+  "krmlgtbdy85_Headlights_UCB_Lights_and_Glass_0",
+  "krmlgtbdy85_Hood_inner_UCB_BOTTOM_0",
+  "krmlgtbdy85_Hood_krmlgtbdy85_Bodymat_0",
+  "krmlgtbdy85_Interior_UCB_Interiors_1_0",
+  "krmlgtbdy85_Lifted_Suspension_UCB_BOTTOM_0",
+  "krmlgtbdy85_Lifted_Trim_UCB_BOTTOM_0",
+  "krmlgtbdy85_Numberplates_Rear_Numberplates_Misk_U_0",
+  "krmlgtbdy85_Reverse_UCB_Lights_and_Glass_0",
+  "krmlgtbdy85_Steering_Wheel_UCB_Interiors_1_0",
+  "krmlgtbdy85_Taillights_Glass_UCB_Lights_and_Glass_Transperent_0",
+  "krmlgtbdy85_Trunk_door_Badges_Carbadges_misc_U_0",
+  "krmlgtbdy85_Trunk_door_inner_UCB_BOTTOM_0",
+  "krmlgtbdy85_Trunkdoor_krmlgtbdy85_Bodymat_0",
+  "krmlgtbdy85_Windshield_UCB_Lights_and_Glass_Transperent_0",
+  "wheel_FL",
+  "wheel_FR",
+  "wheel_RL",
+  "wheel_RR"
+ ],
+ "faces": 37387,
+ "scale": 0.9541
+}

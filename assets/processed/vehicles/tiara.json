@@ -1,0 +1,83 @@
+{
+ "name": "tiara",
+ "length": 4.35,
+ "width": 1.813,
+ "height": 1.323,
+ "wheels": [
+  {
+   "name": "FL",
+   "center": [
+    0.6691,
+    0.2897,
+    1.3368
+   ],
+   "radius": 0.2897,
+   "width": 0.2043
+  },
+  {
+   "name": "FR",
+   "center": [
+    -0.6691,
+    0.2897,
+    1.3368
+   ],
+   "radius": 0.2897,
+   "width": 0.2043
+  },
+  {
+   "name": "RL",
+   "center": [
+    0.6691,
+    0.2897,
+    -1.1558
+   ],
+   "radius": 0.2897,
+   "width": 0.2043
+  },
+  {
+   "name": "RR",
+   "center": [
+    -0.6691,
+    0.2897,
+    -1.1558
+   ],
+   "radius": 0.2897,
+   "width": 0.2043
+  }
+ ],
+ "parts": [
+  "TiaraGT83_Blinkers_UCB_Lights_and_Glass_0",
+  "TiaraGT83_Body_Badges_Carbadges_misc_U_0",
+  "TiaraGT83_Body_TiaraGT83_Bodymat_0",
+  "TiaraGT83_Bottom_UCB_BOTTOM_0",
+  "TiaraGT83_Brakelights_UCB_Lights_and_Glass_0",
+  "TiaraGT83_Bumper_FrontA_TiaraGT83_Bodymat_0",
+  "TiaraGT83_Bumper_FrontA_inner_UCB_BOTTOM_0",
+  "TiaraGT83_Bumper_Front_Badges_Carbadges_misc_U_0",
+  "TiaraGT83_Bumper_rearA_TiaraGT83_Bodymat_0",
+  "TiaraGT83_Bumper_rearA_Trim_UCB_BOTTOM_0",
+  "TiaraGT83_Glass_Driver_UCB_Lights_and_Glass_Transperent_0",
+  "TiaraGT83_Glass_Passenger_UCB_Lights_and_Glass_Transperent_0",
+  "TiaraGT83_Glass_UCB_Lights_and_Glass_Transperent_0",
+  "TiaraGT83_Headlight_Glass_UCB_Lights_and_Glass_Transperent_0",
+  "TiaraGT83_Headlights_UCB_Lights_and_Glass_0",
+  "TiaraGT83_Hood_TiaraGT83_Bodymat_0",
+  "TiaraGT83_Interior_UCB_Interiors_2_0",
+  "TiaraGT83_Numberplate_Front_Numberplates_Misk_U_0",
+  "TiaraGT83_Numberplate_Rear_Numberplates_Misk_U_0",
+  "TiaraGT83_Reverselights_UCB_Lights_and_Glass_0",
+  "TiaraGT83_Steering_Wheel_UCB_Interiors_2_0",
+  "TiaraGT83_Suspension_UCB_BOTTOM_0",
+  "TiaraGT83_Trunkdoor_Glass_UCB_Lights_and_Glass_Transperent_0",
+  "TiaraGT83_Trunkdoor_TiaraGT83_Bodymat_0",
+  "TiaraGT83_Trunkdoor_Trim_UCB_BOTTOM_0",
+  "TiaraGT83_Trunkdoor_inner_UCB_Interiors_2_0",
+  "TiaraGT83_Windshield_UCB_Lights_and_Glass_Transperent_0",
+  "wheel_FL",
+  "wheel_FR",
+  "wheel_RL",
+  "wheel_RR"
+ ],
+ "faces": 18755,
+ "scale": 1.0439
+}

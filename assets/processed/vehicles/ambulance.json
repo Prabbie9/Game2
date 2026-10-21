@@ -1,0 +1,69 @@
+{
+ "name": "ambulance",
+ "length": 5.4,
+ "width": 2.527,
+ "height": 2.433,
+ "wheels": [
+  {
+   "name": "FL",
+   "center": [
+    0.8914,
+    0.3774,
+    1.9751
+   ],
+   "radius": 0.3766,
+   "width": 0.2873
+  },
+  {
+   "name": "FR",
+   "center": [
+    -0.8925,
+    0.3766,
+    1.9751
+   ],
+   "radius": 0.3766,
+   "width": 0.2873
+  },
+  {
+   "name": "RL",
+   "center": [
+    -0.0006,
+    0.377,
+    -1.398
+   ],
+   "radius": 0.377,
+   "width": 2.0711
+  }
+ ],
+ "parts": [
+  "Shvan92AMB_Numberplate_front_Numberplates_Misk_U_0",
+  "Shvan92AMB_Numberplate_rear_Numberplates_Misk_U_0",
+  "Shvan92_Ambulance_Stuff_Inner_UCB_BOTTOM_0",
+  "Shvan92_Ambulance_Stuff_Shvan92_bodymat_0",
+  "Shvan92_Blinkers_UCB_Lights_and_Glass_0",
+  "Shvan92_Body_Badges_Carbadges_misc_U_0",
+  "Shvan92_Body_Shvan92_bodymat_0",
+  "Shvan92_Body_glass_UCB_Lights_and_Glass_Transperent_0",
+  "Shvan92_Bottom_UCB_BOTTOM_0",
+  "Shvan92_Brakelights_UCB_Lights_and_Glass_0",
+  "Shvan92_Bumper_front_UCB_BOTTOM_0",
+  "Shvan92_Bumper_rear_UCB_BOTTOM_0",
+  "Shvan92_Glass_Driver_UCB_Lights_and_Glass_Transperent_0",
+  "Shvan92_Glass_Passanger_UCB_Lights_and_Glass_Transperent_0",
+  "Shvan92_Headlights_Glass_UCB_Lights_and_Glass_Transperent_0",
+  "Shvan92_Headlights_UCB_Lights_and_Glass_0",
+  "Shvan92_Hood_Shvan92_bodymat_0",
+  "Shvan92_Interior_UCB_Interiors_1_0",
+  "Shvan92_Lightbar_Ambulance_UCB_Lights_and_Glass_0",
+  "Shvan92_Reverse_UCB_Lights_and_Glass_0",
+  "Shvan92_Runningboard_UCB_BOTTOM_0",
+  "Shvan92_Steering_Wheel_UCB_Interiors_1_0",
+  "Shvan92_Suspension_UCB_BOTTOM_0",
+  "Shvan92_Windshield_UCB_Lights_and_Glass_Transperent_0",
+  "wheel_FL",
+  "wheel_FR",
+  "wheel_RL"
+ ],
+ "faces": 25943,
+ "scale": 1.0759
+}

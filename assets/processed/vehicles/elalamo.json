@@ -1,0 +1,79 @@
+{
+ "name": "elalamo",
+ "length": 5.2,
+ "width": 1.937,
+ "height": 1.402,
+ "wheels": [
+  {
+   "name": "FL",
+   "center": [
+    0.781,
+    0.3237,
+    1.6346
+   ],
+   "radius": 0.3237,
+   "width": 0.2491
+  },
+  {
+   "name": "FR",
+   "center": [
+    -0.781,
+    0.3237,
+    1.6346
+   ],
+   "radius": 0.3237,
+   "width": 0.2491
+  },
+  {
+   "name": "RL",
+   "center": [
+    0.781,
+    0.3237,
+    -1.3324
+   ],
+   "radius": 0.3237,
+   "width": 0.2491
+  },
+  {
+   "name": "RR",
+   "center": [
+    -0.781,
+    0.3237,
+    -1.3324
+   ],
+   "radius": 0.3237,
+   "width": 0.2491
+  }
+ ],
+ "parts": [
+  "ElAlamo78_BodyGlass_UCB_Lights_and_Glass_Transperent_0",
+  "ElAlamo78_Body_Badges_Carbadges_misc_U_0",
+  "ElAlamo78_Body_ElAlamo78_Bodymat_0",
+  "ElAlamo78_Bottom_UCB_BOTTOM_0",
+  "ElAlamo78_Brakelights_UCB_Lights_and_Glass_0",
+  "ElAlamo78_Bumper_Front_UCB_BOTTOM_0",
+  "ElAlamo78_Bumper_Rear_UCB_BOTTOM_0",
+  "ElAlamo78_Glass_Driver001_UCB_Lights_and_Glass_Transperent_0",
+  "ElAlamo78_Glass_Driver_UCB_Lights_and_Glass_Transperent_0",
+  "ElAlamo78_Headlights001_UCB_Lights_and_Glass_0",
+  "ElAlamo78_Headlights_UCB_Lights_and_Glass_Transperent_0",
+  "ElAlamo78_Hood_ElAlamo78_Bodymat_0",
+  "ElAlamo78_Interior_UCB_Interiors_2_0",
+  "ElAlamo78_Numberplate_Front_Numberplates_Misk_U_0",
+  "ElAlamo78_Numberplate_Rear_Numberplates_Misk_U_0",
+  "ElAlamo78_Rear_Glass_UCB_Lights_and_Glass_Transperent_0",
+  "ElAlamo78_Reverse_UCB_Lights_and_Glass_0",
+  "ElAlamo78_Steering_wheel_UCB_Interiors_2_0",
+  "ElAlamo78_Suspension_UCB_BOTTOM_LT_0",
+  "ElAlamo78_Trunkdoor_Badges_Carbadges_misc_U_0",
+  "ElAlamo78_Trunkdoor_ElAlamo78_Bodymat_0",
+  "ElAlamo78_Trunkdoor_Inner_UCB_BOTTOM_0",
+  "ElAlamo78_Windshield_UCB_Lights_and_Glass_Transperent_0",
+  "wheel_FL",
+  "wheel_FR",
+  "wheel_RL",
+  "wheel_RR"
+ ],
+ "faces": 16172,
+ "scale": 1.0143
+}
