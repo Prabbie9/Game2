@@ -4,7 +4,7 @@
 import * as THREE from 'three';
 import type { Renderer } from '../renderer/renderer';
 import { Character, loadCast } from '../character/character';
-import { bakeVAT, vatMaterial, type VatBody } from './vat';
+import { bakeVAT, mergeVatParts, vatMaterial, type VatBody } from './vat';
 import { blockRect, BLOCK, KERB, GRID } from '../world/citygen';
 
 const CLOTH = [0xffffff, 0xffffff, 0xd2dae8, 0xb8c4d6, 0xe6d6bc, 0xc8d8c0, 0xecc8c0, 0xc4c4cc, 0xdcc8a4, 0xa8b4c8, 0xd8b0b0]; // multipliers over the albedo: tints, never near-black
@@ -16,11 +16,11 @@ export class Crowd {
     const cast = await loadCast();
     for (const id of this.ids) { const ch = await new Character(this.R, id, { lod: 1, shadows: false }).load(); const female = cast[id]?.sex === 'f';
       const clip = await ch.clip('core', female ? 'female_walk_forward' : 'male_walk_forward_03'); if (!clip) continue; const meta = (clip as any).meta; const scale = ch.rig.hipsHeight / 0.99;
-      const parts = bakeVAT(ch, clip); this.bodies.push({ id, parts, speed: meta.speed * scale, stride: meta.speed * scale * clip.duration, height: ch.height }); }
+      const baked = bakeVAT(ch, clip); const parts = this.R.tier.name === 'Lite' || this.R.tier.name === 'Low' ? [mergeVatParts(baked)] : baked; /* Lite/Low: one draw per body */ this.bodies.push({ id, parts, speed: meta.speed * scale, stride: meta.speed * scale * clip.duration, height: ch.height }); }
     const per = Math.ceil(this.count / Math.max(1, this.bodies.length));
     this.meshes = this.bodies.map((b) => b.parts.map((p) => { const { mat, depth } = vatMaterial(this.R, p, this.time); const im = new THREE.InstancedMesh(p.geo, mat, per);
       im.geometry = p.geo.clone(); im.geometry.setAttribute('aVat', new THREE.InstancedBufferAttribute(new Float32Array(per * 2), 2)); im.customDepthMaterial = depth;
-      im.castShadow = this.R.tier.name !== 'Low'; im.receiveShadow = true; im.frustumCulled = false; im.count = 0; for (let i = 0; i < per; i++) im.setColorAt(i, new THREE.Color(1, 1, 1)); this.R.scene.add(im); return im; }));
+      im.castShadow = this.R.tier.name !== 'Low' && this.R.tier.name !== 'Lite'; im.receiveShadow = true; im.frustumCulled = false; im.count = 0; for (let i = 0; i < per; i++) im.setColorAt(i, new THREE.Color(1, 1, 1)); this.R.scene.add(im); return im; }));
     this.ready = true; return this;
   }
   private spawn(cx: number, cz: number, r: () => number): Agent {
@@ -48,7 +48,7 @@ export class Crowd {
       const b = this.bodies[a.body]; const k = counts[a.body]++; if (k >= this.meshes[a.body][0].instanceMatrix.count) continue;
       m.compose(p.set(pl.x, KERB, pl.z), q.setFromAxisAngle(Y, pl.yaw), one);
       for (const [pi, im] of this.meshes[a.body].entries()) { im.setMatrixAt(k, m); const at = im.geometry.getAttribute('aVat') as THREE.InstancedBufferAttribute; at.setXY(k, a.phase, (a.speed * (a.fear && a.fear > 0 ? 2.6 : 1)) / b.stride);
-        if (b.parts[pi].role === 'cloth' && !(window as any).HL_NOTINT) im.setColorAt(k, a.tint); } }
+        if ((b.parts[pi].role === 'cloth' || b.parts[pi].role === 'merged') && !(window as any).HL_NOTINT) im.setColorAt(k, a.tint); } }
     this.meshes.forEach((parts, bi) => parts.forEach((im) => { im.count = counts[bi]; im.instanceMatrix.needsUpdate = true; (im.geometry.getAttribute('aVat') as THREE.InstancedBufferAttribute).needsUpdate = true; if (im.instanceColor) im.instanceColor.needsUpdate = true; }));
   }
 }

@@ -233,7 +233,7 @@ export async function startGame(app: HTMLElement) {
     const k = loadPeak ? completedLoads() / loadPeak : 0; (loadEl.querySelector('em') as HTMLElement).style.width = Math.round(Math.min(0.97, k) * 100) + '%'; (loadEl.querySelector('span') as HTMLElement).textContent = inflight ? `Loading the city… ${completedLoads()} assets ready, ${inflight} to go` : 'Starting…'; };
   let carSleep: { pos: number[]; yaw: number } | null = null; let streamWaitCount = 0; // frames the physics waited for the player's chunk colliders
   const focusPt = () => (player.ready && player.state !== 'drive' ? player.position.clone() : state ? new THREE.Vector3(...state.pos) : new THREE.Vector3(spawn[0], 0, spawn[2]));
-  const clock = new THREE.Clock(); let frames = 0, loadedOnce = false, lightT = 0; let state: ReturnType<PhysicsClient['vehicle']> = null;
+  const clock = new THREE.Clock(); let frames = 0, lastChars = -1, loadedOnce = false, lightT = 0; let state: ReturnType<PhysicsClient['vehicle']> = null;
   const tmp = { p2: new THREE.Vector3(), p3: new THREE.Vector3(), q: new THREE.Quaternion(), p: new THREE.Vector3(), v: new THREE.Vector3(), prevP: new THREE.Vector3() };
   const dbg: any = (window as any).HARBOURLINE_DEBUG = {
     ready: false, frames: 0, R, env, phys, report: [] as any[], player, crowd, THREE, get harbour() { return harbour; },
@@ -359,7 +359,7 @@ export async function startGame(app: HTMLElement) {
     if (life && sim > 0 && spawned) { life.update(sim, focusPt(), gunfire); gunfire = null; if (player.ready) wanted?.update(sim);
       for (const c of life.cars) if (c.cls === 'police') lightBar(c.vis as any, wanted?.flash(c.id) ?? 0); }
     if (harbour) harbour.update(sim, env.night, clock.elapsedTime);
-    if (frames % 15 === 0) { /* shadow budget: only the nearest characters cast shadows (each caster is re-drawn per cascade) */ const K = ({ Lite: 2, Low: 4, Medium: 8, High: 16 } as Record<string, number>)[R.tier.name] ?? 24;
+    let nChars = 0; for (const p of peds) if (p.ch.model) nChars++; for (const c of cops) if (c.ch?.model) nChars++; for (const h of hostiles) if (h.ch.model) nChars++; if (frames % 15 === 0 || nChars !== lastChars) { lastChars = nChars; /* shadow budget (also as soon as a character finishes loading): only the nearest characters cast shadows (each caster is re-drawn per cascade) */ const K = ({ Lite: 2, Low: 4, Medium: 8, High: 16 } as Record<string, number>)[R.tier.name] ?? 24;
       const chars = [player.ch, ...peds.map((p) => p.ch), ...cops.map((c) => c.ch), ...hostiles.map((h) => h.ch)].filter((c) => c && c.model); const cp = R.camera.position;
       chars.sort((a, b) => a.root.getWorldPosition(tmp.p2).distanceToSquared(cp) - b.root.getWorldPosition(tmp.p3).distanceToSquared(cp)); chars.forEach((c, i) => c.setShadow(i < K));
       const DD = ({ Lite: 12, Low: 18, Medium: 25, High: 35 } as Record<string, number>)[R.tier.name] ?? 50; for (const c of chars) c.setDetail(c === player.ch || c.root.getWorldPosition(tmp.p2).distanceTo(cp) < DD); }

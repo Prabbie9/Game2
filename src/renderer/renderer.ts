@@ -91,7 +91,11 @@ export class Renderer {
     if (m.userData.patchKey) m.customProgramCacheKey = () => m.userData.patchKey;
   }
   /** Register a lit material for cascaded shadows (idempotent). */
-  setupMaterial<M extends THREE.Material>(m: M): M { if (!this.materials.has(m)) { this.materials.add(m); this.hook(m); this.capTextures(m); } return m; }
+  setupMaterial<M extends THREE.Material>(m: M): M { if (!this.materials.has(m)) { this.materials.add(m); this.noTransmission(m); this.hook(m); this.capTextures(m); } return m; }
+  /** Transmissive glass (KHR_materials_transmission on the speedboat windshield) makes three.js re-render every opaque
+   * object into a refraction target whenever one is on screen (~+700 draws in the Harbour view). Plain alpha glass instead. */
+  private noTransmission(m: THREE.Material) { const p = m as THREE.MeshPhysicalMaterial; if (!p.isMeshPhysicalMaterial || !(p.transmission > 0)) return;
+    p.opacity = Math.min(p.opacity, 0.2 + 0.6 * (1 - p.transmission)); p.transmission = 0; p.transparent = true; p.depthWrite = false; }
   /** Lite: uncompressed textures larger than 512 px are downscaled once on a canvas before their first GPU upload
    * (car/character/boat WebP textures were ~85% of Lite's texture memory). KTX2 textures are left alone. */
   private capped = new WeakSet<THREE.Texture>();

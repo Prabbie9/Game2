@@ -59,11 +59,12 @@ export class Character {
     await this.fixFacing();
     return this;
   }
-  private shadowMeshes: THREE.Mesh[] | null = null; castsShadow = true;
+  castsShadow = true;
   /** Per-frame shadow budget (game picks the nearest characters). */
   showDetail = true; private detailMeshes: THREE.Object3D[] | null = null;
   setDetail(on: boolean) { if (on === this.showDetail || !this.model) return; this.showDetail = on; this.detailMeshes ??= (() => { const a: THREE.Object3D[] = []; this.model.traverse((o) => { if (o.userData.detail) a.push(o); }); return a; })(); for (const m of this.detailMeshes) m.visible = on; }
-  setShadow(on: boolean) { if (on === this.castsShadow || !this.model) return; this.castsShadow = on; this.shadowMeshes ??= (() => { const a: THREE.Mesh[] = []; this.model.traverse((o) => { if ((o as THREE.Mesh).isMesh && (o as THREE.Mesh).castShadow) a.push(o as THREE.Mesh); }); return a; })(); for (const m of this.shadowMeshes) m.castShadow = on; }
+  setShadow(on: boolean) { if (on === this.castsShadow || !this.model) return; this.castsShadow = on; /* walks the model each time: weapons and props attached after load are covered too */
+    this.model.traverse((o) => { const m = o as THREE.Mesh; if (!m.isMesh) return; m.userData.cast0 ??= m.castShadow; m.castShadow = on && m.userData.cast0; }); }
   private prepTemplate(s: THREE.Group) {
     s.traverse((o) => { const m = o as THREE.SkinnedMesh; if (!m.isMesh) return; m.castShadow = this.opts.shadows ?? true; m.receiveShadow = true; m.frustumCulled = false; // re-enabled with a padded sphere after the merge below
       for (const mt of ([] as THREE.Material[]).concat(m.material)) { const s = mt as THREE.MeshStandardMaterial; if (!s.isMeshStandardMaterial) continue;
@@ -80,7 +81,8 @@ export class Character {
       m.material = Array.isArray(m.material) ? m.material.map(skinify) : skinify(m.material); });
     mergeSkinned(s);
     // detail LOD: small sub-meshes (eyes, teeth, tongue, lashes, brows, tiny parts) are hidden beyond a distance (fewer draws per far character)
-    s.traverse((o) => { const m = o as THREE.SkinnedMesh; if (m.isSkinnedMesh && (m.geometry.attributes.position.count < 1500 || /eye|teeth|tongue|lash|brow|cornea|iris/i.test(m.name + ((m.material as THREE.Material).name ?? '')))) m.userData.detail = true; });
+    s.traverse((o) => { const m = o as THREE.SkinnedMesh; if (m.isMesh && !m.isSkinnedMesh && m.geometry.attributes.position.count < 6000) m.userData.detail = true; /* rigid gear (pouches, magazines, patches) */
+      if (m.isSkinnedMesh && (m.geometry.attributes.position.count < 1500 || /eye|teeth|tongue|lash|brow|cornea|iris/i.test(m.name + ((m.material as THREE.Material).name ?? '')))) m.userData.detail = true; });
     // frustum culling with a padded bind-pose sphere (radius x1.8 covers animation and ragdoll poses; the root stays under the pelvis)
     s.updateMatrixWorld(true); s.traverse((o) => { const m = o as THREE.SkinnedMesh; if (!m.isSkinnedMesh) return; m.skeleton.update(); m.computeBoundingSphere(); /* bone-transformed (needs current bone matrices): quantised positions are not in mesh space */ m.boundingSphere!.radius *= 1.8; m.frustumCulled = true; });
     return s;

@@ -6,7 +6,7 @@
 import * as THREE from 'three';
 import type { Character } from '../character/character';
 import type { Renderer } from '../renderer/renderer';
-import { weaponMeta, weaponModel, type WeaponMeta } from './models';
+import { weaponMeta, weaponModel, weaponModelLean, type WeaponMeta } from './models';
 import { solveTwoBone, rotateWorld } from '../ik/footik';
 
 const Y = new THREE.Vector3(0, 1, 0);
@@ -15,12 +15,13 @@ export class WeaponRig {
   recoil = { kick: 0, rise: 0, vk: 0, vr: 0 }; reloadT = -1; reloadDur = 1; sway = 0; holstered = false;
   metrics = { gripErr: 0, supportErr: 0, muzzleErrDeg: 0 };
   private bones: Record<string, THREE.Bone> = {};
+  lean = false; // AI holders: merged low-draw model (weaponModelLean)
   constructor(public R: Renderer, public ch: Character) {
     for (const n of ['Spine', 'Spine1', 'Spine2', 'Neck', 'Head', 'RightShoulder', 'RightArm', 'RightForeArm', 'RightHand', 'RightHandMiddle1', 'LeftArm', 'LeftForeArm', 'LeftHand', 'LeftHandMiddle1']) { const b = ch.bone(n); if (b) this.bones[n] = b; }
   }
   async equip(id: string | null) {
     if (this.model) { this.model.removeFromParent(); this.model = null; } this.id = id; this.meta = null; if (!id) return;
-    const meta = (await weaponMeta())[id]; const m = await weaponModel(this.R, id); if (this.id !== id) return;
+    const meta = (await weaponMeta())[id]; const m = await (this.lean ? weaponModelLean : weaponModel)(this.R, id); if (this.id !== id || this.model) return; /* a newer equip() won */
     this.meta = meta; this.model = m; this.R.scene.add(m);
   }
   /** Palm point: between the hand bone and the middle-finger base, nudged toward the palm. */
@@ -31,7 +32,8 @@ export class WeaponRig {
   /** After the mixer. aimDir = camera aim (world); aiming 0..1; facing = character root yaw. */
   update(dt: number, aimDir: THREE.Vector3, aiming: boolean, speed: number) {
     if (!this.model || !this.meta || this.holstered) { if (this.model) this.model.visible = !this.holstered; return; }
-    this.model.visible = true; const B = this.bones; const m = this.model; this.aimDir.copy(aimDir).normalize();
+    this.model.visible = true; if (this.model.userData.cast !== this.ch.castsShadow) { this.model.userData.cast = this.ch.castsShadow; this.model.traverse((o) => { if ((o as THREE.Mesh).isMesh) o.castShadow = this.ch.castsShadow; }); } /* follows the holder's shadow budget */
+    const B = this.bones; const m = this.model; this.aimDir.copy(aimDir).normalize();
     this.aimW += ((aiming ? 1 : 0) - this.aimW) * Math.min(1, dt * 10);
     // recoil spring (kick metres back, rise degrees)
     const r = this.recoil; r.vk += (-r.kick * 220 - r.vk * 24) * dt; r.kick = Math.max(0, r.kick + r.vk * dt * 0.01); r.vr += (-r.rise * 160 - r.vr * 20) * dt; r.rise += r.vr * dt;

@@ -13,7 +13,7 @@ export interface TrafficCar {
   id: number; cls: string; vis: { root: THREE.Object3D; update: (s: VehState, braking: number) => void; setLights: (on: boolean) => void };
   axis: number; dir: number; k: number; off: number; // road: axis 1 = along x on z = line(k); axis 0 = along z on x = line(k); off = lane offset from the centre line
   turn: { axis: number; dir: number; k: number; off: number; pts: THREE.Vector2[] } | null; nextI: number; mode: CarMode; panic: number; stuck: number; age: number; speed: number; why?: string; nudge?: number;
-  pursue?: (s: VehState, q: THREE.Quaternion) => { steer: number; throttle: number; brake: number; handbrake: number; boost: number };
+  pursue?: (s: VehState, q: THREE.Quaternion, dt: number) => { steer: number; throttle: number; brake: number; handbrake: number; boost: number };
 }
 export interface TrafficHost {
   phys: PhysicsClient; spawnVis: (cls: string, id: number) => TrafficCar['vis']; removeVis: (c: TrafficCar) => void;
@@ -96,7 +96,7 @@ export class TrafficSystem {
       if (gunfireAt && p.distanceTo(gunfireAt) < 45) c.panic = 8; c.panic = Math.max(0, c.panic - dt);
       let inp = { steer: 0, throttle: 0, brake: 0, handbrake: 0, boost: 0 };
       if (this.host.wrecked(c.id) || c.mode === 'abandoned' || c.mode === 'parked') inp.brake = c.mode === 'parked' ? 1 : 0.3;
-      else if (c.mode === 'pursuit' && c.pursue) inp = c.pursue(s, q);
+      else if (c.mode === 'pursuit' && c.pursue) inp = c.pursue(s, q, dt);
       else inp = this.drive(c, s, q, obst, states);
       this.host.phys.inputs[c.id] = inp; c.vis.update(s, inp.brake > 0.1 ? 1 : 0);
       // stuck (blocked by a wreck, flipped): give up when out of view

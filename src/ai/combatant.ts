@@ -32,7 +32,7 @@ export class Combatant {
   }
   async load(pos: THREE.Vector3, yaw = 0) {
     await this.ch.load(); this.an = await new Animator(this.ch).init(); const st = WDATA[this.weapon].stance!; await this.an.addStance(st); this.an.stance = st;
-    this.ik = new FootIK(this.ch); this.an.update(0, 0, 0); this.ik.calibrate(); this.rig = new WeaponRig(this.R, this.ch); await this.rig.equip(this.weapon);
+    this.ik = new FootIK(this.ch); this.an.update(0, 0, 0); this.ik.calibrate(); this.rig = new WeaponRig(this.R, this.ch); this.rig.lean = true; await this.rig.equip(this.weapon);
     this.rag = new RagdollCtl(this.ch, this.an, this.phys); this.rag.stayDown = true;
     this.ch.root.position.copy(pos); this.yaw = yaw; this.visY = pos.y; this.R.scene.add(this.ch.root); this.phys.spawnChar(this.id, pos.toArray()); this.combat.targets.push(this.tgt); this.ready = true; return this;
   }

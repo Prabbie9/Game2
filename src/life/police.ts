@@ -32,7 +32,8 @@ export class Wanted {
   private render() { const flash = this.stars > 0 && this.unseen > 0 && Math.floor(this.t * 3) % 2 === 0; this.ui.innerHTML = this.stars ? Array.from({ length: 5 }, (_, i) => `<i class="${i < this.stars ? (flash ? 'on dim' : 'on') : ''}">★</i>`).join('') : ''; }
   /** Pursuit controller for a cruiser: drive at the player (or a point ahead of their car); ram from 3 stars, stop near a player on foot. */
   private pursuer(u: TrafficCar) {
-    return (s: VehState, q: THREE.Quaternion) => {
+    let blockedT = 0, backT = 0, turnAt: THREE.Vector2 | null = null; // per-cruiser recovery state
+    return (s: VehState, q: THREE.Quaternion, dt = 1 / 30) => {
       const pl = this.host.player(); const p = new THREE.Vector2(s.pos[0], s.pos[2]); const hidden = this.unseen > 0.5 || !this.engaged; const ppos = hidden ? this.lastSeen : pl.pos; /* until a cop has seen the player, cruisers head for the crime scene */ let tgt = new THREE.Vector2(ppos.x, ppos.z);
       if (!hidden && pl.carState && this.stars < 3) { const v = new THREE.Vector3(0, 0, 1).applyQuaternion(new THREE.Quaternion(...pl.carState.quat)).multiplyScalar(Math.min(25, pl.carState.vf * 0.8)); tgt.add(new THREE.Vector2(v.x, v.z)); }
       const d = tgt.distanceTo(p); const f = new THREE.Vector3(0, 0, 1).applyQuaternion(q); const heading = Math.atan2(f.x, f.z);
@@ -40,13 +41,20 @@ export class Wanted {
       // route: get onto the street nearest the target, then drive along it (the old rule turned straight at the target once level with it and drove into buildings)
       if (d > 45) { const C = THREE.MathUtils.clamp; const rx = line(Math.round(p.x / BLOCK)), rz = line(Math.round(p.y / BLOCK)); const onX = Math.abs(p.x - rx) < Math.abs(p.y - rz);
         const px = line(Math.round(tgt.x / BLOCK)), pz = line(Math.round(tgt.y / BLOCK)); const tOnX = Math.abs(tgt.x - px) < Math.abs(tgt.y - pz); // target's street runs along z (x = px) when tOnX
-        if (onX) { if (tOnX && rx === px) tgt = new THREE.Vector2(rx, C(tgt.y, p.y - 60, p.y + 60)); else if (Math.abs(p.y - pz) < 10) tgt = new THREE.Vector2(C(tOnX ? px : tgt.x, p.x - 60, p.x + 60), pz); else tgt = new THREE.Vector2(rx, C(pz, p.y - 60, p.y + 60)); }
-        else { if (!tOnX && rz === pz) tgt = new THREE.Vector2(C(tgt.x, p.x - 60, p.x + 60), rz); else if (Math.abs(p.x - px) < 10) tgt = new THREE.Vector2(px, C(tOnX ? tgt.y : pz, p.y - 60, p.y + 60)); else tgt = new THREE.Vector2(C(px, p.x - 60, p.x + 60), rz); }
+        turnAt = null;
+        if (onX) { if (tOnX && rx === px) tgt = new THREE.Vector2(rx, C(tgt.y, p.y - 60, p.y + 60)); else if (Math.abs(p.y - pz) < 10) tgt = new THREE.Vector2(C(tOnX ? px : tgt.x, p.x - 60, p.x + 60), pz); else { turnAt = new THREE.Vector2(rx, pz); tgt = new THREE.Vector2(rx, C(pz, p.y - 60, p.y + 60)); } }
+        else { if (!tOnX && rz === pz) tgt = new THREE.Vector2(C(tgt.x, p.x - 60, p.x + 60), rz); else if (Math.abs(p.x - px) < 10) tgt = new THREE.Vector2(px, C(tOnX ? tgt.y : pz, p.y - 60, p.y + 60)); else { turnAt = new THREE.Vector2(px, rz); tgt = new THREE.Vector2(C(px, p.x - 60, p.x + 60), rz); } }
         if (tgt.distanceTo(p) < 8) tgt = new THREE.Vector2(ppos.x, ppos.z); }
       let err = Math.atan2(tgt.x - p.x, tgt.y - p.y) - heading; while (err > Math.PI) err -= 2 * Math.PI; while (err < -Math.PI) err += 2 * Math.PI;
       const footStop = (pl.onFoot || hidden) && d < 14; const reverse = Math.abs(err) > 2.2 && d < 25 && s.vf < 3; // behind us and close: back up and turn
-      const vWant = footStop ? 0 : this.stars >= 3 || d > 40 ? 38 : Math.max(8, d * 0.6); const dv = vWant - s.vf;
-      return { steer: THREE.MathUtils.clamp((reverse ? err : -err) * 2.2, -1, 1), throttle: reverse ? 0 : dv > 0 ? 1 : 0, brake: reverse ? 0.8 : footStop ? 1 : dv < -3 ? 0.6 : 0, handbrake: Math.abs(err) > 1.2 && s.vf > 10 ? 1 : 0, boost: this.stars >= 4 && d > 60 ? 1 : 0 };
+      let vWant = footStop ? 0 : this.stars >= 3 || d > 40 ? 38 : Math.max(8, d * 0.6);
+      // slow for the next corner (overshooting a turn at speed ends in a U-turn or a wall) and while pointing well off the route
+      if (turnAt) vWant = Math.min(vWant, 9 + turnAt.distanceTo(p) * 0.45); if (Math.abs(err) > 0.6) vWant = Math.min(vWant, 12);
+      const dv = vWant - s.vf;
+      // blocked (pushing into a car, kerb or wall at walking pace): back up for 1.5 s, steering the other way, then try again
+      if (backT > 0) { backT -= dt; return { steer: THREE.MathUtils.clamp(err * 2.2, -1, 1), throttle: 0, brake: 1, handbrake: 0, boost: 0 }; } /* brake from standstill = reverse */
+      blockedT = !footStop && vWant > 6 && Math.abs(s.vf) < 1.5 ? blockedT + dt : 0; if (blockedT > 1.5) { blockedT = 0; backT = 1.5; }
+      return { steer: THREE.MathUtils.clamp((reverse ? err : -err) * 2.2, -1, 1), throttle: reverse ? 0 : dv > 0 ? 1 : 0, brake: reverse ? 0.8 : footStop ? 1 : dv < -3 ? 0.6 : 0, handbrake: Math.abs(err) > 1.2 && s.vf > 10 ? 1 : 0, boost: this.stars >= 4 && d > 60 && !turnAt ? 1 : 0 };
     };
   }
   /** New cruisers spawn 90-140 m from `center` (the player while seen, the last-seen point once hidden) and never where they would see the player. */
