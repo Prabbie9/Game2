@@ -1,15 +1,15 @@
 # PROGRESS
-NEXT STEP: M4 wrap-up — review M4 shots (shots/m4), animation-gate frame strips, look-gate scoring incl. hero character, PLAYTEST/known-good/Artifact republish; then M5 (wave 3 clips + weapons).
+NEXT STEP: M5 — fetch clip wave 3 (pistol/rifle idle-aim-fire-reload sets, melee, throw; ~50 calls), weapon archetypes with sockets + hand IK, aim offsets, hit reactions/ragdoll by zone, effects (muzzle, tracers, decals, explosions).
 
-STEPS_USED: ~590 (M0 ~80, M1 ~75, M2 ~190, M3 ~95, M4 ~150)   DRIVE_CALLS_USED: 167 / 300   SKETCHFAB_DOWNLOADS: 36 / 150
-MILESTONE: M3 done (checkpoint 4) — look gate BELOW target (5.4/7), carried forward
+STEPS_USED: ~660 (M0 ~80, M1 ~75, M2 ~190, M3 ~95, M4 ~220)   DRIVE_CALLS_USED: 167 / 300   SKETCHFAB_DOWNLOADS: 36 / 150
+MILESTONE: M4 done (checkpoint 5, known-good) — look gate 5.7/7 carried forward; stairs grounding + door opening open
 
 ## Milestones
 - M0 Setup: DONE. Drive indexed (846 clips, 23 chars), wave 1 (82 clips) fetched + ingested (2.0MB bundles), Sketchfab working, Artifact route published, renderer = WebGL + postprocessing.
 
 - M1 Vehicle feel grey-box: DONE. Rapier ray-cast vehicle in a worker + arcade assists (drift state + angle limiter, yaw assist, countersteer, anti-flip, self-right), chase cam, tuning panel (K) with presets + copy, synthesized audio, rain/night mood test. Fun gate proxies pass for all presets (PLAYTEST.md).
 - M2 Look slice: DONE with shortfall. PBR KTX2 library, building kit + interior mapping, intersection slice, SSR, sky dome, scene probe, sourced car via prep tool (Kiri '86), Mixamo peds, rest test (props pass).
-- M4 Characters + animation: IN PROGRESS (gates below). Wave 2 (62 clips) ingested -> 144 clips / 6 bundles. Cast: 15 Sketchfab Mixamo-rigged bodies (CC-BY) prepped to LOD0 (~24k tris, 60k player) + LOD1 (~6k) with meshopt + WebP, palette variants (4 per body -> 60 looks). On-foot player (Rapier character controller in the worker: autostep, snap, slope limit, crouch capsule, obstacle probe), speed-matched phase-synced gait blend tree, jump/fall/land, vault/climb, foot IK (two-bone, toe/heel contact, pelvis, ankle-to-normal, planted locking), car enter/exit without teleport (door route, seat H-point pin, steering-wheel hand IK), ragdolls + get-up blend, vehicle impacts, cast pedestrians, VAT instanced crowd (mid/far).
+- M4 Characters + animation: DONE with shortfalls (stairs grounding, door opening, crouch walk arms, look avg 5.7). Wave 2 (62 clips) ingested -> 144 clips / 6 bundles. Cast: 15 Sketchfab Mixamo-rigged bodies (CC-BY) prepped to LOD0 (~24k tris, 60k player) + LOD1 (~6k) with meshopt + WebP, palette variants (4 per body -> 60 looks). On-foot player (Rapier character controller in the worker: autostep, snap, slope limit, crouch capsule, obstacle probe), speed-matched phase-synced gait blend tree, jump/fall/land, vault/climb, foot IK (two-bone, toe/heel contact, pelvis, ankle-to-normal, planted locking), car enter/exit without teleport (door route, seat H-point pin, steering-wheel hand IK), ragdolls + get-up blend, vehicle impacts, cast pedestrians, VAT instanced crowd (mid/far).
 - M3 World generator + streaming: DONE. Seeded Downtown (grid, arterials, plaza, underpass/tunnel, elevated highway), 128 m chunks built in 2 workers, near/far LOD, physics groups, time-sliced apply, shader pre-warm, bot budget reports.
 
 ## DECISIONS

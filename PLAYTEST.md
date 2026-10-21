@@ -100,3 +100,25 @@ Vehicle fun gate re-run after M4: unchanged PASS (Balanced 0-cruise 6.63 s, 208.
 
 ## M4 — vehicle realism (driver)
 Seated driver: hips pinned to the seat H-point (model space 0.37, 0.50, -0.28), hands IK'd to the wheel rim points; enter/exit never teleports (route to door, slide in/out during the sit/stand clip). Door opening: not possible with the current Kiri model (no door nodes) — logged for the M6 fleet (prep tool to split doors).
+
+## M4 — ANIMATION GATE (frame strips: shots/m4/anim_strip_loco.png, run_strip.png, anim_strip_enter.png, ragdoll_sheet.png)
+- Locomotion (unarmed): walk / run / sprint read naturally, phase-synced and speed-matched (grounding table above). Defects found + fixed: "Walking Forwards" exaggerated arm swing (-> Male Walk Forward 03), "Running Forwards" right arm stuck overhead (-> Slow Run Forward), thread of stretched triangles between the knees (cross-leg triangles dropped in prep), backwards-facing / black-headed bodies (hair cut-out + facing fix), giant/invisible bodies (skinned bind-pose bounds). Open: crouch walk is a reversed backward clip with arms reaching forward (no unarmed forward crouch walk in the library).
+- Enter/exit: route around the car to the driver door, sit while sliding in, hips pinned to the seat, hands on the wheel; no teleport. Open: door does not open (model has no door node) so the body passes through the closed door for ~0.4 s.
+- Ragdoll + get-up: flung body tumbles over the car bonnet, settles flat (rest test), get-up picks back/stomach clip and blends from the ragdoll pose. Open: hit reactions by direction exist as clips (react bundle) but are wired with weapons in M5.
+- Skeleton sanity: no inverted hips or twisted limbs in the strips; all 15 cast bodies share the Mixamo skeleton (verified by bone names). Crowd variety: 15 bodies x 4 palette variants (skinned) + per-instance tints (VAT crowd) — shots/m4/vat_close2.png.
+- Aim up/down, fire, reload: UNVERIFIED until M5.
+
+## M4 — LOOK GATE (self-scored; shots/m4/m4_final_sheet.jpg)
+| category | score | evidence |
+|---|---|---|
+| lighting & shadows | 6 | golden-hour key light and contact shadows on the hero character; night street-lamp pools; shop interiors still flat |
+| materials | 5.5 | cobbles/asphalt/kerb PBR read well; facades repetitive |
+| reflections & glass | 5.5 | wet cobbles reflect lamps at night; tower glass still uniform |
+| atmosphere | 6 | rain streaks + haze at night, warm sky at dusk |
+| world density | 6 | skinned pedestrians + VAT crowd on sidewalks; few props |
+| character & vehicle shading | 6.5 | realistic faces/clothes, hair cut-out, clearcoat car; skin lacks subsurface warmth |
+| effects | 4 | rain/steam/skids only; fire/explosions arrive in M5/M6 |
+| post & colour | 6 | AgX + grade; slightly dark mid-tones |
+| cohesion | 6 | cast and car read as one era/style; bookshop interiors repeat |
+Average 5.7 (target 7 by M3, carried forward; see GRAPHICS_BACKLOG). FUN GATE (on foot): UNPLAYED: needs human — questions added below.
+- Human questions (M4): 1) Does the on-foot speed (walk 1.6 / run 3.7 / sprint 5.9 m/s) feel right, and is the turn-around too snappy? 2) Is getting into the car (walk round to the door, ~1.3 s sit) acceptable or too slow? 3) Does the camera behind the player collide or jump near shop pillars? 4) Do pedestrians look varied enough at a glance? 5) After being hit by a car, is the get-up delay (~3-4 s) too long?

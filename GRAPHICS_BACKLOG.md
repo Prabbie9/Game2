@@ -18,3 +18,6 @@
 ## Done
 - M1: HDR pipeline (N8AO, bloom, AgX, grade, vignette, grain, CA, SMAA), CSM 4 cascades, Preetham sky + IBL, wet/puddle shader, rain.
 - M2: KTX2 PBR sets (15 CC0), anti-tiling + grime, building kit with interior-mapped windows, look-slice street (paint, kerbs, manholes, lamps, traffic lights, trees, furniture, parked cars), SSR for wet surfaces, cloud/star/moon dome, scene reflection probe, sourced car (Kiri '86) via prep tool.
+- (M4) Skin shading: add a cheap subsurface/wrap term + specular occlusion for character skin (faces read slightly plasticky at golden hour).
+- (M4) Shop interiors: the bookshop interior repeats on every shopfront; add 4-6 interior themes (cafe, clothes, electronics, pharmacy) with per-shop selection.
+- (M4) Crowd LOD1 shading: VAT crowd has no hair cut-out shadows; add alpha-tested depth for hair cards.
