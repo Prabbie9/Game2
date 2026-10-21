@@ -1,0 +1,215 @@
+{
+ "_note": "Arcade data-driven ballistics. damage per hit (pellet), rpm, mag, reload s, spread deg (hip/aim), recoil deg (pitch, yaw jitter), falloff [start m, end m, min factor], range m. Health: civilians 100, police 120, tactical 160 (+armour 0.6 damage factor on torso).",
+ "pistol": {
+  "slot": 1,
+  "stance": "pistol",
+  "auto": false,
+  "damage": 34,
+  "pellets": 1,
+  "rpm": 300,
+  "mag": 12,
+  "reload": 1.5,
+  "spread": [
+   2.2,
+   0.6
+  ],
+  "recoil": [
+   3.2,
+   0.8
+  ],
+  "falloff": [
+   20,
+   50,
+   0.6
+  ],
+  "range": 120,
+  "aimFov": 46,
+  "headMul": 2.0
+ },
+ "smg": {
+  "slot": 2,
+  "stance": "rifle",
+  "auto": true,
+  "damage": 24,
+  "pellets": 1,
+  "rpm": 800,
+  "mag": 30,
+  "reload": 1.9,
+  "spread": [
+   3.4,
+   1.1
+  ],
+  "recoil": [
+   1.4,
+   1.0
+  ],
+  "falloff": [
+   15,
+   40,
+   0.55
+  ],
+  "range": 100,
+  "aimFov": 46,
+  "headMul": 1.8
+ },
+ "rifle": {
+  "slot": 3,
+  "stance": "rifle",
+  "auto": true,
+  "damage": 30,
+  "pellets": 1,
+  "rpm": 640,
+  "mag": 30,
+  "reload": 2.2,
+  "spread": [
+   2.6,
+   0.45
+  ],
+  "recoil": [
+   1.7,
+   0.7
+  ],
+  "falloff": [
+   40,
+   110,
+   0.7
+  ],
+  "range": 300,
+  "aimFov": 42,
+  "headMul": 2.0
+ },
+ "shotgun": {
+  "slot": 4,
+  "stance": "rifle",
+  "auto": false,
+  "damage": 13,
+  "pellets": 9,
+  "rpm": 70,
+  "mag": 6,
+  "reload": 2.8,
+  "spread": [
+   6.5,
+   4.0
+  ],
+  "recoil": [
+   7.0,
+   1.5
+  ],
+  "falloff": [
+   8,
+   28,
+   0.35
+  ],
+  "range": 60,
+  "aimFov": 50,
+  "headMul": 1.5
+ },
+ "sniper": {
+  "slot": 5,
+  "stance": "rifle",
+  "auto": false,
+  "damage": 150,
+  "pellets": 1,
+  "rpm": 45,
+  "mag": 5,
+  "reload": 3.0,
+  "spread": [
+   5.0,
+   0.05
+  ],
+  "recoil": [
+   9.0,
+   1.0
+  ],
+  "falloff": [
+   150,
+   400,
+   0.8
+  ],
+  "range": 600,
+  "aimFov": 14,
+  "headMul": 2.5
+ },
+ "rpg": {
+  "slot": 5,
+  "stance": "rifle",
+  "auto": false,
+  "damage": 300,
+  "pellets": 1,
+  "rpm": 30,
+  "mag": 1,
+  "reload": 3.5,
+  "spread": [
+   3.0,
+   0.4
+  ],
+  "recoil": [
+   6.0,
+   1.0
+  ],
+  "falloff": [
+   0,
+   1,
+   1
+  ],
+  "range": 400,
+  "aimFov": 44,
+  "headMul": 1,
+  "projectile": {
+   "speed": 55,
+   "radius": 6.0,
+   "impulse": 14
+  }
+ },
+ "bat": {
+  "slot": 0,
+  "stance": null,
+  "melee": true,
+  "damage": 45,
+  "rpm": 70,
+  "range": 1.7,
+  "arc": 70,
+  "impulse": 4
+ },
+ "crowbar": {
+  "slot": 0,
+  "stance": null,
+  "melee": true,
+  "damage": 40,
+  "rpm": 80,
+  "range": 1.5,
+  "arc": 60,
+  "impulse": 3
+ },
+ "knife": {
+  "slot": 0,
+  "stance": null,
+  "melee": true,
+  "damage": 55,
+  "rpm": 90,
+  "range": 1.2,
+  "arc": 45,
+  "impulse": 1
+ },
+ "grenade": {
+  "slot": 6,
+  "stance": null,
+  "throw": true,
+  "damage": 250,
+  "fuse": 3.2,
+  "speed": 16,
+  "radius": 7.5,
+  "impulse": 12
+ },
+ "molotov": {
+  "slot": 6,
+  "stance": null,
+  "throw": true,
+  "damage": 40,
+  "fuse": 0,
+  "speed": 14,
+  "radius": 4.0,
+  "impulse": 2,
+  "fire": 6.0
+ }
+}

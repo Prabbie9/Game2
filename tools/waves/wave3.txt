@@ -1,0 +1,33 @@
+# rifle stance
+Holding Rifle
+Repeatedly Firing While Walking With Rifle
+Rifle Getting Hit To Ground
+Hit Reaction When Running With Rifle
+Rifle Kneeling Idle
+Rifle Kneeling And Aiming
+Walking Backwards While Aiming Rifle
+Taking A Step To The Left While Aiming Rifle
+Single Step To The Right While Aiming Rifle
+Start Running While Aiming Rifle
+Ready Pose To Standing Putting Back The Rifle
+Throwing Something Holding Rifle Aimed
+Walking While Aiming Rifle To Dying
+# cover
+Standing Cover To Standing Ready
+Left Standing Sneak Behind Cover W_ Rifle
+Right Standing Sneak Behind Cover W_ Rifle
+# melee
+Male Fight Idle Boxing Stance
+Jab Punch
+Hook Punch With The Rear Hand
+Overhead Bashing Swing
+Male Knife Stab With The Rear Hand And Reverse Grip
+Side Kick
+Receiving A Light Hit To The Head From A Straight Punch
+Receive Punch To The Body
+Receiving A Medium Hit To The Head From A Right Punch
+# throwables
+Throwing A Grenade While Walking
+Throw Grenade While Running
+Throwing Grenade While Crouched
+Picking Up Object And Throwing

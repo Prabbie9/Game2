@@ -1,7 +1,7 @@
 # PROGRESS
 NEXT STEP: M5 — fetch clip wave 3 (pistol/rifle idle-aim-fire-reload sets, melee, throw; ~50 calls), weapon archetypes with sockets + hand IK, aim offsets, hit reactions/ragdoll by zone, effects (muzzle, tracers, decals, explosions).
 
-STEPS_USED: ~660 (M0 ~80, M1 ~75, M2 ~190, M3 ~95, M4 ~220)   DRIVE_CALLS_USED: 167 / 300   SKETCHFAB_DOWNLOADS: 36 / 150
+STEPS_USED: ~660 (M0 ~80, M1 ~75, M2 ~190, M3 ~95, M4 ~220)   DRIVE_CALLS_USED: 196 / 300   SKETCHFAB_DOWNLOADS: 36 / 150
 MILESTONE: M4 done (checkpoint 5, known-good) — look gate 5.7/7 carried forward; stairs grounding + door opening open
 
 ## Milestones

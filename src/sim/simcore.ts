@@ -58,11 +58,19 @@ export class SimCore {
   removeRagdoll(id: number) { this.ragdolls.get(id)?.dispose(); this.ragdolls.delete(id); }
   removeChar(id: number) { this.chars.get(id)?.dispose(); this.chars.delete(id); }
   setCharInput(id: number, inp: Partial<CharInput>) { const c = this.chars.get(id); if (c) Object.assign(c.input, inp); }
+  /** Radial impulse (explosions): dynamic props, vehicles and ragdoll segments within radius, falloff to the edge. */
+  explode(c: number[], radius: number, strength: number) {
+    const hit = (b: RAPIER_NS.RigidBody, massK: number) => { const p = b.translation(); const d = [p.x - c[0], p.y - c[1] + 0.5, p.z - c[2]]; const L = Math.hypot(d[0], d[1], d[2]); if (L > radius) return;
+      const k = strength * (1 - L / radius) * massK / Math.max(0.5, L); b.applyImpulse({ x: d[0] * k, y: Math.abs(d[1]) * k + strength * (1 - L / radius) * massK * 0.6, z: d[2] * k }, true); };
+    for (const b of this.dynamics.values()) hit(b, b.mass()); for (const v of this.vehicles.values()) hit(v.body, v.body.mass() * 0.5);
+    for (const r of this.ragdolls.values()) for (const b of r.bodies) hit(b, b.mass());
+  }
   removeVehicle(id: number) { this.vehicles.get(id)?.dispose(); this.vehicles.delete(id); }
   setInput(id: number, inp: Partial<VehicleInput>) { const v = this.vehicles.get(id); if (v) Object.assign(v.input, inp); }
   setTuning(id: number, t: Tuning) { const v = this.vehicles.get(id); if (v) { Object.assign(v.t, t); v.applyTuning(); } }
   step() {
     for (const v of this.vehicles.values()) v.step(STEP);
+    if (this.chars.size) { this.world.propagateModifiedBodyPositionsToColliders(); this.world.updateSceneQueries(); } // controller queries must see colliders added since the last step
     for (const c of this.chars.values()) c.step(STEP, this.world.gravity.y);
     this.world.step();
     this.time += STEP; this.steps++;

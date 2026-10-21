@@ -22,10 +22,17 @@ export class Pedestrian {
     return this;
   }
   /** Hit by a vehicle: limp with this world velocity (ragdoll), get up afterwards. */
-  knockDown(vel: THREE.Vector3) { if (!this.ready || !this.rag || this.down) return false; this.down = true; this.ch.root.updateMatrixWorld(true);
+  health = 100; dead = false;
+  knockDown(vel: THREE.Vector3, dead = false) { if (!this.ready || !this.rag || this.down) return false; this.down = true; this.rag.stayDown = dead; this.dead = dead; this.ch.root.updateMatrixWorld(true);
     // move the body into world space so the ragdoll owns it: character root = world pose, ped root = identity
     const wp = this.ch.root.getWorldPosition(new THREE.Vector3()), wq = this.ch.root.getWorldQuaternion(new THREE.Quaternion()); this.root.position.set(0, 0, 0); this.root.rotation.set(0, 0, 0);
     this.ch.root.position.copy(wp); this.ch.root.quaternion.copy(wq); this.an.stop(0.01); this.rag.start(vel); return true; }
+  /** Shot / struck: damage, direction-matched hit reaction, death -> ragdoll that stays down. */
+  hit(dmg: number, dir: THREE.Vector3, force: number) { if (this.dead || !this.ready) return; this.health -= dmg;
+    if (this.health <= 0 || force > 7) { this.knockDown(dir.clone().setY(0).normalize().multiplyScalar(Math.min(9, force)).add(new THREE.Vector3(0, 1 + force * 0.15, 0)), this.health <= 0); return; }
+    if (this.down) return; const f = new THREE.Vector3(Math.sin(this.root.rotation.y), 0, Math.cos(this.root.rotation.y)); const from = dir.clone().negate().setY(0).normalize(); const fr = f.dot(from), side = f.x * from.z - f.z * from.x;
+    const key = fr > 0.5 ? 'small_hit_reaction_from_the_front' : fr < -0.5 ? 'getting_hit_from_back' : side > 0 ? 'small_hit_reaction_from_the_left' : 'male_reaction_hit_on_the_right_side';
+    this.an.play('react', key, { fadeIn: 0.06, fadeOut: 0.25, timeScale: 1.2 }).catch(() => {}); this.wait = Math.max(this.wait, 1.2); }
   get worldPos() { return this.down ? this.ch.root.position : this.root.position; }
   update(dt: number, groundY: (x: number, z: number) => number = () => this.y) {
     if (!this.ready) return;

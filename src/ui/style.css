@@ -26,3 +26,12 @@ kbd { font: 11px var(--mono); padding: 1px 6px; border: 1px solid var(--line); b
 .lil-gui.tuning { position: fixed; top: 10px; right: 10px; --width: 300px; z-index: 15; } .lil-gui.tw { position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 15; }
 .fatal { position: fixed; inset: 20px; color: #ffb4a8; white-space: pre-wrap; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+.hl-arsenal{position:fixed;inset:0;pointer-events:none;z-index:5}
+.hl-cross{--s:10px;position:absolute;left:50%;top:50%;width:0;height:0}
+.hl-cross i{position:absolute;background:rgba(255,255,255,.9);box-shadow:0 0 2px #000}
+.hl-cross i:nth-child(1){width:2px;height:8px;left:-1px;top:calc(-1 * var(--s) - 8px)}
+.hl-cross i:nth-child(2){width:2px;height:8px;left:-1px;top:var(--s)}
+.hl-cross i:nth-child(3){width:8px;height:2px;top:-1px;left:calc(-1 * var(--s) - 8px)}
+.hl-cross i:nth-child(4){width:8px;height:2px;top:-1px;left:var(--s)}
+.hl-hitmark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:#fff;font:600 22px/1 system-ui;opacity:0;text-shadow:0 0 3px #000;transition:opacity .08s}
+.hl-ammo{position:absolute;right:24px;bottom:96px;color:#fff;font:600 15px/1.2 system-ui;letter-spacing:.08em;text-shadow:0 1px 3px #000}

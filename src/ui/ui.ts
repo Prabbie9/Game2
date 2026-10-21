@@ -22,6 +22,7 @@ export class HUD {
   update(dt: number, v: { speed: number; vf: number; gear: number; rpm: number; boost: number; redline: number } | null, stats: Record<string, number | string>) {
     if (this.toastT > 0 && (this.toastT -= dt) <= 0) this.toast.hidden = true;
     this.frames.push(dt * 1000); if (this.frames.length > 240) this.frames.shift();
+    for (const e of [this.speed, this.gear, this.rpm, this.boost]) { const par = e.parentElement; if (par && par !== this.root) par.hidden = !v; else e.hidden = !v; }
     if (v) { this.speed.textContent = String(Math.round(Math.abs(v.vf) * 3.6)); this.gear.textContent = v.vf < -0.5 ? 'R' : String(v.gear);
       (this.rpm.firstChild as HTMLElement).style.width = `${Math.min(100, (v.rpm / v.redline) * 100)}%`; (this.boost.firstChild as HTMLElement).style.width = `${v.boost * 100}%`; }
     if (this.overlayOn) { const s = [...this.frames].sort((a, b) => a - b); const p = (q: number) => s[Math.min(s.length - 1, Math.floor(s.length * q))]?.toFixed(1);

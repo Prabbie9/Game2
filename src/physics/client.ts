@@ -37,6 +37,7 @@ export class PhysicsClient {
   removeChar(id: number) { this.worker.postMessage({ type: 'removeChar', id }); }
   spawnRagdoll(id: number, segs: any[], vel: number[], spin: number[] = [0, 0, 0]) { this.worker.postMessage({ type: 'spawnRagdoll', id, segs, vel, spin }); }
   removeRagdoll(id: number) { this.worker.postMessage({ type: 'removeRagdoll', id }); }
+  explode(c: number[], radius: number, strength: number) { this.worker.postMessage({ type: 'explode', c, radius, strength }); }
   ragImpulse(id: number, seg: number, imp: number[]) { this.worker.postMessage({ type: 'ragImpulse', id, seg, imp }); }
   /** Ragdoll segment transforms (interpolated): [x,y,z,qx,qy,qz,qw] per segment, then mean speed. */
   ragdoll(id: number): { segs: number[][]; speed: number } | null {

@@ -1,0 +1,147 @@
+[
+{
+"name": "Holding Rifle",
+"id": "1xcwXpjUZGtxjlHZS4oXonBHg3qMnEDdG",
+"size": 513264
+},
+{
+"name": "Repeatedly Firing While Walking With Rifle",
+"id": "1Y4noGD2UlpJJtVNilEGdl-lN2lFZmCVh",
+"size": 369216
+},
+{
+"name": "Rifle Getting Hit To Ground",
+"id": "1zxqp2LPHPJQvQw4jmJ8laC8v_GvDtyvR",
+"size": 463392
+},
+{
+"name": "Hit Reaction When Running With Rifle",
+"id": "1QSpe7FD23AEAS_UZXsa6R61j_g9AYjmV",
+"size": 329616
+},
+{
+"name": "Rifle Kneeling Idle",
+"id": "19J1GQB7HA0znWEH5xYW9JojjtGTufUuR",
+"size": 398016
+},
+{
+"name": "Rifle Kneeling And Aiming",
+"id": "1_6QSexPwDxuGmDXx8s7tj2SvIYLdG336",
+"size": 352880
+},
+{
+"name": "Walking Backwards While Aiming Rifle",
+"id": "1i7h-xM1SHyN43YNVTcHoHRPOkcOr6MHl",
+"size": 419408
+},
+{
+"name": "Taking A Step To The Left While Aiming Rifle",
+"id": "1zUTB5DshzIdpi7lEehhQXBpTYYEm2EnU",
+"size": 426896
+},
+{
+"name": "Single Step To The Right While Aiming Rifle",
+"id": "1OTn2IM5HU4u_IPqF2jwjNjfwaMPwkaqp",
+"size": 431072
+},
+{
+"name": "Start Running While Aiming Rifle",
+"id": "1RjhNQSoL2XBdpgBd5O_xCxug-i5L7HsM",
+"size": 344848
+},
+{
+"name": "Ready Pose To Standing Putting Back The Rifle",
+"id": "1H2GIESEE3EXnAsdJ4I98aGcqctAleqvk",
+"size": 633392
+},
+{
+"name": "Throwing Something Holding Rifle Aimed",
+"id": "1nLYdYDgOzQRvw_YgNIc6YrmDVzJLzVNX",
+"size": 619616
+},
+{
+"name": "Walking While Aiming Rifle To Dying",
+"id": "1YPEkLmKrGOmrr7Ot-wfaBmixf2uCPge0",
+"size": 589376
+},
+{
+"name": "Standing Cover To Standing Ready",
+"id": "1dq-_A0DGqs8oVHyXjuQqEsGtpPKnAL8x",
+"size": 405792
+},
+{
+"name": "Left Standing Sneak Behind Cover W_ Rifle",
+"id": "1nFv55Y1aJtz3AHbJnJH88d69z3UrBiwO",
+"size": 361296
+},
+{
+"name": "Right Standing Sneak Behind Cover W_ Rifle",
+"id": "1TuOTK7UYpj60yJtRRyvZ6HiIWH9bbT-S",
+"size": 353952
+},
+{
+"name": "Male Fight Idle Boxing Stance",
+"id": "1XjX-I15Vc6H-6ZbpIvtry4xwLBwpyClF",
+"size": 529456
+},
+{
+"name": "Jab Punch",
+"id": "1xs_J7F3dI0n4O-cICTA0qMWhBk4KUy2Y",
+"size": 344736
+},
+{
+"name": "Hook Punch With The Rear Hand",
+"id": "1jQfVzp59uL7QAUagcVsAqiUdic_iXBEH",
+"size": 343152
+},
+{
+"name": "Overhead Bashing Swing",
+"id": "1IXPfXjd0m7H4VEX-lrzNfD5IGR-egJsA",
+"size": 715760
+},
+{
+"name": "Male Knife Stab With The Rear Hand And Reverse Grip",
+"id": "19BkQIqhZ-lup0dr4o4JKofVmtKZkQJRy",
+"size": 475456
+},
+{
+"name": "Side Kick",
+"id": "100olE3xnYe_yMT-gpDu3gNW5Bj2KDMH7",
+"size": 426624
+},
+{
+"name": "Receiving A Light Hit To The Head From A Straight Punch",
+"id": "1cWCeXFidEgqCnQRprdQs9qKyCgZDsznY",
+"size": 347408
+},
+{
+"name": "Receive Punch To The Body",
+"id": "1wBH0NyZwmHpFmUnCsB8UtUko6tSOIS1G",
+"size": 443600
+},
+{
+"name": "Receiving A Medium Hit To The Head From A Right Punch",
+"id": "19g_TTXxvOgxR179aUwg8m1QEtDV_U83I",
+"size": 354128
+},
+{
+"name": "Throwing A Grenade While Walking",
+"id": "1KK__vt_una1n6tgJ8VsHN5jsRA0OCbjV",
+"size": 553264
+},
+{
+"name": "Throw Grenade While Running",
+"id": "1dHvh9ufwzhn4JZoY9-4O0lzemG6HArxj",
+"size": 590160
+},
+{
+"name": "Throwing Grenade While Crouched",
+"id": "1_QOBpDE3EivTgCAyx1ibgKFyMNFgC00Z",
+"size": 655280
+},
+{
+"name": "Picking Up Object And Throwing",
+"id": "1Rj8gtxa-lBsEV1Z8v_i-_PrV5b0kzujL",
+"size": 705408
+}
+]

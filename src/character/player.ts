@@ -22,8 +22,8 @@ const wrap = (a: number) => { while (a > Math.PI) a -= 2 * Math.PI; while (a < -
 export class Player {
   ch: Character; an!: Animator; ik!: FootIK; rag!: RagdollCtl; state: PlayerState = 'foot'; ready = false;
   yaw = 0; speed = 0; vel = new THREE.Vector3(); crouch = false; sprint = false; airT = 0; visY = 0; phys: CharState | null = null;
-  car: Car | null = null; private seq = { t: 0, dur: 1, from: new THREE.Vector3(), to: new THREE.Vector3(), fromYaw: 0, toYaw: 0, path: null as null | ((k: number) => THREE.Vector3) };
-  private pinK = 0; private wasGrounded = true; private target = new THREE.Vector3(); private moveYaw: number | null = null; prompt = '';
+  car: Car | null = null; afterAnim: ((dt: number) => void) | null = null; private seq = { t: 0, dur: 1, from: new THREE.Vector3(), to: new THREE.Vector3(), fromYaw: 0, toYaw: 0, path: null as null | ((k: number) => THREE.Vector3) };
+  private pinK = 0; private wasGrounded = true; aimYaw: number | null = null; moveRel = 0; private target = new THREE.Vector3(); private moveYaw: number | null = null; prompt = '';
   constructor(public R: Renderer, public physics: PhysicsClient, public id: number, castId = 'standing_man') { this.ch = new Character(R, castId); }
   async load(pos: number[], yaw = 0) {
     await this.ch.load(); this.an = await new Animator(this.ch).init(); this.an.update(0, 0, 0); this.ik = new FootIK(this.ch); this.ik.calibrate(); this.rag = new RagdollCtl(this.ch, this.an, this.physics);
@@ -79,10 +79,12 @@ export class Player {
         const dx = fx * my + rx * mx, dz = fz * my + rz * mx; this.moveYaw = Math.atan2(dx, dz);
         // facing turns toward the move direction, slower at speed (momentum); velocity follows facing so sprints arc
         const rate = THREE.MathUtils.lerp(11, 4.5, THREE.MathUtils.clamp(this.speed / SPEED.sprint, 0, 1)); const e = wrap(this.moveYaw - this.yaw);
-        this.yaw = wrap(this.yaw + THREE.MathUtils.clamp(e, -rate * dt, rate * dt)); if (Math.abs(e) > 2.4 && this.speed < 1) this.yaw = this.moveYaw; } else this.moveYaw = null;
+        if (this.aimYaw === null) { this.yaw = wrap(this.yaw + THREE.MathUtils.clamp(e, -rate * dt, rate * dt)); if (Math.abs(e) > 2.4 && this.speed < 1) this.yaw = this.moveYaw; } } else this.moveYaw = null;
+      // aiming / armed strafing: face the aim, move any direction (no sprint)
+      if (this.aimYaw !== null) { const e = wrap(this.aimYaw - this.yaw); this.yaw = wrap(this.yaw + THREE.MathUtils.clamp(e, -14 * dt, 14 * dt)); want = Math.min(want, SPEED.run * 0.85); }
       const grounded = ps?.grounded ?? true; const acc = grounded ? (want > this.speed ? 7.5 : 11) : 1.5;
       this.speed += THREE.MathUtils.clamp(want - this.speed, -acc * dt, acc * dt);
-      const dirYaw = this.moveYaw === null ? this.yaw : this.yaw; this.vel.set(Math.sin(dirYaw) * this.speed, 0, Math.cos(dirYaw) * this.speed);
+      const dirYaw = this.aimYaw !== null && this.moveYaw !== null ? this.moveYaw : this.yaw; this.moveRel = this.aimYaw !== null && this.moveYaw !== null ? wrap(this.moveYaw - this.yaw) : 0; this.vel.set(Math.sin(dirYaw) * this.speed, 0, Math.cos(dirYaw) * this.speed);
       // traversal: jump into a low obstacle -> vault/climb; otherwise a normal jump
       let jump = inp.jump && grounded && !this.crouch;
       if (jump && ps && ps.obstacle.dist < 0.95 && ps.obstacle.top > 0.35 && ps.obstacle.top < 2.25) { this.beginTraverse(ps); jump = false; }
@@ -114,7 +116,8 @@ export class Player {
     else if (this.state === 'drive' && this.car) { root.position.copy(this.target); root.quaternion.copy(this.car.root.getWorldQuaternion(new THREE.Quaternion())); }
     else { root.position.copy(this.target); this.visY = this.target.y; }
     if (this.state !== 'drive') root.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), this.yaw);
-    const ry = this.an.update(dt, animSpeed, this.crouch && this.state === 'foot' ? 1 : 0); if (ry) this.yaw += ry;
+    const ry = this.an.update(dt, animSpeed, this.crouch && this.state === 'foot' ? 1 : 0, this.moveRel); if (ry) this.yaw += ry;
+    this.afterAnim?.(dt);
     // foot IK only on foot, fading with one-shots that leave the ground
     const ikW = this.state === 'foot' && (ps?.grounded ?? true) ? 1 - (this.an.shot && !/land/.test(this.an.shot.a.getClip().name) ? this.an.shot.w : 0) : 0;
     this.ik.weight += (ikW - this.ik.weight) * Math.min(1, dt * 10); this.ik.update(dt, ground, root.position.y, animSpeed);

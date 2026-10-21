@@ -36,14 +36,14 @@ export class CharacterSim {
   teleport(p: number[]) { const y = p[1] + this.half + RADIUS + SKIN; this.body.setTranslation({ x: p[0], y, z: p[2] }, true); this.body.setNextKinematicTranslation({ x: p[0], y, z: p[2] }); this.vy = 0; }
   step(dt: number, g: number) {
     const inp = this.input; const t = this.body.translation(); const off = this.half + RADIUS + SKIN;
-    this.col.setEnabled(inp.mode === CHAR_MODE.walk); // scripted moves (vault, seat) pass through: no shoving cars or props
+    const en = inp.mode === CHAR_MODE.walk; if (en !== this.col.isEnabled()) this.col.setEnabled(en); // scripted moves (vault, seat) pass through; toggled only on change (re-enabling every step breaks the controller queries)
     if (inp.mode !== CHAR_MODE.walk) { // scripted (vault, seat, get-up) or disabled (in a vehicle): follow the target, no collision response
       const p = inp.target ?? [t.x, t.y - off, t.z]; this.vel = [(p[0] - t.x) / dt, (p[1] + off - t.y) / dt, (p[2] - t.z) / dt];
       this.body.setNextKinematicTranslation({ x: p[0], y: p[1] + off, z: p[2] }); this.vy = 0; this.grounded = inp.mode === CHAR_MODE.scripted ? this.grounded : false;
     } else {
       this.setCrouch(inp.crouch > 0.5);
       if (inp.jump > 0.5 && !this.jumpLatch && this.grounded && !this.crouched) { this.vy = 4.3; this.grounded = false; } this.jumpLatch = inp.jump > 0.5 ? 1 : 0;
-      this.vy = this.grounded && this.vy <= 0 ? 0 : this.vy + g * dt; // snap-to-ground holds slopes; no down push (it blocks autostep and drags)
+      this.vy = this.grounded && this.vy <= 0 ? -0.5 : this.vy + g * dt; // small down push keeps contact (grounded flag); larger pushes drag on kerbs
       // autostep stays on (changing it at runtime makes Rapier's capsule sink); instead, faces steeper than the climb
       // limit but not vertical (a steep ramp, not a kerb or riser) remove the uphill part of the move
       let vx = inp.vx, vz = inp.vz; const sp = Math.hypot(vx, vz);
@@ -62,7 +62,7 @@ export class CharacterSim {
     const dx = Math.sin(inp.yaw), dz = Math.cos(inp.yaw); let near = 9;
     for (const hgt of [0.35, 0.75, 1.15, 1.6]) { const h = this.ray([t.x, fy + hgt, t.z], [dx, 0, dz], 1.4); if (h) near = Math.min(near, h.toi); }
     if (near < 1.4) { const px = t.x + dx * (near + 0.3), pz = t.z + dz * (near + 0.3); const top = this.ray([px, fy + 2.6, pz], [0, -1, 0], 3);
-      const topH = top ? 2.6 - top.toi : 0; const far = this.ray([t.x + dx * (near + 1.4), fy + topH + 0.1, t.z + dz * (near + 1.4)], [-dx, 0, -dz], 1.1); // thickness from the back
+      const topH = top ? fy + 2.6 - top.toi - (gr ? this.groundY : fy) : 0; const far = this.ray([t.x + dx * (near + 1.4), fy + topH + 0.1, t.z + dz * (near + 1.4)], [-dx, 0, -dz], 1.1); // thickness from the back
       this.obstacle = [near, topH, far ? 1.1 - far.toi + 0.3 : 1.5]; } else this.obstacle = [9, 0, 0];
   }
   pack(buf: Float32Array, o: number) { const f = this.feetPos(); buf.set([f[0], f[1], f[2], ...this.vel, this.grounded ? 1 : 0, this.crouched ? 1 : 0, ...this.feet, ...this.obstacle, this.groundY], o); }

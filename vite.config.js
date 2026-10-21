@@ -22,6 +22,7 @@ export default defineConfig({
       proto: resolve(__dirname, 'tests/proto/index.html'),
       lineup: resolve(__dirname, 'tests/lineup/index.html'),
       anim: resolve(__dirname, 'tests/anim/index.html'),
+      weapons: resolve(__dirname, 'tests/weapons/index.html'),
     } },
   },
   worker: { format: 'es' },

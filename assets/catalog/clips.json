@@ -5061,7 +5061,17 @@
 "size": 345312,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "slow_run_forward",
+"bundle": "core",
+"duration": 0.733,
+"fps": 30,
+"frames": 23,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 2.222,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Slowly Backing Away In Fear",
@@ -5171,7 +5181,17 @@
 "size": 356656,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "soccer_jog_forward",
+"bundle": "core",
+"duration": 0.833,
+"fps": 30,
+"frames": 26,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 2.086,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Soccer Pass From Idle Pose",

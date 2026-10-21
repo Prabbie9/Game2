@@ -89,6 +89,16 @@ export class Streaming {
     for (const c of this.chunks.values()) for (const b of c.boxes) { if (b.containsPoint(o)) continue; if (ray.intersectBox(b, hit)) { const t = hit.distanceTo(o); if (t < far && (best === null || t < best)) best = t; } }
     return best;
   }
+  /** Ray vs near-chunk blocker boxes with the face normal (bullets, decals). */
+  castHit(o: THREE.Vector3, d: THREE.Vector3, far: number): { t: number; n: THREE.Vector3; p: THREE.Vector3 } | null {
+    const ray = new THREE.Ray(o, d); const hit = new THREE.Vector3(); let best: { t: number; n: THREE.Vector3; p: THREE.Vector3 } | null = null;
+    for (const c of this.chunks.values()) for (const b of c.boxes) { if (b.containsPoint(o)) continue; if (ray.intersectBox(b, hit)) { const t = hit.distanceTo(o); if (t < far && (!best || t < best.t)) {
+      const e = 1e-3; const n = new THREE.Vector3(Math.abs(hit.x - b.min.x) < e ? -1 : Math.abs(hit.x - b.max.x) < e ? 1 : 0, Math.abs(hit.y - b.min.y) < e ? -1 : Math.abs(hit.y - b.max.y) < e ? 1 : 0, Math.abs(hit.z - b.min.z) < e ? -1 : Math.abs(hit.z - b.max.z) < e ? 1 : 0);
+      if (n.lengthSq() === 0) n.copy(d).negate(); best = { t, n: n.normalize(), p: hit.clone() }; } } }
+    return best;
+  }
+  /** All near-chunk blocker boxes (AI cover generation and routing). */
+  allBoxes() { const out: THREE.Box3[] = []; for (const c of this.chunks.values()) out.push(...c.boxes); return out; }
   /** True once the near chunk under (x, z) has its colliders. */
   readyAt(x: number, z: number) { return this.chunks.get(`${Math.floor(x / CHUNK)},${Math.floor(z / CHUNK)}`)?.built === 0; }
   private refreshSteam() { this.steamVents = [...this.chunks.values()].flatMap((c) => c.steam); }

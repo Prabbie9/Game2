@@ -62,3 +62,14 @@ Grades: GREEN = CC0/PD/MIT/BSD/Apache/ISC/OFL/CC-BY(credited)/Mixamo. AMBER = NC
 | Buisness man (With talking animation) (uid 3fe2b15e0c884b66b987f6f48e420f56) — character | art.piskov | https://sketchfab.com/3d-models/buisness-man-with-talking-animation-3fe2b15e0c884b66b987f6f48e420f56 | BY | GREEN |
 | Businessman (Rigged) (uid 8933d61fcb1e46f3aead661227bb4fed) — character | jungle_jim | https://sketchfab.com/3d-models/businessman-rigged-8933d61fcb1e46f3aead661227bb4fed | BY | GREEN |
 | Human 3D model scanned with iPhone X (uid 73e467dfc8a04914bb314a9410077858) — character | in3D_io | https://sketchfab.com/3d-models/human-3d-model-scanned-with-iphone-x-73e467dfc8a04914bb314a9410077858 | BY | GREEN |
+| Pistol (uid 5f6ec54257de449cacc8c872660b40d3) — weapon | bumstrum | https://sketchfab.com/3d-models/pistol-5f6ec54257de449cacc8c872660b40d3 | BY | GREEN |
+| Low-Poly M4a1 (uid 8cab1cbeb82c4396a154f9fc8771417b) — weapon | TastyTony | https://sketchfab.com/3d-models/low-poly-m4a1-8cab1cbeb82c4396a154f9fc8771417b | BY | GREEN |
+| Low-Poly HK MP5SD (uid a79689d37bb547c4a1ab6628f60dd05f) — weapon | TastyTony | https://sketchfab.com/3d-models/low-poly-hk-mp5sd-a79689d37bb547c4a1ab6628f60dd05f | BY | GREEN |
+| Remigton 870 (uid 3670589e70d144ef9d5563adfe119a60) — weapon | alx-tr-jr-LDN | https://sketchfab.com/3d-models/remigton-870-3670589e70d144ef9d5563adfe119a60 | BY | GREEN |
+| Sniper (uid fcd0458ca107414999d7e70413eabd8e) — weapon | bumstrum | https://sketchfab.com/3d-models/sniper-fcd0458ca107414999d7e70413eabd8e | BY | GREEN |
+| Baseball bat (uid 2669cf86386747449611396c0409db47) — weapon | k_dvlt | https://sketchfab.com/3d-models/baseball-bat-2669cf86386747449611396c0409db47 | BY | GREEN |
+| PBR Crowbar Game Ready (uid 7be0661092ae444882d19814e5de2853) — weapon | Ericwallbank | https://sketchfab.com/3d-models/pbr-crowbar-game-ready-7be0661092ae444882d19814e5de2853 | BY | GREEN |
+| Tactical Knife (uid 5fb333837f1343caa6a0e80a46b68ac1) — weapon | lunea | https://sketchfab.com/3d-models/tactical-knife-5fb333837f1343caa6a0e80a46b68ac1 | BY | GREEN |
+| Grenade (uid 0d3ae94a74b747c7b725479acdd4fea2) — weapon | bumstrum | https://sketchfab.com/3d-models/grenade-0d3ae94a74b747c7b725479acdd4fea2 | BY | GREEN |
+| Molotov Cocktail (uid d78c0bfaf7e2448cbd98a485ab079ad2) — weapon | thisisruslan | https://sketchfab.com/3d-models/molotov-cocktail-d78c0bfaf7e2448cbd98a485ab079ad2 | BY | GREEN |
+| Low-Poly RPG-7 (uid 5243ac034391491f9a47f797ea212afe) — weapon | TastyTony | https://sketchfab.com/3d-models/low-poly-rpg-7-5243ac034391491f9a47f797ea212afe | BY | GREEN |

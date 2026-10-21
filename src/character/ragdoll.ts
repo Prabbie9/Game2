@@ -20,7 +20,7 @@ const Y = new THREE.Vector3(0, 1, 0);
 let nextId = 5000;
 
 export class RagdollCtl {
-  id = nextId++; active = false; t = 0; still = 0; getup = false; private bones: (THREE.Bone | null)[] = []; private off: THREE.Quaternion[] = []; private hipsOff = new THREE.Vector3();
+  id = nextId++; active = false; t = 0; still = 0; getup = false; stayDown = false; private bones: (THREE.Bone | null)[] = []; private off: THREE.Quaternion[] = []; private hipsOff = new THREE.Vector3();
   private snap = new Map<THREE.Object3D, THREE.Quaternion>(); private snapHips = new THREE.Vector3(); private blendT = 0; onDone: ((pos: THREE.Vector3, yaw: number) => void) | null = null;
   constructor(public ch: Character, public an: Animator, public phys: PhysicsClient) {}
   /** Go limp. vel: initial linear velocity (m/s, world); spin: angular velocity (rad/s). */
@@ -53,7 +53,7 @@ export class RagdollCtl {
       // keep the character root under the pelvis so culling, shadows and the camera follow the body
       const h = r.segs[0]; ch.root.position.set(h[0], groundY(h[0], h[2]), h[2]); void ch;
       this.still = r.speed < 0.22 ? this.still + dt : 0;
-      if (this.t > 1.4 && this.still > 0.7) this.beginGetUp(groundY);
+      if (this.t > 1.4 && this.still > 0.7 && !this.stayDown) this.beginGetUp(groundY);
       return true;
     }
     // get-up: animation runs; blend from the ragdoll snapshot over the first 0.4 s

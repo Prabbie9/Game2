@@ -395,6 +395,127 @@
    "url": "https://sketchfab.com/3d-models/human-3d-model-scanned-with-iphone-x-73e467dfc8a04914bb314a9410077858",
    "role": "character",
    "date": "2026-10-20"
+  },
+  {
+   "uid": "5f6ec54257de449cacc8c872660b40d3",
+   "name": "Pistol",
+   "file": "w_pistol.glb",
+   "author": "bumstrum",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/pistol-5f6ec54257de449cacc8c872660b40d3",
+   "role": "weapon",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "8cab1cbeb82c4396a154f9fc8771417b",
+   "name": "Low-Poly M4a1",
+   "file": "w_rifle.glb",
+   "author": "TastyTony",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/low-poly-m4a1-8cab1cbeb82c4396a154f9fc8771417b",
+   "role": "weapon",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "a79689d37bb547c4a1ab6628f60dd05f",
+   "name": "Low-Poly HK MP5SD",
+   "file": "w_smg.glb",
+   "author": "TastyTony",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/low-poly-hk-mp5sd-a79689d37bb547c4a1ab6628f60dd05f",
+   "role": "weapon",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "3670589e70d144ef9d5563adfe119a60",
+   "name": "Remigton 870",
+   "file": "w_shotgun.glb",
+   "author": "alx-tr-jr-LDN",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/remigton-870-3670589e70d144ef9d5563adfe119a60",
+   "role": "weapon",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "fcd0458ca107414999d7e70413eabd8e",
+   "name": "Sniper",
+   "file": "w_sniper.glb",
+   "author": "bumstrum",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/sniper-fcd0458ca107414999d7e70413eabd8e",
+   "role": "weapon",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "2669cf86386747449611396c0409db47",
+   "name": "Baseball bat",
+   "file": "w_bat.glb",
+   "author": "k_dvlt",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/baseball-bat-2669cf86386747449611396c0409db47",
+   "role": "weapon",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "7be0661092ae444882d19814e5de2853",
+   "name": "PBR Crowbar Game Ready",
+   "file": "w_crowbar.glb",
+   "author": "Ericwallbank",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/pbr-crowbar-game-ready-7be0661092ae444882d19814e5de2853",
+   "role": "weapon",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "5fb333837f1343caa6a0e80a46b68ac1",
+   "name": "Tactical Knife",
+   "file": "w_knife.glb",
+   "author": "lunea",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/tactical-knife-5fb333837f1343caa6a0e80a46b68ac1",
+   "role": "weapon",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "0d3ae94a74b747c7b725479acdd4fea2",
+   "name": "Grenade",
+   "file": "w_grenade.glb",
+   "author": "bumstrum",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/grenade-0d3ae94a74b747c7b725479acdd4fea2",
+   "role": "weapon",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "d78c0bfaf7e2448cbd98a485ab079ad2",
+   "name": "Molotov Cocktail",
+   "file": "w_molotov.glb",
+   "author": "thisisruslan",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/molotov-cocktail-d78c0bfaf7e2448cbd98a485ab079ad2",
+   "role": "weapon",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "5243ac034391491f9a47f797ea212afe",
+   "name": "Low-Poly RPG-7",
+   "file": "w_rpg.glb",
+   "author": "TastyTony",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/low-poly-rpg-7-5243ac034391491f9a47f797ea212afe",
+   "role": "weapon",
+   "date": "2026-10-21"
   }
  ]
 }
