@@ -24,15 +24,15 @@ export class Wanted {
   /** Per-tier caps on live pursuit cars and officers (Lite/Low keep draw calls and AI cost down). */
   caps = { units: 5, officers: 6 };
   constructor(public host: PoliceHost, parent: HTMLElement) { this.ui = document.createElement('div'); this.ui.className = 'hl-wanted'; parent.append(this.ui); this.render(); }
-  disabled = false;
+  disabled = false; engaged = false; sinceCrime = 0; // the lose-wanted timer only runs once the police are engaged (have seen the player or are searching the last-seen point)
   setStars(n: number) { if (n <= 0) return this.clear(); this.heat = Math.min(5.99, n); this.stars = Math.min(5, n); this.unseen = 0; this.lastSeen.copy(this.host.player().pos); this.stats.maxStars = Math.max(this.stats.maxStars, this.stars); this.render(); }
   crime(kind: Crime, witnessed = true) { if (!witnessed || this.disabled) return; const [min, h] = HEAT[kind]; this.heat = Math.min(5.99, Math.max(this.heat + h, min)); this.stars = Math.max(this.stars, Math.floor(this.heat)); this.unseen = 0; this.lastSeen.copy(this.host.player().pos); this.stats.crimes++; this.stats.maxStars = Math.max(this.stats.maxStars, this.stars); this.render(); }
-  clear() { this.stars = 0; this.heat = 0; this.unseen = 0; for (const u of this.units) { u.mode = 'drive'; u.pursue = undefined; } this.units = []; for (const o of this.officers) o.dispose(); this.officers = []; this.deployed.clear(); this.render(); }
+  clear() { this.stars = 0; this.heat = 0; this.unseen = 0; this.engaged = false; this.sinceCrime = 0; for (const u of this.units) { u.mode = 'drive'; u.pursue = undefined; } this.units = []; for (const o of this.officers) o.dispose(); this.officers = []; this.deployed.clear(); this.render(); }
   private render() { const flash = this.stars > 0 && this.unseen > 0 && Math.floor(this.t * 3) % 2 === 0; this.ui.innerHTML = this.stars ? Array.from({ length: 5 }, (_, i) => `<i class="${i < this.stars ? (flash ? 'on dim' : 'on') : ''}">★</i>`).join('') : ''; }
   /** Pursuit controller for a cruiser: drive at the player (or a point ahead of their car); ram from 3 stars, stop near a player on foot. */
   private pursuer(u: TrafficCar) {
     return (s: VehState, q: THREE.Quaternion) => {
-      const pl = this.host.player(); const p = new THREE.Vector2(s.pos[0], s.pos[2]); const hidden = this.unseen > 0.5; const ppos = hidden ? this.lastSeen : pl.pos; let tgt = new THREE.Vector2(ppos.x, ppos.z);
+      const pl = this.host.player(); const p = new THREE.Vector2(s.pos[0], s.pos[2]); const hidden = this.unseen > 0.5 || !this.engaged; const ppos = hidden ? this.lastSeen : pl.pos; /* until a cop has seen the player, cruisers head for the crime scene */ let tgt = new THREE.Vector2(ppos.x, ppos.z);
       if (!hidden && pl.carState && this.stars < 3) { const v = new THREE.Vector3(0, 0, 1).applyQuaternion(new THREE.Quaternion(...pl.carState.quat)).multiplyScalar(Math.min(25, pl.carState.vf * 0.8)); tgt.add(new THREE.Vector2(v.x, v.z)); }
       const d = tgt.distanceTo(p); const f = new THREE.Vector3(0, 0, 1).applyQuaternion(q); const heading = Math.atan2(f.x, f.z);
       // far away: follow the street grid toward the player (cut through intersections), close: straight at them
@@ -64,12 +64,15 @@ export class Wanted {
     // line of sight from any unit/officer
     let seen = false; for (const u of this.units) { const s = tr.host.phys.vehicle(u.id); if (!s) continue; const p = new THREE.Vector3(s.pos[0], s.pos[1] + 1, s.pos[2]); if (p.distanceTo(pl.pos) < 80 && this.host.los(p, pl.pos.clone().setY(pl.pos.y + 1.2))) { seen = true; break; } }
     if (!seen) for (const o of this.officers) { if (o.dead) continue; const p = o.pos().clone().setY(o.pos().y + 1.6); if (p.distanceTo(pl.pos) < 70 && this.host.los(p, pl.pos.clone().setY(pl.pos.y + 1.2))) { seen = true; break; } }
-    this.unseen = seen ? 0 : this.unseen + dt; this.seenBy = seen ? 1 : 0; if (seen) this.lastSeen.copy(pl.pos);
+    this.sinceCrime += dt; if (seen) this.engaged = true;
+    const searching = this.units.some((u) => { const s = tr.host.phys.vehicle(u.id); return !!s && Math.abs(s.vf) < 3 && Math.hypot(s.pos[0] - this.lastSeen.x, s.pos[2] - this.lastSeen.z) < 25; }) /* a cruiser stopped at the scene */ || this.officers.some((o) => !o.dead && o.pos().distanceTo(this.lastSeen) < 15);
+    const outOfArea = pl.pos.distanceTo(this.lastSeen) > 150; /* the player has left the search area around the last-seen point */
+    this.unseen = seen ? 0 : this.engaged || searching || outOfArea || this.sinceCrime > 45 ? this.unseen + dt : 0; this.seenBy = seen ? 1 : 0; if (seen) this.lastSeen.copy(pl.pos);
     if (this.unseen > 8 + this.stars * 3) { this.stats.evaded++; this.clear(); return; }
     // dispatch: wanted cars per level
-    const want = Math.min(this.caps.units, [0, 1, 2, 3, 4, 5][this.stars]); this.dispatchT -= dt; if (this.units.length < want && this.dispatchT <= 0) { this.dispatchT = 2.5; const hidden = this.unseen > 2; this.dispatch(hidden ? this.lastSeen : pl.pos, pl.pos, hidden); }
+    const want = Math.min(this.caps.units, [0, 1, 2, 3, 4, 5][this.stars]); this.dispatchT -= dt; if (this.units.length < want && this.dispatchT <= 0) { this.dispatchT = 2.5; const hidden = this.unseen > 2 || !this.engaged; this.dispatch(hidden ? this.lastSeen : pl.pos, pl.pos, hidden); }
     // officers get out when the player is on foot near a stopped cruiser
-    for (const u of this.units) { const s = tr.host.phys.vehicle(u.id); if (!s || this.deployed.has(u.id)) continue; const d = Math.hypot(s.pos[0] - pl.pos.x, s.pos[2] - pl.pos.z);
+    for (const u of this.units) { const s = tr.host.phys.vehicle(u.id); if (!s || this.deployed.has(u.id)) continue; const goal = this.engaged ? pl.pos : this.lastSeen; const d = Math.hypot(s.pos[0] - goal.x, s.pos[2] - goal.z); /* not engaged yet: officers get out at the scene and search on foot */
       if (d < 22 && Math.abs(s.vf) < 2.5 && (pl.onFoot || this.stars >= 2)) { this.deployed.add(u.id); const q = new THREE.Quaternion(...s.quat); const side = new THREE.Vector3(1, 0, 0).applyQuaternion(q); const yaw = Math.atan2(pl.pos.x - s.pos[0], pl.pos.z - s.pos[2]);
         const w = this.stars >= 4 ? 'rifle' : this.stars >= 3 ? 'smg' : 'pistol'; for (const sd of [1, -1]) { if (this.officers.filter((o) => !o.dead).length >= this.caps.officers) break; const at = new THREE.Vector3(s.pos[0], 0, s.pos[2]).addScaledVector(side, sd * 1.7); this.officers.push(this.host.spawnOfficer(at, w, yaw)); this.stats.officers++; } } }
     for (const o of this.officers) { o.setArrest(this.stars <= 1 && pl.onFoot); o.update(dt); }

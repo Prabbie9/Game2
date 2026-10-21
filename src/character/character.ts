@@ -5,6 +5,25 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import * as SkeletonUtils from 'three/addons/utils/SkeletonUtils.js';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+import { dequantize } from '../vehicles/carvisual';
+/** Merge skinned sub-meshes that share material, skeleton, parent, bind matrix and world matrix (cast bodies ship as
+ * ~20 sub-meshes, many with the same material): fewer draws per character and per shadow cascade. */
+export function mergeSkinned(root: THREE.Object3D) {
+  root.updateMatrixWorld(true); const groups = new Map<string, THREE.SkinnedMesh[]>();
+  root.traverse((o) => { const m = o as THREE.SkinnedMesh; if (!m.isSkinnedMesh || Array.isArray(m.material)) return;
+    const skel = m.skeleton.bones.map((b) => b.uuid).join() + m.skeleton.boneInverses.map((x) => x.elements.map((v) => v.toFixed(3)).join()).join(); /* identical bones AND bind pose only (meshopt-quantised sub-meshes differ in bind pose; reconciling that broke the mouth mesh, see PERF_LOG #4) */
+    const k = [(m.material as THREE.Material).uuid, skel, m.parent?.uuid, m.bindMatrix.elements.map((v) => v.toFixed(4)).join(), m.matrixWorld.elements.map((v) => v.toFixed(4)).join()].join('|');
+    (groups.get(k) ?? groups.set(k, []).get(k)!).push(m); });
+  let merged = 0;
+  for (const list of groups.values()) { if (list.length < 2) continue; const keep = ['position', 'normal', 'uv', 'skinIndex', 'skinWeight'];
+    const geos = list.map((m) => { const g = dequantize(m.geometry.clone()); for (const a of Object.keys(g.attributes)) if (!keep.includes(a)) g.deleteAttribute(a); g.morphAttributes = {}; return g.index ? g.toNonIndexed() : g; });
+    if (!geos.every((g) => keep.every((a) => !!g.attributes[a] === !!geos[0].attributes[a]))) continue;
+    const g = mergeGeometries(geos); if (!g) continue; const a = list[0]; const mm = new THREE.SkinnedMesh(g, a.material); mm.name = a.name + '_merged'; mm.position.copy(a.position); mm.quaternion.copy(a.quaternion); mm.scale.copy(a.scale);
+    mm.castShadow = a.castShadow; mm.receiveShadow = a.receiveShadow; mm.frustumCulled = a.frustumCulled; mm.renderOrder = a.renderOrder; a.parent!.add(mm); mm.bind(a.skeleton, a.bindMatrix);
+    for (const m of list) m.parent!.remove(m); merged += list.length - 1; }
+  return merged;
+}
 import { loadBin, loadJSON } from '../core/assets';
 import { loadBundle, rigOf, makeClip, type Rig } from '../animation/clips';
 import type { Renderer } from '../renderer/renderer';
@@ -40,8 +59,11 @@ export class Character {
     await this.fixFacing();
     return this;
   }
+  private shadowMeshes: THREE.Mesh[] | null = null; castsShadow = true;
+  /** Per-frame shadow budget (game picks the nearest characters). */
+  setShadow(on: boolean) { if (on === this.castsShadow || !this.model) return; this.castsShadow = on; this.shadowMeshes ??= (() => { const a: THREE.Mesh[] = []; this.model.traverse((o) => { if ((o as THREE.Mesh).isMesh && (o as THREE.Mesh).castShadow) a.push(o as THREE.Mesh); }); return a; })(); for (const m of this.shadowMeshes) m.castShadow = on; }
   private prepTemplate(s: THREE.Group) {
-    s.traverse((o) => { const m = o as THREE.SkinnedMesh; if (!m.isMesh) return; m.castShadow = this.opts.shadows ?? true; m.receiveShadow = true; m.frustumCulled = false;
+    s.traverse((o) => { const m = o as THREE.SkinnedMesh; if (!m.isMesh) return; m.castShadow = this.opts.shadows ?? true; m.receiveShadow = true; m.frustumCulled = false; // re-enabled with a padded sphere after the merge below
       for (const mt of ([] as THREE.Material[]).concat(m.material)) { const s = mt as THREE.MeshStandardMaterial; if (!s.isMeshStandardMaterial) continue;
         s.emissive?.set(0); s.emissiveMap = null; s.metalness = Math.min(s.metalness, 0.1); s.roughness = Math.max(0.45, s.roughness);
         s.userData.role = matRole(s.name);
@@ -54,6 +76,9 @@ export class Character {
         const p = new THREE.MeshPhysicalMaterial({ name: s.name, map: s.map, normalMap: s.normalMap, normalScale: s.normalScale, color: s.color, roughness: Math.max(0.5, s.roughness), roughnessMap: s.roughnessMap, metalness: 0, alphaTest: s.alphaTest, side: s.side,
           sheen: 0.45, sheenColor: new THREE.Color(0.85, 0.32, 0.22), sheenRoughness: 0.6, specularIntensity: 0.6 }); p.userData = { ...s.userData }; return this.R.setupMaterial(p); };
       m.material = Array.isArray(m.material) ? m.material.map(skinify) : skinify(m.material); });
+    mergeSkinned(s);
+    // frustum culling with a padded bind-pose sphere (radius x1.8 covers animation and ragdoll poses; the root stays under the pelvis)
+    s.updateMatrixWorld(true); s.traverse((o) => { const m = o as THREE.SkinnedMesh; if (!m.isSkinnedMesh) return; m.computeBoundingSphere(); /* bone-transformed: quantised positions are not in mesh space */ m.boundingSphere!.radius *= 1.8; m.frustumCulled = true; });
     return s;
   }
   /** Palette variant: deterministic tints per clothing material and hair from the variant index. */

@@ -92,7 +92,7 @@ export class TrafficSystem {
     for (const c of [...this.cars]) {
       const s = states.get(c.id); c.age += dt; if (!s) { if (c.age > 3) this.remove(c); continue; }
       const p = new THREE.Vector3(...s.pos); const dist = p.distanceTo(center); const q = new THREE.Quaternion(...s.quat);
-      const far = c.mode === 'pursuit' ? 320 : c.mode === 'drive' ? 260 : 200; if (dist > far || (this.host.wrecked(c.id) && dist > 140)) { this.remove(c); continue; }
+      const far = c.mode === 'pursuit' ? 320 : c.mode === 'drive' ? 260 : 200; if (dist > far || (this.host.wrecked(c.id) && dist > 140) || !this.host.readyAt(s.pos[0], s.pos[2])) { this.remove(c); continue; } /* off loaded ground (no colliders there): despawn instead of falling */
       if (gunfireAt && p.distanceTo(gunfireAt) < 45) c.panic = 8; c.panic = Math.max(0, c.panic - dt);
       let inp = { steer: 0, throttle: 0, brake: 0, handbrake: 0, boost: 0 };
       if (this.host.wrecked(c.id) || c.mode === 'abandoned' || c.mode === 'parked') inp.brake = c.mode === 'parked' ? 1 : 0.3;

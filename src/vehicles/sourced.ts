@@ -36,23 +36,23 @@ export class SourcedCar {
   async load() {
     const { scene, meta } = await loadModel(this.model, this.opts.lod ?? 0); const R = this.R; this.geo = geometryFromMeta(meta);
     { const hw = meta.width / 2, z = meta.length / 2 - (this.opts.seatFront ?? 2.5); this.seat = new THREE.Vector3(hw * 0.41, 0.5 + Math.max(0, meta.height - 1.36) * 0.45, z); this.door = new THREE.Vector3(hw + 0.42, 0, z + 0.23); }
-    const src = scene.clone(true); const mats = new Map<THREE.Material, THREE.Material>();
+    const src = scene.clone(true); const mats = new Map<any, THREE.Material>();
     const conv = (m: THREE.MeshStandardMaterial, nodeName: string) => {
       const key = m; const role = /glass|window|windshield/i.test(nodeName) ? 'glass' : /bodymat/i.test(m.name + nodeName) && !/inner|bottom/i.test(nodeName) ? 'paint'
         : /headlights(?!_glass)/i.test(nodeName) ? 'head' : /brakelights|taillights(?!_glass)/i.test(nodeName) ? 'brake' : /reverse/i.test(nodeName) ? 'reverse' : /blinker/i.test(nodeName) ? 'blink' : 'other';
-      if (role === 'other' && mats.has(key)) return mats.get(key)!;
+      const ck = role === 'other' || role === 'paint' ? key : (role + ':' + (m.uuid)) as any; if (mats.has(ck)) return mats.get(ck)!; // every role is cached per source material, so meshes sharing a material merge into one draw
       let out: THREE.MeshStandardMaterial;
       if (role === 'paint') { const p = new THREE.MeshPhysicalMaterial({ map: m.map, color: this.opts.paint ?? 0xffffff, metalness: 0.45, roughness: 0.3, clearcoat: 1, clearcoatRoughness: 0.05, normalMap: m.normalMap }); out = p; }
       else if (role === 'glass') { out = m.clone(); Object.assign(out, { transparent: true, opacity: 0.5, roughness: 0.04, metalness: 0.1, envMapIntensity: 1.6, depthWrite: false }); out.color.multiplyScalar(0.4); }
       else if (role !== 'other') { out = m.clone(); out.emissive = new THREE.Color(role === 'brake' ? 0xff1a0e : role === 'blink' ? 0xffa21a : 0xfff4e0); out.emissiveMap = m.map; out.emissiveIntensity = 0.2; (this.lights as any)[role].push(out); }
       else { out = m.clone(); out.roughness = Math.max(out.roughness, 0.35); }
-      R.setupMaterial(out); if (role === 'other' || role === 'paint') mats.set(key, out); return out;
+      R.setupMaterial(out); mats.set(ck, out); return out;
     };
     src.traverse((o) => { const me = o as THREE.Mesh; if (me.isMesh) { me.material = conv(me.material as THREE.MeshStandardMaterial, me.name); me.castShadow = !(me.material as any).transparent; me.receiveShadow = true; } });
     // body offset: physics chassis centre sits above the ground; wheel hard points are at wheelY, sagged by rest suspension
     const bodyY = this.geo.wheelY - this.restSusp - this.geo.wheelCenterY;
     for (const w of meta.wheels) {
-      const mesh = src.getObjectByName('wheel_' + w.name)!; const pivot = new THREE.Group(), spin = new THREE.Group();
+      const mesh = src.getObjectByName('wheel_' + w.name)!; const pivot = new THREE.Group(), spin = new THREE.Group(); spin.name = 'wheel_spin_' + w.name; // name keeps dents off merged wheel meshes
       pivot.position.set(w.center[0], w.center[1] + bodyY, w.center[2]); mesh.position.x -= w.center[0]; mesh.position.y -= w.center[1]; mesh.position.z -= w.center[2]; /* keeps any packing offset on the node (meshopt quantisation) */ spin.add(mesh); pivot.add(spin); this.root.add(pivot); this.wheels.push({ pivot, spin });
     }
     src.position.y = bodyY; this.body.add(src); this.modelSpace = src;
@@ -60,7 +60,7 @@ export class SourcedCar {
     const blob = new THREE.Mesh(new THREE.PlaneGeometry(meta.width * 1.25, meta.length * 1.12), contactMat()); blob.rotation.x = -Math.PI / 2; blob.position.y = bodyY + 0.02; blob.renderOrder = 2; this.body.add(blob);
     if (this.opts.beams) for (const x of [-1, 1]) { const b = new THREE.SpotLight(0xfff1dc, 0, 70, 0.42, 0.55, 1.6); b.position.set(x * 0.6, 0.6 + bodyY, meta.length / 2 - 0.1); b.target.position.set(x * 0.9, -0.6 + bodyY, 22); this.body.add(b, b.target); this.beams.push(b); }
     if (this.opts.frozen) { mergeByMaterial(this.root); this.wheels = []; }
-    else mergeByMaterial(this.body);
+    else { mergeByMaterial(this.body); for (const w of this.wheels) mergeByMaterial(w.spin); } // wheels: one mesh per material per wheel (they were 10+ sub-meshes each)
     // Lite/Low: each shadow-casting mesh is re-drawn per cascade, so only the largest body mesh casts (parked cars: none; the contact blob grounds them)
     if (/^(Lite|Low)$/.test(R.tier.name)) { let big: THREE.Mesh | null = null, n = 0; this.root.traverse((o) => { const me = o as THREE.Mesh; if (!me.isMesh || me.renderOrder === 2) return; const c = me.geometry.attributes.position.count; if (c > n && !(me.material as any).transparent) { n = c; big = me; } me.castShadow = false; });
       if (big && !this.opts.frozen) (big as THREE.Mesh).castShadow = true; }

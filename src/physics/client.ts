@@ -3,7 +3,7 @@ import { STEP, VEH_STRIDE, DYN_STRIDE, type StaticDesc, type DynamicDesc } from 
 import type { VehicleInput } from '../sim/vehicle';
 import { CHAR_STRIDE, type CharInput } from '../sim/charsim';
 export interface CharState { pos: number[]; vel: number[]; grounded: boolean; crouched: boolean; footY: number[]; footN: number[][]; obstacle: { dist: number; top: number; depth: number }; groundY: number }
-export interface VehState { pos: number[]; quat: number[]; wheels: { susp: number; steer: number; rot: number; contact: number; skid: number }[]; speed: number; vf: number; slip: number; rpm: number; gear: number; contacts: number; boost: number; throttle: number }
+export interface VehState { pos: number[]; quat: number[]; wheels: { susp: number; steer: number; rot: number; contact: number; skid: number }[]; speed: number; vf: number; slip: number; rpm: number; gear: number; contacts: number; touch: number; boost: number; throttle: number }
 export class PhysicsClient {
   worker: Worker; ready: Promise<void>; acc = 0; pending = false; timeScale = 1;
   prev: Map<number, Float32Array> = new Map(); curr: Map<number, Float32Array> = new Map();
@@ -67,7 +67,7 @@ export class PhysicsClient {
     const L = (i: number) => p[i] + (c[i] - p[i]) * a;
     const q = slerp([p[3], p[4], p[5], p[6]], [c[3], c[4], c[5], c[6]], a);
     const wheels = [0, 1, 2, 3].map((i) => { const o = 7 + i * 5; return { susp: L(o), steer: L(o + 1), rot: c[o + 2], contact: c[o + 3], skid: c[o + 4] }; });
-    const o = 27; return { pos: [L(0), L(1), L(2)], quat: q, wheels, speed: c[o], vf: c[o + 1], slip: c[o + 2], rpm: c[o + 3], gear: c[o + 4], contacts: c[o + 5], boost: c[o + 6], throttle: c[o + 7] };
+    const o = 27; return { pos: [L(0), L(1), L(2)], quat: q, wheels, speed: c[o], vf: c[o + 1], slip: c[o + 2], rpm: c[o + 3], gear: c[o + 4], contacts: c[o + 5], boost: c[o + 6], touch: c[o + 8], throttle: c[o + 7] };
   }
   body(id: number): { pos: number[]; quat: number[] } | null {
     const c = this.curr.get(id); if (!c) return null; const p = this.prev.get(id) ?? c; const a = this.alpha;

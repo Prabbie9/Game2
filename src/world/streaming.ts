@@ -1,6 +1,8 @@
 // Chunk streaming: maintains near (full detail + physics + lights + parked cars) and far (massing) LOD rings of
 // 128 m chunks around the camera. Chunks are built in worker(s) (chunkworker.ts) and swapped in without gaps:
 // a chunk upgraded far -> near keeps its far meshes until the near build arrives. Fog/haze hides the outer edge.
+import { InstancePool } from './instancepool';
+import { ParkedFleet } from '../vehicles/parkedfleet';
 import * as THREE from 'three';
 import type { Renderer } from '../renderer/renderer';
 import type { PhysicsClient } from '../physics/client';
@@ -9,12 +11,12 @@ import { WorldMaterials } from './worldmaterials';
 import { SourcedCar } from '../vehicles/sourced';
 import { CHUNK, groundRects } from './citygen';
 
-interface ChunkState { boxes: THREE.Box3[]; key: string; cx: number; cz: number; lod: number; group: THREE.Group; lights: number[]; parked: SourcedCar[]; pending: number | null; built: number | null; steam: THREE.Vector3[] }
+interface ChunkState { boxes: THREE.Box3[]; key: string; cx: number; cz: number; lod: number; group: THREE.Group; lights: number[]; parked: number[]; tl: [InstancePool, number][]; pending: number | null; built: number | null; steam: THREE.Vector3[] }
 const PAINTS = [0x1f3e66, 0x8f8f92, 0x1b1b1d, 0xd8d6cf, 0x5b1d24, 0x2f4b37, 0xb08d3c, 0x6a7078];
 
 export class Streaming {
   chunks = new Map<string, ChunkState>(); workers: Worker[] = []; busy = [0, 0]; queue: { key: string; cx: number; cz: number; lod: number }[] = [];
-  mats: WorldMaterials; root = new THREE.Group(); nearR = 1; farR = 6; parkedBudget = 30; parkedCount = 0;
+  mats: WorldMaterials; root = new THREE.Group(); nearR = 1; farR = 6; parkedBudget = 30; parkedCount = 0; fleet: ParkedFleet | null = null; // parked cars are instances (one draw per material for the whole city)
   stats = { built: 0, lastMs: 0, maxMs: 0, near: 0, far: 0, mainMs: 0, mainMaxMs: 0 }; steamVents: THREE.Vector3[] = [];
   private lightIds = 0; private inbox: any[] = [];
   constructor(public R: Renderer, public phys: PhysicsClient, public pool: LightPool, public seed = 1337) {
@@ -40,13 +42,13 @@ export class Streaming {
       while (this.inbox.length && performance.now() - t0 < 4) this.onBuilt(this.inbox.shift()); }
     const ccx = Math.floor(cam.x / CHUNK), ccz = Math.floor(cam.z / CHUNK); const want = new Map<string, number>();
     for (let dz = -this.farR; dz <= this.farR; dz++) for (let dx = -this.farR; dx <= this.farR; dx++) { const d = Math.max(Math.abs(dx), Math.abs(dz)); if (Math.hypot(dx, dz) > this.farR + 0.5) continue; want.set(`${ccx + dx},${ccz + dz}`, d <= this.nearR ? 0 : 1); }
-    for (const [key, lod] of want) { const c = this.chunks.get(key); if (!c) { const [cx, cz] = key.split(',').map(Number); const st: ChunkState = { boxes: [], key, cx, cz, lod, group: new THREE.Group(), lights: [], parked: [], pending: null, built: null, steam: [] }; this.chunks.set(key, st); this.request(st, lod); }
+    for (const [key, lod] of want) { const c = this.chunks.get(key); if (!c) { const [cx, cz] = key.split(',').map(Number); const st: ChunkState = { boxes: [], key, cx, cz, lod, group: new THREE.Group(), lights: [], parked: [], tl: [], pending: null, built: null, steam: [] }; this.chunks.set(key, st); this.request(st, lod); }
       else if (c.pending === null && c.built !== lod) this.request(c, lod); }
     // unload with hysteresis (2 extra chunks)
     for (const [key, c] of this.chunks) { const d = Math.hypot(c.cx - ccx, c.cz - ccz); if (!want.has(key) && d > this.farR + 2) this.unload(c); }
     // sort queue by distance and dispatch to free workers (max 2 jobs each in flight)
     this.queue.sort((a, b) => Math.hypot(a.cx - ccx, a.cz - ccz) * (a.lod ? 1.5 : 1) - Math.hypot(b.cx - ccx, b.cz - ccz) * (b.lod ? 1.5 : 1));
-    for (let i = 0; i < this.workers.length; i++) while (this.busy[i] < 2 && this.queue.length) { const j = this.queue.shift()!; const c = this.chunks.get(j.key); if (!c || c.pending !== j.lod) continue; this.busy[i]++; this.workers[i].postMessage({ id: j.key, cx: j.cx, cz: j.cz, lod: j.lod, seed: this.seed }); }
+    for (let i = 0; i < this.workers.length; i++) while (this.busy[i] < 2 && this.queue.length) { const j = this.queue.shift()!; const c = this.chunks.get(j.key); if (!c || c.pending !== j.lod) continue; this.busy[i]++; this.workers[i].postMessage({ id: j.key, cx: j.cx, cz: j.cz, lod: j.lod, seed: this.seed, lean: /^(Lite|Low)$/.test(this.R.tier.name) }); }
     this.stats.near = [...this.chunks.values()].filter((c) => c.built === 0).length; this.stats.far = [...this.chunks.values()].filter((c) => c.built === 1).length;
   }
   private request(c: ChunkState, lod: number) { c.pending = lod; this.queue = this.queue.filter((q) => q.key !== c.key); this.queue.push({ key: c.key, cx: c.cx, cz: c.cz, lod }); }
@@ -56,7 +58,7 @@ export class Streaming {
     this.stats.built++; this.stats.lastMs = d.ms; this.stats.maxMs = Math.max(this.stats.maxMs, d.ms);
     this.clear(c); c.pending = null; c.built = d.lod;
     for (const m of d.meshes) { const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(m.pos, 3)); g.setAttribute('normal', new THREE.BufferAttribute(m.nrm, 3)); g.setAttribute('uv', new THREE.BufferAttribute(m.uv, 2)); if (m.col) g.setAttribute('color', new THREE.BufferAttribute(m.col, 3)); g.computeBoundingSphere();
-      const mat = this.mats.get(m.key); const mesh = new THREE.Mesh(g, mat);
+      const mat = this.mats.get(m.key); const mesh = new THREE.Mesh(g, mat); mesh.name = m.key;
       const shadowless = /^(asphalt|walk|tar|paint|paintY|tiles|litter|iron|glass_|water|far|furn|hydrant|bench|sign_|kerb|lamphead)/.test(m.key) || d.lod === 1; mesh.castShadow = !shadowless; mesh.receiveShadow = true; mesh.matrixAutoUpdate = false; mesh.updateMatrix();
       c.group.add(mesh); }
     if (d.lod === 0) {
@@ -64,21 +66,25 @@ export class Streaming {
       // axis-aligned blockers for camera collision (ignores rotation; buildings/walls/piers are axis-aligned here)
       c.boxes = d.colliders.filter((q: any) => q.kind === 'box' && q.half[1] > 0.6 && !q.rot).map((q: any) => new THREE.Box3(new THREE.Vector3(q.pos[0] - q.half[0], q.pos[1] - q.half[1], q.pos[2] - q.half[2]), new THREE.Vector3(q.pos[0] + q.half[0], q.pos[1] + q.half[1], q.pos[2] + q.half[2])));
       for (const l of d.lights) { const id = ++this.lightIds; this.pool.add({ pos: new THREE.Vector3(...l.pos), color: new THREE.Color(l.color), intensity: l.intensity, distance: l.distance, nightOnly: true, group: c.key } as any); c.lights.push(id); }
-      for (const t of d.tlights) this.trafficLight(c.group, t);
-      for (const p of d.parked) { if (this.parkedCount >= this.parkedBudget) break; const car = new SourcedCar(this.R, 'kiri', { paint: PAINTS[p.paint % PAINTS.length], frozen: true, lod: 1 }); car.root.userData.hlCat = 'parked car'; car.root.position.set(p.pos[0], p.pos[1], p.pos[2]); car.root.rotation.y = p.yaw; c.group.add(car.root); c.parked.push(car); this.parkedCount++; car.load().catch(() => {}); }
+      for (const t of d.tlights) this.trafficLight(c, t);
+      for (const p of d.parked) { if (this.parkedCount >= this.parkedBudget) break; this.fleet ??= new ParkedFleet(this.R, this.parkedBudget); const slot = this.fleet.add(new THREE.Vector3(p.pos[0], p.pos[1], p.pos[2]), p.yaw, PAINTS[p.paint % PAINTS.length]); if (slot < 0) break; c.parked.push(slot); this.parkedCount++; }
       c.steam = d.steam.map((s: number[]) => new THREE.Vector3(...s));
     }
     this.root.add(c.group); this.refreshSteam();
     this.stats.mainMs = performance.now() - tMain; this.stats.mainMaxMs = Math.max(this.stats.mainMaxMs, this.stats.mainMs);
   }
-  private trafficLight(group: THREE.Group, t: { pos: number[]; face: number[]; axis: number }) {
-    const h = new THREE.Mesh(TL_HOUSING ??= new THREE.BoxGeometry(0.42, 1.25, 0.32), TL_MAT ??= this.R.setupMaterial(new THREE.MeshStandardMaterial({ color: 0x1c1f22, roughness: 0.5, metalness: 0.4 })));
-    h.position.set(t.pos[0], t.pos[1], t.pos[2]); h.lookAt(t.pos[0] + t.face[0], t.pos[1], t.pos[2] + t.face[2]); group.add(h);
-    (['r', 'a', 'g'] as const).forEach((col, i) => { const d = new THREE.Mesh(TL_DISC ??= new THREE.CircleGeometry(0.12, 14), this.mats.tl[col + t.axis]); d.position.set(0, 0.38 - i * 0.38, 0.17); h.add(d); });
+  /** Traffic lights are instances: one housing pool + one disc pool per lamp material (7 draws for the whole city). */
+  private tlPools: { housing: InstancePool; discs: Record<string, InstancePool> } | null = null;
+  private trafficLight(c: ChunkState, t: { pos: number[]; face: number[]; axis: number }) {
+    const P = (this.tlPools ??= { housing: new InstancePool(this.root, TL_HOUSING ??= new THREE.BoxGeometry(0.42, 1.25, 0.32), TL_MAT ??= this.R.setupMaterial(new THREE.MeshStandardMaterial({ color: 0x1c1f22, roughness: 0.5, metalness: 0.4 })), 1200, { castShadow: true, name: 'tl_housing' }),
+      discs: Object.fromEntries(Object.keys(this.mats.tl).map((k) => [k, new InstancePool(this.root, TL_DISC ??= new THREE.CircleGeometry(0.12, 14), this.mats.tl[k], 1200, { name: 'tl_disc' })])) });
+    const o = new THREE.Object3D(); o.position.set(t.pos[0], t.pos[1], t.pos[2]); o.lookAt(t.pos[0] + t.face[0], t.pos[1], t.pos[2] + t.face[2]); o.updateMatrix();
+    c.tl.push([P.housing, P.housing.add(o.matrix)]);
+    (['r', 'a', 'g'] as const).forEach((col, i) => { const m = new THREE.Matrix4().makeTranslation(0, 0.38 - i * 0.38, 0.17).premultiply(o.matrix); const pool = P.discs[col + t.axis]; c.tl.push([pool, pool.add(m)]); });
   }
   private clear(c: ChunkState) {
     for (const o of [...c.group.children]) { c.group.remove(o); const m = o as THREE.Mesh; if (m.isMesh && m.geometry !== TL_HOUSING) m.geometry.dispose(); }
-    for (const car of c.parked) { car.root.traverse((o) => { const m = o as THREE.Mesh; if (m.isMesh) m.geometry.dispose(); }); this.parkedCount--; } c.parked = [];
+    for (const slot of c.parked) { this.fleet?.remove(slot); this.parkedCount--; } c.parked = []; for (const [pool, s] of c.tl) pool.remove(s); c.tl = [];
     if (c.built === 0) { this.phys.removeGroup(c.key); (this.pool as any).removeGroup?.(c.key); }
     c.steam = [];
   }
@@ -98,7 +104,7 @@ export class Streaming {
     return best;
   }
   /** Hide streamed parked cars overlapping a point (the player's car spot, spawned vehicles). */
-  clearParked(x: number, z: number, r = 4) { for (const c of this.chunks.values()) for (const car of c.parked) { const p = car.root.position; if (Math.hypot(p.x - x, p.z - z) < r) car.root.visible = false; } }
+  clearParked(x: number, z: number, r = 4) { this.fleet?.hideNear(x, z, r); }
   /** All near-chunk blocker boxes (AI cover generation and routing). */
   allBoxes() { const out: THREE.Box3[] = []; for (const c of this.chunks.values()) out.push(...c.boxes); return out; }
   /** True once the near chunk under (x, z) has its colliders. */

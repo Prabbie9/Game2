@@ -23,13 +23,13 @@ export class VehicleSim {
   input: VehicleInput = { steer: 0, throttle: 0, brake: 0, handbrake: 0, boost: 0 };
   steerAngle = 0; drift = 0; gear = 1; rpm = 800; boostLeft = 0; upsideTime = 0; stuckTime = 0;
   telemetry = { speed: 0, vf: 0, slip: 0, drift: 0, rpm: 0, gear: 1, contacts: 0, yawRate: 0, boost: 1, throttle: 0 };
-  wheelSkid = [0, 0, 0, 0];
+  wheelSkid = [0, 0, 0, 0]; col!: RAPIER_NS.Collider; touch = 0; // touch: max chassis contact impulse (N·s) since the last snapshot; 0 = the body touched nothing
   constructor(public RAPIER: R, public world: RAPIER_NS.World, public id: number, public t: Tuning, pos: [number, number, number], yaw = 0) {
     const [hx, hy, hz] = t.halfExtents;
     const q = { x: 0, y: Math.sin(yaw / 2), z: 0, w: Math.cos(yaw / 2) };
     this.body = world.createRigidBody(RAPIER.RigidBodyDesc.dynamic().setTranslation(pos[0], pos[1], pos[2]).setRotation(q).setCcdEnabled(true).setAngularDamping(0.15).setLinearDamping(0.0));
     const m = t.mass, ix = (m / 12) * (4 * hy * hy + 4 * hz * hz), iy = (m / 12) * (4 * hx * hx + 4 * hz * hz), iz = (m / 12) * (4 * hx * hx + 4 * hy * hy);
-    world.createCollider(RAPIER.ColliderDesc.cuboid(hx, hy, hz).setMassProperties(m, { x: t.comOffset[0], y: t.comOffset[1], z: t.comOffset[2] }, { x: ix, y: iy * 1.1, z: iz }, { x: 0, y: 0, z: 0, w: 1 }).setFriction(0.2).setRestitution(0.05).setFrictionCombineRule(RAPIER.CoefficientCombineRule.Min), this.body);
+    this.col = world.createCollider(RAPIER.ColliderDesc.cuboid(hx, hy, hz).setMassProperties(m, { x: t.comOffset[0], y: t.comOffset[1], z: t.comOffset[2] }, { x: ix, y: iy * 1.1, z: iz }, { x: 0, y: 0, z: 0, w: 1 }).setFriction(0.2).setRestitution(0.05).setFrictionCombineRule(RAPIER.CoefficientCombineRule.Min), this.body);
     this.ctrl = world.createVehicleController(this.body);
     (this.ctrl as any).indexUpAxis = 1; (this.ctrl as any).setIndexForwardAxis = 2;
     const halfTrack = t.track / 2, halfWb = t.wheelbase / 2;
@@ -38,6 +38,8 @@ export class VehicleSim {
     this.applyTuning();
     this.boostLeft = t.boostSeconds;
   }
+  /** After world.step(): does the chassis collider have a live contact with anything (walls, cars, props, ground)? */
+  sense() { const w = this.world; w.contactPairsWith(this.col, (other) => { w.contactPair(this.col, other, (m) => { const n = m.numContacts(); if (!n) return; let imp = 0; for (let i = 0; i < n; i++) imp += (m as any).contactImpulse?.(i) ?? 0; this.touch = Math.max(this.touch, imp || 1e-3); }); }); }
   /** Push tuning values into the controller (called at spawn and whenever the panel changes them). */
   applyTuning() {
     const t = this.t;

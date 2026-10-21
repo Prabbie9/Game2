@@ -14,7 +14,7 @@ export type DynamicDesc = { kind: 'box' | 'cylinder' | 'ball'; half: [number, nu
 
 export const STEP = 1 / 60;
 /** Floats per vehicle in a snapshot: chassis pos(3) quat(4) + 4 wheels x (suspLen, steer, rot, contact, skid) + telemetry(8) */
-export const VEH_STRIDE = 7 + 4 * 5 + 8;
+export const VEH_STRIDE = 7 + 4 * 5 + 9;
 export const DYN_STRIDE = 7;
 
 export class SimCore {
@@ -74,7 +74,7 @@ export class SimCore {
     for (const v of this.vehicles.values()) v.step(STEP);
     if (this.chars.size) { this.world.propagateModifiedBodyPositionsToColliders(); this.world.updateSceneQueries(); } // controller queries must see colliders added since the last step
     for (const c of this.chars.values()) c.step(STEP, this.world.gravity.y);
-    this.world.step();
+    this.world.step(); for (const v of this.vehicles.values()) v.sense();
     this.time += STEP; this.steps++;
   }
   /** Pack vehicle + dynamic body state into one Float32Array (transferable). */
@@ -87,7 +87,7 @@ export class SimCore {
       const v = this.vehicles.get(id)!, p = v.body.translation(), q = v.body.rotation(), c = v.ctrl;
       buf.set([p.x, p.y, p.z, q.x, q.y, q.z, q.w], o); o += 7;
       for (let i = 0; i < 4; i++) { buf.set([c.wheelSuspensionLength(i) ?? v.t.suspRest, c.wheelSteering(i) ?? 0, c.wheelRotation(i) ?? 0, c.wheelIsInContact(i) ? 1 : 0, v.wheelSkid[i]], o); o += 5; }
-      const T = v.telemetry; buf.set([T.speed, T.vf, T.slip, T.rpm, T.gear, T.contacts, T.boost, T.throttle], o); o += 8;
+      const T = v.telemetry; buf.set([T.speed, T.vf, T.slip, T.rpm, T.gear, T.contacts, T.boost, T.throttle, v.touch], o); o += 9; v.touch = 0;
     }
     for (const id of dynIds) { const b = this.dynamics.get(id)!, p = b.translation(), q = b.rotation(); buf.set([p.x, p.y, p.z, q.x, q.y, q.z, q.w], o); o += 7; }
     for (const id of charIds) { this.chars.get(id)!.pack(buf, o); o += CHAR_STRIDE; }

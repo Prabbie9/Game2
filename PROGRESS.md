@@ -17,6 +17,7 @@ MILESTONE: M9 done (final) — preview version 9; wanted gate: WASTED pass, LOSE
 - M3 World generator + streaming: DONE. Seeded Downtown (grid, arterials, plaza, underpass/tunnel, elevated highway), 128 m chunks built in 2 workers, near/far LOD, physics groups, time-sliced apply, shader pre-warm, bot budget reports.
 
 ## DECISIONS
+- Continuation mandate (perf → graphics → features): the original STEP_BUDGET=1500 was almost spent (~1,250) when the user removed step/time limits; treated as a fresh 1,500-step budget for this mandate (85% stop ≈ 1,275 steps after its start).
 - M7: traffic is a lane-pursuit system on the analytic street grid instead of a baked lane graph (the grid is regular, so lanes and junction polylines are computed). Police reuse the traffic pool for cruisers and Combatant for officers.
 - M8: the Harbour is one non-streamed district built on the main thread; the boat is an arcade model on the main thread (no Rapier buoyancy) to keep the physics worker unchanged. Hillside/interiors/ambient events cut per the spec's cut list.
 - M6: motorbike and detachable parts cut for budget (spec priority list: extra vehicle classes cut from the end). Vehicles packed with meshopt; the runtime dequantises body meshes before merging so dents and merges work in float units.

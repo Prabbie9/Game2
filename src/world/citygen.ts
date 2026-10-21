@@ -69,7 +69,8 @@ const slab = (B: Batch, key: string, r: Rect, y0: number, h: number, uvs: number
 const hash2 = (x: number, z: number) => { const s = Math.sin(x * 12.9898 + z * 78.233) * 43758.5453; return s - Math.floor(s); };
 
 /** Build one chunk. lod 0 = near (full detail + colliders), 1 = far (massing only). */
-export function buildChunk(cx: number, cz: number, lod: number, seed: number): Batch {
+/** lean (Lite/Low): far chunks skip sidewalk slabs (one draw per far chunk). */
+export function buildChunk(cx: number, cz: number, lod: number, seed: number, lean = false): Batch {
   const B = new Batch(); const C: Rect = { x0: cx * CHUNK, x1: (cx + 1) * CHUNK, z0: cz * CHUNK, z1: (cz + 1) * CHUNK };
   const outside = C.x1 < -EXTENT - 400 || C.x0 > EXTENT + 400 || C.z1 < -EXTENT - 400 || C.z0 > EXTENT + 400;
   if (outside) return B;
@@ -81,7 +82,7 @@ export function buildChunk(cx: number, cz: number, lod: number, seed: number): B
   const i0 = Math.floor(C.x0 / BLOCK) - 1, i1 = Math.floor(C.x1 / BLOCK) + 1, j0 = Math.floor(C.z0 / BLOCK) - 1, j1 = Math.floor(C.z1 / BLOCK) + 1;
   for (let i = Math.max(i0, -GRID); i <= Math.min(i1, GRID - 1); i++) for (let j = Math.max(j0, -GRID); j <= Math.min(j1, GRID - 1); j++) {
     const R = blockRect(i, j); const c = clip(C, R); if (!c) continue;
-    slab(B, 'walk', c, 0, KERB, 2.4, lod === 0);
+    if (lod === 0 || !lean) slab(B, 'walk', c, 0, KERB, 2.4, lod === 0);
     if (lod === 0) kerbs(B, R, c);
     for (const b of lots(i, j, seed)) { if (b.x < C.x0 || b.x >= C.x1 || b.z < C.z0 || b.z >= C.z1) continue; if (lod === 0) building(B, b); else buildingFar(B, b); }
     if (lod === 0) { streetProps(B, R, c, i, j); if (R.x0 + 6 < PLAZA.x1 && R.x1 - 6 > PLAZA.x0 && R.z0 + 6 < PLAZA.z1 && R.z1 - 6 > PLAZA.z0) plaza(B, c); }
