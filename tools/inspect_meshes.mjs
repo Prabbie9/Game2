@@ -1,0 +1,3 @@
+import { NodeIO } from '@gltf-transform/core'; import { ALL_EXTENSIONS } from '@gltf-transform/extensions'; import { getBounds } from '@gltf-transform/functions';
+const doc = await new NodeIO().registerExtensions(ALL_EXTENSIONS).read(process.argv[2]);
+for (const n of doc.getRoot().listNodes()) { if (!n.getMesh()) continue; const b = getBounds(n); const tri = n.getMesh().listPrimitives().reduce((a, p) => a + (p.getIndices()?.getCount() ?? 0) / 3, 0); console.log(n.getName().slice(0, 40), tri, b.min.map((v) => v.toFixed(1)).join(','), b.max.map((v) => v.toFixed(1)).join(','), n.getMesh().listPrimitives().map(p => p.getMaterial()?.getName()).join('|').slice(0,60)); }

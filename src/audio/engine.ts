@@ -5,6 +5,19 @@ export class AudioSys {
   ctx: AudioContext | null = null; master!: GainNode; muted = false;
   ensure() { if (!this.ctx) { this.ctx = new AudioContext(); this.master = this.ctx.createGain(); this.master.gain.value = 0.7; this.master.connect(this.ctx.destination); } return this.ctx; }
   resume() { this.ensure(); if (this.ctx!.state !== 'running') this.ctx!.resume(); }
+  private nb: AudioBuffer | null = null; private amb: { g: GainNode; lp: BiquadFilterNode; gull: number } | null = null;
+  /** One-shot noise burst through a filter with an exponential decay (gunshots, explosions, impacts). gain falls with distance. */
+  burst(dist: number, o: { gain: number; decay: number; freq: number; q?: number; type?: BiquadFilterType; thump?: number }) {
+    if (!this.ctx || this.ctx.state !== 'running') return; const c = this.ctx, t = c.currentTime; const g0 = o.gain / (1 + (dist / 18) ** 1.6); if (g0 < 0.004) return;
+    const src = c.createBufferSource(); src.buffer = this.nb ??= this.noise(2); const f = c.createBiquadFilter(); f.type = o.type ?? 'lowpass'; f.frequency.value = o.freq * (1 - Math.min(0.7, dist / 300)); f.Q.value = o.q ?? 0.7;
+    const g = c.createGain(); g.gain.setValueAtTime(g0, t); g.gain.exponentialRampToValueAtTime(0.0005, t + o.decay); src.connect(f); f.connect(g); g.connect(this.master); src.start(t, Math.random() * 1.5); src.stop(t + o.decay + 0.05);
+    if (o.thump) { const os = c.createOscillator(); os.frequency.setValueAtTime(o.thump, t); os.frequency.exponentialRampToValueAtTime(o.thump * 0.35, t + o.decay * 0.6); const og = c.createGain(); og.gain.setValueAtTime(g0 * 0.9, t); og.gain.exponentialRampToValueAtTime(0.0005, t + o.decay * 0.7); os.connect(og); og.connect(this.master); os.start(t); os.stop(t + o.decay); } }
+  gun(dist: number, heavy = false) { this.burst(dist, heavy ? { gain: 0.9, decay: 0.45, freq: 2600, thump: 90 } : { gain: 0.55, decay: 0.22, freq: 3800, thump: 140 }); }
+  boom(dist: number) { this.burst(dist * 0.6, { gain: 1.4, decay: 2.2, freq: 700, thump: 55 }); }
+  /** City bed: brown-ish noise low-passed; louder by day, a hint of distant traffic. Call each frame. */
+  ambience(level: number) { if (!this.ctx || this.ctx.state !== 'running') return; const c = this.ctx;
+    if (!this.amb) { const src = c.createBufferSource(); src.buffer = this.noise(4); src.loop = true; const lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 380; const g = c.createGain(); g.gain.value = 0; src.connect(lp); lp.connect(g); g.connect(this.master); src.start(); this.amb = { g, lp, gull: 0 }; }
+    this.amb.g.gain.setTargetAtTime(0.05 * level, c.currentTime, 0.5); }
   noise(seconds = 2) { const c = this.ensure(); const b = c.createBuffer(1, c.sampleRate * seconds, c.sampleRate); const d = b.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; return b; }
 }
 export class EngineSound {

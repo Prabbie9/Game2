@@ -43,7 +43,15 @@ export function interiorGlass(R: Renderer, cell: [number, number], depth: number
           float shelfBand = step(0.12, vy) * step(vy, 0.72); float row = floor(vy * 9.0); float along = th == tx ? hit.z : hit.x; float slot = floor(along * 6.5 + row * 3.7);
           vec3 prod = mix(vec3(0.08), 0.12 + 0.42 * vec3(ihash(vec3(slot, row, 1.0)), ihash(vec3(slot, row, 2.0)), ihash(vec3(slot, row, 3.0))), step(0.25, fract(vy * 9.0)) * step(0.15, ihash(vec3(slot, row, 4.0))));
           col = (th == tz || th == tx) ? mix(base, prod, shelfBand) : col;
-          if (th == ty && r.y < 0.0) col = vec3(0.32, 0.27, 0.22); if (th == ty && r.y > 0.0) col = mix(vec3(0.2), vec3(2.2, 2.0, 1.7), step(0.82, fract((hit.x - lo.x) * 0.9)) * step(0.82, fract(hit.z * 0.9 + 0.3)));
+          // per-shop theme: 0 books (above), 1 cafe, 2 boutique, 3 electronics, 4 pharmacy
+          float theme = floor(ihash(vec3(cellId, 21.0)) * 5.0); bool wallHit = th == tz || th == tx;
+          if (theme == 1.0 && wallHit) { col = mix(vec3(0.62, 0.52, 0.4), vec3(0.3, 0.19, 0.11), step(vy, 0.38)); col = mix(col, vec3(0.08, 0.06, 0.05), step(0.6, vy) * step(vy, 0.64)); col += vec3(0.9, 0.55, 0.25) * step(0.86, vy) * step(fract(along * 0.5), 0.12); }
+          if (theme == 2.0 && wallHit) { float rail = step(0.3, vy) * step(vy, 0.66); float g = floor(along * 3.2); vec3 cloth = 0.15 + 0.6 * vec3(ihash(vec3(g, 7.0, 1.0)), ihash(vec3(g, 7.0, 2.0)), ihash(vec3(g, 7.0, 3.0)));
+            col = mix(vec3(0.82, 0.8, 0.76), cloth * (0.75 + 0.25 * step(0.2, fract(along * 3.2))), rail * step(0.3, ihash(vec3(g, 7.0, 4.0)))); }
+          if (theme == 3.0 && wallHit) { float sx = fract(along * 1.4), sy = fract(vy * 4.0); float scr = step(0.1, sx) * step(sx, 0.9) * step(0.15, sy) * step(sy, 0.8) * step(0.3, vy) * step(vy, 0.78);
+            col = mix(vec3(0.05, 0.055, 0.065), vec3(0.35, 0.6, 1.1) * (0.6 + 0.6 * ihash(vec3(floor(along * 1.4), floor(vy * 4.0), 5.0))), scr); }
+          if (theme == 4.0 && wallHit) { float sl = floor(along * 9.0); col = mix(vec3(0.86, 0.9, 0.9), mix(vec3(0.95), vec3(0.2, 0.62, 0.38), step(0.6, ihash(vec3(sl, row, 6.0)))) * (0.7 + 0.3 * ihash(vec3(sl, row, 8.0))), shelfBand * step(0.3, fract(vy * 9.0))); }
+          if (th == ty && r.y < 0.0) col = theme == 4.0 ? vec3(0.7, 0.72, 0.72) : theme == 2.0 ? vec3(0.55, 0.5, 0.45) : vec3(0.32, 0.27, 0.22); if (th == ty && r.y > 0.0) col = mix(vec3(0.2), vec3(2.2, 2.0, 1.7), step(0.82, fract((hit.x - lo.x) * 0.9)) * step(0.82, fract(hit.z * 0.9 + 0.3)));
           col *= mix(1.0, 0.55, step(vy, 0.33) * step(th, tz * 0.5)); }` : ''}
         vec3 lamp = mix(vec3(1.0, 0.78, 0.5), vec3(0.85, 0.92, 1.0), step(0.7, ihash(vec3(cellId, 13.0)))${office ? ' * 1.0 + 0.0' : ''});
         float dayLevel = ${shop ? '0.38' : office ? '0.07' : '0.16'} + 0.06 * h; float nightLevel = ${shop ? '0.42 + h * 0.18' : 'lit * (0.45 + h * 0.4)'};

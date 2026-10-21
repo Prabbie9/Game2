@@ -117,3 +117,33 @@ renderer, lighting, materials, world, streaming, vehicles, damage, camera, chara
   - Feedback: a siren (sawtooth wail; faster from 3 stars, louder near the closest cruiser) and red/blue roof light-bar flashes on pursuing cruisers.
 - **Crowd reaction**: `Crowd.scare(p, r)`. VAT walkers within 40 m of a shot (60 m of an explosion) turn away and hurry at ×2.6 for 6–10 s; the gait rate follows the speed.
 - **Combat events**: `Combat.onEvent(kind, owner, pos, target)` covers shot, hit and explode, and feeds gunfire panic, crowd scares and crimes.
+
+## M8 architecture — Harbour, sandbox tools
+- **Harbour** (`src/world/harbour.ts`): the sea south of Downtown, from the quay line `QUAY_Z = EXTENT + 70` outward.
+  - Ground: the city generator cuts the sea out of chunk ground and colliders and out of the far ground (`SEA` rect). `groundAt` returns the seabed (−7 m) offshore and 0 on the piers.
+  - Built once on the main thread (it is one district, so it is not streamed):
+    - A concrete apron, the quay wall, a yellow edge kerb (with gaps at the piers), bollards and tyre fenders.
+    - Three timber piers on piles.
+    - About 250 instanced containers with a corrugated normal map, stacked 1–4 high.
+    - Four gantry cranes with booms over the water.
+    - Four corrugated warehouses with pitched roofs and roller doors.
+    - Floodlight masts that feed the light pool at night.
+    - Moored trawlers and speedboats that bob.
+    - Box colliders for everything solid, plus a seabed collider.
+  - Water: one large plane with a physical material (clearcoat), a tileable sum-of-sines normal map generated at load, rotated world UVs to hide tiling, and scrolling. SSR and the scene probe give the reflections.
+- **Boat** (arcade, main thread):
+  - Thrust with boost, quadratic and linear hull drag, keel damping of lateral speed, and a rudder whose authority scales with speed (with a slight slide out of turns).
+  - Planing: the nose lifts with speed and the hull rides higher; it banks into turns and bobs.
+  - Collisions: the quay, piers and map edge reflect the boat at 25% speed.
+  - Spray: stern spray from the smoke pool. Audio: the engine voice driven by speed and throttle.
+  - Boarding: the player boards from the pier side (door point on the −X side; car door routing generalised to either side). You can only get off when the boat is alongside a pier.
+- **Drowning**: falling into the sea on foot, or sinking a car, means WASTED and a respawn.
+- **Spawn menu** (B, `src/ui/spawnmenu.ts`):
+  - All 14 vehicle classes, spawned beside the player or replacing the car you sit in; the old car stays in the world as a driverless car.
+  - All weapons.
+  - Teleports: Downtown, Plaza, Underpass, Highway ramp, Harbour.
+  - Traffic density 0/8/16/28, +1 star / clear wanted, god mode, never wanted.
+  - Seven times of day and five weathers.
+  - Opening it pauses the game and releases the pointer.
+- **Driver IK**: steering-wheel hand targets are now relative to each model's seat H-point, so they work across the fleet and on the boat.
+- Cut for budget, as the spec allows: Hillside, real interiors (shops keep interior-mapped windows), ambient events and the challenge playlist.

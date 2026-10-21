@@ -87,3 +87,5 @@ Grades: GREEN = CC0/PD/MIT/BSD/Apache/ISC/OFL/CC-BY(credited)/Mixamo. AMBER = NC
 | LCT 3000 '95 - Low poly model (uid 663a0953c038434a918cb85725c88ffa) — vehicle | DanielZhabotinsky | https://sketchfab.com/3d-models/lct-3000-95-low-poly-model-663a0953c038434a918cb85725c88ffa | BY | GREEN |
 | Illinois '90 - Low poly model (uid d604871eee5b4181bb298163b0b675b7) — vehicle | DanielZhabotinsky | https://sketchfab.com/3d-models/illinois-90-low-poly-model-d604871eee5b4181bb298163b0b675b7 | BY | GREEN |
 | Illinois '90 Police cruiser - Low poly model (uid dc81625478a744649b210c7f248b0b6a) — vehicle | DanielZhabotinsky | https://sketchfab.com/3d-models/illinois-90-police-cruiser-low-poly-model-dc81625478a744649b210c7f248b0b6a | BY | GREEN |
+| Speedboat (uid 9916bd4433024202ab84e43426fc2139) — asset | vrpspu | https://sketchfab.com/3d-models/speedboat-9916bd4433024202ab84e43426fc2139 | BY | GREEN |
+| Trawler (uid 421f3239115c44539686fcb62835f115) — asset | JasperTobias | https://sketchfab.com/3d-models/trawler-421f3239115c44539686fcb62835f115 | BY | GREEN |

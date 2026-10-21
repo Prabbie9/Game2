@@ -14,15 +14,22 @@ export const line = (k: number) => k * BLOCK;
 export const UNDER = { x: line(-3), z0: -170, z1: 170, ramp: 60, depth: 6.5, cover: 56 };
 // elevated highway above the z-line k=4 arterial, deck at 9 m, ramps down over the last 110 m at each end
 export const HWY = { z: line(4), x0: -EXTENT, x1: EXTENT, y: 9, w: 20, ramp: 110 };
+/** Harbour (M8): the sea south of the quay line; the apron between the edge road and the quay is concrete. */
+export const QUAY_Z = EXTENT + 70, SEA: { x0: number; x1: number; z0: number; z1: number } = { x0: -5000, x1: 5000, z0: EXTENT + 70, z1: 5000 }, SEABED = -7;
+export const inSea = (x: number, z: number) => z > QUAY_Z && !onPier(x, z);
+/** Piers: [x centre, half width, z end] reaching out from the quay. */
+export const PIERS: [number, number, number][] = [[-120, 5, QUAY_Z + 90], [60, 4, QUAY_Z + 70], [250, 6, QUAY_Z + 110]];
+export const onPier = (x: number, z: number) => PIERS.some(([px, hw, ze]) => Math.abs(x - px) < hw && z < ze);
 export const PLAZA = { x0: line(0) + 12, x1: line(1) - 8, z0: line(0) + 12, z1: line(1) - 8 };
 export const hwyY = (x: number) => { const d = Math.min(x - HWY.x0, HWY.x1 - x); return d >= HWY.ramp ? HWY.y : Math.max(0, (d / HWY.ramp) * HWY.y); };
 export const trenchY = (z: number) => { const d = Math.min(z - UNDER.z0, UNDER.z1 - z); return d <= 0 ? 0 : -Math.min(UNDER.depth, (d / UNDER.ramp) * UNDER.depth); };
 /** Rects for the citywide far ground plane (everything minus the trench). */
-export function groundRects(size = 4200) { const all = { x0: -size / 2, x1: size / 2, z0: -size / 2, z1: size / 2 }; return subtract(all, { x0: UNDER.x - roadW(-3) / 2, x1: UNDER.x + roadW(-3) / 2, z0: UNDER.z0, z1: UNDER.z1 }); }
+export function groundRects(size = 4200) { const all = { x0: -size / 2, x1: size / 2, z0: -size / 2, z1: size / 2 }; return subtract(all, { x0: UNDER.x - roadW(-3) / 2, x1: UNDER.x + roadW(-3) / 2, z0: UNDER.z0, z1: UNDER.z1 }).flatMap((r) => subtract(r, SEA)); }
 export const inTrench = (x: number, z: number) => Math.abs(x - UNDER.x) < roadW(-3) / 2 && z > UNDER.z0 && z < UNDER.z1;
 /** Analytic walking surface height (roads 0, sidewalk blocks at kerb height, underpass trench, highway deck when near it). */
 export function groundAt(x: number, z: number, nearY = 0): number {
   if (inTrench(x, z)) return trenchY(z);
+  if (z > QUAY_Z) return onPier(x, z) ? 0 : SEABED;
   if (Math.abs(z - HWY.z) < HWY.w / 2 && nearY > 2.5) return hwyY(x);
   const i = Math.floor(x / BLOCK), j = Math.floor(z / BLOCK); if (Math.abs(i) > GRID || Math.abs(j) > GRID) return 0;
   const r = blockRect(i, j); return x >= r.x0 && x <= r.x1 && z >= r.z0 && z <= r.z1 ? KERB : 0;
@@ -68,7 +75,7 @@ export function buildChunk(cx: number, cz: number, lod: number, seed: number): B
   if (outside) return B;
   // ground (asphalt) with the underpass trench cut out
   const trench: Rect = { x0: UNDER.x - roadW(-3) / 2, x1: UNDER.x + roadW(-3) / 2, z0: UNDER.z0, z1: UNDER.z1 };
-  if (lod === 0) for (const g of subtract(C, trench)) { B.add('asphalt', plane(g, 0, 4.5)); if (lod === 0) B.colliders.push({ kind: 'box', half: [(g.x1 - g.x0) / 2, 0.5, (g.z1 - g.z0) / 2], pos: [(g.x0 + g.x1) / 2, -0.5, (g.z0 + g.z1) / 2], friction: 0.9 }); }
+  if (lod === 0) for (const g of subtract(C, trench).flatMap((r) => subtract(r, SEA))) { B.add('asphalt', plane(g, 0, 4.5)); if (lod === 0) B.colliders.push({ kind: 'box', half: [(g.x1 - g.x0) / 2, 0.5, (g.z1 - g.z0) / 2], pos: [(g.x0 + g.x1) / 2, -0.5, (g.z0 + g.z1) / 2], friction: 0.9 }); }
   const tc = clip(C, trench); if (tc) underpass(B, tc, lod);
   // blocks: sidewalks, kerbs, buildings, plaza
   const i0 = Math.floor(C.x0 / BLOCK) - 1, i1 = Math.floor(C.x1 / BLOCK) + 1, j0 = Math.floor(C.z0 / BLOCK) - 1, j1 = Math.floor(C.z1 / BLOCK) + 1;

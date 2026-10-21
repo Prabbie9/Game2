@@ -8,14 +8,14 @@ function dataPlugin() {
   return {
     name: 'harbourline-data',
     configureServer(server) { server.middlewares.use('/data', (req, res, next) => { const f = join(DATA, decodeURIComponent(req.url.split('?')[0])); if (!f.startsWith(DATA) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) return next(); res.setHeader('Content-Type', extname(f) === '.json' ? 'application/json' : 'application/octet-stream'); fs.createReadStream(f).pipe(res); }); },
-    closeBundle() { copyDir(DATA, resolve(__dirname, 'dist/data')); copyDir(resolve(__dirname, 'node_modules/three/examples/jsm/libs/basis'), resolve(__dirname, 'dist/data/basis')); },
+    closeBundle() { copyDir(DATA, resolve(__dirname, (process.env.OUT || 'dist') + '/data')); copyDir(resolve(__dirname, 'node_modules/three/examples/jsm/libs/basis'), resolve(__dirname, (process.env.OUT || 'dist') + '/data/basis')); },
   };
 }
 export default defineConfig({
   base: './',
   plugins: [dataPlugin()],
   build: {
-    target: 'es2022', outDir: 'dist', assetsInlineLimit: 0, chunkSizeWarningLimit: 4000,
+    target: 'es2022', outDir: process.env.OUT || 'dist', assetsInlineLimit: 0, chunkSizeWarningLimit: 4000,
     rollupOptions: { input: {
       main: resolve(__dirname, 'index.html'),
       delivery: resolve(__dirname, 'tests/delivery/index.html'),

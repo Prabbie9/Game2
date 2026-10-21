@@ -670,6 +670,28 @@
    "url": "https://sketchfab.com/3d-models/illinois-90-police-cruiser-low-poly-model-dc81625478a744649b210c7f248b0b6a",
    "role": "vehicle",
    "date": "2026-10-21"
+  },
+  {
+   "uid": "9916bd4433024202ab84e43426fc2139",
+   "name": "Speedboat",
+   "file": "speedboat.glb",
+   "author": "vrpspu",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/speedboat-9916bd4433024202ab84e43426fc2139",
+   "role": "asset",
+   "date": "2026-10-21"
+  },
+  {
+   "uid": "421f3239115c44539686fcb62835f115",
+   "name": "Trawler",
+   "file": "trawler.glb",
+   "author": "JasperTobias",
+   "licence": "by",
+   "tier": "GREEN",
+   "url": "https://sketchfab.com/3d-models/trawler-421f3239115c44539686fcb62835f115",
+   "role": "asset",
+   "date": "2026-10-21"
   }
  ]
 }

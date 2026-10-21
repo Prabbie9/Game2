@@ -70,8 +70,8 @@ export class Player {
       if (this.state === 'toDoor' && this.car) { const door = this.modelPoint(this.car, (this.car as any).door ?? DOOR);
         // route around the car body: from the far side or the ends, go via the nearest driver-side corner first
         const ms = this.car.modelSpace ?? this.car.root; const lp = ms.worldToLocal(this.position.clone()); let goal = door;
-        if (lp.x < 1.05 && Math.abs(lp.z) < 2.75) goal = this.modelPoint(this.car, new THREE.Vector3(1.35, 0, lp.z >= 0 ? 2.85 : -2.85));
-        else if (lp.x < 1.05) goal = this.modelPoint(this.car, new THREE.Vector3(1.35, 0, Math.sign(lp.z) * 2.85));
+        const sd = Math.sign(((this.car as any).door ?? DOOR).x) || 1; if (lp.x * sd < 1.05 && Math.abs(lp.z) < 2.75) goal = this.modelPoint(this.car, new THREE.Vector3(1.35 * sd, 0, lp.z >= 0 ? 2.85 : -2.85));
+        else if (lp.x * sd < 1.05) goal = this.modelPoint(this.car, new THREE.Vector3(1.35 * sd, 0, Math.sign(lp.z) * 2.85));
         const finalLeg = goal === door; const d = goal.clone().sub(this.position).setY(0); let dist = d.length(); if (!finalLeg) dist += 1;
         if (finalLeg && (dist < 0.22 || (dist < 0.5 && this.speed < 0.3))) { this.beginEnter(); } else { const a = Math.atan2(d.x, d.z) - camYaw; mx = -Math.sin(a); my = Math.cos(a); want = Math.min(SPEED.run, 0.6 + dist * 1.6); }
         if (Math.hypot(inp.move[0], inp.move[1]) > 0.3 && this.state === 'toDoor') { this.state = 'foot'; this.car = null; } }
@@ -146,7 +146,7 @@ export class Player {
     else this.an.play('core', 'starting_to_climb_onto_a_box_or_short_fence', { fadeIn: 0.1, fadeOut: 0.25, timeScale: over ? 2.2 : 1.9, from: 0.15 });
   }
   /** Seated: hands to the wheel rim (two-bone IK on the arms toward wheel points in car space). */
-  private seatedPose() { if (!this.car) return; const arms: [string, THREE.Vector3][] = [['Left', new THREE.Vector3(0.55, 0.86, 0.33)], ['Right', new THREE.Vector3(0.19, 0.86, 0.33)]];
+  private seatedPose() { if (!this.car) return; const st: THREE.Vector3 = (this.car as any).seat ?? SEAT; const arms: [string, THREE.Vector3][] = [['Left', st.clone().add(new THREE.Vector3(0.18, 0.36, 0.61))], ['Right', st.clone().add(new THREE.Vector3(-0.18, 0.36, 0.61))]]; // wheel rim relative to the H-point
     for (const [s, local] of arms) { const a = this.ch.bone(s + 'Arm'), b = this.ch.bone(s + 'ForeArm'), c = this.ch.bone(s + 'Hand'); if (!a || !b || !c) continue;
       const t = this.modelPoint(this.car, local); const elbow = b.getWorldPosition(new THREE.Vector3()).add(new THREE.Vector3(0, -1, 0)); solveTwoBone(a, b, c, t, elbow); } }
 }

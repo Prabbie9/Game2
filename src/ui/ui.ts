@@ -79,18 +79,25 @@ const CHEAT: [string, Action[]][] = [
   ['Throttle / brake-reverse', ['throttle', 'brake']], ['Steer', ['steerLeft', 'steerRight']], ['Handbrake', ['handbrake']], ['Boost', ['boost']],
   ['Camera', ['camera']], ['Look behind', ['lookBehind']], ['Horn', ['horn']], ['Tuning panel', ['tuning']], ['Time & weather', ['timeWeather']], ['Frame-time overlay', ['frameOverlay']], ['Pause', ['pause']],
 ];
+import creditsMd from '../../CREDITS.md?raw';
+/** Credits screen: the table rows of CREDITS.md (what, author, licence) as a scrolling list. */
+function creditsHTML() { const rows = creditsMd.split('\n').filter((l) => l.startsWith('| ') && !l.startsWith('| What') && !l.startsWith('|---'));
+  const esc = (t: string) => t.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' } as any)[c]);
+  return rows.map((r) => { const c = r.split('|').map((x) => x.trim()); return `<li><b>${esc(c[1])}</b><span>${esc(c[2])} · ${esc(c[4])}</span></li>`; }).join(''); }
 export class PauseMenu {
   root: HTMLElement; open = false;
   constructor(parent: HTMLElement, input: Input, actions: { resume: () => void; tier: (t: string) => void; tiers: string[]; current: () => string; sensitivity: (v: number) => void; comfort: Record<string, boolean>; onComfort: () => void }) {
     this.root = el('div', 'pause', parent); this.root.hidden = true;
     const keys = CHEAT.map(([n, a]) => `<tr><td>${n}</td><td>${a.map((x) => input.bindings[x].map((c) => `<kbd>${glyph(c)}</kbd>`).join(' ')).join(' / ')}</td></tr>`).join('');
     this.root.innerHTML = `<div class="panel"><h1>Harbourline</h1><p class="sub">Paused</p>
-      <button id="hl-resume">Resume</button>
+      <button id="hl-resume">Resume</button> <button id="hl-credits">Credits</button>
       <label>Graphics quality <select id="hl-tier">${actions.tiers.map((t) => `<option>${t}</option>`).join('')}</select></label>
       <label>Mouse sensitivity <input id="hl-sens" type="range" min="0.2" max="3" step="0.05" value="1"></label>
       <fieldset><legend>Comfort</legend>${Object.keys(actions.comfort).map((k) => `<label class="ck"><input type="checkbox" data-k="${k}" ${actions.comfort[k] ? 'checked' : ''}> ${k.replace(/([A-Z])/g, ' $1').toLowerCase()}</label>`).join('')}</fieldset>
-      <table class="keys">${keys}</table></div>`;
+      <table class="keys">${keys}</table></div><div class="panel credits" hidden><h1>Credits</h1><p class="sub">Harbourline is built from free and openly licensed work. Thank you.</p><ul>${creditsHTML()}</ul><button id="hl-credits-back">Back</button></div>`;
     this.root.querySelector('#hl-resume')!.addEventListener('click', actions.resume);
+    const [main, cred] = this.root.querySelectorAll<HTMLElement>('.panel'); this.root.querySelector('#hl-credits')!.addEventListener('click', () => { main.hidden = true; cred.hidden = false; });
+    this.root.querySelector('#hl-credits-back')!.addEventListener('click', () => { main.hidden = false; cred.hidden = true; });
     const tier = this.root.querySelector('#hl-tier') as HTMLSelectElement; tier.value = actions.current(); tier.addEventListener('change', () => actions.tier(tier.value));
     this.root.querySelector('#hl-sens')!.addEventListener('input', (e) => actions.sensitivity(+(e.target as HTMLInputElement).value));
     this.root.querySelectorAll<HTMLInputElement>('input[data-k]').forEach((c) => c.addEventListener('change', () => { actions.comfort[c.dataset.k!] = c.checked; actions.onComfort(); }));
