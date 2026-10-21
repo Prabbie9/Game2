@@ -81,3 +81,7 @@ draws = all passes for one frame; mainTris = main-view scene triangles counted o
 | High | Harbour stress | 1,405 ✅ | 2.64 M | 11.5 M | 1,332 ✅ | 422 |
 
 Every draw-call target is met. Texture memory on Low under stress is over budget; change 15 (Low 1,024 px texture cap) addresses it and is re-measured on the next tier pass. Heap is within budget everywhere (budgets: Lite 600, Low 700, Medium 900, High 1,200 MB).
+
+### Re-measure on commit 690659c (Low 1,024 px cap, Harbour dressing, water layer)
+Draws (target): Lite 313 / 232 / 471 / 386; Low 382 / 286 / 555 / 454; Medium 1,051 / 785 / 1,518 / 1,060; High 1,481 / 985 / 2,040 / 1,424 (Downtown / Harbour / Downtown stress / Harbour stress). All within target.
+**Low texture memory under stress is still over budget: 1,609 MB Downtown, 1,203 MB Harbour (budget 1,024). The 1,024 px cap had no measurable effect** — the bulk is not uncompressed images above 1,024 px. Under investigation (change 15 is not counted as a fix).
