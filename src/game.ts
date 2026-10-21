@@ -92,7 +92,7 @@ export async function startGame(app: HTMLElement) {
   peds.forEach((p) => { p.phys = phys; p.load().catch((e) => console.warn('ped load', e?.message)); });
   const cfxHolder: { fx: CombatFX | null } = { fx: null }; const cfxRef = () => cfxHolder.fx!;
   let car = makeCar(0x7d1520, true); R.scene.add(car.root);
-  const damages = new Map<number, VehicleDamage>(); const prevPos = new Map<number, THREE.Vector3>();
+  const velState = new Map<number, { p: THREE.Vector3; t: number; v: THREE.Vector3; snaps: number }>(); const damages = new Map<number, VehicleDamage>(); const prevPos = new Map<number, THREE.Vector3>();
   const addDamage = (id0: number, vis: { root: THREE.Object3D; modelSpace?: THREE.Object3D }, massK = 1) => { const d = new VehicleDamage(vis, cfxRef(), massK); d.onExplode = (p) => { const id = [...damages].find(([, v]) => v === d)?.[0] ?? id0; combat.explode(p.clone().add(new THREE.Vector3(0, 0.5, 0)), 6, 260, 14, 'car' + id);
       phys.setTuning(id, { ...(id === PLAYER ? tuning : resolveTuning(traffic.find((t) => t.id === id)?.cls ?? life?.cars.find((c) => c.id === id)?.cls ?? 'sedan', 'Grippy')), maxDriveForce: 0, powerW: 0, boostForce: 0 });
       if (id === PLAYER && player.state === 'drive') { player.exit(); } }; damages.set(id0, d); return d; };
@@ -131,7 +131,7 @@ export async function startGame(app: HTMLElement) {
   const disposeVis = (o: THREE.Object3D) => o.traverse((x) => { const m = x as THREE.Mesh; if (m.isMesh) { m.geometry.dispose(); for (const mt of [m.material].flat()) (mt as THREE.Material).dispose(); } });
   const life: TrafficSystem | null = city ? new TrafficSystem({ phys, camera: R.camera, readyAt: (x, z) => city!.readyAt(x, z), phase, wrecked: (id) => !!damages.get(id)?.wrecked, tuning: (c) => resolveTuning(c, 'Grippy'),
     spawnVis: (cls, id) => { const v = makeCar(LIVERY[cls] ?? PAINTS[Math.floor(Math.random() * PAINTS.length)], false, cls) as SourcedCar; R.scene.add(v.root); addDamage(id, v as any, resolveTuning(cls, 'Grippy').mass / 1350); combat.targets.push(carTarget(id)); return v; },
-    removeVis: (c) => { R.scene.remove(c.vis.root); disposeVis(c.vis.root); damages.delete(c.id); prevPos.delete(c.id); combat.targets = combat.targets.filter((t) => t.id !== 'car' + c.id); },
+    removeVis: (c) => { R.scene.remove(c.vis.root); disposeVis(c.vis.root); damages.delete(c.id); prevPos.delete(c.id); velState.delete(c.id); combat.targets = combat.targets.filter((t) => t.id !== 'car' + c.id); },
     obstacles: () => { const o: THREE.Vector3[] = []; if (state) o.push(new THREE.Vector3(...state.pos)); if (player.ready && player.state !== 'drive') o.push(player.position.clone()); for (const pd of peds) if (!pd.dead) o.push(pd.worldPos); return o; } }, stress ? 40 : Math.round(+(params.get('traffic') ?? 16) * (R.tier.name === 'Lite' ? 0.25 : R.tier.crowd > 0.6 ? 1 : 0.6))) : null;
   combat.onEvent = (kind, owner, pos, tg) => { if (kind !== 'hit') { gunfire = pos.clone(); crowd.scare(pos, kind === 'explode' ? 60 : 40); const d = pos.distanceTo(R.camera.position); if (kind === 'explode') audio.boom(d); else audio.gun(d, owner === 'player' && ['shotgun', 'sniper', 'rpg'].includes(arsenal?.cur ?? '')); }
     if (owner !== 'player' || !wanted) return;
@@ -329,8 +329,11 @@ export async function startGame(app: HTMLElement) {
     if (harbour && player.state === 'drive' && player.car === (car as any) && state && state.pos[1] < WATER_Y - 0.4 && !wastedT) { wastedT = 4; banner('WASTED'); }
     if (wastedT > 0 && sim > 0) { wastedT -= sim; if (wastedT <= 0) { wastedT = 0; banner(''); playerHealth = 200; wanted?.clear(); const p = new THREE.Vector3(spawn[0] - 3.4, city ? 0.16 : 0.05, spawn[2] + 3); player.respawn(p, spawnYaw + Math.PI / 2); } }
     if (city && state && frames % 15 === 0) city.clearParked(state.pos[0], state.pos[2], 4.5);
-    if (sim > 0) for (const [id, d] of damages) { const st = phys.vehicle(id); if (!st) continue; const p = new THREE.Vector3(...st.pos); const pp = prevPos.get(id); const v = pp ? p.clone().sub(pp).divideScalar(sim) : new THREE.Vector3(); prevPos.set(id, p);
-      if (v.length() < 90) d.update(sim, p, v, new THREE.Quaternion(...st.quat)); }
+    if (sim > 0) for (const [id, d] of damages) { const st = phys.vehicle(id); if (!st) continue; const p = new THREE.Vector3(...st.pos);
+      // velocity is only re-measured when a new physics snapshot lands (over the time since the last one); per-frame deltas of the interpolated position jitter at low fps and read as phantom crashes
+      const vs = velState.get(id) ?? { p: p.clone(), t: 0, v: new THREE.Vector3(), snaps: phys.snaps }; velState.set(id, vs); vs.t += sim; let dtv = sim;
+      if (phys.snaps !== vs.snaps && vs.t > 1e-3) { dtv = vs.t; vs.v = p.clone().sub(vs.p).divideScalar(vs.t); vs.p = p.clone(); vs.t = 0; vs.snaps = phys.snaps; } else dtv = Infinity;
+      if (vs.v.length() < 90) d.update(sim, p, vs.v, new THREE.Quaternion(...st.quat), dtv); }
     if (vis) for (const [id, mesh] of vis.dyn) { const b = phys.body(id); if (b) { mesh.position.set(b.pos[0], b.pos[1], b.pos[2]); mesh.quaternion.set(b.quat[0], b.quat[1], b.quat[2], b.quat[3]); } }
     env.update(sim);
     car.setLights((env.night > 0.3 || env.cur.overcast > 0.8 || env.cur.fog > 0.6) && !damages.get(PLAYER)?.wrecked);
