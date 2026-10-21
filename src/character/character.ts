@@ -48,7 +48,12 @@ export class Character {
         // hair cards / lashes rely on albedo alpha even when exported OPAQUE: cutout (shadowed, no sorting)
         if ((s.transparent || s.userData.role === 'hair') && s.map) { s.transparent = false; s.depthWrite = true; s.alphaTest = 0.5; }
         if (s.alphaTest > 0) s.side = THREE.DoubleSide;
-        this.R.setupMaterial(s); } });
+        this.R.setupMaterial(s); }
+      // skin: physical material with a warm sheen lobe, a cheap stand-in for subsurface scattering at grazing angles
+      const skinify = (mt: THREE.Material) => { const s = mt as THREE.MeshStandardMaterial; if (!s.isMeshStandardMaterial || s.userData.role !== 'skin' || /eye|cornea|iris|teeth|tongue/i.test(s.name)) return mt;
+        const p = new THREE.MeshPhysicalMaterial({ name: s.name, map: s.map, normalMap: s.normalMap, normalScale: s.normalScale, color: s.color, roughness: Math.max(0.5, s.roughness), roughnessMap: s.roughnessMap, metalness: 0, alphaTest: s.alphaTest, side: s.side,
+          sheen: 0.45, sheenColor: new THREE.Color(0.85, 0.32, 0.22), sheenRoughness: 0.6, specularIntensity: 0.6 }); p.userData = { ...s.userData }; return this.R.setupMaterial(p); };
+      m.material = Array.isArray(m.material) ? m.material.map(skinify) : skinify(m.material); });
     return s;
   }
   /** Palette variant: deterministic tints per clothing material and hair from the variant index. */

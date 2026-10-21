@@ -17,3 +17,28 @@ Never open index.html by double-clicking: modules, workers and WASM do not run f
 
 ## 4. GitHub Pages (optional, only if YOU choose to publish)
 A workflow is provided at `.github/workflows/pages.yml.disabled`. To enable: rename it to `pages.yml`, then repo **Settings > Pages > Source: GitHub Actions**. A Pages site is reachable by anyone with the URL, even from a private repo.
+
+## Controls (keyboard + mouse; a standard gamepad also works)
+| On foot | Keys | Pad |
+|---|---|---|
+| Move / sprint / jump-vault / crouch | WASD / Shift / Space / C | LS / L3 / A / R3 |
+| Aim / fire / reload | RMB (or X toggle) / LMB or F / R | LT / RT / X |
+| Weapons: slots, cycle, throw grenade, melee | 1–5, [ ], G, V | D-pad ← → ↓, B |
+| Enter own car / steal any car / board the boat at the pier | E | Y |
+
+| Driving | Keys | Pad |
+|---|---|---|
+| Throttle / brake-reverse / steer | W / S / A D | RT / LT / LS |
+| Handbrake / boost / horn / look behind / camera | Space / Shift / H / Q / V | RB / A / R3 / LB / View |
+| Get out (slow down first; boats: alongside a pier) | E | Y |
+
+| Sandbox | Keys |
+|---|---|
+| Spawn menu: vehicles, weapons, teleports (incl. Harbour), traffic density, wanted level, god mode, time & weather | B |
+| Photo mode (WASD orbit, R/F zoom, Q/E FOV, [ ] time of day) | P |
+| Time & weather panel / vehicle tuning panel / frame-time overlay | T / K / L |
+| Pause menu: quality tier, mouse sensitivity, comfort options, key list, Credits | Esc |
+
+Crimes witnessed in the street (shooting, hitting people, stealing occupied cars, explosions) raise the wanted level.
+Police cruisers chase from 1 star, ram from 3 and boost from 4; officers get out with heavier guns as the level climbs.
+Break line of sight for 8 s + 3 s per star to lose them. At 1 star, standing still next to an officer gets you BUSTED.

@@ -189,3 +189,42 @@ box truck is detuned (67.6 m). Drift is only required of rear-drive cars with a 
 1. Does each class feel distinct (sports/muscle vs. van/truck)? Is the truck too sluggish?
 2. Are dents readable enough, or should impacts deform more?
 3. Is the charred wreck dark enough at night?
+
+## M7 — life systems and police (checkpoint 8)
+
+### Traffic (shots/m7/m7_sheet.png, `?shot=m7_traffic`, 30 s simulated)
+- Measured at 30 s: 21 spawned, 13 alive (tier cap), 8 despawned. Cruise 40–48 km/h on 16 m roads; cars stop at the stop line on red (e.g. x = −113, stop line at −112.5) and turn at intersections (several mid-turn in each sample).
+- Deadlock found: two cars blocked each other at near-zero speed. Fixed with a creep-past after 6 s stuck and removal after 20 s when out of view. In the next sample no car was stuck for more than 6 s.
+- Known gaps: no lane changes; turning cars yield only through the following check; no cross-traffic negotiation when signals are ignored (panic).
+
+### Wanted / police (`?shot=m7_police`, 2 stars set at frame 20, 37 s simulated)
+- Two pursuit cruisers spawned on the grid and reached the player; two officers deployed (states cover/advance) and fired. Player health 200 → 132 during the capture. Light bar flashing, siren audible in-browser.
+- Evasion, BUSTED and WASTED are wired (evade after 8 + 3 s per star unseen; arrest at 1 star; death or drowning → banner + respawn). They are not covered by an automated gate (logged).
+
+### Stress test (tools/stresstest.mjs → tools/out/stresstest.json)
+See the table below (SwiftShader CPU raster at 480×270 — compare the phases with each other, not as fps).
+
+### Human questions (M7)
+1. Does traffic feel alive enough at the default density (16 cars), or does the city feel empty?
+2. Is 2-star police aggression fair? Do officers shoot too accurately at range?
+3. Does the evade timer (8 s + 3 s per star) feel right?
+4. Is carjacking (E near any car) readable without a driver being pulled out?
+
+## M8 — Harbour and sandbox tools (checkpoint 9)
+
+### Harbour (shots/m8/m8_sheet.png)
+- Water, quay, three piers, about 250 containers, four cranes, four warehouses, floodlights, two trawlers and two speedboats moored, one drivable speedboat.
+- Boat test (`?shot=m8_boat`): the player walks the pier, boards from the pier side, and drives at full throttle with −0.3 rudder. Reached 10.1 m/s (36 km/h) in about 20 s with spray and planing pitch.
+- Bugs found and fixed:
+  - Car door routing assumed the door was on +X, which walked the player into the sea. Generalised to either side.
+  - The boat door point sat below the deck, so the player never arrived at it. Raised it to deck height.
+  - The speedboat model faced backwards. Re-prepped with `--flip`.
+- Cut (per the spec's cut list): Hillside, real interiors, ambient events, challenge playlist.
+
+### Spawn menu (B)
+- Lists vehicles (14), weapons (9), teleports (5), traffic density, wanted level controls, god mode / never wanted, times of day and weathers. Spawning a car while seated swaps it under you.
+
+### Human questions (M8)
+1. Is the boat fun to drive? Is the turning too floaty?
+2. Does the Harbour read as a working port at golden hour and at night?
+3. Is the spawn menu quick enough to use mid-play?

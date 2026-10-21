@@ -27,7 +27,9 @@ const pub = { ...files }; for (const k of prev) if (!(k in pub)) pub[k] = null;
 fs.writeFileSync(path.join(D, 'artifact-publish.json'), JSON.stringify(pub));
 // one publish call carries at most 64 MB: split into batches (characters separately) for consecutive publishes to the same URL
 const split = (pred) => Object.fromEntries(Object.entries(pub).filter(([k]) => pred(k)));
-fs.writeFileSync(path.join(D, 'artifact-publish-a.json'), JSON.stringify(split((k) => !k.startsWith('data/chars/'))));
+const big = (k) => /^data\/(chars|vehicles|props)\//.test(k);
+fs.writeFileSync(path.join(D, 'artifact-publish-a.json'), JSON.stringify(split((k) => !big(k))));
+fs.writeFileSync(path.join(D, 'artifact-publish-c.json'), JSON.stringify(split((k) => /^data\/(vehicles|props)\//.test(k))));
 fs.writeFileSync(path.join(D, 'artifact-publish-b.json'), JSON.stringify(split((k) => k.startsWith('data/chars/'))));
 const bytes = Object.values(files).reduce((s, f) => s + fs.statSync(path.join(ROOT, f)).size, 0);
 console.log('artifact files', Object.keys(files).length, 'MB', (bytes / 1e6).toFixed(1));

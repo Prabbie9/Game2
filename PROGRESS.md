@@ -1,8 +1,8 @@
 # PROGRESS
-NEXT STEP: M7 — lane-graph traffic over the streamed city (spawn/despawn around the player, signals, yielding, reacting to collisions/gunfire), take-any-car (carjack / parked), pedestrians fleeing, police + wanted levels (1–5 stars, pursuit cars, foot officers, roadblocks at 4+, evade by breaking line of sight), STRESS TEST.
+NEXT STEP: M9 — finish the stress-test numbers and the tier pass (tools/tierpass.mjs), final graphics pass on the new districts, artifact publish (vehicles + props batch), PLAY.md, FINAL_REPORT.md.
 
-STEPS_USED: ~935 (M0 ~80, M1 ~75, M2 ~190, M3 ~95, M4 ~220, M5 ~170, M6 ~105)   DRIVE_CALLS_USED: 196 / 300   SKETCHFAB_DOWNLOADS: 61 / 150
-MILESTONE: M6 done (checkpoint 7) — 14-class fleet passes the fun gate; damage/fire/explosion/wreck; motorbike + detachable parts cut
+STEPS_USED: ~1035 (M0 ~80, M1 ~75, M2 ~190, M3 ~95, M4 ~220, M5 ~170, M6 ~105, M7 ~55, M8 ~30, M9 ~15 so far)   DRIVE_CALLS_USED: 196 / 300   SKETCHFAB_DOWNLOADS: 63 / 150
+MILESTONE: M8 done (checkpoint 9) — Harbour + boat + spawn menu; M9 in progress (gamepad, photo mode, credits, audio, shop themes done)
 
 ## Milestones
 - M0 Setup: DONE. Drive indexed (846 clips, 23 chars), wave 1 (82 clips) fetched + ingested (2.0MB bundles), Sketchfab working, Artifact route published, renderer = WebGL + postprocessing.
@@ -11,10 +11,14 @@ MILESTONE: M6 done (checkpoint 7) — 14-class fleet passes the fun gate; damage
 - M2 Look slice: DONE with shortfall. PBR KTX2 library, building kit + interior mapping, intersection slice, SSR, sky dome, scene probe, sourced car via prep tool (Kiri '86), Mixamo peds, rest test (props pass).
 - M4 Characters + animation: DONE with shortfalls (stairs grounding, door opening, crouch walk arms, look avg 5.7). Wave 2 (62 clips) ingested -> 144 clips / 6 bundles. Cast: 15 Sketchfab Mixamo-rigged bodies (CC-BY) prepped to LOD0 (~24k tris, 60k player) + LOD1 (~6k) with meshopt + WebP, palette variants (4 per body -> 60 looks). On-foot player (Rapier character controller in the worker: autostep, snap, slope limit, crouch capsule, obstacle probe), speed-matched phase-synced gait blend tree, jump/fall/land, vault/climb, foot IK (two-bone, toe/heel contact, pelvis, ankle-to-normal, planted locking), car enter/exit without teleport (door route, seat H-point pin, steering-wheel hand IK), ragdolls + get-up blend, vehicle impacts, cast pedestrians, VAT instanced crowd (mid/far).
 - M5 Weapons + combat: DONE. Wave 3 (29 clips), 11 sourced weapons (prep tool: auto orientation + sockets), data-driven ballistics, weapon rig (palm anchor, shouldering, spine aim offset, two-hand IK, recoil spring, procedural reload), directional armed stances, hitscan zones / projectiles / throwables / explosions with physics impulses, combat FX, player arsenal + aim camera + crosshair, hostile AI (cover, routing, warning + grace), combat + grip gates.
+- M7 Life systems + police: DONE. Street traffic system (lane pursuit, signals, turns, following, panic, spawn/despawn), carjacking, wanted levels 1–5 with grid pursuit, ramming, officers (Combatants) by level, evasion by line of sight, BUSTED/WASTED, siren + light bars, crowd scatter on gunfire, stress-test harness.
+- M8 World expansion + sandbox tools: DONE with cuts. Harbour district (water, quay, piers, containers, cranes, warehouses, floodlights, moored boats), drivable speedboat, drowning, spawn menu (B). Cut: Hillside, interiors, ambient events, challenge playlist.
 - M6 Vehicle fleet + damage: DONE with cuts. 14 sourced classes (DanielZhabotinsky CC-BY family) prepped + packed (meshopt/WebP, 58→29 MB), per-class tuning generated from geometry with per-class gate bands — all 14 pass. VehicleDamage: dents, glass, smoke/fire, explosion, charred wreck. Per-class engine profile, per-model seat/door points. Cut: motorbike, detachable parts (logged in UPGRADES).
 - M3 World generator + streaming: DONE. Seeded Downtown (grid, arterials, plaza, underpass/tunnel, elevated highway), 128 m chunks built in 2 workers, near/far LOD, physics groups, time-sliced apply, shader pre-warm, bot budget reports.
 
 ## DECISIONS
+- M7: traffic is a lane-pursuit system on the analytic street grid instead of a baked lane graph (the grid is regular, so lanes and junction polylines are computed). Police reuse the traffic pool for cruisers and Combatant for officers.
+- M8: the Harbour is one non-streamed district built on the main thread; the boat is an arcade model on the main thread (no Rapier buoyancy) to keep the physics worker unchanged. Hillside/interiors/ambient events cut per the spec's cut list.
 - M6: motorbike and detachable parts cut for budget (spec priority list: extra vehicle classes cut from the end). Vehicles packed with meshopt; the runtime dequantises body meshes before merging so dents and merges work in float units.
 - Renderer (a) WebGL2 + pmndrs postprocessing (see DESIGN.md).
 - Drive characters too big for the connector (10MB cap) -> stand-ins (three.js Mixamo models, Sketchfab Mixamo-rigged humanoids later).
