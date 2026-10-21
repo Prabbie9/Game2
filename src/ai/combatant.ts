@@ -27,7 +27,7 @@ export class Combatant {
   /** Advance stops this far from the last-seen point (police arresting at 1 star use ~1 m); noCover = never take cover. */
   standoff = 12; noCover = false;
   constructor(public R: Renderer, public phys: PhysicsClient, public combat: Combat, public world: CoverSource, public body = 'fsb_op', public team = 1, public weapon: 'rifle' | 'smg' | 'pistol' = 'rifle') {
-    this.ch = new Character(R, body, { lod: 0 }); const self = this;
+    this.ch = new Character(R, body, { lod: R.tier.name === 'Lite' ? 1 : 0 }); const self = this;
     this.tgt = { id: 'ai' + this.id, ch: this.ch, team, get alive() { return self.state !== 'dead'; }, get health() { return self.health; }, armour: this.armour, pos: () => this.ch.root.position, hit: (d, dir, z, f) => this.hit(d, dir, z, f) };
   }
   async load(pos: THREE.Vector3, yaw = 0) {

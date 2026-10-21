@@ -4,6 +4,7 @@
 // (?stress: 40 traffic cars + 100 pedestrians, plus 20 combatants and 5 simultaneous explosions spawned in-page).
 // Triangles are reported two ways:
 //   mainTris  = triangles of meshes inside the main camera frustum, counted once (three.js per-object frustum culling)
+//   loadMB    = bytes fetched by the page so far (resource timing; local server, uncompressed)
 //   passTris  = renderer.info total for the frame (main pass + every shadow cascade + depth/normal pre-passes)
 // SwiftShader raster: counts and memory are real, frame times are not measured here. Output: tools/out/tierpass.json
 // Usage: node tools/tierpass.mjs [tiers=lite,low,medium,high] [views=downtown,harbour,downtown_stress,harbour_stress]
@@ -17,7 +18,7 @@ const MEASURE = `const R=D.R;const seen=new Set();let bytes=0;R.scene.traverse(o
   const cam=R.camera;cam.updateMatrixWorld();const fr=new D.THREE.Frustum().setFromProjectionMatrix(new D.THREE.Matrix4().multiplyMatrices(cam.projectionMatrix,cam.matrixWorldInverse));let mainTris=0,mainMeshes=0;
   R.scene.traverseVisible(o=>{if(!o.isMesh&&!o.isInstancedMesh)return;if(o.frustumCulled!==false){if(!o.geometry.boundingSphere)o.geometry.computeBoundingSphere();const sp=o.geometry.boundingSphere.clone().applyMatrix4(o.matrixWorld);if(!fr.intersectsSphere(sp))return;}
     const g=o.geometry;const n=(g.index?g.index.count:g.attributes.position.count)/3;mainTris+=n*(o.isInstancedMesh?o.count:1);mainMeshes++;});
-  const s=D.stats();return JSON.stringify({tier:s.tier,draws:R.stats.drawCalls,passTris:R.stats.triangles,mainTris:Math.round(mainTris),mainMeshes,texMB:Math.round(bytes/1e6),heapMB:s.heapMB,cars:D.traffic?D.traffic().active:null,hostiles:D.hostiles().length})`;
+  const s=D.stats();const loadMB=Math.round(performance.getEntriesByType('resource').reduce((a,e)=>a+(e.transferSize||e.encodedBodySize||0),0)/1e6);return JSON.stringify({tier:s.tier,loadMB,draws:R.stats.drawCalls,passTris:R.stats.triangles,mainTris:Math.round(mainTris),mainMeshes,texMB:Math.round(bytes/1e6),heapMB:s.heapMB,cars:D.traffic?D.traffic().active:null,hostiles:D.hostiles().length})`;
 const out = {};
 for (const tier of tiers) for (const view of views) {
   const stress = view.endsWith('_stress');

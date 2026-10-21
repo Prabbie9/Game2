@@ -4,8 +4,8 @@ import { KTX2Loader } from 'three/addons/loaders/KTX2Loader.js';
 export const DATA_URL: string = (window as any).HL_DATA ?? new URL('./data/', document.baseURI).href; // test pages in subfolders set HL_DATA
 const b64 = () => (window as any).HL_B64 === true;
 const cache = new Map<string, Promise<any>>();
-let inflight = 0; export const pendingLoads = () => inflight;
-const track = <T>(p: Promise<T>): Promise<T> => { inflight++; return p.finally(() => inflight--); };
+let inflight = 0, done = 0; export const pendingLoads = () => inflight; export const completedLoads = () => done;
+const track = <T>(p: Promise<T>): Promise<T> => { inflight++; return p.finally(() => { inflight--; done++; }); };
 /** Fetch a binary asset. On the Artifact host non-web binaries are published as `<path>.b64.json`. */
 export function loadBin(path: string): Promise<ArrayBuffer> {
   const url = DATA_URL + path;

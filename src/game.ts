@@ -9,7 +9,7 @@ import { PhysicsClient } from './physics/client';
 import { buildTestArea } from './world/testarea';
 import { buildTestVisuals } from './world/testvisuals';
 import { buildLookSlice, type Slice } from './world/lookslice';
-import { initKTX2, pendingLoads } from './core/assets';
+import { initKTX2, pendingLoads, completedLoads } from './core/assets';
 import { setTextureRes } from './materials/pbr';
 import { resolveTuning } from './vehicles/tuning';
 import { CarVisual } from './vehicles/carvisual';
@@ -36,6 +36,7 @@ import { TrafficSystem, type TrafficCar } from './life/traffic';
 import { Wanted, type Officer } from './life/police';
 import { SpawnMenu } from './ui/spawnmenu';
 import { Harbour, WATER_Y } from './world/harbour';
+import { QualityScaler } from './renderer/scaler';
 import { CLASSES } from './vehicles/tuning';
 import vehicleData from './data/vehicle_tuning.json';
 
@@ -66,7 +67,7 @@ export async function startGame(app: HTMLElement) {
   let spawned = !city; if (!city) phys.spawnVehicle(PLAYER, tuning, spawn, 0);
   // traffic fleet: one class per car slot (sourced models from the same family)
   const TRAFFIC_CLASSES = ['sedan2', 'taxi', 'sedan3', 'compact', 'van', 'sports', 'muscle', 'suv', 'pickup', 'police', 'wagon', 'truck', 'ambulance'];
-  const makeCar = (paint: number, beams = false, cls?: string): CarVisual | SourcedCar => { const tt = cls ? resolveTuning(cls, 'Grippy') : tuning; const model = tt.model; if (model) { const c = new SourcedCar(R, model, { paint, beams, seatFront: (tt as any).seatFront }); c.load().catch((e) => console.warn('vehicle model', e?.message)); return c; } return new CarVisual(R, { color: paint, beams, ...tuning }); };
+  const makeCar = (paint: number, beams = false, cls?: string): CarVisual | SourcedCar => { const tt = cls ? resolveTuning(cls, 'Grippy') : tuning; const model = tt.model; if (model) { const c = new SourcedCar(R, model, { paint, beams, seatFront: (tt as any).seatFront, farLod: !!cls, lod: cls && R.tier.name === 'Lite' ? 1 : 0 }); /* Lite: traffic uses the LOD1 files (256 px textures, smaller download) */ c.load().catch((e) => console.warn('vehicle model', e?.message)); return c; } return new CarVisual(R, { color: paint, beams, ...tuning }); };
   // ambient traffic (look slice): bot cars on fixed lanes, stopping at red lights, wrapping at the slice edge
   const traffic: { id: number; vis: CarVisual | SourcedCar; lane: [number, number]; axis: number; dir: number; bot: BotDriver; wrap?: number; y?: number; cls?: string; dmg?: VehicleDamage }[] = [];
   // city traffic (M3 placeholder for M7's lane-graph traffic): right-hand lanes on the highway deck and the main arterial
@@ -86,9 +87,9 @@ export async function startGame(app: HTMLElement) {
   const peds: Pedestrian[] = [];
   const CIV = ['lod_andrew', 'lod_paul', 'lod_nancy', 'lod_jessica', 'lod_dude', 'man_coat', 'oldman_coat', 'debra', 'young_female', 'biz_jj', 'police_m', 'police_f'];
   if (city) [[[14, -170], [14, -110]], [[-14.6, -120], [-14.6, -178]], [[15.6, -140], [15.6, -196]], [[-15.8, -160], [-15.8, -100]], [[13.6, -128], [13.6, -88]], [[-13.9, -186], [-13.9, -132]], [[16.3, -100], [16.3, -160]], [[-16.4, -110], [-16.4, -150]]]
-    .forEach((path, i) => peds.push(new Pedestrian(R, CIV[(i * 5 + 1) % CIV.length], path as [number, number][], 0.15, i % 4, Math.abs(path[0][0]) < 15 && Math.abs(path[0][1] + 150) < 30 ? 0 : 1)));
+    .forEach((path, i) => peds.push(new Pedestrian(R, CIV[(i * 5 + 1) % CIV.length], path as [number, number][], 0.15, i % 4, R.tier.name === 'Lite' ? 1 : Math.abs(path[0][0]) < 15 && Math.abs(path[0][1] + 150) < 30 ? 0 : 1)));
   if (slice) ([[[10.5, -60], [10.5, -14], [14, -11]], [[-10.6, -30], [-10.6, -80]], [[-40, 10.6], [-12, 10.6]], [[20, -10.6], [60, -10.6]], [[-10.6, 20], [-10.6, 70]], [[12, 40], [12, 12], [40, 11]], [[-60, -10.6], [-14, -10.6]], [[30, 10.6], [80, 10.6]]] as [number, number][][])
-    .forEach((path, i) => peds.push(new Pedestrian(R, CIV[(i * 3) % CIV.length], path, 0.15, i % 4, 0)));
+    .forEach((path, i) => peds.push(new Pedestrian(R, CIV[(i * 3) % CIV.length], path, 0.15, i % 4, R.tier.name === 'Lite' ? 1 : 0)));
   peds.forEach((p) => { p.phys = phys; p.load().catch((e) => console.warn('ped load', e?.message)); });
   const cfxHolder: { fx: CombatFX | null } = { fx: null }; const cfxRef = () => cfxHolder.fx!;
   let car = makeCar(0x7d1520, true); R.scene.add(car.root);
@@ -224,7 +225,13 @@ export async function startGame(app: HTMLElement) {
       if (phys.vehicle(t.id) || (t as any).placed) phys.teleportVehicle(t.id, [along, t.y ?? 10.2, t.lane[0]], yaw); else phys.spawnVehicle(t.id, resolveTuning(t.cls ?? 'sedan', 'Grippy'), [along, t.y ?? 10.2, t.lane[0]], yaw);
       (t as any).placed = true; t.vis.root.visible = true; return true; }
     if (phys.vehicle(t.id)) { phys.removeVehicle(t.id); (t as any).placed = false; } t.vis.root.visible = false; return false; };
-  let streamWaitCount = 0; // frames the physics waited for the player's chunk colliders
+  // dynamic quality scaler (tiers with dynamicRes): render scale first, then traffic and crowd population
+  const trafficBase = life?.max ?? 0; const scaler = new QualityScaler(1000 / R.tier.fpsCap, { setResScale: (s) => { R.resScale = s; R.resize(); }, setPopulation: (k) => { if (life && !stress) life.max = Math.max(1, Math.round(trafficBase * k)); crowd.setPopulation(k); } }, R.tier.dynamicRes && !shot && !params.has('report') && !stress && !params.has('noscaler'));
+  // loading overlay: asset loads completed vs in flight, plus city chunks still building, until the game is ready
+  const loadEl = document.createElement('div'); loadEl.className = 'hl-loading'; loadEl.innerHTML = '<b>Harbourline</b><span>Loading the city…</span><i><em></em></i>'; if (!shot) app.append(loadEl); let loadPeak = 0;
+  const updateLoading = () => { if (!loadEl.isConnected) return; if (dbg.ready) { loadEl.remove(); return; } const inflight = pendingLoads() + (city?.pending ?? 0); loadPeak = Math.max(loadPeak, completedLoads() + inflight);
+    const k = loadPeak ? completedLoads() / loadPeak : 0; (loadEl.querySelector('em') as HTMLElement).style.width = Math.round(Math.min(0.97, k) * 100) + '%'; (loadEl.querySelector('span') as HTMLElement).textContent = inflight ? `Loading the city… ${completedLoads()} assets ready, ${inflight} to go` : 'Starting…'; };
+  let carSleep: { pos: number[]; yaw: number } | null = null; let streamWaitCount = 0; // frames the physics waited for the player's chunk colliders
   const focusPt = () => (player.ready && player.state !== 'drive' ? player.position.clone() : state ? new THREE.Vector3(...state.pos) : new THREE.Vector3(spawn[0], 0, spawn[2]));
   const clock = new THREE.Clock(); let frames = 0, loadedOnce = false, lightT = 0; let state: ReturnType<PhysicsClient['vehicle']> = null;
   const tmp = { p2: new THREE.Vector3(), p3: new THREE.Vector3(), q: new THREE.Quaternion(), p: new THREE.Vector3(), v: new THREE.Vector3(), prevP: new THREE.Vector3() };
@@ -245,6 +252,7 @@ export async function startGame(app: HTMLElement) {
     /** Fire `n` real rifle rounds (combat ray path -> car target -> VehicleDamage.hit) at car `id` from 12 m to its side. */
     shootCar: (id: number, n = 1) => { const st = phys.vehicle(id); if (!st) return null; const c = new THREE.Vector3(...st.pos).add(new THREE.Vector3(0, 0.4, 0)); const side = new THREE.Vector3(1, 0, 0).applyQuaternion(new THREE.Quaternion(...st.quat)); const eye = c.clone().addScaledVector(side, 12).add(new THREE.Vector3(0, 0.5, 0));
       let hits = 0; for (let i = 0; i < n; i++) hits += combat.fire('test', { ...WDATA.rifle, spread: [0, 0] } as any, eye, eye, c.clone().sub(eye).normalize(), true, 0).filter((h) => h.target === 'car' + id).length; return hits; },
+    scaler: () => ({ enabled: scaler.enabled, res: scaler.res, pop: scaler.pop, ema: +scaler.ema.toFixed(1), budget: +scaler.budgetMs.toFixed(1), steps: scaler.steps, traffic: life?.max, crowd: crowd.count }), forceFrameMs: (ms: number | null) => { scaler.forcedMs = ms; }, scalerFeed: (ms: number, n: number) => { const f = scaler.forcedMs; scaler.forcedMs = ms; for (let i = 0; i < n; i++) scaler.update(ms); scaler.forcedMs = f; return { res: scaler.res, pop: scaler.pop, resScale: R.resScale, traffic: life?.max, crowd: crowd.count }; },
     jackNearest: () => { const t = life?.nearest(player.position, 30); return t ? jack(t) : false; },
     dmgState: (id = PLAYER) => { const d: any = damages.get(id); return d && { hp: d.health, wrecked: d.wrecked, charred: d.charred, ready: (d.car as any).ready, same: d.car === car, burnT: d.burnT, pos: d.car.root.position.toArray().map((v: number) => +v.toFixed(1)), vis: d.car.root.visible, inScene: !!d.car.root.parent, cols: (() => { const a: string[] = []; d.car.root.traverse((o: any) => { if (o.isMesh && a.length < 6) a.push(o.material.color?.getHexString() + ':' + o.material.clearcoat); }); return a; })() }; },
     damage: (id = PLAYER, dmg = 300) => { const st = phys.vehicle(id); if (st) damages.get(id)?.hit(dmg, new THREE.Vector3(...st.pos).add(new THREE.Vector3(0, 0.7, 1.8)), new THREE.Vector3(0, 0, -1)); return damages.get(id)?.health; },
@@ -294,6 +302,10 @@ export async function startGame(app: HTMLElement) {
     phys.inputs[PLAYER] = vin;
     /* never simulate the player over ground whose colliders aren't built yet (a fast car at low fps outran streaming and fell through) */
     const here = player.ready && player.state !== 'drive' ? player.position : state ? { x: state.pos[0], z: state.pos[2] } : null; const groundReady = !city || !spawned || !here || city.readyAt(here.x, here.z); streamWaitCount += groundReady ? 0 : 1;
+    // the player's own car, when nobody is in it, sleeps outside loaded chunks (removed from physics, pose kept) instead of falling
+    if (city && spawned && player.state !== 'drive' && player.state !== 'enter') { const cs = phys.vehicle(PLAYER);
+      if (cs && !city.readyAt(cs.pos[0], cs.pos[2])) { carSleep = { pos: cs.pos.slice(), yaw: yawOf(cs.quat) }; phys.removeVehicle(PLAYER); car.root.visible = false; }
+      else if (!cs && carSleep && city.readyAt(carSleep.pos[0], carSleep.pos[2])) { phys.spawnVehicle(PLAYER, tuning, [carSleep.pos[0], carSleep.pos[1] + 0.1, carSleep.pos[2]], carSleep.yaw); car.root.visible = true; carSleep = null; } }
     phys.update(groundReady ? sim : 0);
     state = phys.vehicle(PLAYER);
     if (state) {
@@ -349,11 +361,14 @@ export async function startGame(app: HTMLElement) {
     if (harbour) harbour.update(sim, env.night, clock.elapsedTime);
     if (frames % 15 === 0) { /* shadow budget: only the nearest characters cast shadows (each caster is re-drawn per cascade) */ const K = ({ Lite: 2, Low: 4, Medium: 8, High: 16 } as Record<string, number>)[R.tier.name] ?? 24;
       const chars = [player.ch, ...peds.map((p) => p.ch), ...cops.map((c) => c.ch), ...hostiles.map((h) => h.ch)].filter((c) => c && c.model); const cp = R.camera.position;
-      chars.sort((a, b) => a.root.getWorldPosition(tmp.p2).distanceToSquared(cp) - b.root.getWorldPosition(tmp.p3).distanceToSquared(cp)); chars.forEach((c, i) => c.setShadow(i < K)); }
+      chars.sort((a, b) => a.root.getWorldPosition(tmp.p2).distanceToSquared(cp) - b.root.getWorldPosition(tmp.p3).distanceToSquared(cp)); chars.forEach((c, i) => c.setShadow(i < K));
+      const DD = ({ Lite: 12, Low: 18, Medium: 25, High: 35 } as Record<string, number>)[R.tier.name] ?? 50; for (const c of chars) c.setDetail(c === player.ch || c.root.getWorldPosition(tmp.p2).distanceTo(cp) < DD); }
     if (harbour && player.ready && !wastedT && (player.onFoot || player.state === 'ragdoll') && player.position.y < WATER_Y - 0.9) { wastedT = 4; banner('WASTED'); }
     if (harbour && player.state === 'drive' && player.car === (car as any) && state && state.pos[1] < WATER_Y - 0.4 && !wastedT) { wastedT = 4; banner('WASTED'); }
     if (wastedT > 0 && sim > 0) { wastedT -= sim; if (wastedT <= 0) { wastedT = 0; banner(''); playerHealth = 200; wanted?.clear(); const p = new THREE.Vector3(spawn[0] - 3.4, city ? 0.16 : 0.05, spawn[2] + 3); player.respawn(p, spawnYaw + Math.PI / 2); } }
     if (city && state && frames % 15 === 0) city.clearParked(state.pos[0], state.pos[2], 4.5);
+    { /* traffic car LOD: one vertex-coloured mesh beyond the tier distance */ const FD = ({ Lite: 30, Low: 40, Medium: 60, High: 80 } as Record<string, number>)[R.tier.name] ?? 110; const cp = R.camera.position;
+      for (const v of [...(life?.cars.map((c) => c.vis) ?? []), ...traffic.map((t) => t.vis)]) { const sc = v as SourcedCar; if (sc.setFar && sc.ready && sc !== (car as any)) sc.setFar(sc.root.position.distanceTo(cp) > FD); } (car as any).setFar?.(false); }
     if (sim > 0) for (const [id, d] of damages) { const st = phys.vehicle(id); if (!st) continue; const p = new THREE.Vector3(...st.pos);
       // velocity is only re-measured when a new physics snapshot lands (over the time since the last one); per-frame deltas of the interpolated position jitter at low fps and read as phantom crashes
       const vs = velState.get(id) ?? { p: p.clone(), t: 0, v: new THREE.Vector3(), snaps: phys.snaps }; velState.set(id, vs); vs.t += sim; let dtv = sim;
@@ -386,7 +401,7 @@ export async function startGame(app: HTMLElement) {
     if (params.has('norender') && frames % 120 !== 119) { /* test hook: logic-only frames (render 1 in 120 for screenshots) */ } else if (report ? frames % 30 === 29 : !shot || frames - ((dbg as any).readyFrame ?? 1e9) >= (shot.frames ?? 30) - 4) R.render(dtSim);
     hud.update(dt, boat && player.state === 'drive' && player.car === (boat as any) ? { speed: boat.speed, vf: boat.speed, gear: 1, rpm: 900 + boat.speed * 160 + boat.throttle * 1200, boost: 1, redline: 6500 } : !state || player.state !== 'drive' ? null : { speed: state.speed, vf: state.vf, gear: state.gear, rpm: state.rpm, boost: state.boost, redline: tuning.redlineRpm }, { draws: R.stats.drawCalls, tris: R.stats.triangles, phys: phys.lastStepMs.toFixed(1) + 'ms', tier: R.tier.name });
     input.endFrame();
-    frames++; dbg.frames = frames; const wallNow = performance.now(); const wallMs = wallNow - ((dbg as any).lastWall ?? wallNow); (dbg as any).lastWall = wallNow; if ((dbg as any).rec) (dbg as any).rec.push([+wallMs.toFixed(1), +phys.lastStepMs.toFixed(2), R.renderer.info.render.calls, life?.cars.length ?? 0, hostiles.filter((h) => h.state !== 'dead').length]);
+    frames++; dbg.frames = frames; updateLoading(); const wallNow = performance.now(); const wallMs = wallNow - ((dbg as any).lastWall ?? wallNow); (dbg as any).lastWall = wallNow; if (dbg.ready && !paused) scaler.update(wallMs); if ((dbg as any).rec) (dbg as any).rec.push([+wallMs.toFixed(1), +phys.lastStepMs.toFixed(2), R.renderer.info.render.calls, life?.cars.length ?? 0, hostiles.filter((h) => h.state !== 'dead').length]);
     if (params.has('report') && frames % 30 === 0 && state) dbg.report.push({ f: frames, x: Math.round(state.pos[0]), z: Math.round(state.pos[2]), kmh: Math.round(state.vf * 3.6), draws: R.stats.drawCalls, tris: R.stats.triangles, heapMB: Math.round(((performance as any).memory?.usedJSHeapSize ?? 0) / 1e6), geos: R.stats.geometries, near: city?.stats.near, far: city?.stats.far, buildMax: Math.round(city?.stats.maxMs ?? 0), mainMax: Math.round(city?.stats.mainMaxMs ?? 0), pending: city?.pending });
     // once streaming settles, re-bake the reflection probe (textures/models now present) and allow shots
     const idle = pendingLoads() === 0 && (!city || (spawned && city.pending === 0));

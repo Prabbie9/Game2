@@ -91,7 +91,14 @@ export class Renderer {
     if (m.userData.patchKey) m.customProgramCacheKey = () => m.userData.patchKey;
   }
   /** Register a lit material for cascaded shadows (idempotent). */
-  setupMaterial<M extends THREE.Material>(m: M): M { if (!this.materials.has(m)) { this.materials.add(m); this.hook(m); } return m; }
+  setupMaterial<M extends THREE.Material>(m: M): M { if (!this.materials.has(m)) { this.materials.add(m); this.hook(m); this.capTextures(m); } return m; }
+  /** Lite: uncompressed textures larger than 512 px are downscaled once on a canvas before their first GPU upload
+   * (car/character/boat WebP textures were ~85% of Lite's texture memory). KTX2 textures are left alone. */
+  private capped = new WeakSet<THREE.Texture>();
+  private capTextures(m: THREE.Material) { const cap = this.tier.name === 'Lite' ? 512 : 0; if (!cap) return;
+    for (const k of ['map', 'normalMap', 'roughnessMap', 'metalnessMap', 'aoMap', 'emissiveMap', 'alphaMap'] as const) { const t = (m as any)[k] as THREE.Texture | null; if (!t || (t as any).isCompressedTexture || this.capped.has(t)) continue; this.capped.add(t);
+      const img = t.image as any; if (!img || !img.width || Math.max(img.width, img.height) <= cap) continue; const s = cap / Math.max(img.width, img.height);
+      try { const c = document.createElement('canvas'); c.width = Math.round(img.width * s); c.height = Math.round(img.height * s); c.getContext('2d')!.drawImage(img, 0, 0, c.width, c.height); t.image = c; t.needsUpdate = true; } catch { /* keep the original */ } } }
   setTier(name: keyof typeof TIERS) { this.tier = TIERS[name]; this.ao.enabled = this.tier.ao; this.ssrPass.enabled = this.tier.ssr; this.buildCSM(); this.resize(); }
   resize() {
     const w = this.container.clientWidth || innerWidth, h = this.container.clientHeight || innerHeight;

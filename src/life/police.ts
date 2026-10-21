@@ -37,8 +37,11 @@ export class Wanted {
       if (!hidden && pl.carState && this.stars < 3) { const v = new THREE.Vector3(0, 0, 1).applyQuaternion(new THREE.Quaternion(...pl.carState.quat)).multiplyScalar(Math.min(25, pl.carState.vf * 0.8)); tgt.add(new THREE.Vector2(v.x, v.z)); }
       const d = tgt.distanceTo(p); const f = new THREE.Vector3(0, 0, 1).applyQuaternion(q); const heading = Math.atan2(f.x, f.z);
       // far away: follow the street grid toward the player (cut through intersections), close: straight at them
-      if (d > 45) { const nearRoadX = line(Math.round(p.x / BLOCK)), nearRoadZ = line(Math.round(p.y / BLOCK)); const onX = Math.abs(p.x - nearRoadX) < Math.abs(p.y - nearRoadZ);
-        tgt = onX ? new THREE.Vector2(nearRoadX, THREE.MathUtils.clamp(tgt.y, p.y - 60, p.y + 60)) : new THREE.Vector2(THREE.MathUtils.clamp(tgt.x, p.x - 60, p.x + 60), nearRoadZ);
+      // route: get onto the street nearest the target, then drive along it (the old rule turned straight at the target once level with it and drove into buildings)
+      if (d > 45) { const C = THREE.MathUtils.clamp; const rx = line(Math.round(p.x / BLOCK)), rz = line(Math.round(p.y / BLOCK)); const onX = Math.abs(p.x - rx) < Math.abs(p.y - rz);
+        const px = line(Math.round(tgt.x / BLOCK)), pz = line(Math.round(tgt.y / BLOCK)); const tOnX = Math.abs(tgt.x - px) < Math.abs(tgt.y - pz); // target's street runs along z (x = px) when tOnX
+        if (onX) { if (tOnX && rx === px) tgt = new THREE.Vector2(rx, C(tgt.y, p.y - 60, p.y + 60)); else if (Math.abs(p.y - pz) < 10) tgt = new THREE.Vector2(C(tOnX ? px : tgt.x, p.x - 60, p.x + 60), pz); else tgt = new THREE.Vector2(rx, C(pz, p.y - 60, p.y + 60)); }
+        else { if (!tOnX && rz === pz) tgt = new THREE.Vector2(C(tgt.x, p.x - 60, p.x + 60), rz); else if (Math.abs(p.x - px) < 10) tgt = new THREE.Vector2(px, C(tOnX ? tgt.y : pz, p.y - 60, p.y + 60)); else tgt = new THREE.Vector2(C(px, p.x - 60, p.x + 60), rz); }
         if (tgt.distanceTo(p) < 8) tgt = new THREE.Vector2(ppos.x, ppos.z); }
       let err = Math.atan2(tgt.x - p.x, tgt.y - p.y) - heading; while (err > Math.PI) err -= 2 * Math.PI; while (err < -Math.PI) err += 2 * Math.PI;
       const footStop = (pl.onFoot || hidden) && d < 14; const reverse = Math.abs(err) > 2.2 && d < 25 && s.vf < 3; // behind us and close: back up and turn

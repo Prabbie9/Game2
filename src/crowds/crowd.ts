@@ -36,6 +36,8 @@ export class Crowd {
   /** Gunfire / explosion: walkers within r turn away from p and hurry (VAT gait rate follows the speed) for a few seconds. */
   scare(p: THREE.Vector3, r = 40) { for (const a of this.agents) { const pl = this.place(a); const d = Math.hypot(pl.x - p.x, pl.z - p.z); if (d > r) continue;
       const fx = Math.sin(pl.yaw), fz = Math.cos(pl.yaw); if (fx * (pl.x - p.x) + fz * (pl.z - p.z) < 0) a.dir = -a.dir; a.fear = 6 + Math.random() * 4; } }
+  /** Population scale (dynamic quality scaler): trims or regrows the walkers. */
+  base = -1; setPopulation(k: number) { if (this.base < 0) this.base = this.count; this.count = Math.max(1, Math.round(this.base * k)); if (this.agents.length > this.count) this.agents.length = this.count; }
   update(dt: number, cam: THREE.Vector3) {
     if (!this.ready) return; this.time.value += dt; let seed = (this.agents.length * 7919 + Math.floor(this.time.value * 13)) % 2147483647 || 1; const r = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
     while (this.agents.length < this.count) this.agents.push(this.spawn(cam.x, cam.z, r));
