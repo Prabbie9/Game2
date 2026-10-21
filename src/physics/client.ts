@@ -30,6 +30,7 @@ export class PhysicsClient {
   removeGroup(gid: string) { this.worker.postMessage({ type: 'removeGroup', gid }); }
   addDynamics(list: (DynamicDesc & { id: number })[]) { this.worker.postMessage({ type: 'dynamic', list }); }
   spawnVehicle(id: number, tuning: any, pos: number[], yaw = 0) { this.worker.postMessage({ type: 'spawnVehicle', id, tuning, pos, yaw }); }
+  removeVehicle(id: number) { this.worker.postMessage({ type: 'removeVehicle', id }); delete this.inputs[id]; }
   setTuning(id: number, tuning: any) { this.worker.postMessage({ type: 'tuning', id, tuning }); }
   teleportVehicle(id: number, pos: number[], yaw: number) { this.worker.postMessage({ type: 'teleportVehicle', id, pos, yaw }); }
   setVelocity(id: number, v: number[]) { this.worker.postMessage({ type: 'velocity', id, v }); }

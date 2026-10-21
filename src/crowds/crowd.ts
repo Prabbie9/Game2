@@ -8,7 +8,7 @@ import { bakeVAT, vatMaterial, type VatBody } from './vat';
 import { blockRect, BLOCK, KERB, GRID } from '../world/citygen';
 
 const CLOTH = [0xffffff, 0xffffff, 0xd2dae8, 0xb8c4d6, 0xe6d6bc, 0xc8d8c0, 0xecc8c0, 0xc4c4cc, 0xdcc8a4, 0xa8b4c8, 0xd8b0b0]; // multipliers over the albedo: tints, never near-black
-interface Agent { body: number; bi: number; bj: number; s: number; dir: number; speed: number; lane: number; phase: number; tint: THREE.Color }
+interface Agent { body: number; bi: number; bj: number; s: number; dir: number; speed: number; fear?: number; lane: number; phase: number; tint: THREE.Color }
 export class Crowd {
   bodies: VatBody[] = []; meshes: THREE.InstancedMesh[][] = []; agents: Agent[] = []; time = { value: 0 }; ready = false; minDist = 26; maxDist = 230;
   constructor(public R: Renderer, public count: number, public ids: string[]) {}
@@ -33,16 +33,19 @@ export class Crowd {
     let d = (((a.s % 1) + 1) % 1) * P; let x: number, z: number, yaw: number;
     if (d < w) { x = x0 + d; z = z0; yaw = Math.PI / 2; } else if ((d -= w) < h) { x = x1; z = z0 + d; yaw = 0; } else if ((d -= h) < w) { x = x1 - d; z = z1; yaw = -Math.PI / 2; } else { d -= w; x = x0; z = z1 - d; yaw = Math.PI; }
     return { x, z, yaw: a.dir > 0 ? yaw : yaw + Math.PI, P }; }
+  /** Gunfire / explosion: walkers within r turn away from p and hurry (VAT gait rate follows the speed) for a few seconds. */
+  scare(p: THREE.Vector3, r = 40) { for (const a of this.agents) { const pl = this.place(a); const d = Math.hypot(pl.x - p.x, pl.z - p.z); if (d > r) continue;
+      const fx = Math.sin(pl.yaw), fz = Math.cos(pl.yaw); if (fx * (pl.x - p.x) + fz * (pl.z - p.z) < 0) a.dir = -a.dir; a.fear = 6 + Math.random() * 4; } }
   update(dt: number, cam: THREE.Vector3) {
     if (!this.ready) return; this.time.value += dt; let seed = (this.agents.length * 7919 + Math.floor(this.time.value * 13)) % 2147483647 || 1; const r = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
     while (this.agents.length < this.count) this.agents.push(this.spawn(cam.x, cam.z, r));
     const counts = this.meshes.map(() => 0); const m = new THREE.Matrix4(), q = new THREE.Quaternion(), Y = new THREE.Vector3(0, 1, 0), one = new THREE.Vector3(1, 1, 1), p = new THREE.Vector3();
-    for (let i = 0; i < this.agents.length; i++) { const a = this.agents[i]; let pl = this.place(a); a.s += (a.dir * a.speed * dt) / pl.P; pl = this.place(a);
+    for (let i = 0; i < this.agents.length; i++) { const a = this.agents[i]; let pl = this.place(a); const run = a.fear && a.fear > 0 ? 2.6 : 1; if (a.fear) a.fear -= dt; a.s += (a.dir * a.speed * run * dt) / pl.P; pl = this.place(a);
       const dist = Math.hypot(pl.x - cam.x, pl.z - cam.z); if (dist > this.maxDist + 20) { this.agents[i] = this.spawn(cam.x, cam.z, r); continue; }
       if (dist < this.minDist) continue; // the nearest pedestrians are full skinned characters
       const b = this.bodies[a.body]; const k = counts[a.body]++; if (k >= this.meshes[a.body][0].instanceMatrix.count) continue;
       m.compose(p.set(pl.x, KERB, pl.z), q.setFromAxisAngle(Y, pl.yaw), one);
-      for (const [pi, im] of this.meshes[a.body].entries()) { im.setMatrixAt(k, m); const at = im.geometry.getAttribute('aVat') as THREE.InstancedBufferAttribute; at.setXY(k, a.phase, a.speed / b.stride);
+      for (const [pi, im] of this.meshes[a.body].entries()) { im.setMatrixAt(k, m); const at = im.geometry.getAttribute('aVat') as THREE.InstancedBufferAttribute; at.setXY(k, a.phase, (a.speed * (a.fear && a.fear > 0 ? 2.6 : 1)) / b.stride);
         if (b.parts[pi].role === 'cloth' && !(window as any).HL_NOTINT) im.setColorAt(k, a.tint); } }
     this.meshes.forEach((parts, bi) => parts.forEach((im) => { im.count = counts[bi]; im.instanceMatrix.needsUpdate = true; (im.geometry.getAttribute('aVat') as THREE.InstancedBufferAttribute).needsUpdate = true; if (im.instanceColor) im.instanceColor.needsUpdate = true; }));
   }

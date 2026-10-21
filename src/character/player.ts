@@ -40,6 +40,9 @@ export class Player {
   seatIn(car: Car) { this.car = car; this.state = 'drive'; this.pinK = 1; this.physics.charInputs[this.id] = { mode: CHAR_MODE.disabled }; this.an.play('vehicle', 'standard_drive', { fadeIn: 0.01, hold: true }); }
   private modelPoint(car: Car, local: THREE.Vector3) { (car.modelSpace ?? car.root).updateWorldMatrix(true, false); return (car.modelSpace ?? car.root).localToWorld(local.clone()); }
   private carYaw(car: Car) { const f = new THREE.Vector3(0, 0, 1).applyQuaternion(car.root.getWorldQuaternion(new THREE.Quaternion())); return Math.atan2(f.x, f.z); }
+  /** Wasted / busted: drop any ragdoll or seat and stand at p. */
+  respawn(p: THREE.Vector3, yaw = 0) { if (this.rag.active) { this.physics.removeRagdoll(this.rag.id); this.rag.active = false; } this.rag.stayDown = false; this.car = null; this.pinK = 0; this.state = 'foot'; this.yaw = yaw; this.speed = 0; this.visY = p.y;
+    this.ch.root.position.copy(p); this.ch.root.rotation.set(0, yaw, 0); this.physics.charInputs[this.id] = { mode: CHAR_MODE.walk, vx: 0, vz: 0 }; this.physics.teleportChar(this.id, [p.x, p.y + 0.02, p.z]); this.ik.reset(); }
   doorDistance(car: Car) { return this.modelPoint(car, (car as any).door ?? DOOR).setY(0).distanceTo(this.position.clone().setY(0)); }
   enter(car: Car) { if (!this.onFoot) return; this.car = car; this.state = 'toDoor'; }
   exit() { if (this.state !== 'drive' || !this.car) return; const car = this.car; this.state = 'exit';

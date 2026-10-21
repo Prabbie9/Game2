@@ -96,3 +96,24 @@ renderer, lighting, materials, world, streaming, vehicles, damage, camera, chara
 - Animation: armed stances (rifle, pistol) as directional gait sets (forward/back/left/right x speeds) in the same phase-synced blend; the player strafes facing the aim while aiming or just after firing.
 - Combat: src/combat/combat.ts (trace vs world boxes + analytic ground, bone capsules by zone, vehicle OBBs; pellets; falloff; projectiles; throwables; explosions -> damage + worker impulses), src/combat/arsenal.ts (inventory, input, aim camera, fire/reload/melee/throw, crosshair + hit marker + ammo), src/fx/combatfx.ts (pooled effects).
 - AI: src/ai/combatant.ts — perception (cone + LOS + hearing), cover from streamed boxes with reservation, grid routing, bursts with reaction delay and capped, distance-scaled error; fairness warning + grace; max 4 shooters; teams prevent friendly fire.
+
+## M7 architecture — life systems and police
+- **TrafficSystem** (`src/life/traffic.ts`): a pool of AI cars (ids 100–199; 16 on Medium+, 10 on Low; 40 in `?stress`).
+  - Lanes come from the grid and road paint: right-hand traffic, lane centres at 2.1 m (16 m roads) or 2.6/6.2 m (24 m arterials).
+  - Driving: pure pursuit on the lane. At each intersection the car picks straight (weight 5), left or right (weight 2 each) as a polyline through the junction. It never turns off the map, into the underpass trench, or onto the road under the highway.
+  - Signals: cars stop at the stop line on red and late amber, using the same global phase as the streamed traffic lights.
+  - Following: they keep their distance from anything in the lane corridor (other cars, the player's car, the player on foot, cast pedestrians).
+  - Panic: drivers within 45 m of gunfire or an explosion speed up ×1.45 and ignore signals for 8 s.
+  - Stuck cars creep forward after 6 s and are removed after 20 s when out of view.
+  - Spawn and despawn: the area fills once when it first streams in. After that, cars spawn 50–200 m away and out of view (or more than 115 m off, hidden in the haze), and despawn beyond 260 m.
+- **Carjack**: E near a traffic car swaps cars. The player's physics id respawns on the traffic car's pose with its class tuning, visuals, damage state and engine profile. The old player car takes the traffic id as an `abandoned` slot. No driver ped is pulled out (logged).
+- **Wanted** (`src/life/police.ts`):
+  - Heat: crimes add heat with a minimum star level each — shot 1, hitting or killing a ped 2, carjack 1, explosion 2, hitting or killing a cop 3 — capped at 5.
+  - Pursuit cars: one per star. They spawn 90–140 m out on the grid through the traffic system and follow the grid until within 45 m, then drive straight at the player. Below 3 stars they lead the player's car; from 3 stars they ram, and from 4 stars they boost.
+  - Officers: two Combatants (police_m/police_f) get out of a stopped cruiser near the player, with a pistol at 1–2 stars, SMG at 3 and rifle at 4–5. At most 6 are alive.
+  - Evasion: no cruiser or officer has line of sight (city ray cast) for 8 + 3 s per star; the stars flash while unseen.
+  - Ambient police cars within 90 m join any active pursuit.
+  - Arrest: at 1 star, an officer within 2.4 m of a slow player on foot for 1.6 s means BUSTED. Death means WASTED. Both respawn the player at the start sidewalk and clear the level.
+  - Feedback: a siren (sawtooth wail; faster from 3 stars, louder near the closest cruiser) and red/blue roof light-bar flashes on pursuing cruisers.
+- **Crowd reaction**: `Crowd.scare(p, r)`. VAT walkers within 40 m of a shot (60 m of an explosion) turn away and hurry at ×2.6 for 6–10 s; the gait rate follows the speed.
+- **Combat events**: `Combat.onEvent(kind, owner, pos, target)` covers shot, hit and explode, and feeds gunfire panic, crowd scares and crimes.

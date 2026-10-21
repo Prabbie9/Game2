@@ -26,6 +26,8 @@ export function rayCapsule(o: THREE.Vector3, d: THREE.Vector3, a: THREE.Vector3,
 export class Combat {
   targets: Target[] = []; rockets: { p: THREE.Vector3; v: THREE.Vector3; t: number; owner: string; w: WeaponData }[] = []; throws: { p: THREE.Vector3; v: THREE.Vector3; t: number; owner: string; w: WeaponData; id: WeaponId; mesh?: THREE.Object3D }[] = [];
   onExplode: ((p: THREE.Vector3, radius: number, strength: number) => void) | null = null; stats = { shots: 0, hits: 0 };
+  /** Witnessable events for the wanted system and fleeing crowds (owner = shooter id). */
+  onEvent: ((kind: 'shot' | 'hit' | 'explode', owner: string, pos: THREE.Vector3, target?: Target) => void) | null = null;
   constructor(public fx: CombatFX, public castWorld: (o: THREE.Vector3, d: THREE.Vector3, far: number) => WorldHit | null) {}
   /** First thing a ray hits (world / character zone / vehicle), excluding the shooter. */
   trace(o: THREE.Vector3, d: THREE.Vector3, far: number, ignore: string, ignoreTeam = -1) {
@@ -51,20 +53,20 @@ export class Combat {
       if (!hit) continue; out.push({ zone: hit.zone, target: hit.target?.id, dist: hit.t });
       if (hit.target) { this.stats.hits++; const fall = w.falloff ? THREE.MathUtils.clamp(1 - (hit.t - w.falloff[0]) / (w.falloff[1] - w.falloff[0]), 0, 1) * (1 - w.falloff[2]) + w.falloff[2] : 1;
         const zoneMul = hit.zone === 'head' ? (w.headMul ?? 2) : hit.zone === 'limb' ? 0.7 : 1; const arm = hit.zone === 'torso' ? (hit.target.armour ?? 1) : 1;
-        hit.target.hit(w.damage * fall * zoneMul * arm, d, hit.zone ?? 'torso', 2 + w.damage * 0.05);
+        hit.target.hit(w.damage * fall * zoneMul * arm, d, hit.zone ?? 'torso', 2 + w.damage * 0.05); this.onEvent?.('hit', owner, end, hit.target);
         if (hit.zone) this.fx.impact(end, d.clone().negate(), 'flesh'); else if (hit.world) this.fx.impact(hit.world.p, hit.world.n, 'metal'); }
       else if (hit.world) this.fx.impact(hit.world.p, hit.world.n, hit.world.kind); }
-    this.fx.muzzle(muzzle, aimDir, w.pellets && w.pellets > 1 ? 0.5 : 0.32);
+    this.fx.muzzle(muzzle, aimDir, w.pellets && w.pellets > 1 ? 0.5 : 0.32); this.onEvent?.('shot', owner, muzzle);
     return out;
   }
   /** Melee swing: targets inside the range and arc in front of the attacker. */
   melee(owner: string, w: WeaponData, from: THREE.Vector3, fwd: THREE.Vector3) { const hits: string[] = [];
     for (const tg of this.targets) { if (tg.id === owner || !tg.alive || tg.vehicle) continue; const d = tg.pos().clone().sub(from).setY(0); const L = d.length(); if (L > (w.range ?? 1.5) + 0.3) continue;
-      if (THREE.MathUtils.radToDeg(d.normalize().angleTo(fwd.clone().setY(0).normalize())) > (w.arc ?? 60) / 2 + 15) continue; tg.hit(w.damage, d, 'torso', w.impulse ?? 3); hits.push(tg.id); this.fx.impact(tg.pos().clone().add(new THREE.Vector3(0, 1.3, 0)), d.clone().negate(), 'flesh'); }
+      if (THREE.MathUtils.radToDeg(d.normalize().angleTo(fwd.clone().setY(0).normalize())) > (w.arc ?? 60) / 2 + 15) continue; tg.hit(w.damage, d, 'torso', w.impulse ?? 3); hits.push(tg.id); this.onEvent?.('hit', owner, from, tg); this.fx.impact(tg.pos().clone().add(new THREE.Vector3(0, 1.3, 0)), d.clone().negate(), 'flesh'); }
     return hits; }
   throwItem(owner: string, id: WeaponId, from: THREE.Vector3, dir: THREE.Vector3, mesh?: THREE.Object3D) { const w = WDATA[id]; this.throws.push({ p: from.clone(), v: dir.clone().multiplyScalar(w.speed ?? 15).add(new THREE.Vector3(0, 3, 0)), t: 0, owner, w, id, mesh }); }
   explode(p: THREE.Vector3, radius: number, damage: number, strength: number, owner: string) {
-    this.fx.explosion(p, radius); this.onExplode?.(p, radius, strength);
+    this.fx.explosion(p, radius); this.onExplode?.(p, radius, strength); this.onEvent?.('explode', owner, p);
     for (const tg of this.targets) { if (!tg.alive) continue; const L = tg.pos().distanceTo(p); if (L > radius) continue; const k = 1 - L / radius; tg.hit(damage * k * k, tg.pos().clone().sub(p).normalize(), 'torso', strength * k); }
     void owner;
   }
