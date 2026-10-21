@@ -1,8 +1,8 @@
 # PROGRESS
-NEXT STEP: M9 — finish the stress-test numbers and the tier pass (tools/tierpass.mjs), final graphics pass on the new districts, artifact publish (vehicles + props batch), PLAY.md, FINAL_REPORT.md.
+NEXT STEP: none: features stopped at the user's request. Open fixes in FINAL_REPORT.md known issues 1–3 (lose-police dispatch rule, arrest radius vs officer standoff, draw-call/triangle budgets).
 
-STEPS_USED: ~1035 (M0 ~80, M1 ~75, M2 ~190, M3 ~95, M4 ~220, M5 ~170, M6 ~105, M7 ~55, M8 ~30, M9 ~15 so far)   DRIVE_CALLS_USED: 196 / 300   SKETCHFAB_DOWNLOADS: 63 / 150
-MILESTONE: M8 done (checkpoint 9) — Harbour + boat + spawn menu; M9 in progress (gamepad, photo mode, credits, audio, shop themes done)
+STEPS_USED: ~1150 (M0 ~80, M1 ~75, M2 ~190, M3 ~95, M4 ~220, M5 ~170, M6 ~105, M7 ~55, M8 ~30, M9 + final verification ~130)   DRIVE_CALLS_USED: 196 / 300   SKETCHFAB_DOWNLOADS: 63 / 150
+MILESTONE: M9 done (final) — preview version 9; wanted gate: WASTED pass, LOSE POLICE + BUSTED fail; tier pass fails triangle/draw budgets; stress test logged
 
 ## Milestones
 - M0 Setup: DONE. Drive indexed (846 clips, 23 chars), wave 1 (82 clips) fetched + ingested (2.0MB bundles), Sketchfab working, Artifact route published, renderer = WebGL + postprocessing.

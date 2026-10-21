@@ -211,7 +211,17 @@ box truck is detuned (67.6 m). Drift is only required of rear-drive cars with a 
 - The test moves the player by teleport rather than by driving away. That isolates the evade timer from chase driving, so the failure above is in the dispatch rule, not in driving.
 
 ### Stress test (tools/stresstest.mjs → tools/out/stresstest.json)
-See the table below (SwiftShader CPU raster at 480×270 — compare the phases with each other, not as fps).
+SwiftShader CPU raster on the Low tier at 480×270, wall-clock frame interval. Compare the phases with each other; these are not fps.
+| phase | frames | frame p50 | p95 | p99 | physics step p50 / p95 | draw calls | cars / combatants |
+|---|---|---|---|---|---|---|---|
+| baseline (12 cars, 100 peds) | 40 | 1.40 s | 11.3 s | 13.2 s | 45 ms / 10.0 s | 1,031 | 12 / 0 |
+| loaded (40 cars, 100 peds, 20 combatants) | 60 | 7.86 s | 8.37 s | 8.98 s | 174 ms / 215 ms | 5,741 | 40 / 20 |
+| 5 simultaneous explosions | 40 | 7.62 s | 19.7 s | 20.7 s | 169 ms / 12.0 s | 5,791 | 40 / 20 |
+
+- **Degradation:** median frame time ×5.6 from baseline to loaded. Explosions push the frame p99 to ×2.3 the loaded p99, with physics-step spikes of 12–21 s while the blasts resolve. Draw calls rise ×5.6, to about 4.8× the Low budget.
+- The baseline tail (p95/p99) includes streaming stalls (physics p95 10 s), so it is not steady-state, and the "loaded vs baseline p99" ratio (0.68) is not meaningful. Use p50.
+- The loading wait reached 34 cars before recording; 40 were live during the recorded phases.
+- **First run invalid:** it recorded the game's clamped `dt` (100 ms cap) instead of the wall-clock interval, so every phase read 100 ms. Kept as tools/out/stresstest_run1_dtclamped.json. The harness now records wall-clock time.
 
 ### Human questions (M7)
 1. Does traffic feel alive enough at the default density (16 cars), or does the city feel empty?
