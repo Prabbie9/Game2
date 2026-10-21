@@ -96,10 +96,10 @@ export class Renderer {
    * object into a refraction target whenever one is on screen (~+700 draws in the Harbour view). Plain alpha glass instead. */
   private noTransmission(m: THREE.Material) { const p = m as THREE.MeshPhysicalMaterial; if (!p.isMeshPhysicalMaterial || !(p.transmission > 0)) return;
     p.opacity = Math.min(p.opacity, 0.2 + 0.6 * (1 - p.transmission)); p.transmission = 0; p.transparent = true; p.depthWrite = false; }
-  /** Lite: uncompressed textures larger than 512 px are downscaled once on a canvas before their first GPU upload
+  /** Lite/Low: uncompressed textures larger than 512/1024 px are downscaled once on a canvas before their first GPU upload
    * (car/character/boat WebP textures were ~85% of Lite's texture memory). KTX2 textures are left alone. */
   private capped = new WeakSet<THREE.Texture>();
-  private capTextures(m: THREE.Material) { const cap = this.tier.name === 'Lite' ? 512 : 0; if (!cap) return;
+  private capTextures(m: THREE.Material) { const cap = this.tier.name === 'Lite' ? 512 : this.tier.name === 'Low' ? 1024 : 0; if (!cap) return;
     for (const k of ['map', 'normalMap', 'roughnessMap', 'metalnessMap', 'aoMap', 'emissiveMap', 'alphaMap'] as const) { const t = (m as any)[k] as THREE.Texture | null; if (!t || (t as any).isCompressedTexture || this.capped.has(t)) continue; this.capped.add(t);
       const img = t.image as any; if (!img || !img.width || Math.max(img.width, img.height) <= cap) continue; const s = cap / Math.max(img.width, img.height);
       try { const c = document.createElement('canvas'); c.width = Math.round(img.width * s); c.height = Math.round(img.height * s); c.getContext('2d')!.drawImage(img, 0, 0, c.width, c.height); t.image = c; t.needsUpdate = true; } catch { /* keep the original */ } } }

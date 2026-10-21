@@ -29,8 +29,8 @@ export class WorldMaterials {
       case 'roof': return S(pbr('gravel', { grime: 0.3 }, 'roof'));
       case 'rooftop': return S(pbr('metal', { grime: 0.6, tint: 0xb8bcc0, roughness: 0.8 }, 'rooftop'));
       case 'awning': return S(pbr('fabric', { grime: 0.3, tint: 0x7a2f2a, metalness: 0 }, 'awn'));
-      case 'pole': return S(pbr('metal', { grime: 0.4, tint: 0x3a3e44, roughness: 0.6 }, 'pole'));
-      case 'furn': return S(pbr('metal', { grime: 0.5, tint: 0x2d3136, roughness: 0.7 }, 'furn'));
+      case 'pole': return S(pbr('metal', { grime: 0.4, tint: 0x4a5058, roughness: 0.55, metalness: 0.25 }, 'pole')); // painted steel (was raw metal: black in shade)
+      case 'furn': return S(pbr('metal', { grime: 0.5, tint: 0x3d434a, roughness: 0.65, metalness: 0.25 }, 'furn'));
       case 'iron': return S(pbr('rust', { grime: 0.3, tint: 0x6a6460, puddles: 0 }, 'iron'));
       case 'bench': return S(pbr('wood', { grime: 0.4, tint: 0xa07a52, metalness: 0 }, 'bench'));
       case 'bark': return S(pbr('wood', { grime: 0.5, tint: 0x6b5a4a, metalness: 0 }, 'bark'));
@@ -40,7 +40,7 @@ export class WorldMaterials {
       case 'paint': case 'paintY': { const m = S(pbr('concrete', { grime: 0.2, tint: key === 'paint' ? 0xffffff : 0xe2b23a, puddles: 0.5, roughness: 0.7 }, key)); m.vertexColors = key === 'paint'; /* white/yellow from the vertex colour */ m.polygonOffset = true; m.polygonOffsetFactor = -2; m.polygonOffsetUnits = -2; return m; }
       case 'lamphead': { const m = new THREE.MeshStandardMaterial({ color: 0x1b1b1b, emissive: 0xffd9a8, emissiveIntensity: 0, roughness: 0.3 }); this.night.push(m); return m; }
       case 'frame_tower': return S(new THREE.MeshStandardMaterial({ color: 0x2b3036, roughness: 0.4, metalness: 0.9 }));
-      case 'frame_std': return S(new THREE.MeshStandardMaterial({ color: 0x26221e, roughness: 0.45, metalness: 0.2 }));
+      case 'frame_std': return S(new THREE.MeshStandardMaterial({ color: 0x3e3933, roughness: 0.45, metalness: 0.2 }));
       case 'glass_std': return interiorGlass(R, [2.2, 3.4], 4.5, false);
       case 'glass_tower': return interiorGlass(R, [1.6, 3.8], 6, true);
       case 'glass_shop': return interiorGlass(R, [5.5, 4.6], 7, false, true);
@@ -51,7 +51,7 @@ export class WorldMaterials {
     return S(new THREE.MeshStandardMaterial({ color: 0xff00ff }));
   }
   private leafMat(inner: boolean) {
-    if (inner) return this.R.setupMaterial(new THREE.MeshStandardMaterial({ color: 0x1f2c14, roughness: 0.95 }));
+    if (inner) return this.R.setupMaterial(new THREE.MeshStandardMaterial({ color: 0x34482a, roughness: 0.95 })); // crown core: dark green, not a black blob
     const lc = document.createElement('canvas'); lc.width = lc.height = 256; const lg = lc.getContext('2d')!; let s = 7; const lr = () => ((s = (s * 16807) % 2147483647) / 2147483647);
     for (let i = 0; i < 420; i++) { const x = lr() * 256, y = lr() * 256, a = lr() * Math.PI, l = 7 + lr() * 9; lg.fillStyle = `hsl(${88 + lr() * 34},${38 + lr() * 25}%,${20 + lr() * 22}%)`; lg.beginPath(); lg.ellipse(x, y, l, l * 0.42, a, 0, Math.PI * 2); lg.fill(); }
     const t = new THREE.CanvasTexture(lc); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4;

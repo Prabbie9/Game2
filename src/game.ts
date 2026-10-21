@@ -209,7 +209,7 @@ export async function startGame(app: HTMLElement) {
   env.setTime(+(params.get('t') ?? 18.6)); env.setWeather((params.get('w') as WeatherName) || 'clear', true);
   let bot: BotDriver | null = null; let botYaw = 0;
   const shot = params.get('shot') ? { ...SHOTS[params.get('shot')!], ...(params.get('frames') ? { frames: +params.get('frames')! } : {}) } : null;
-  if (shot) { env.setTime(shot.t); env.setWeather(shot.w, true); if (shot.route) bot = new BotDriver(ROUTES[shot.route], shot.speed ?? 20); hud.root.hidden = !!shot.hideHud; }
+  if (shot) { env.setTime(params.has('t') ? +params.get('t')! : shot.t); env.setWeather((params.get('w') as WeatherName) || shot.w, true); /* ?t= / ?w= override a shot's time and weather (look matrix) */ if (shot.route) bot = new BotDriver(ROUTES[shot.route], shot.speed ?? 20); hud.root.hidden = !!shot.hideHud; }
   if (params.get('bot')) { const rt = ROUTES[params.get('bot')!] ?? ROUTES.loop; bot = new BotDriver(rt, +(params.get('speed') ?? 22));
     if (city && !shot) { spawn = [rt[0][0], params.get('bot') === 'highway' ? 1.6 : 1.2, rt[0][1]]; botYaw = Math.atan2(rt[1][0] - rt[0][0], rt[1][1] - rt[0][1]); } }
   if (shot?.start) { if (city) spawn = shot.start; else phys.teleportVehicle(PLAYER, shot.start, shot.yaw ?? 0); }

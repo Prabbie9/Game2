@@ -65,7 +65,19 @@ export class Harbour {
     const S = R.scene; const statics: StaticDesc[] = []; const col = (half: number[], pos: number[]) => statics.push({ kind: 'box', half, pos, friction: 0.8 } as any);
     // water
     this.normals = waveNormals(); this.normals.repeat.set(1, 1);
-    const wm = R.setupMaterial(new THREE.MeshPhysicalMaterial({ color: 0x0c2a33, roughness: 0.07, metalness: 0.0, normalMap: this.normals, normalScale: new THREE.Vector2(0.26, 0.26), envMapIntensity: 1.25, clearcoat: 0.6, clearcoatRoughness: 0.12 }));
+    const wm = new THREE.MeshPhysicalMaterial({ color: 0x0c2a33, roughness: 0.07, metalness: 0.0, normalMap: this.normals, normalScale: new THREE.Vector2(0.26, 0.26), envMapIntensity: 1.25, clearcoat: 0.6, clearcoatRoughness: 0.12 });
+    // second, finer wave layer scrolling the other way (breaks the single-layer tiling) + broken foam along the quay wall and around the piers
+    wm.userData.patch = (sh: any) => { sh.uniforms.uWave2 = this.wave2; sh.uniforms.uPiers = { value: PIERS.map(([x, hw, ze]) => new THREE.Vector3(x, hw, ze)) };
+      sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying vec3 vWPos;').replace('#include <begin_vertex>', '#include <begin_vertex>\nvWPos = (modelMatrix * vec4(transformed, 1.0)).xyz;');
+      sh.fragmentShader = sh.fragmentShader.replace('#include <common>', `#include <common>\nvarying vec3 vWPos; uniform vec2 uWave2; uniform vec3 uPiers[${PIERS.length}];`)
+        .replace('#include <normal_fragment_maps>', `vec3 mapN = texture2D( normalMap, vNormalMapUv ).xyz * 2.0 - 1.0; vec3 mapN2 = texture2D( normalMap, vNormalMapUv * 3.3 + uWave2 ).xyz * 2.0 - 1.0;
+          mapN = vec3( mapN.xy + mapN2.xy * 0.55, mapN.z ); mapN.xy *= normalScale; normal = normalize( tbn * mapN );`)
+        .replace('#include <lights_physical_fragment>', `float fd = vWPos.z - ${QUAY_Z.toFixed(1)}; for (int i = 0; i < ${PIERS.length}; i++) { vec3 P = uPiers[i]; fd = min(fd, length(max(vec2(abs(vWPos.x - P.x) - P.y, vWPos.z - P.z), 0.0))); }
+          float fk = 1.0 - smoothstep(0.0, 2.4, fd); float fn = texture2D( normalMap, vNormalMapUv * 7.0 - uWave2 * 1.7 ).x; float foam = fk * smoothstep(0.42, 0.62, fn * 0.7 + fk * 0.45);
+          diffuseColor.rgb = mix( diffuseColor.rgb, vec3( 0.62, 0.68, 0.68 ), foam * 0.85 ); roughnessFactor = mix( roughnessFactor, 0.75, foam );
+          #include <lights_physical_fragment>
+          material.clearcoat *= 1.0 - foam;`); };
+    wm.userData.patchKey = 'water2'; R.setupMaterial(wm);
     const wg = new THREE.PlaneGeometry(10000, 5000 - QUAY_Z, 1, 1).rotateX(-Math.PI / 2).translate(0, WATER_Y, (5000 + QUAY_Z) / 2); const uv = wg.attributes.uv as THREE.BufferAttribute; const p = wg.attributes.position;
     for (let i = 0; i < uv.count; i++) uv.setXY(i, (p.getX(i) * 0.87 + p.getZ(i) * 0.5) / 57, (p.getZ(i) * 0.87 - p.getX(i) * 0.5) / 57);
     this.water = new THREE.Mesh(wg, wm); this.water.receiveShadow = true; S.add(this.water);
@@ -122,6 +134,7 @@ export class Harbour {
     for (let x = -EXTENT; x <= EXTENT; x += 90) { const z = QUAY_Z - 14; mg.push(new THREE.CylinderGeometry(0.25, 0.35, 22, 8).translate(x, 11, z)); hg.push(box(2.6, 0.5, 1.0, x, 22.2, z + 0.4)); col([0.3, 11, 0.3], [x, 11, z]);
       pool.add({ pos: new THREE.Vector3(x, 20, z + 3), color: new THREE.Color(0xffd9a0), intensity: 900, distance: 55, nightOnly: true }); }
     S.add(Object.assign(new THREE.Mesh(mergeGeometries(mg), mastM), { castShadow: true }), new THREE.Mesh(mergeGeometries(hg), headM));
+    this.dressApron(statics);
     phys.addStatics(statics);
     // boats: the drivable speedboat beside the first pier, moored speedboats and trawlers
     const [p0x, p0hw] = PIERS[0]; this.boat = new Boat(p0x + p0hw + 1.45, QUAY_Z + 38, 0); this.boats.push(this.boat); S.add(this.boat.root);
@@ -130,11 +143,44 @@ export class Harbour {
     loadProp('trawler').then((m) => { m.traverse((o) => { const me = o as THREE.Mesh; if (me.isMesh) { R.setupMaterial(me.material as THREE.Material); me.castShadow = true; } });
       for (const [x, z, yaw] of [[PIERS[2][0] - PIERS[2][1] - 2.4, QUAY_Z + 55, Math.PI], [PIERS[0][0] - PIERS[0][1] - 2.4, QUAY_Z + 60, 0], [PIERS[1][0] + PIERS[1][1] + 2.4, QUAY_Z + 45, Math.PI]] as [number, number, number][]) { const b = new THREE.Group(); b.add(m.clone()); b.position.set(x, WATER_Y - 1.1, z); b.rotation.y = yaw; S.add(b); this.moored.push({ o: b, base: b.position.clone(), t: z }); } }).catch((e) => console.warn('trawler', e?.message));
   }
-  headM: THREE.MeshStandardMaterial;
+  headM: THREE.MeshStandardMaterial; wave2 = { value: new THREE.Vector2() };
+  /** Apron dressing (look pass): painted quay markings and bay lines, oil stains, and cargo clusters (pallet stacks, crates,
+   * drums, site cabins) between the shed fronts and the quay, clear of the pier roots. 6 draws in all (instanced/merged). */
+  private dressApron(statics: StaticDesc[]) {
+    const S = this.R.scene; const R = this.R; let seed = 977; const rr = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+    const clearOfPiers = (x: number) => PIERS.every(([px, hw]) => Math.abs(x - px) > hw + 10);
+    // paint: yellow dashed quay-edge line, solid lane edge, hatched crane-leg zones, white bays in front of the sheds (vertex colour)
+    const paint: THREE.BufferGeometry[] = []; const Y = new THREE.Color(0xc9a63a), W = new THREE.Color(0xc8c8c0);
+    const strip = (w: number, d: number, x: number, z: number, c: THREE.Color, yaw = 0) => { const g = new THREE.PlaneGeometry(w, d).rotateX(-Math.PI / 2).rotateY(yaw).translate(x, 0.022, z); const n = g.attributes.position.count; const a = new Float32Array(n * 3); for (let i = 0; i < n; i++) c.toArray(a, i * 3); g.setAttribute('color', new THREE.BufferAttribute(a, 3)); g.deleteAttribute('uv'); paint.push(g); };
+    for (let x = -EXTENT - 330; x < EXTENT + 330; x += 6) if (PIERS.every(([px, hw]) => Math.abs(x - px) > hw + 2)) strip(3.2, 0.16, x, QUAY_Z - 2.6, Y);
+    strip(2 * EXTENT + 660, 0.14, 0, QUAY_Z - 30, Y);
+    for (const cx of [-470, -390, 380, 460]) for (const dx of [-8, 8]) for (let k = -3; k <= 3; k++) strip(4.2, 0.22, cx + dx + k * 0.9, QUAY_Z - 13, Y, Math.PI / 4);
+    for (const [sx, len] of [[-250, 70], [-30, 54], [170, 64], [620, 80]]) for (let i = 0; i <= Math.floor(len / 3.2); i++) strip(0.12, 5.5, sx - len / 2 + i * 3.2, APRON_Z0 + 37.5, W);
+    const pm = R.setupMaterial(new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.75, polygonOffset: true, polygonOffsetFactor: -2 })); const pmesh = new THREE.Mesh(mergeGeometries(paint), pm); pmesh.receiveShadow = true; S.add(pmesh);
+    // oil stains / tyre scuffs: soft dark blots (one transparent merged mesh, radial canvas texture)
+    const c = document.createElement('canvas'); c.width = c.height = 64; const g2 = c.getContext('2d')!; const gr = g2.createRadialGradient(32, 32, 2, 32, 32, 31); gr.addColorStop(0, 'rgba(255,255,255,0.75)'); gr.addColorStop(0.55, 'rgba(255,255,255,0.35)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); g2.fillStyle = gr; g2.fillRect(0, 0, 64, 64);
+    const st: THREE.BufferGeometry[] = []; for (let i = 0; i < 90; i++) { const x = -EXTENT - 300 + rr() * (2 * EXTENT + 600), z = APRON_Z0 + 36 + rr() * (QUAY_Z - APRON_Z0 - 40), r = 0.8 + rr() * 2.4; st.push(new THREE.PlaneGeometry(r * (1 + rr()), r).rotateX(-Math.PI / 2).rotateY(rr() * 3).translate(x, 0.018, z)); }
+    const sm = R.setupMaterial(new THREE.MeshStandardMaterial({ color: 0x0b0a09, alphaMap: new THREE.CanvasTexture(c), transparent: true, opacity: 0.55, roughness: 0.35, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -1 })); const smesh = new THREE.Mesh(mergeGeometries(st), sm); smesh.receiveShadow = true; S.add(smesh);
+    // cargo clusters (instanced; every item gets a box collider)
+    const wood = R.setupMaterial(new THREE.MeshStandardMaterial({ color: 0x8a6a45, roughness: 0.9 })); const crateM = R.setupMaterial(new THREE.MeshStandardMaterial({ roughness: 0.8 })); const drumM = R.setupMaterial(new THREE.MeshStandardMaterial({ roughness: 0.45, metalness: 0.55 })); const cabM = R.setupMaterial(new THREE.MeshStandardMaterial({ roughness: 0.6, metalness: 0.3 }));
+    const pal = new THREE.InstancedMesh(new THREE.BoxGeometry(1.2, 1, 1.0).translate(0, 0.5, 0), wood, 160), crate = new THREE.InstancedMesh(new THREE.BoxGeometry(1.25, 1.25, 1.25).translate(0, 0.625, 0), crateM, 200);
+    const drum = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.3, 0.3, 0.9, 12).translate(0, 0.45, 0), drumM, 240), cab = new THREE.InstancedMesh(new THREE.BoxGeometry(6, 2.6, 2.4).translate(0, 1.3, 0), cabM, 16);
+    const n = { pal: 0, crate: 0, drum: 0, cab: 0 }; const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), U = new THREE.Vector3(0, 1, 0), sc = new THREE.Vector3(), p = new THREE.Vector3();
+    const put = (im: THREE.InstancedMesh, k: keyof typeof n, x: number, y: number, z: number, yaw: number, sy: number, col: number | null, half: number[]) => { if (n[k] >= im.instanceMatrix.count) return;
+      im.setMatrixAt(n[k], m4.compose(p.set(x, y, z), q.setFromAxisAngle(U, yaw), sc.set(1, sy, 1))); if (col !== null) im.setColorAt(n[k], new THREE.Color(col)); n[k]++; statics.push({ kind: 'box', half, pos: [x, y + half[1], z], friction: 0.7 } as any); };
+    const CR = [0x6f7d55, 0x8b5a2b, 0x4f6a7a, 0x9a8a5c], DR = [0x2f5f8f, 0xb03a2e, 0x2e6b3f, 0x7a7a72, 0xc7a23a], CB = [0xd8d2c0, 0x7d8b6a, 0x3f6f9a];
+    for (let x = -EXTENT - 250; x < EXTENT + 250; x += 26 + rr() * 30) { if (!clearOfPiers(x) || rr() < 0.25) continue; const z0 = rr() < 0.5 ? APRON_Z0 + 41 + rr() * 4 : QUAY_Z - 22 + rr() * 6;
+      if ([-470, -390, 380, 460].some((cx) => Math.abs(x - cx) < 14) || Math.abs(x % 90) < 4 || Math.abs(x % 90) > 86) continue; // crane legs, mast bases
+      const kind = rr(); if (kind < 0.12 && n.cab < 16) { put(cab, 'cab', x, 0, z0, rr() < 0.5 ? 0 : 0.08, 1, CB[Math.floor(rr() * CB.length)], [3, 1.3, 1.2]); continue; }
+      for (let i = 0, m = 2 + Math.floor(rr() * 4); i < m; i++) { const h = 1 + Math.floor(rr() * 3); put(pal, 'pal', x + i * 1.35, 0, z0 + (rr() - 0.5) * 0.3, 0, h * 0.15, null, [0.6, h * 0.075, 0.5]); }
+      for (let i = 0, m = Math.floor(rr() * 5); i < m; i++) { const cx = x + 6 + (i % 3) * 1.3, cz = z0 + Math.floor(i / 3) * 1.3; put(crate, 'crate', cx, 0, cz, (rr() - 0.5) * 0.2, 1, CR[Math.floor(rr() * CR.length)], [0.63, 0.63, 0.63]); if (rr() < 0.3) put(crate, 'crate', cx, 1.25, cz, rr() * 0.3, 1, CR[Math.floor(rr() * CR.length)], [0.63, 0.63, 0.63]); }
+      for (let i = 0, m = Math.floor(rr() * 7); i < m; i++) put(drum, 'drum', x - 3 - (i % 4) * 0.65, 0, z0 + Math.floor(i / 4) * 0.65, 0, 1, DR[Math.floor(rr() * DR.length)], [0.3, 0.45, 0.3]); }
+    for (const [im, k] of [[pal, 'pal'], [crate, 'crate'], [drum, 'drum'], [cab, 'cab']] as [THREE.InstancedMesh, keyof typeof n][]) { im.count = n[k]; im.castShadow = im.receiveShadow = true; if (im.instanceColor) im.instanceColor.needsUpdate = true; S.add(im); }
+  }
   /** Is (x,z) solid for a boat (quay, piers, beyond the map)? */
   blocked = (x: number, z: number) => z < QUAY_Z + 1.8 || Math.abs(x) > 4000 || z > 4800 || PIERS.some(([px, hw, ze]) => Math.abs(x - px) < hw + 1.3 && z < ze + 2.5);
   update(dt: number, night: number, t: number) {
-    this.normals.offset.set((t * 0.011) % 1, (t * 0.017) % 1); this.headM.emissiveIntensity = night * 12;
+    this.normals.offset.set((t * 0.011) % 1, (t * 0.017) % 1); this.wave2.value.set((-t * 0.019) % 1, (t * 0.008) % 1); this.headM.emissiveIntensity = night * 12;
     for (const m of this.moored) { m.o.position.y = m.base.y + Math.sin(t * 1.1 + m.t) * 0.06; m.o.rotation.z = Math.sin(t * 0.8 + m.t) * 0.02; m.o.rotation.x = Math.sin(t * 0.6 + m.t * 0.3) * 0.012; }
   }
 }
