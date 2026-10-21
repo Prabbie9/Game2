@@ -58,3 +58,26 @@ Under stress (Low, 480×270, stress harness): about 5,741 draws loaded and 5,791
 | 12 | AI weapons: merged lean model (textured parts per material, flat-colour parts in one vertex-coloured mesh; the rifle was 11 meshes, now 1); weapon shadows follow the holder's shadow budget; rigid character gear under 6,000 vertices (pouches, magazines, patches) hidden beyond detail range | Lite Harbour stress | 1,022 | 377 | yes (draw attribution; `shots/m10/lean_ai_lite.png`) |
 | 13 | Artifact base64 assets: payload sliced out of the `{b64}` JSON instead of `JSON.parse`, decoded with native `Uint8Array.fromBase64` (fallback: the old atob loop) | 8 MB blob, headless Chromium | 277 ms | 31 ms | yes (bytes identical; container CPU, so compare ratio only) |
 | 14 | Dynamic quality scaler (`src/renderer/scaler.ts`): over budget for 1.5 s → render scale −0.1 down to 0.5, then population −25% down to 25%; 4 s well under budget → population first, then resolution back up. Lite/Low/Medium only | `tools/scalertest.mjs` (forced frame times) | – | steps down to 0.5 / 25% and fully recovers | yes (scaler test PASS) |
+
+## Tier pass after changes 1–14 (commit b858762, `tools/tierpass.mjs`, 1280×720)
+draws = all passes for one frame; mainTris = main-view scene triangles counted once; passTris = whole frame incl. shadow cascades and depth/normal pre-passes. Stress = 40 cars, 100 pedestrians, 20 combatants, 5 explosions.
+| tier (target) | view | draws | mainTris | passTris | texMB (budget) | heapMB |
+|---|---|---|---|---|---|---|
+| Lite (≤800) | Downtown | 304 ✅ | 1.57 M | 2.36 M | 278 (512) ✅ | 217 |
+| Lite | Harbour | 223 ✅ | 1.37 M | 2.32 M | 279 ✅ | 217 |
+| Lite | Downtown stress | 459 ✅ | 2.64 M | 3.45 M | 403 ✅ | 329 |
+| Lite | Harbour stress | 377 ✅ | 2.43 M | 3.41 M | 391 ✅ | 257 |
+| Low (≤1,200) | Downtown | 372 ✅ | 1.84 M | 3.60 M | 708 (1,024) ✅ | 278 |
+| Low | Harbour | 274 ✅ | 1.62 M | 3.40 M | 845 ✅ | 262 |
+| Low | Downtown stress | 561 ✅ | 2.77 M | 4.68 M | **1,489 ❌** | 454 |
+| Low | Harbour stress | 442 ✅ | 2.50 M | 4.46 M | **1,192 ❌** | 284 |
+| Medium (≤1,800) | Downtown | 952 ✅ | 2.45 M | 8.69 M | 872 (2,048) ✅ | 301 |
+| Medium | Harbour | 769 ✅ | 2.24 M | 8.51 M | 735 ✅ | 243 |
+| Medium | Downtown stress | 1,560 ✅ | 2.89 M | 9.25 M | 1,568 ✅ | 464 |
+| Medium | Harbour stress | 1,044 ✅ | 2.64 M | 8.39 M | 1,208 ✅ | 289 |
+| High (≤2,500) | Downtown | 1,358 ✅ | 2.91 M | 13.5 M | 1,077 (4,096) ✅ | 430 |
+| High | Harbour | 966 ✅ | 2.70 M | 12.9 M | 849 ✅ | 380 |
+| High | Downtown stress | 1,926 ✅ | 2.91 M | 12.2 M | 1,676 ✅ | 629 |
+| High | Harbour stress | 1,405 ✅ | 2.64 M | 11.5 M | 1,332 ✅ | 422 |
+
+Every draw-call target is met. Texture memory on Low under stress is over budget; change 15 (Low 1,024 px texture cap) addresses it and is re-measured on the next tier pass. Heap is within budget everywhere (budgets: Lite 600, Low 700, Medium 900, High 1,200 MB).
