@@ -237,3 +237,23 @@ See the table below (SwiftShader CPU raster at 480×270 — compare the phases w
 1. Is the boat fun to drive? Is the turning too floaty?
 2. Does the Harbour read as a working port at golden hour and at night?
 3. Is the spawn menu quick enough to use mid-play?
+
+
+## M9 — laptop tier pass (tools/tierpass.mjs → tools/out/tierpass.json)
+Same views on every tier at 1280×720 (Downtown golden hour `m3_golden`; Harbour `m8_harbour`). Measured value / budget:
+| tier | view | draw calls | triangles | texture MB (est.) | JS heap MB |
+|---|---|---|---|---|---|
+| low | Downtown | 1607 / 1200 ❌ | 3.53 M / 1.0 M ❌ | 850 / 1024 ✅ | 270 / 700 ✅ |
+| low | Harbour | 932 / 1200 ✅ | 2.84 M / 1.0 M ❌ | 746 / 1024 ✅ | 249 / 700 ✅ |
+| medium | Downtown | 2716 / 2000 ❌ | 8.93 M / 2.5 M ❌ | 1090 / 2048 ✅ | 340 / 900 ✅ |
+| medium | Harbour | 1446 / 2000 ✅ | 7.68 M / 2.5 M ❌ | 861 / 2048 ✅ | 270 / 900 ✅ |
+| high | Downtown | 3251 / 3000 ❌ | 14.01 M / 5.0 M ❌ | 963 / 4096 ✅ | 462 / 1200 ✅ |
+| high | Harbour | 1808 / 3000 ✅ | 12.18 M / 5.0 M ❌ | 906 / 4096 ✅ | 390 / 1200 ✅ |
+| ultra | Downtown | 4359 / 4500 ✅ | 18.56 M / 8.0 M ❌ | 1162 / 8192 ✅ | 542 / 1600 ✅ |
+| ultra | Harbour | 2219 / 4500 ✅ | 16.00 M / 8.0 M ❌ | 906 / 8192 ✅ | 457 / 1600 ✅ |
+
+- **Triangles fail on every tier.** Counts are per-frame totals across all passes: 2–4 shadow cascades and the depth/normal pre-passes for AO/SSR re-draw the scene. Even allowing for that, Downtown on Low is about 3.5× the 1.0 M budget (the M3 backlog already flagged Low near-LOD at 1.68 M scene triangles).
+- **Downtown draw calls fail on Low, Medium and High** (1607, 2716, 3251). Harbour is within budget on every tier.
+- Texture memory (estimated from texture dimensions / KTX2 mip data) and JS heap are within budget on every tier.
+- LOD chains on Low/Medium: LODCHECK_PLACEHOLDER
+- The budgets were set for this pass (Low 1200 draws / 1.0 M triangles / 1 GB textures / 700 MB heap, doubling roughly per tier). They are not measured from real laptops.
