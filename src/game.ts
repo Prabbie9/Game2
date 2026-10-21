@@ -52,7 +52,7 @@ export async function startGame(app: HTMLElement) {
   const phys = new PhysicsClient();
   let colliders: THREE.Object3D[] = [], spawn: number[] = [0, 1.2, 0], slice: Slice | null = null, vis: ReturnType<typeof buildTestVisuals> | null = null, city: Streaming | null = null;
   if (sceneName === 'city') {
-    city = new Streaming(R, phys, pool, +(params.get('seed') ?? 1337)); spawn = [-4.2, 1.2, -150];
+    city = new Streaming(R, phys, pool, +(params.get('seed') ?? 1337)); spawn = [-4.2, 1.2, -150]; city.parkedBudget = R.tier.name === 'Lite' ? 10 : R.tier.name === 'Low' ? 18 : 30;
     phys.addStatics([{ kind: 'box', half: [3000, 0.5, 3000], pos: [0, -40, 0] }]); // safety floor far below the trench
     env.setProbe(new THREE.Vector3(spawn[0], 6, spawn[2]), R.tier.name === 'Low' ? 128 : 256);
   } else if (sceneName === 'test') {
@@ -98,7 +98,7 @@ export async function startGame(app: HTMLElement) {
       if (id === PLAYER && player.state === 'drive') { player.exit(); } }; damages.set(id0, d); return d; };
   const chase = new ChaseCamera(R.camera, colliders); if (city) chase.cast = (o, d, f) => city!.cast(o, d, f);
   const follow = new FollowCamera(R.camera); if (city) follow.cast = (o, d, f) => city!.cast(o, d, f);
-  const harbour = city ? new Harbour(R, phys, pool, city.mats.get('concrete')) : null; const boat = harbour?.boat ?? null;
+  const preHarbour = new Set(R.scene.children); const harbour = city ? new Harbour(R, phys, pool, city.mats.get('concrete')) : null; for (const o of R.scene.children) if (!preHarbour.has(o)) o.userData.hlCat = 'harbour'; const boat = harbour?.boat ?? null;
   const player = new Player(R, phys, PLAYER_CHAR, params.get('char') ?? 'standing_man'); let playerLoading = false;
   const crowdMin = params.get('crowdmin'); const stress = params.has('stress'); const crowd = new Crowd(R, stress ? 100 : Math.round(+(params.get('crowd') ?? 220) * R.tier.crowd), ['lod_andrew', 'lod_paul', 'lod_jessica', 'lod_dude', 'debra', 'young_female', 'biz_jj', 'oldman_coat']); if (crowdMin) crowd.minDist = +crowdMin;
   const loadPlayer = () => { if (playerLoading) return; playerLoading = true; const st = phys.vehicle(PLAYER); const yaw0 = spawnYaw;
@@ -132,7 +132,7 @@ export async function startGame(app: HTMLElement) {
   const life: TrafficSystem | null = city ? new TrafficSystem({ phys, camera: R.camera, readyAt: (x, z) => city!.readyAt(x, z), phase, wrecked: (id) => !!damages.get(id)?.wrecked, tuning: (c) => resolveTuning(c, 'Grippy'),
     spawnVis: (cls, id) => { const v = makeCar(LIVERY[cls] ?? PAINTS[Math.floor(Math.random() * PAINTS.length)], false, cls) as SourcedCar; R.scene.add(v.root); addDamage(id, v as any, resolveTuning(cls, 'Grippy').mass / 1350); combat.targets.push(carTarget(id)); return v; },
     removeVis: (c) => { R.scene.remove(c.vis.root); disposeVis(c.vis.root); damages.delete(c.id); prevPos.delete(c.id); velState.delete(c.id); combat.targets = combat.targets.filter((t) => t.id !== 'car' + c.id); },
-    obstacles: () => { const o: THREE.Vector3[] = []; if (state) o.push(new THREE.Vector3(...state.pos)); if (player.ready && player.state !== 'drive') o.push(player.position.clone()); for (const pd of peds) if (!pd.dead) o.push(pd.worldPos); return o; } }, stress ? 40 : Math.round(+(params.get('traffic') ?? 16) * (R.tier.name === 'Lite' ? 0.25 : R.tier.crowd > 0.6 ? 1 : 0.6))) : null;
+    obstacles: () => { const o: THREE.Vector3[] = []; if (state) o.push(new THREE.Vector3(...state.pos)); if (player.ready && player.state !== 'drive') o.push(player.position.clone()); for (const pd of peds) if (!pd.dead) o.push(pd.worldPos); return o; } }, stress ? 40 : Math.min(R.tier.name === 'Low' && !params.get('traffic') ? 8 : 99, Math.round(+(params.get('traffic') ?? 16) * (R.tier.name === 'Lite' ? 0.25 : R.tier.crowd > 0.6 ? 1 : 0.6)))) : null; // Low capped at 8 cars, Lite ~4
   combat.onEvent = (kind, owner, pos, tg) => { if (kind !== 'hit') { gunfire = pos.clone(); crowd.scare(pos, kind === 'explode' ? 60 : 40); const d = pos.distanceTo(R.camera.position); if (kind === 'explode') audio.boom(d); else audio.gun(d, owner === 'player' && ['shotgun', 'sniper', 'rpg'].includes(arsenal?.cur ?? '')); }
     if (owner !== 'player' || !wanted) return;
     if (kind === 'shot') wanted.crime('shot'); else if (kind === 'explode') wanted.crime('carBomb');
@@ -145,7 +145,9 @@ export async function startGame(app: HTMLElement) {
     spawnOfficer: (at, weapon, yaw): Officer => { at.y = groundAt(at.x, at.z); const c = new Combatant(R, phys, combat, { boxes: () => city?.allBoxes() ?? [] }, Math.random() < 0.7 ? 'police_m' : 'police_f', 1, weapon); cops.push(c);
       c.load(at, yaw).then(() => c.alert(player.position.clone())).catch((e) => console.warn('cop', e?.message));
       return { pos: () => c.ch.root.position, get dead() { return c.state === 'dead'; }, update: (dt) => c.update(dt, playerTarget, cops),
+        setArrest: (on) => { if (on === c.noCover) return; c.noCover = on; c.standoff = on ? 1.0 : 12; if (on && (c.state === 'cover' || c.state === 'toCover')) c.state = 'advance'; },
         dispose: () => { R.scene.remove(c.ch.root); if (c.state !== 'dead') phys.removeChar(c.id); combat.targets = combat.targets.filter((t) => t !== c.tgt); cops.splice(cops.indexOf(c), 1); } }; } }, app) : null;
+  if (wanted && !stress) wanted.caps = R.tier.name === 'Lite' ? { units: 2, officers: 2 } : R.tier.name === 'Low' ? { units: 3, officers: 4 } : wanted.caps;
   const barMats = [new THREE.MeshStandardMaterial({ color: 0x220000, emissive: 0xff1010, emissiveIntensity: 0 }), new THREE.MeshStandardMaterial({ color: 0x000022, emissive: 0x1030ff, emissiveIntensity: 0 })];
   /** Roof light bar for cruisers: added once the model is loaded; per-car material copies so each flashes on its own. */
   const lightBar = (v: SourcedCar & { bar?: THREE.Mesh[] }, f: number) => { if (!v.ready) return; if (!v.bar) { const b = new THREE.Box3().setFromObject(v.body); const loc = v.root.worldToLocal(b.max.clone()); const y = loc.y + 0.06;

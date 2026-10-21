@@ -8,7 +8,11 @@ export interface LightOut { pos: number[]; color: number; intensity: number; dis
 export class Batch {
   geos = new Map<string, THREE.BufferGeometry[]>(); colliders: StaticDesc[] = []; lights: LightOut[] = []; parked: { pos: number[]; yaw: number; paint: number }[] = [];
   steam: number[][] = []; tlights: { pos: number[]; face: number[]; axis: number }[] = [];
-  add(key: string, g: THREE.BufferGeometry) { const n = g.index ? g.toNonIndexed() : g; for (const k of Object.keys(n.attributes)) if (!['position', 'normal', 'uv', 'color'].includes(k)) n.deleteAttribute(k); (this.geos.get(key) ?? this.geos.set(key, []).get(key)!).push(n); }
+  /** While set, geometry added under `tintKey` gets `tint` as a vertex colour (one wall material per style instead of one per tint = fewer draws). */
+  tintKey = ''; tint = new THREE.Color();
+  add(key: string, g: THREE.BufferGeometry) { const n = g.index ? g.toNonIndexed() : g; for (const k of Object.keys(n.attributes)) if (!['position', 'normal', 'uv', 'color'].includes(k)) n.deleteAttribute(k);
+    if (key === this.tintKey && !n.attributes.color) { const c = new Float32Array(n.attributes.position.count * 3); for (let i = 0; i < c.length; i += 3) { c[i] = this.tint.r; c[i + 1] = this.tint.g; c[i + 2] = this.tint.b; } n.setAttribute('color', new THREE.BufferAttribute(c, 3)); }
+    (this.geos.get(key) ?? this.geos.set(key, []).get(key)!).push(n); }
 }
 export const rnd = (s: number) => () => ((s = (Math.imul(s, 16807) >>> 0) % 2147483647 || 1) / 2147483647);
 export const box = (w: number, h: number, d: number, x: number, y: number, z: number) => { const g = new THREE.BoxGeometry(w, h, d); g.translate(x, y, z); return g; };
@@ -28,7 +32,7 @@ export const TINTS = { brick: [0xe8d6c8, 0xb98c72, 0x9e6a55, 0x8c5a48, 0xffffff]
 export function building(B: Batch, b: BuildingSpec) {
   const r = rnd(b.seed * 9973 + 7); const tower = b.style === 'tower'; const fh = tower ? 3.8 : 3.4; const gfH = b.shop ? 4.6 : fh;
   const totalH = gfH + (b.floors - 1) * fh; const y0b = b.y ?? 0.15; const rot = b.rot ?? 0;
-  const wallKey = `wall_${b.style === 'tower' ? 'concrete' : b.style}_${b.tint.toString(16)}`; const WS = b.style === 'brick' ? 1.7 : 2.6;
+  const wallKey = `wall_${b.style === 'tower' ? 'concrete' : b.style}`; B.tintKey = wallKey; B.tint.set(b.tint); const WS = b.style === 'brick' ? 1.7 : 2.6;
   const place = (g: THREE.BufferGeometry) => tf(g, b.x, y0b, b.z, rot);
   const recess = 0.22; const cellW = tower ? 1.6 : 2.2;
   const add = (key: string, g: THREE.BufferGeometry, uvs = 0) => B.add(key, uvs ? worldUV(place(g), uvs) : place(g));

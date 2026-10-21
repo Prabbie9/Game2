@@ -18,7 +18,7 @@ export class Streaming {
   stats = { built: 0, lastMs: 0, maxMs: 0, near: 0, far: 0, mainMs: 0, mainMaxMs: 0 }; steamVents: THREE.Vector3[] = [];
   private lightIds = 0; private inbox: any[] = [];
   constructor(public R: Renderer, public phys: PhysicsClient, public pool: LightPool, public seed = 1337) {
-    this.mats = new WorldMaterials(R); R.scene.add(this.root);
+    this.mats = new WorldMaterials(R); R.scene.add(this.root); this.root.userData.hlCat = 'city chunks';
     // citywide far ground (asphalt) 3 cm below chunk ground; near chunks draw their own detailed ground on top
     for (const r of groundRects()) { const g = new THREE.PlaneGeometry(r.x1 - r.x0, r.z1 - r.z0).rotateX(-Math.PI / 2); g.translate((r.x0 + r.x1) / 2, -0.03, (r.z0 + r.z1) / 2);
       const p = g.attributes.position, uv = g.attributes.uv as THREE.BufferAttribute; for (let i = 0; i < p.count; i++) uv.setXY(i, p.getX(i) / 4.5, p.getZ(i) / 4.5);
@@ -26,7 +26,7 @@ export class Streaming {
     for (let i = 0; i < 2; i++) { const w = new Worker(new URL('./chunkworker.ts', import.meta.url), { type: 'module' }); w.onmessage = (e) => { this.busy[i]--; this.inbox.push(e.data); }; this.workers.push(w); }
     // pre-warm: compile every kit material up front (KHR_parallel_shader_compile) so first sight of a chunk doesn't stall
     const keys = ['asphalt', 'tar', 'walk', 'kerb', 'tiles', 'concrete', 'trim', 'roof', 'rooftop', 'awning', 'pole', 'furn', 'iron', 'bench', 'bark', 'hydrant', 'litter', 'paint', 'paintY', 'lamphead', 'frame_tower', 'frame_std', 'glass_std', 'glass_tower', 'glass_shop', 'glass_shelter', 'water', 'leaf', 'leafInner', 'far', 'sign_0',
-      ...['brick', 'plaster', 'concrete'].flatMap((st) => (({ brick: [0xe8d6c8, 0xb98c72, 0x9e6a55, 0x8c5a48, 0xffffff], plaster: [0xd9cdb4, 0xa9b7b9, 0xc9b89a, 0xe6dccb, 0xb7a58c], concrete: [0xd8d4cc, 0xbab3a8, 0xffffff, 0xa8a49c] } as any)[st] as number[]).map((t) => `wall_${st}_${t.toString(16)}`))];
+      'wall_brick', 'wall_plaster', 'wall_concrete'];
     const warm = new THREE.Scene(); const g = new THREE.BoxGeometry(1, 1, 1); g.setAttribute('color', new THREE.BufferAttribute(new Float32Array(g.attributes.position.count * 3).fill(1), 3));
     for (const k of keys) warm.add(new THREE.Mesh(g, this.mats.get(k))); warm.environment = R.scene.environment; warm.fog = R.scene.fog;
     for (const l of R.csm.lights) warm.add(l.clone());
@@ -65,7 +65,7 @@ export class Streaming {
       c.boxes = d.colliders.filter((q: any) => q.kind === 'box' && q.half[1] > 0.6 && !q.rot).map((q: any) => new THREE.Box3(new THREE.Vector3(q.pos[0] - q.half[0], q.pos[1] - q.half[1], q.pos[2] - q.half[2]), new THREE.Vector3(q.pos[0] + q.half[0], q.pos[1] + q.half[1], q.pos[2] + q.half[2])));
       for (const l of d.lights) { const id = ++this.lightIds; this.pool.add({ pos: new THREE.Vector3(...l.pos), color: new THREE.Color(l.color), intensity: l.intensity, distance: l.distance, nightOnly: true, group: c.key } as any); c.lights.push(id); }
       for (const t of d.tlights) this.trafficLight(c.group, t);
-      for (const p of d.parked) { if (this.parkedCount >= this.parkedBudget) break; const car = new SourcedCar(this.R, 'kiri', { paint: PAINTS[p.paint % PAINTS.length], frozen: true, lod: 1 }); car.root.position.set(p.pos[0], p.pos[1], p.pos[2]); car.root.rotation.y = p.yaw; c.group.add(car.root); c.parked.push(car); this.parkedCount++; car.load().catch(() => {}); }
+      for (const p of d.parked) { if (this.parkedCount >= this.parkedBudget) break; const car = new SourcedCar(this.R, 'kiri', { paint: PAINTS[p.paint % PAINTS.length], frozen: true, lod: 1 }); car.root.userData.hlCat = 'parked car'; car.root.position.set(p.pos[0], p.pos[1], p.pos[2]); car.root.rotation.y = p.yaw; c.group.add(car.root); c.parked.push(car); this.parkedCount++; car.load().catch(() => {}); }
       c.steam = d.steam.map((s: number[]) => new THREE.Vector3(...s));
     }
     this.root.add(c.group); this.refreshSteam();

@@ -16,7 +16,7 @@ export class WorldMaterials {
   get(key: string): THREE.Material { let x = this.m.get(key); if (!x) { x = this.make(key); this.m.set(key, x); } return x; }
   private make(key: string): THREE.Material {
     const R = this.R; const S = <T extends THREE.Material>(m: T) => R.setupMaterial(m);
-    if (key.startsWith('wall_')) { const [, style, tint] = key.split('_'); return S(pbr(style === 'brick' ? 'brick' : style === 'concrete' ? 'concrete' : 'plaster', { grime: 0.5, tint: parseInt(tint, 16), aoIntensity: 0.8 }, key)); }
+    if (key.startsWith('wall_')) { const [, style] = key.split('_'); const m = pbr(style === 'brick' ? 'brick' : style === 'concrete' ? 'concrete' : 'plaster', { grime: 0.5, aoIntensity: 0.8 }, key); m.vertexColors = true; return S(m); } // per-building tint comes from the vertex colour
     if (key.startsWith('sign_')) { const m = new THREE.MeshStandardMaterial({ color: 0x111111, emissive: SIGN_COLS[+key.slice(5) % 5], emissiveIntensity: 1, roughness: 0.4 }); this.signs.push(m); return m; }
     if (key === 'far') return S(this.farMat());
     switch (key) {

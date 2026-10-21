@@ -99,19 +99,23 @@ export class Harbour {
     cont.count = nc; cont.castShadow = cont.receiveShadow = true; S.add(cont);
     // gantry cranes (legs on the apron, boom over the water)
     const craneM = R.setupMaterial(new THREE.MeshStandardMaterial({ color: 0xb4321f, roughness: 0.55, metalness: 0.4 })); const craneW = R.setupMaterial(new THREE.MeshStandardMaterial({ color: 0xe8e4da, roughness: 0.6, metalness: 0.2 }));
-    for (const cx of [-470, -390, 380, 460]) { const g: THREE.BufferGeometry[] = [], w: THREE.BufferGeometry[] = []; const zA = QUAY_Z - 22, zB = QUAY_Z - 4;
+    const g: THREE.BufferGeometry[] = [], w: THREE.BufferGeometry[] = []; // all four cranes share two meshes (one per material)
+    for (const cx of [-470, -390, 380, 460]) { const zA = QUAY_Z - 22, zB = QUAY_Z - 4;
       for (const dx of [-8, 8]) for (const zz of [zA, zB]) { g.push(box(1.2, 34, 1.2, cx + dx, 17, zz)); col([0.6, 17, 0.6], [cx + dx, 17, zz]); }
       for (const dx of [-8, 8]) g.push(box(1.0, 1.4, zB - zA, cx + dx, 6, (zA + zB) / 2), box(1.4, 2.2, zB - zA + 1.2, cx + dx, 34, (zA + zB) / 2));
       g.push(box(17.2, 1.6, 1.6, cx, 34, zA), box(17.2, 1.6, 1.6, cx, 34, zB)); w.push(box(3.2, 2.6, 62, cx, 36.2, QUAY_Z + 12), box(5, 4, 5, cx + 3.5, 31.5, QUAY_Z - 2), box(2, 12, 2, cx, 43, zA + 3));
       for (let i = 0; i < 8; i++) g.push(box(0.25, 0.25, 9, cx + (i % 2 ? 1.3 : -1.3), 37.8, QUAY_Z - 18 + i * 8));
-      const cm = new THREE.Mesh(mergeGeometries(g), craneM), cw = new THREE.Mesh(mergeGeometries(w), craneW); cm.castShadow = cw.castShadow = true; S.add(cm, cw); }
+    }
+    { const cm = new THREE.Mesh(mergeGeometries(g), craneM), cw = new THREE.Mesh(mergeGeometries(w), craneW); cm.castShadow = cw.castShadow = true; S.add(cm, cw); }
     // warehouses: corrugated sheds with low-pitched roofs
     const shedRibs = ribs(14); shedRibs.repeat.set(20, 1); const shedM = R.setupMaterial(new THREE.MeshStandardMaterial({ color: 0x9aa2a6, roughness: 0.55, metalness: 0.5, normalMap: shedRibs }));
     const roofM = R.setupMaterial(new THREE.MeshStandardMaterial({ color: 0x5d6468, roughness: 0.6, metalness: 0.5 })); const doorM = R.setupMaterial(new THREE.MeshStandardMaterial({ color: 0x2f3a40, roughness: 0.7, metalness: 0.4 }));
-    for (const [sx, len] of [[-250, 70], [-30, 54], [170, 64], [620, 80]]) { const W = 24, H = 11, z = APRON_Z0 + 22; S.add(Object.assign(new THREE.Mesh(box(len, H, W, sx, H / 2, z), shedM), { castShadow: true, receiveShadow: true }));
+    const walls: THREE.BufferGeometry[] = [], roofs: THREE.BufferGeometry[] = [], doors: THREE.BufferGeometry[] = []; // merged per material across all sheds
+    for (const [sx, len] of [[-250, 70], [-30, 54], [170, 64], [620, 80]]) { const W = 24, H = 11, z = APRON_Z0 + 22; walls.push(box(len, H, W, sx, H / 2, z));
       const roof = new THREE.Shape([new THREE.Vector2(-W / 2 - 0.6, 0), new THREE.Vector2(0, 2.6), new THREE.Vector2(W / 2 + 0.6, 0)]); const rg = new THREE.ExtrudeGeometry(roof, { depth: len + 1.2, bevelEnabled: false }).rotateY(Math.PI / 2).translate(sx - len / 2 - 0.6, H, z);
-      S.add(Object.assign(new THREE.Mesh(rg, roofM), { castShadow: true })); for (let i = 0; i < 3; i++) S.add(new THREE.Mesh(box(7, 6, 0.2, sx - len / 3 + (i * len) / 3, 3, z + W / 2 + 0.05), doorM));
+      roofs.push(rg); for (let i = 0; i < 3; i++) doors.push(box(7, 6, 0.2, sx - len / 3 + (i * len) / 3, 3, z + W / 2 + 0.05));
       col([len / 2, H / 2, W / 2], [sx, H / 2, z]); }
+    S.add(Object.assign(new THREE.Mesh(mergeGeometries(walls), shedM), { castShadow: true, receiveShadow: true }), Object.assign(new THREE.Mesh(mergeGeometries(roofs), roofM), { castShadow: true }), new THREE.Mesh(mergeGeometries(doors), doorM));
     // floodlight masts (pooled lights at night)
     const mastM = R.setupMaterial(new THREE.MeshStandardMaterial({ color: 0x55595d, roughness: 0.5, metalness: 0.7 })); const headM = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0xffe2b0, emissiveIntensity: 0 }); this.headM = headM;
     const mg: THREE.BufferGeometry[] = [], hg: THREE.BufferGeometry[] = [];

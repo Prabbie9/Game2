@@ -61,6 +61,9 @@ export class SourcedCar {
     if (this.opts.beams) for (const x of [-1, 1]) { const b = new THREE.SpotLight(0xfff1dc, 0, 70, 0.42, 0.55, 1.6); b.position.set(x * 0.6, 0.6 + bodyY, meta.length / 2 - 0.1); b.target.position.set(x * 0.9, -0.6 + bodyY, 22); this.body.add(b, b.target); this.beams.push(b); }
     if (this.opts.frozen) { mergeByMaterial(this.root); this.wheels = []; }
     else mergeByMaterial(this.body);
+    // Lite/Low: each shadow-casting mesh is re-drawn per cascade, so only the largest body mesh casts (parked cars: none; the contact blob grounds them)
+    if (/^(Lite|Low)$/.test(R.tier.name)) { let big: THREE.Mesh | null = null, n = 0; this.root.traverse((o) => { const me = o as THREE.Mesh; if (!me.isMesh || me.renderOrder === 2) return; const c = me.geometry.attributes.position.count; if (c > n && !(me.material as any).transparent) { n = c; big = me; } me.castShadow = false; });
+      if (big && !this.opts.frozen) (big as THREE.Mesh).castShadow = true; }
     this.ready = true; this.setLights(this.lightsOn); return this;
   }
   setLights(on: boolean) { this.lightsOn = on; for (const b of this.beams) b.intensity = on ? 60 : 0; for (const m of this.lights.head) m.emissiveIntensity = on ? 7 : 0.2; for (const m of this.lights.brake) m.emissiveIntensity = (on ? 2 : 0.3) + this.braking * 10; }
