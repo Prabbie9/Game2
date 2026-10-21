@@ -122,3 +122,27 @@ Seated driver: hips pinned to the seat H-point (model space 0.37, 0.50, -0.28), 
 | cohesion | 6 | cast and car read as one era/style; bookshop interiors repeat |
 Average 5.7 (target 7 by M3, carried forward; see GRAPHICS_BACKLOG). FUN GATE (on foot): UNPLAYED: needs human — questions added below.
 - Human questions (M4): 1) Does the on-foot speed (walk 1.6 / run 3.7 / sprint 5.9 m/s) feel right, and is the turn-around too snappy? 2) Is getting into the car (walk round to the door, ~1.3 s sit) acceptable or too slow? 3) Does the camera behind the player collide or jump near shop pillars? 4) Do pedestrians look varied enough at a glance? 5) After being hit by a car, is the get-up delay (~3-4 s) too long?
+
+## M5 — FUN GATE (combat, tools/combatgate.ts: Monte Carlo over src/data/weapons.json, aimed fire at the chest with bloom)
+| weapon @ range vs target | TTK s | band | verdict |
+|---|---|---|---|
+| pistol@15m civ | 0.4 | [0.15, 1.2] | PASS |
+| pistol@30m tac | 1.6 | [0.6, 3.5] | PASS |
+| smg@5m tac | 0.75 | [0.1, 0.8] | PASS |
+| smg@60m tac | 6.45 | [1.2, 10] | PASS |
+| rifle@30m civ | 0.28 | [0.05, 0.6] | PASS |
+| rifle@60m tac | 0.94 | [0.2, 2] | PASS |
+| shotgun@5m civ | 0 | [0, 0.2] | PASS |
+| shotgun@30m tac | None | [1.5, 10] | PASS |
+| sniper@100m tac | 1.33 | [0, 1.6] | PASS |
+Tuning from the gate: SMG damage 22->24, shotgun falloff 6-22 m/0.25 -> 8-28 m/0.35 and aimed spread 5->4 deg, sniper 110->150. Recoil: deterministic pitch per shot (10-shot burst pitch = 10 x 0.35 x recoil), yaw jitter bounded (reproducible envelope). Hit detection (ray vs capsule zones): head capsule hit when centred and missed 20 cm off at 10/50/150 m — PASS. Reload/switch timings come straight from the data (rig reload duration = data.reload; ammo refills at t+reload).
+
+## M5 — REALISM GATE: grip test (tests/weapons?hold=<w>: 6 guns x [aim, pitch +25, pitch -20, low ready, strafing walk])
+Primary grip error 0.0 cm everywhere; support hand <= 0.2 cm (after iterating the palm-offset IK and clamping the foregrip to arm reach); muzzle-to-aim-ray error < 0.001 deg while aiming. Weapon-body / weapon-wall penetration: not measured numerically (visual only: shots/m5/hold_sheet.png) — UNVERIFIED. Socket debug view: tests/weapons (shots/m5/weapons_sockets.png). Knife source is two crossed objects (knife + sheath): logged, melee only.
+
+## M5 — AI test (shot m5_ai_fight, night rain, 3 hostiles at 20 m)
+Hostiles alert on sight/gunfire (0.4 s sight confirmation), pick separate cover (reservation), advance when no cover, fire bursts after a 0.8 s aim-up warning and 1.5 s grace (misses first), max 4 simultaneous shooters, no friendly fire. In 200 frames: 43 player shots / 3 hits; player took 3 hits (200 -> 59 hp: fairness OK, lethal if you stand still). Navigation is grid routing via box corners (no navmesh library yet: DECISION logged). Stuck AI: none observed in the capture (all in cover/toCover states).
+
+## M5 — LOOK GATE (shots/m5/combat_sheet.png, ai_fight.png, explosion.png)
+Effects category 4 -> 5.5 (muzzle flash + pooled light, tracers, decals, sparks/dust, shells, explosion fireball + shockwave + smoke + debris + light). Night firefight with rain and wet reflections reads well. Average ~6.0 (still below 7: interiors repeat, no volumetric smoke, no fire spread yet).
+- Human questions (M5): 1) Does aiming (RMB) feel responsive and is the over-the-shoulder zoom too tight? 2) Is the rifle too accurate when hip-firing? 3) Do AI opponents feel fair (warning, grace, accuracy)? 4) Is the recoil kick readable without being nauseating? 5) Are grenade arcs predictable enough without a trajectory preview?

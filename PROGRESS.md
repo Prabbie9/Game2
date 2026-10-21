@@ -1,8 +1,8 @@
 # PROGRESS
-NEXT STEP: M5 — fetch clip wave 3 (pistol/rifle idle-aim-fire-reload sets, melee, throw; ~50 calls), weapon archetypes with sockets + hand IK, aim offsets, hit reactions/ragdoll by zone, effects (muzzle, tracers, decals, explosions).
+NEXT STEP: M6 — vehicle fleet (DanielZhabotinsky 80s family via tools/vehicle_prep.py), per-class tuning + fun gate, damage (deformation, detachable parts, glass, fire, explosion), motorbike, per-class engine audio, driver IK.
 
-STEPS_USED: ~660 (M0 ~80, M1 ~75, M2 ~190, M3 ~95, M4 ~220)   DRIVE_CALLS_USED: 196 / 300   SKETCHFAB_DOWNLOADS: 36 / 150
-MILESTONE: M4 done (checkpoint 5, known-good) — look gate 5.7/7 carried forward; stairs grounding + door opening open
+STEPS_USED: ~830 (M0 ~80, M1 ~75, M2 ~190, M3 ~95, M4 ~220, M5 ~170)   DRIVE_CALLS_USED: 196 / 300   SKETCHFAB_DOWNLOADS: 36 / 150
+MILESTONE: M5 done (checkpoint 6) — combat gate + grip test pass; look ~6.0/7 carried
 
 ## Milestones
 - M0 Setup: DONE. Drive indexed (846 clips, 23 chars), wave 1 (82 clips) fetched + ingested (2.0MB bundles), Sketchfab working, Artifact route published, renderer = WebGL + postprocessing.
@@ -10,6 +10,7 @@ MILESTONE: M4 done (checkpoint 5, known-good) — look gate 5.7/7 carried forwar
 - M1 Vehicle feel grey-box: DONE. Rapier ray-cast vehicle in a worker + arcade assists (drift state + angle limiter, yaw assist, countersteer, anti-flip, self-right), chase cam, tuning panel (K) with presets + copy, synthesized audio, rain/night mood test. Fun gate proxies pass for all presets (PLAYTEST.md).
 - M2 Look slice: DONE with shortfall. PBR KTX2 library, building kit + interior mapping, intersection slice, SSR, sky dome, scene probe, sourced car via prep tool (Kiri '86), Mixamo peds, rest test (props pass).
 - M4 Characters + animation: DONE with shortfalls (stairs grounding, door opening, crouch walk arms, look avg 5.7). Wave 2 (62 clips) ingested -> 144 clips / 6 bundles. Cast: 15 Sketchfab Mixamo-rigged bodies (CC-BY) prepped to LOD0 (~24k tris, 60k player) + LOD1 (~6k) with meshopt + WebP, palette variants (4 per body -> 60 looks). On-foot player (Rapier character controller in the worker: autostep, snap, slope limit, crouch capsule, obstacle probe), speed-matched phase-synced gait blend tree, jump/fall/land, vault/climb, foot IK (two-bone, toe/heel contact, pelvis, ankle-to-normal, planted locking), car enter/exit without teleport (door route, seat H-point pin, steering-wheel hand IK), ragdolls + get-up blend, vehicle impacts, cast pedestrians, VAT instanced crowd (mid/far).
+- M5 Weapons + combat: DONE. Wave 3 (29 clips), 11 sourced weapons (prep tool: auto orientation + sockets), data-driven ballistics, weapon rig (palm anchor, shouldering, spine aim offset, two-hand IK, recoil spring, procedural reload), directional armed stances, hitscan zones / projectiles / throwables / explosions with physics impulses, combat FX, player arsenal + aim camera + crosshair, hostile AI (cover, routing, warning + grace), combat + grip gates.
 - M3 World generator + streaming: DONE. Seeded Downtown (grid, arterials, plaza, underpass/tunnel, elevated highway), 128 m chunks built in 2 workers, near/far LOD, physics groups, time-sliced apply, shader pre-warm, bot budget reports.
 
 ## DECISIONS
@@ -38,3 +39,6 @@ MILESTONE: M4 done (checkpoint 5, known-good) — look gate 5.7/7 carried forwar
 - Crouched forward walk: none -> "Walking Backwards While Crouched" played reversed.
 - Pistol idle/reload: no dedicated clips found -> "Pistol Aim To Holster Idle" frames + procedural reload (M5).
 - "Running Forwards" holds the right arm overhead in our retarget -> run gait = "Slow Run Forward" (wave 3a, 2 calls).
+- Weapons: hand-held placement is procedural (palm anchor + aim alignment + IK) rather than authored per-weapon hand offsets; sockets come from geometry (tools/weapon_prep.mjs) with overrides in tools/weapon_overrides.json.
+- AI navigation: grid routing via blocking-box corners on the main thread instead of recast-navigation-js (the street grid makes straight segments sufficient; revisit for Harbour/Hillside in M8).
+- Character controller: refresh Rapier scene queries before controller steps; toggle the capsule collider only on change; keep a 0.5 m/s ground push (grounded flag).

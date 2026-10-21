@@ -19,6 +19,7 @@ export const SHOTS: Record<string, Shot> = {
   m5_firefight: { t: 22.8, w: 'rain', frames: 40, hideHud: true, foot: { weapon: 'rifle', aim: true, fireEvery: 3, faceYaw: Math.PI, camYaw: Math.PI } },
   m5_explosion: { t: 20.6, w: 'clear', frames: 64, hideHud: true, cam: { pos: [-4.5, 2.4, -138], look: [-11, 1.0, -150], fov: 55 }, foot: { weapon: 'rifle', explodeAt: 55, explodeRel: [0, 0, 6], faceYaw: Math.PI } },
   m5_ai: { t: 22.6, w: 'rain', frames: 210, foot: { weapon: 'rifle', aim: true, hostiles: 3, hostileDist: 24, faceYaw: Math.PI, camYaw: Math.PI } },
+  m5_ai_fight: { t: 22.6, w: 'rain', frames: 200, hideHud: true, foot: { weapon: 'rifle', aim: true, fireEvery: 2, hostiles: 3, hostileDist: 20, faceYaw: Math.PI, camYaw: Math.PI } },
   m4_crowd: { t: 17.2, w: 'clear', frames: 150, hideHud: true, cam: { pos: [-17.5, 1.7, -186], look: [-12, 1.2, -140], fov: 50 } },
   m3_golden: { t: 19.1, w: 'clear', start: [-4.2, 1.2, -150], frames: 120, hideHud: true, cam: { pos: [-11, 1.7, -175], look: [-2, 7, -60], fov: 58 } },
   m3_overcast: { t: 13.5, w: 'overcast', start: [-4.2, 1.2, -150], frames: 120, hideHud: true, cam: { pos: [-11, 1.7, -175], look: [-2, 7, -60], fov: 58 } },

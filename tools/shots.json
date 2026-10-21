@@ -42,5 +42,26 @@
   "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
   "w": 480,
   "h": 270
+ },
+ {
+  "url": "index.html?shot=m5_rifle_aim",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "w": 480,
+  "h": 270,
+  "timeout": 300000
+ },
+ {
+  "url": "index.html?shot=m5_explosion",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "w": 480,
+  "h": 270,
+  "timeout": 300000
+ },
+ {
+  "url": "index.html?shot=m5_ai",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "w": 480,
+  "h": 270,
+  "timeout": 300000
  }
 ]
