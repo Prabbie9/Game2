@@ -255,5 +255,5 @@ Same views on every tier at 1280×720 (Downtown golden hour `m3_golden`; Harbour
 - **Triangles fail on every tier.** Counts are per-frame totals across all passes: 2–4 shadow cascades and the depth/normal pre-passes for AO/SSR re-draw the scene. Even allowing for that, Downtown on Low is about 3.5× the 1.0 M budget (the M3 backlog already flagged Low near-LOD at 1.68 M scene triangles).
 - **Downtown draw calls fail on Low, Medium and High** (1607, 2716, 3251). Harbour is within budget on every tier.
 - Texture memory (estimated from texture dimensions / KTX2 mip data) and JS heap are within budget on every tier.
-- LOD chains on Low/Medium: LODCHECK_PLACEHOLDER
+- LOD chains confirmed running (same view, `HARBOURLINE_DEBUG.stats().chunks`). Low: 9 near-LOD and 88 far-LOD chunks. Medium: 9 near and 128 far (longer draw distance). Character meshes in the scene: 3 large skinned meshes (player LOD0) and 96 small ones (under 9k vertices, i.e. LOD1 bodies). That LOD0/LOD1 split is a vertex-count heuristic. The LOD chains run, but they don't bring Low within the triangle or draw-call budget.
 - The budgets were set for this pass (Low 1200 draws / 1.0 M triangles / 1 GB textures / 700 MB heap, doubling roughly per tier). They are not measured from real laptops.
