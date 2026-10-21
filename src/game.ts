@@ -29,7 +29,7 @@ import { Player } from './character/player';
 import { FollowCamera } from './camera/follow';
 import { Crowd } from './crowds/crowd';
 import { CombatFX } from './fx/combatfx';
-import { Combat, type Target, type WorldHit, type WeaponId } from './combat/combat';
+import { Combat, WDATA, type Target, type WorldHit, type WeaponId } from './combat/combat';
 import { Arsenal } from './combat/arsenal';
 import { Combatant } from './ai/combatant';
 import { TrafficSystem, type TrafficCar } from './life/traffic';
@@ -227,6 +227,11 @@ export async function startGame(app: HTMLElement) {
     crime: (k: any) => wanted?.crime(k), gameState: () => ({ banner: bannerEl.hidden ? '' : bannerEl.textContent, wastedT: +wastedT.toFixed(2), health: playerHealth, pstate: player.state, pos: player.position.toArray().map((v) => +v.toFixed(1)), nearestCop: cops.filter((c) => c.state !== 'dead').reduce((m, c) => Math.min(m, c.ch.root.position.distanceTo(player.position)), 1e9) }),
     place: (id: string) => { const pl = PLACES()[id]; const p = new THREE.Vector3(...pl.p); p.y = city ? groundAt(p.x, p.z) : p.y; player.respawn(p, pl.yaw); }, wanted: () => wanted && { stars: wanted.stars, unseen: +wanted.unseen.toFixed(1), units: wanted.units.length, officers: wanted.officers.length, cops: cops.map((c) => c.state), stats: wanted.stats }, playerDamage: (n = 50) => playerTarget.hit(n, new THREE.Vector3(1, 0, 0), 'torso', 2),
     setTraffic: (n: number) => { if (life) life.max = n; }, get trafficSys() { return life; }, pending: () => pendingLoads(),
+    cars: () => [...damages].map(([id, d]) => ({ id, hp: Math.round(d.health), wrecked: d.wrecked, charred: (d as any).charred, dents: d.dents, glass: d.glassBroken, burnT: +d.burnT.toFixed(1), impacts: d.impacts, kmh: +((phys.vehicle(id)?.vf ?? 0) * 3.6).toFixed(0) })),
+    fxAlive: () => ({ smoke: cfx.smoke.p.filter((q) => q.life > 0).length, sparks: cfx.sparks.p.filter((q) => q.life > 0).length }),
+    /** Fire `n` real rifle rounds (combat ray path -> car target -> VehicleDamage.hit) at car `id` from 12 m to its side. */
+    shootCar: (id: number, n = 1) => { const st = phys.vehicle(id); if (!st) return null; const c = new THREE.Vector3(...st.pos).add(new THREE.Vector3(0, 0.4, 0)); const side = new THREE.Vector3(1, 0, 0).applyQuaternion(new THREE.Quaternion(...st.quat)); const eye = c.clone().addScaledVector(side, 12).add(new THREE.Vector3(0, 0.5, 0));
+      let hits = 0; for (let i = 0; i < n; i++) hits += combat.fire('test', { ...WDATA.rifle, spread: [0, 0] } as any, eye, eye, c.clone().sub(eye).normalize(), true, 0).filter((h) => h.target === 'car' + id).length; return hits; },
     jackNearest: () => { const t = life?.nearest(player.position, 30); return t ? jack(t) : false; },
     dmgState: (id = PLAYER) => { const d: any = damages.get(id); return d && { hp: d.health, wrecked: d.wrecked, charred: d.charred, ready: (d.car as any).ready, same: d.car === car, burnT: d.burnT, pos: d.car.root.position.toArray().map((v: number) => +v.toFixed(1)), vis: d.car.root.visible, inScene: !!d.car.root.parent, cols: (() => { const a: string[] = []; d.car.root.traverse((o: any) => { if (o.isMesh && a.length < 6) a.push(o.material.color?.getHexString() + ':' + o.material.clearcoat); }); return a; })() }; },
     damage: (id = PLAYER, dmg = 300) => { const st = phys.vehicle(id); if (st) damages.get(id)?.hit(dmg, new THREE.Vector3(...st.pos).add(new THREE.Vector3(0, 0.7, 1.8)), new THREE.Vector3(0, 0, -1)); return damages.get(id)?.health; },
@@ -242,7 +247,8 @@ export async function startGame(app: HTMLElement) {
 
   function frame() {
     requestAnimationFrame(frame);
-    const report = params.has('report'); const dt = shot || report ? 1 / 30 : Math.min(clock.getDelta(), 0.1);
+    const report = params.has('report'); const fdt = +(params.get('fdt') ?? 0); // test hook: forced frame dt (s), ?fdtj makes it uneven (0.3x..1.7x)
+    const dt = fdt ? Math.min(0.25, fdt * (params.has('fdtj') ? 0.3 + Math.random() * 1.4 : 1)) : shot || report ? 1 / 30 : Math.min(clock.getDelta(), 0.1);
     if (input.pressed('photoMode') && !spawnMenu.open && !pause.open) { photo.on = !photo.on; paused = photo.on; app.classList.toggle('photo', photo.on); photoHint.hidden = !photo.on;
       if (photo.on) { photo.target = (player.state === 'drive' ? (inBoatNow() ? boat!.root.position.clone() : tmp.p.clone()) : player.position.clone()).add(new THREE.Vector3(0, 1.1, 0)); const d = R.camera.position.clone().sub(photo.target); photo.dist = d.length(); photo.yaw = Math.atan2(d.x, d.z); photo.pitch = Math.asin(THREE.MathUtils.clamp(d.y / photo.dist, -1, 1)); photo.fov = R.camera.fov; } }
     if (input.pressed('spawnMenu') || (spawnMenu.open && input.pressed('pause'))) { const o = spawnMenu.toggle(); paused = o; if (o) document.exitPointerLock?.(); }

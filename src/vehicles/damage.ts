@@ -7,7 +7,7 @@ import type { CombatFX } from '../fx/combatfx';
 
 export interface DamageHost { root: THREE.Object3D; modelSpace?: THREE.Object3D; ready?: boolean; setLights?: (on: boolean) => void; lightsOn?: boolean }
 export class VehicleDamage {
-  health = 1000; wrecked = false; burnT = 0; glassBroken = false; age = 0; private charred = false; private pendingDents: [THREE.Vector3, THREE.Vector3, number, number][] = []; private prevV = new THREE.Vector3(); private first = true; private owned = new Set<THREE.BufferGeometry>(); dents = 0;
+  health = 1000; wrecked = false; burnT = 0; glassBroken = false; age = 0; private charred = false; private pendingDents: [THREE.Vector3, THREE.Vector3, number, number][] = []; private prevV = new THREE.Vector3(); private first = true; private owned = new Set<THREE.BufferGeometry>(); dents = 0; impacts: { age: number; g: number; dv: number; dmg: number }[] = []; // collision log (tests)
   onExplode: ((p: THREE.Vector3) => void) | null = null;
   constructor(public car: DamageHost, public fx: CombatFX, public massK = 1) {}
   private model() { return this.car.root; } // loaded cars merge their meshes under the body at load, so walk the whole root
@@ -37,7 +37,7 @@ export class VehicleDamage {
     if (this.wrecked && !this.charred && this.car.ready !== false) this.char();
     const dv = vel.clone().sub(this.prevV); this.prevV.copy(vel); const dvh = Math.hypot(dv.x, dv.z); const g = Number.isFinite(dtVel) ? dvh / Math.max(dtVel, 1e-3) : 0;
     // collision: horizontal deceleration well above braking/kerbs (> ~3.5 g); vertical drops (spawn, landings) only when violent; 2 s spawn grace
-    if (!this.wrecked && dt > 0 && this.age > 2 && ((g > 34 && dvh > 2.5) || Math.abs(dv.y) > 9)) { const dmg = (dv.length() - 2) * 28 * this.massK; const dirW = dv.clone().normalize();
+    if (!this.wrecked && dt > 0 && this.age > 2 && ((g > 34 && dvh > 2.5) || Math.abs(dv.y) > 9)) { const dmg = (dv.length() - 2) * 28 * this.massK; const dirW = dv.clone().normalize(); this.impacts.push({ age: +this.age.toFixed(2), g: +g.toFixed(1), dv: +dv.length().toFixed(2), dmg: Math.round(dmg) });
       const hitP = pos.clone().addScaledVector(dirW.clone().negate(), 1.6).add(new THREE.Vector3(0, 0.6, 0)); this.hit(dmg, hitP, dirW); this.fx.impact(hitP, dirW, 'metal'); }
     // smoke / fire / explosion
     const hood = pos.clone().add(new THREE.Vector3(0, 0.9, 1.4).applyQuaternion(quat));
