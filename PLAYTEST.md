@@ -267,3 +267,8 @@ Same views on every tier at 1280×720 (Downtown golden hour `m3_golden`; Harbour
 - Texture memory (estimated from texture dimensions / KTX2 mip data) and JS heap are within budget on every tier.
 - LOD chains confirmed running (same view, `HARBOURLINE_DEBUG.stats().chunks`). Low: 9 near-LOD and 88 far-LOD chunks. Medium: 9 near and 128 far (longer draw distance). Character meshes in the scene: 3 large skinned meshes (player LOD0) and 96 small ones (under 9k vertices, i.e. LOD1 bodies). That LOD0/LOD1 split is a vertex-count heuristic. The LOD chains run, but they don't bring Low within the triangle or draw-call budget.
 - The budgets were set for this pass (Low 1200 draws / 1.0 M triangles / 1 GB textures / 700 MB heap, doubling roughly per tier). They are not measured from real laptops.
+
+### Lite tier (merged from claude/sleepy-cray-33lspz; preview version 10)
+- Default check: the base64 artifact build (`artifact.html`, fresh profile, no `?tier`) reports tier **Lite**; plain `index.html` on SwiftShader still auto-picks Low. A tier saved in localStorage still overrides Lite.
+- Draw calls on Lite at 1280×720, same views as the tier pass: **Downtown 1,472** (Low 1,607, −8%), **Harbour 831** (Low 932, −11%). Triangles 2.91 M / 2.41 M; textures about 792 / 838 MB; heap 264 / 265 MB. Live traffic cars: 4 / 3.
+- Lite has no budget of its own. Downtown is still above the Low draw-call budget (1,200). Lite mainly cuts per-pixel cost (render scale 0.6, one cascade, no AO/SSR) and population, not draw calls.

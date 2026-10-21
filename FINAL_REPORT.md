@@ -40,6 +40,7 @@ Under load the median frame time is ×5.6 the baseline. Explosions double the p9
 **Tier pass** (tools/tierpass.mjs; Downtown golden-hour and Harbour views at 1280×720), measured / budget:
 | tier | draw calls (Downtown / Harbour) | triangles (Downtown) | textures | JS heap |
 |---|---|---|---|---|
+| Lite (merged from claude/sleepy-cray-33lspz; default in the preview) | 1,472 / 831 (no Lite budget set; still over Low's 1,200 in Downtown) | 2.91 M | 792 MB | 264 MB |
 | Low | 1,607 ❌ / 932 ✅ of 1,200 | 3.53 M ❌ of 1.0 M | 850 MB ✅ | 270 MB ✅ |
 | Medium | 2,716 ❌ / 1,446 ✅ of 2,000 | 8.93 M ❌ of 2.5 M | 1,090 MB ✅ | 340 MB ✅ |
 | High | 3,251 ❌ / 1,808 ✅ of 3,000 | 14.0 M ❌ of 5 M | 963 MB ✅ | 462 MB ✅ |
@@ -49,7 +50,7 @@ Under load the median frame time is ×5.6 the baseline. Explosions double the p9
 - The budgets were set for this pass, not measured on real laptops. **The laptop-tier goal is not met.**
 
 ## Budgets used
-STEPS_USED about 1,150 of 1,500, with features stopped at the user's request before the 85% mark. DRIVE_CALLS_USED 196 / 300 (read-only). SKETCHFAB_DOWNLOADS 63 / 150, all CC-BY (GREEN; the ledger records 63 × `by`, and CREDITS.md has no AMBER or RED rows). Publishing stayed private: one Artifact preview, version 9.
+STEPS_USED about 1,150 of 1,500, with features stopped at the user's request before the 85% mark. DRIVE_CALLS_USED 196 / 300 (read-only). SKETCHFAB_DOWNLOADS 63 / 150, all CC-BY (GREEN; the ledger records 63 × `by`, and CREDITS.md has no AMBER or RED rows). Publishing stayed private: one Artifact preview, version 10 (Lite tier default).
 
 ## Known issues (most important first)
 1. **Losing the police doesn't work.** Dispatch keeps spawning cruisers 90–140 m from the player's current position, so line of sight comes back at once and the evade timer never runs (gate: stars still 2 after 30 s, 1.2 km away).
@@ -62,7 +63,7 @@ STEPS_USED about 1,150 of 1,500, with features stopped at the user's request bef
 8. The boat is arcade (no waves or buoyancy) and only collides with the quay, the piers and the map edge (not with moored boats).
 9. Look is below the 7/7 target. The biggest wins would be density and variety (decals, signage), sourced Harbour props, a second water normal layer, and real luminance adaptation.
 10. SwiftShader is the only renderer measured here: real-GPU frame times are unknown.
-11. The hosted preview (version 9) was checked only by booting the same base64 build locally (no errors, boat loaded). The claude.ai-hosted copy needs your sign-in and wasn't opened from here.
+11. The hosted preview (version 10) was checked by booting the same base64 build locally (no errors; Lite picked by default; boat loaded) and by reading the hosted page, which references the new bundle. The claude.ai-hosted copy needs your sign-in and wasn't opened from here.
 
 ## What a human should do first
 1. Play 10 minutes: drive each class from the spawn menu (B), steal a car, start a 3-star chase (losing it is known to be broken; use the spawn menu's Clear wanted), take the boat out at the Harbour.

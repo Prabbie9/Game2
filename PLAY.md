@@ -3,7 +3,7 @@
 ## 1. Easiest: the private preview link (nothing to install)
 1. Open https://claude.ai/artifact/KXHuxRYKPx7unuEtpcf6wW while signed in to claude.ai (it is private to you).
 2. Click inside the game view to give it keyboard/mouse focus.
-The delivery self-test is at the same link with `delivery.html` (open the artifact's file list). Current checkpoint: M9 (preview version 9). Downtown with street traffic and police, the Harbour with a drivable boat (spawn menu B → Teleport → Harbour, then walk the first pier), 14 car classes, weapons, photo mode (P), Credits (Esc → Credits).
+The delivery self-test is at the same link with `delivery.html` (open the artifact's file list). Current checkpoint: M9 (preview version 10, which starts on the Lite quality tier; switch tiers in Esc → Graphics quality). Downtown with street traffic and police, the Harbour with a drivable boat (spawn menu B → Teleport → Harbour, then walk the first pier), 14 car classes, weapons, photo mode (P), Credits (Esc → Credits).
 
 ## 2. GitHub Codespace (private, runs on your own GPU)
 1. On GitHub open the Game2 repo, branch `claude/hopeful-planck-6zmdbo`.
