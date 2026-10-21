@@ -31,11 +31,11 @@ export class VehicleDamage {
   hit(dmg: number, worldP: THREE.Vector3, dir: THREE.Vector3) { if (this.wrecked) return; this.health -= dmg; if (dmg > 25) this.dent(worldP, dir, Math.min(0.14, dmg * 0.0012), 0.35 + Math.min(0.5, dmg * 0.003));
     if (dmg > 60 || Math.random() < dmg / 300) this.shatterGlass(worldP); }
   /** Per frame with the physics state (pos/vel). Returns true when it just exploded. */
-  update(dt: number, pos: THREE.Vector3, vel: THREE.Vector3, quat: THREE.Quaternion) {
+  update(dt: number, pos: THREE.Vector3, vel: THREE.Vector3, quat: THREE.Quaternion, dtVel = dt) {
     if (this.first) { this.prevV.copy(vel); this.first = false; } this.age += dt;
     if (this.car.ready !== false && this.pendingDents.length) for (const d of this.pendingDents.splice(0)) this.dent(...d);
     if (this.wrecked && !this.charred && this.car.ready !== false) this.char();
-    const dv = vel.clone().sub(this.prevV); this.prevV.copy(vel); const dvh = Math.hypot(dv.x, dv.z); const g = dvh / Math.max(dt, 1e-3);
+    const dv = vel.clone().sub(this.prevV); this.prevV.copy(vel); const dvh = Math.hypot(dv.x, dv.z); const g = Number.isFinite(dtVel) ? dvh / Math.max(dtVel, 1e-3) : 0;
     // collision: horizontal deceleration well above braking/kerbs (> ~3.5 g); vertical drops (spawn, landings) only when violent; 2 s spawn grace
     if (!this.wrecked && dt > 0 && this.age > 2 && ((g > 34 && dvh > 2.5) || Math.abs(dv.y) > 9)) { const dmg = (dv.length() - 2) * 28 * this.massK; const dirW = dv.clone().normalize();
       const hitP = pos.clone().addScaledVector(dirW.clone().negate(), 1.6).add(new THREE.Vector3(0, 0.6, 0)); this.hit(dmg, hitP, dirW); this.fx.impact(hitP, dirW, 'metal'); }
