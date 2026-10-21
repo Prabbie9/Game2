@@ -85,3 +85,6 @@ Every draw-call target is met. Texture memory on Low under stress is over budget
 ### Re-measure on commit 690659c (Low 1,024 px cap, Harbour dressing, water layer)
 Draws (target): Lite 313 / 232 / 471 / 386; Low 382 / 286 / 555 / 454; Medium 1,051 / 785 / 1,518 / 1,060; High 1,481 / 985 / 2,040 / 1,424 (Downtown / Harbour / Downtown stress / Harbour stress). All within target.
 **Low texture memory under stress is still over budget: 1,609 MB Downtown, 1,203 MB Harbour (budget 1,024). The 1,024 px cap had no measurable effect** — the bulk is not uncompressed images above 1,024 px. Under investigation (change 15 is not counted as a fix).
+| 15 | Low texture cap: colour maps 768 px, normal/roughness/metalness/AO maps 512 px (a first try at 1,024 px had no effect: 209 car/character maps were already exactly 1,024 px) | Low Downtown stress / Harbour stress, tier pass | 1,609 / 1,203 MB | 836 / 633 MB | yes (tier pass; close-ups `shots/m10/lowcap_compare.png` show no visible difference) |
+
+**Phase 1 status:** every draw-call target and every texture/heap budget is met on all 4 tiers × 4 views (latest: Low 393 / 286 / 549 / 454 draws, 540 / 475 / 836 / 633 MB textures). Frame rates were not measured (software rasteriser).
