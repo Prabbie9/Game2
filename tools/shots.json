@@ -12,5 +12,35 @@
  {
   "url": "tests/delivery/index.html",
   "ready": "window.DELIVERY&&window.DELIVERY.done"
+ },
+ {
+  "url": "index.html?shot=m4_hero_char",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "w": 480,
+  "h": 270
+ },
+ {
+  "url": "index.html?shot=m4_walk",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "w": 480,
+  "h": 270
+ },
+ {
+  "url": "index.html?shot=m4_enter",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "w": 480,
+  "h": 270
+ },
+ {
+  "url": "index.html?shot=m4_ragdoll",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "w": 480,
+  "h": 270
+ },
+ {
+  "url": "index.html?shot=m4_crowd",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "w": 480,
+  "h": 270
  }
 ]

@@ -7,7 +7,7 @@ import type { Character } from '../character/character';
 
 interface Gait { a: THREE.AnimationAction; speed: number; stride: number; off: number; dur: number; rev?: boolean }
 export interface OneShot { a: THREE.AnimationAction; fadeIn: number; fadeOut: number; w: number; t: number; dur: number; done: (() => void) | null; hold: boolean; yawRate: number }
-export const LOCO = { idle: 'standard_idle', walk: 'male_walk_forward_03', run: 'running_forwards', sprint: 'running_fast', crouchIdle: 'low_crouching_idle', crouchWalk: 'walking_backwards_while_crouched' };
+export const LOCO = { idle: 'standard_idle', walk: 'male_walk_forward_03', run: 'slow_run_forward', sprint: 'running_fast', crouchIdle: 'low_crouching_idle', crouchWalk: 'walking_backwards_while_crouched' };
 
 export class Animator {
   idle!: THREE.AnimationAction; crouchIdle!: THREE.AnimationAction; gaits: Gait[] = []; crouchGait!: Gait;

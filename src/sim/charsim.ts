@@ -19,7 +19,7 @@ export class CharacterSim {
     this.body = world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased().setTranslation(pos[0], pos[1] + HALF_STAND + RADIUS, pos[2]));
     this.col = world.createCollider(RAPIER.ColliderDesc.capsule(HALF_STAND, RADIUS).setFriction(0), this.body);
     const c = (this.ctrl = world.createCharacterController(0.02));
-    c.setUp({ x: 0, y: 1, z: 0 }); c.setMaxSlopeClimbAngle((50 * Math.PI) / 180); c.setMinSlopeSlideAngle((40 * Math.PI) / 180);
+    c.setUp({ x: 0, y: 1, z: 0 }); c.setMaxSlopeClimbAngle((50 * Math.PI) / 180);
     c.enableAutostep(0.36, 0.18, false); c.enableSnapToGround(0.32); c.setApplyImpulsesToDynamicBodies(true); c.setCharacterMass(80); c.setSlideEnabled(true);
   }
   get half() { return this.crouched ? HALF_CROUCH : HALF_STAND; }
@@ -43,8 +43,13 @@ export class CharacterSim {
     } else {
       this.setCrouch(inp.crouch > 0.5);
       if (inp.jump > 0.5 && !this.jumpLatch && this.grounded && !this.crouched) { this.vy = 4.3; this.grounded = false; } this.jumpLatch = inp.jump > 0.5 ? 1 : 0;
-      this.vy = this.grounded && this.vy <= 0 ? -1.5 : this.vy + g * dt; // small down push keeps snap-to-ground engaged on slopes
-      this.ctrl.computeColliderMovement(this.col, { x: inp.vx * dt, y: this.vy * dt, z: inp.vz * dt }, this.RAPIER.QueryFilterFlags.EXCLUDE_SENSORS);
+      this.vy = this.grounded && this.vy <= 0 ? 0 : this.vy + g * dt; // snap-to-ground holds slopes; no down push (it blocks autostep and drags)
+      // autostep stays on (changing it at runtime makes Rapier's capsule sink); instead, faces steeper than the climb
+      // limit but not vertical (a steep ramp, not a kerb or riser) remove the uphill part of the move
+      let vx = inp.vx, vz = inp.vz; const sp = Math.hypot(vx, vz);
+      if (sp > 0.05) { const fy0 = t.y - off; const face = this.ray([t.x, fy0 + 0.1, t.z], [vx / sp, 0, vz / sp], RADIUS + 0.35);
+        if (face && face.n[1] >= 0.25 && face.n[1] < 0.64) { const h = Math.hypot(face.n[0], face.n[2]) || 1; const nx = face.n[0] / h, nz = face.n[2] / h; const d = vx * nx + vz * nz; if (d < 0) { vx -= d * nx; vz -= d * nz; } } }
+      this.ctrl.computeColliderMovement(this.col, { x: vx * dt, y: this.vy * dt, z: vz * dt }, this.RAPIER.QueryFilterFlags.EXCLUDE_SENSORS);
       const m = this.ctrl.computedMovement(); const wasAir = !this.grounded; this.grounded = this.ctrl.computedGrounded();
       if (this.grounded && this.vy < 0) this.vy = 0; if (!this.grounded && m.y > this.vy * dt + 1e-4 && this.vy > 0) this.vy = 0; // bonk
       void wasAir; this.vel = [m.x / dt, this.grounded ? 0 : this.vy, m.z / dt];

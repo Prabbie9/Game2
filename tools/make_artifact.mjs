@@ -19,11 +19,15 @@ const files = {}; const walk = (d) => { for (const f of fs.readdirSync(d)) { con
     if (SERVED.test(rel)) files[rel] = path.relative(ROOT, p);
     else { const out = p + '.b64.json'; fs.writeFileSync(out, JSON.stringify({ b64: fs.readFileSync(p).toString('base64') })); files[rel + '.b64.json'] = path.relative(ROOT, out); }
   } } };
-walk(D); for (const k of Object.keys(files)) if (/(^|\/)proto/.test(k) || /_2k\.ktx2/.test(k)) delete files[k];
+walk(D); for (const k of Object.keys(files)) if (/(^|\/)proto/.test(k) || /_2k\.ktx2/.test(k) || /^test\//.test(k) || k === 'delivery.html') delete files[k]; // delivery test retired after M0
 fs.writeFileSync(path.join(D, 'artifact-files.json'), JSON.stringify(files, null, 1));
 // publish map: current files + null for anything the last publish had that no longer exists (keeps the artifact tidy)
 const manPath = path.join(ROOT, 'tools/artifact_manifest.json'); const prev = fs.existsSync(manPath) ? JSON.parse(fs.readFileSync(manPath, 'utf8')) : [];
 const pub = { ...files }; for (const k of prev) if (!(k in pub)) pub[k] = null;
 fs.writeFileSync(path.join(D, 'artifact-publish.json'), JSON.stringify(pub));
+// one publish call carries at most 64 MB: split into batches (characters separately) for consecutive publishes to the same URL
+const split = (pred) => Object.fromEntries(Object.entries(pub).filter(([k]) => pred(k)));
+fs.writeFileSync(path.join(D, 'artifact-publish-a.json'), JSON.stringify(split((k) => !k.startsWith('data/chars/'))));
+fs.writeFileSync(path.join(D, 'artifact-publish-b.json'), JSON.stringify(split((k) => k.startsWith('data/chars/'))));
 const bytes = Object.values(files).reduce((s, f) => s + fs.statSync(path.join(ROOT, f)).size, 0);
 console.log('artifact files', Object.keys(files).length, 'MB', (bytes / 1e6).toFixed(1));

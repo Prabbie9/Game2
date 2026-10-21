@@ -26,6 +26,7 @@ import { Streaming } from './world/streaming';
 import { HWY, UNDER, groundAt } from './world/citygen';
 import { Player } from './character/player';
 import { FollowCamera } from './camera/follow';
+import { Crowd } from './crowds/crowd';
 
 const PLAYER = 1, PLAYER_CHAR = 100;
 export async function startGame(app: HTMLElement) {
@@ -80,9 +81,10 @@ export async function startGame(app: HTMLElement) {
   const chase = new ChaseCamera(R.camera, colliders); if (city) chase.cast = (o, d, f) => city!.cast(o, d, f);
   const follow = new FollowCamera(R.camera); if (city) follow.cast = (o, d, f) => city!.cast(o, d, f);
   const player = new Player(R, phys, PLAYER_CHAR, params.get('char') ?? 'standing_man'); let playerLoading = false;
+  const crowdMin = params.get('crowdmin'); const crowd = new Crowd(R, Math.round(+(params.get('crowd') ?? 220) * R.tier.crowd), ['lod_andrew', 'lod_paul', 'lod_jessica', 'lod_dude', 'debra', 'young_female', 'biz_jj', 'oldman_coat']); if (crowdMin) crowd.minDist = +crowdMin;
   const loadPlayer = () => { if (playerLoading) return; playerLoading = true; const st = phys.vehicle(PLAYER); const yaw0 = spawnYaw;
     const pos = onFootStart ? [spawn[0] - 3.4, city ? 0.16 : 0.05, spawn[2] + 3] : [spawn[0], 0, spawn[2]];
-    player.load(pos, yaw0 + Math.PI / 2).then(() => { if (!onFootStart) player.seatIn(car); else follow.snapBehind(yaw0 + Math.PI / 2); void st; }).catch((e) => console.warn('player', e?.message)); };
+    player.load(pos, shot?.foot?.faceYaw ?? yaw0 + Math.PI / 2).then(() => { if (city && !params.has('nocrowd')) crowd.load().catch((e) => console.warn('crowd', e?.message)); if (!onFootStart) player.seatIn(car); else follow.snapBehind(shot?.foot?.camYaw ?? shot?.foot?.faceYaw ?? yaw0 + Math.PI / 2); void st; }).catch((e) => console.warn('player', e?.message)); };
   // ground under a foot: analytic city surfaces (exact, no latency) unless the physics ray finds something else (props, car roofs)
   const groundFn = (side: 0 | 1, x: number, z: number) => { const ps = player.phys; const nearY = player.position.y; const a = city ? groundAt(x, z, nearY) : 0;
     const py = ps ? ps.footY[side] : a; const y = Math.abs(py - a) < 0.2 || !ps ? a : py; const n = ps && y === py ? new THREE.Vector3(...ps.footN[side]) : new THREE.Vector3(0, 1, 0); return { y, n }; };
@@ -104,7 +106,7 @@ export async function startGame(app: HTMLElement) {
   // defaults: golden hour; URL params / shots override
   env.setTime(+(params.get('t') ?? 18.6)); env.setWeather((params.get('w') as WeatherName) || 'clear', true);
   let bot: BotDriver | null = null; let botYaw = 0;
-  const shot = params.get('shot') ? SHOTS[params.get('shot')!] : null;
+  const shot = params.get('shot') ? { ...SHOTS[params.get('shot')!], ...(params.get('frames') ? { frames: +params.get('frames')! } : {}) } : null;
   if (shot) { env.setTime(shot.t); env.setWeather(shot.w, true); if (shot.route) bot = new BotDriver(ROUTES[shot.route], shot.speed ?? 20); hud.root.hidden = !!shot.hideHud; }
   if (params.get('bot')) { const rt = ROUTES[params.get('bot')!] ?? ROUTES.loop; bot = new BotDriver(rt, +(params.get('speed') ?? 22));
     if (city && !shot) { spawn = [rt[0][0], params.get('bot') === 'highway' ? 1.6 : 1.2, rt[0][1]]; botYaw = Math.atan2(rt[1][0] - rt[0][0], rt[1][1] - rt[0][1]); } }
@@ -117,7 +119,7 @@ export async function startGame(app: HTMLElement) {
   const clock = new THREE.Clock(); let frames = 0, loadedOnce = false, lightT = 0; let state: ReturnType<PhysicsClient['vehicle']> = null;
   const tmp = { q: new THREE.Quaternion(), p: new THREE.Vector3(), v: new THREE.Vector3(), prevP: new THREE.Vector3() };
   const dbg: any = (window as any).HARBOURLINE_DEBUG = {
-    ready: false, frames: 0, R, env, phys, report: [] as any[], player,
+    ready: false, frames: 0, R, env, phys, report: [] as any[], player, crowd,
     teleport: (x: number, y: number, z: number, yaw = 0) => phys.teleportVehicle(PLAYER, [x, y, z], yaw),
     setTime: (h: number) => env.setTime(h), setWeather: (w: WeatherName) => env.setWeather(w, true),
     spawnVehicle: (cls = 'sedan') => { tuning = resolveTuning(cls, 'Balanced'); phys.spawnVehicle(PLAYER, tuning, [state?.pos[0] ?? 0, (state?.pos[1] ?? 0) + 2, state?.pos[2] ?? 0], 0); },
@@ -192,7 +194,7 @@ export async function startGame(app: HTMLElement) {
     env.update(sim);
     car.setLights(env.night > 0.3 || env.cur.overcast > 0.8 || env.cur.fog > 0.6);
     if (vis) { vis.lampHeadMat.emissiveIntensity = env.night * 14; vis.buildingMat.emissiveIntensity = env.night * 2.5; }
-    slice?.update(sim, env.night); const gY = (x: number, z: number) => (city ? groundAt(x, z) : 0.15); for (const p of peds) p.update(sim, gY);
+    slice?.update(sim, env.night); const gY = (x: number, z: number) => (city ? groundAt(x, z) : 0.15); for (const p of peds) p.update(sim, gY); crowd.update(sim, R.camera.position);
     // vehicle impacts: any moving car overlapping a pedestrian or the on-foot player knocks them down (ragdoll)
     if (sim > 0) for (const v of [{ id: PLAYER }, ...traffic]) { const st = phys.vehicle(v.id); if (!st || st.speed < 2.5) continue;
       const q = new THREE.Quaternion(st.quat[0], st.quat[1], st.quat[2], st.quat[3]); const inv = q.clone().invert(); const cp = new THREE.Vector3(st.pos[0], st.pos[1], st.pos[2]);
@@ -217,7 +219,7 @@ export async function startGame(app: HTMLElement) {
     // once streaming settles, re-bake the reflection probe (textures/models now present) and allow shots
     const idle = pendingLoads() === 0 && (!city || (spawned && city.pending === 0));
     if (idle && !loadedOnce && frames > 5) { loadedOnce = true; env.bakeEnv(); }
-    if (frames - ((dbg as any).readyFrame ?? 0) >= (shot?.frames ?? 30) && phys.snaps > 5 && loadedOnce && spawned && (!city || city.pending === 0) && player.ready) dbg.ready = true;
+    if (frames - ((dbg as any).readyFrame ?? 0) >= (shot?.frames ?? 30) && phys.snaps > 5 && loadedOnce && spawned && (!city || city.pending === 0) && player.ready && (!city || crowd.ready || params.has('nocrowd') || !!shot?.route)) dbg.ready = true;
   }
   await phys.ready; frame();
 }

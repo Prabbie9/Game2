@@ -1,0 +1,3 @@
+# M4 fix-ups: natural unarmed run cycles (the "Running Forwards" clip holds the right arm high)
+Slow Run Forward
+Soccer Jog Forward

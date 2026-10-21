@@ -53,7 +53,17 @@
 "size": 467360,
 "category": "climb",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "climbing_up_a_wall",
+"bundle": "core",
+"duration": 2,
+"fps": 30,
+"frames": 61,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Conjuring Magic And Throwing",
@@ -247,7 +257,17 @@
 "size": 484464,
 "category": "jump",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "fast_run_to_jump_up_onto_higher_level",
+"bundle": "core",
+"duration": 2.167,
+"fps": 30,
+"frames": 66,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 2.221,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Female Dwarf Walk Forward",
@@ -649,7 +669,17 @@
 "size": 657744,
 "category": "vehicle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "getting_hit_by_a_car_while_tired",
+"bundle": "vehicle",
+"duration": 4.833,
+"fps": 30,
+"frames": 146,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 1.62,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Getting Hit From Back",
@@ -657,7 +687,17 @@
 "size": 665472,
 "category": "hit",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "getting_hit_from_back",
+"bundle": "react",
+"duration": 4.6,
+"fps": 30,
+"frames": 139,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Getting Hit On The Back With An Object While Running",
@@ -955,7 +995,17 @@
 "size": 381968,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "happy_walking_forward_arc_left",
+"bundle": "core",
+"duration": 1.067,
+"fps": 30,
+"frames": 33,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.621,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "High Enthusiasm Fist Pump",
@@ -995,7 +1045,17 @@
 "size": 580224,
 "category": "hit",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "hit_in_the_shoulder_and_falls_to_the_ground",
+"bundle": "react",
+"duration": 3.1,
+"fps": 30,
+"frames": 94,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 1.507,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Hit Reaction From Behind With Bow (1)",
@@ -1059,7 +1119,17 @@
 "size": 374912,
 "category": "hit",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "hit_reaction_when_walking_while_aiming_rifle",
+"bundle": "rifle",
+"duration": 1.367,
+"fps": 30,
+"frames": 42,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.286,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Hit Reaction",
@@ -1067,7 +1137,17 @@
 "size": 385024,
 "category": "hit",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "hit_reaction",
+"bundle": "react",
+"duration": 0.433,
+"fps": 30,
+"frames": 14,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Hitting Steering Wheel In Driving Idle",
@@ -1093,7 +1173,17 @@
 "size": 789312,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "holding_an_object_idle",
+"bundle": "core",
+"duration": 6,
+"fps": 30,
+"frames": 181,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Holding An Object While Turning Right",
@@ -1365,7 +1455,17 @@
 "size": 590400,
 "category": "jump",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "jumping_down_from_higher_level",
+"bundle": "core",
+"duration": 3.233,
+"fps": 30,
+"frames": 98,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 1.267,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Jumping From Action Idle",
@@ -1505,7 +1605,17 @@
 "size": 709456,
 "category": "hit",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "knocked_out_falling_to_back",
+"bundle": "react",
+"duration": 4.933,
+"fps": 30,
+"frames": 149,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 1.419,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Knocked Out Falling To Stomach",
@@ -1513,7 +1623,17 @@
 "size": 765840,
 "category": "hit",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "knocked_out_falling_to_stomach",
+"bundle": "react",
+"duration": 5.6,
+"fps": 30,
+"frames": 169,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 1.339,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Ladder Climb One Step At A Time",
@@ -1573,7 +1693,17 @@
 "size": 447376,
 "category": "hit",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "large_hit_reaction_from_the_right",
+"bundle": "react",
+"duration": 1.633,
+"fps": 30,
+"frames": 50,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 1.088,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Laughing Standing",
@@ -1581,7 +1711,17 @@
 "size": 1073040,
 "category": "civil",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "laughing_standing",
+"bundle": "civil",
+"duration": 9.767,
+"fps": 30,
+"frames": 294,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Laying Coughing Mildly",
@@ -1629,7 +1769,17 @@
 "size": 853664,
 "category": "death",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "laying_on_the_ground_dying",
+"bundle": "react",
+"duration": 6.833,
+"fps": 30,
+"frames": 206,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Laying Picking At Shirt",
@@ -1701,7 +1851,17 @@
 "size": 459264,
 "category": "hit",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "left_reaction_to_front_hit_holding_a_rifle",
+"bundle": "rifle",
+"duration": 2.433,
+"fps": 30,
+"frames": 74,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Left Standing Sneak Behind Cover (1)",
@@ -1853,7 +2013,17 @@
 "size": 267888,
 "category": "civil",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "looking_forward",
+"bundle": "civil",
+"duration": 0.033,
+"fps": 30,
+"frames": 2,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Looking With Hand Shading Eyes",
@@ -1861,7 +2031,17 @@
 "size": 650896,
 "category": "civil",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "looking_with_hand_shading_eyes",
+"bundle": "civil",
+"duration": 4.767,
+"fps": 30,
+"frames": 144,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0.002,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Losing Balance And Falling Forward Into A Pool",
@@ -1869,7 +2049,17 @@
 "size": 519200,
 "category": "jump",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "losing_balance_and_falling_forward_into_a_pool",
+"bundle": "core",
+"duration": 2.267,
+"fps": 30,
+"frames": 69,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 0.964,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Losing Balance And Falling Off An Edge",
@@ -2017,7 +2207,17 @@
 "size": 486688,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "male_drunk_walk_two_cycle_loop",
+"bundle": "core",
+"duration": 2.1,
+"fps": 30,
+"frames": 64,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 2.9,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Male Fight Idle Boxing Stance",
@@ -2081,7 +2281,17 @@
 "size": 435024,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "male_injured_walk",
+"bundle": "core",
+"duration": 1.633,
+"fps": 30,
+"frames": 50,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0.898,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Male Jumping Down From 4 Feet",
@@ -2089,7 +2299,17 @@
 "size": 481152,
 "category": "jump",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "male_jumping_down_from_4_feet",
+"bundle": "core",
+"duration": 2.633,
+"fps": 30,
+"frames": 80,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 1.296,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Male Jumping Down From 4ft And Crouching On One Hand",
@@ -2153,7 +2373,17 @@
 "size": 397152,
 "category": "hit",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "male_reaction_hit_on_the_right_side",
+"bundle": "react",
+"duration": 1.667,
+"fps": 30,
+"frames": 51,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Male Standing Fantasy Gunplay With Hand Cannon",
@@ -2195,7 +2425,17 @@
 "size": 3721760,
 "category": "civil",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "male_talking_on_the_cell_phone_while_pacing_back_and_forth",
+"bundle": "civil",
+"duration": 42.233,
+"fps": 30,
+"frames": 1268,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 3.474,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Male Talking On The Cell Phone",
@@ -2203,7 +2443,17 @@
 "size": 635296,
 "category": "civil",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "male_talking_on_the_cell_phone",
+"bundle": "civil",
+"duration": 4.8,
+"fps": 30,
+"frames": 145,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Male Talking While Seated",
@@ -2317,7 +2567,17 @@
 "size": 362592,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "male_walk_with_briefcase",
+"bundle": "core",
+"duration": 1.033,
+"fps": 30,
+"frames": 32,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.628,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Male With Headphones Listening To Music",
@@ -2325,7 +2585,17 @@
 "size": 550384,
 "category": "civil",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "male_with_headphones_listening_to_music",
+"bundle": "civil",
+"duration": 4.467,
+"fps": 30,
+"frames": 135,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Man Working On Device",
@@ -2701,7 +2971,17 @@
 "size": 519120,
 "category": "civil",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "pointing_with_arm_bent",
+"bundle": "civil",
+"duration": 2.767,
+"fps": 30,
+"frames": 84,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Post-Putting Failed Shot Gesture Var 1",
@@ -2855,7 +3135,17 @@
 "size": 538096,
 "category": "civil",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "quickly_pointing_angrily_forward",
+"bundle": "civil",
+"duration": 2.433,
+"fps": 30,
+"frames": 74,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Rallying The Crowd To Make Them Cheer",
@@ -2879,7 +3169,17 @@
 "size": 473760,
 "category": "hit",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "reaction_to_getting_hit_to_the_left_while_holding_a_pistol",
+"bundle": "pistol",
+"duration": 2.6,
+"fps": 30,
+"frames": 79,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Ready Pose To Standing Putting Back The Rifle To The Side",
@@ -3007,7 +3307,17 @@
 "size": 359360,
 "category": "hit",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "receiving_a_hit_in_the_stomach",
+"bundle": "react",
+"duration": 1.2,
+"fps": 30,
+"frames": 37,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Receiving A Hit To The Body By A Uppercut",
@@ -3047,7 +3357,17 @@
 "size": 347408,
 "category": "hit",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "receiving_a_light_hit_to_the_head_from_a_straight_punch",
+"bundle": "react",
+"duration": 1.067,
+"fps": 30,
+"frames": 33,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Receiving A Medium Hit To The Head From A Right Punch",
@@ -3221,7 +3541,17 @@
 "size": 537744,
 "category": "death",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "rifle_death_from_front_headshot",
+"bundle": "rifle",
+"duration": 2.833,
+"fps": 30,
+"frames": 86,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 0.374,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Rifle Death From The Back",
@@ -3229,7 +3559,17 @@
 "size": 554656,
 "category": "death",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "rifle_death_from_the_back",
+"bundle": "rifle",
+"duration": 2.967,
+"fps": 30,
+"frames": 90,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 1.129,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Rifle Down To Aiming",
@@ -3743,7 +4083,17 @@
 "size": 329552,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "running_backward_in_a_sad_disposition",
+"bundle": "core",
+"duration": 0.6,
+"fps": 30,
+"frames": 19,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 1.139,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Running Backward With An Aimed Pistol",
@@ -4097,7 +4447,17 @@
 "size": 528272,
 "category": "loco",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "sad_idle_variation_1",
+"bundle": "core",
+"duration": 2.8,
+"fps": 30,
+"frames": 85,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Sad Idle Variation 2",
@@ -4349,7 +4709,17 @@
 "size": 723312,
 "category": "civil",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "short_yell_while_standing",
+"bundle": "civil",
+"duration": 4.067,
+"fps": 30,
+"frames": 123,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0.001,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Shot To The Chest Falling Backwards",
@@ -4357,7 +4727,17 @@
 "size": 677328,
 "category": "hit",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "shot_to_the_chest_falling_backwards",
+"bundle": "react",
+"duration": 4.6,
+"fps": 30,
+"frames": 139,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 0.916,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Shoulder Shrug",
@@ -4365,7 +4745,17 @@
 "size": 419840,
 "category": "civil",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "shoulder_shrug",
+"bundle": "civil",
+"duration": 2,
+"fps": 30,
+"frames": 61,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Side Kick",
@@ -4413,7 +4803,17 @@
 "size": 998624,
 "category": "civil",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "sitting_against_a_wall_dazed",
+"bundle": "civil",
+"duration": 8.333,
+"fps": 30,
+"frames": 251,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Sitting Cross Legged",
@@ -4501,7 +4901,17 @@
 "size": 581840,
 "category": "civil",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "sitting_looking_side_to_side",
+"bundle": "civil",
+"duration": 4,
+"fps": 30,
+"frames": 121,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0.001,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Sitting On The Floor",
@@ -4509,7 +4919,17 @@
 "size": 841568,
 "category": "civil",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "sitting_on_the_floor",
+"bundle": "civil",
+"duration": 10.867,
+"fps": 30,
+"frames": 327,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Sitting Slightly Aggravated",
@@ -4525,7 +4945,17 @@
 "size": 588960,
 "category": "civil",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "sitting_still_in_a_chair",
+"bundle": "civil",
+"duration": 2.967,
+"fps": 30,
+"frames": 90,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Sitting To Standing Big Fist Pump",
@@ -4613,7 +5043,17 @@
 "size": 604160,
 "category": "jump",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "slip_and_fall_backwards",
+"bundle": "core",
+"duration": 3.333,
+"fps": 30,
+"frames": 101,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 1.839,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Slow Run Forward",
@@ -4629,7 +5069,17 @@
 "size": 654704,
 "category": "misc",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "slowly_backing_away_in_fear",
+"bundle": "civil",
+"duration": 3.867,
+"fps": 30,
+"frames": 117,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 1.698,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Small Hit Reaction From The Front",
@@ -4637,7 +5087,17 @@
 "size": 398240,
 "category": "hit",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "small_hit_reaction_from_the_front",
+"bundle": "react",
+"duration": 1.2,
+"fps": 30,
+"frames": 37,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Small Hit Reaction From The Left",
@@ -4645,7 +5105,17 @@
 "size": 398240,
 "category": "hit",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "small_hit_reaction_from_the_left",
+"bundle": "react",
+"duration": 1.2,
+"fps": 30,
+"frames": 37,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Smash With Back Of Rifle Or Staff",
@@ -4959,7 +5429,17 @@
 "size": 489824,
 "category": "misc",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "standing_cover_against_object",
+"bundle": "civil",
+"duration": 2.267,
+"fps": 30,
+"frames": 69,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Standing Cover To Standing Ready (1)",
@@ -4991,7 +5471,17 @@
 "size": 614416,
 "category": "crouch",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "standing_from_a_crouch",
+"bundle": "core",
+"duration": 3.433,
+"fps": 30,
+"frames": 104,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0.086,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Standing From Crouched Hands On Ground",
@@ -4999,7 +5489,17 @@
 "size": 613696,
 "category": "crouch",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "standing_from_crouched_hands_on_ground",
+"bundle": "core",
+"duration": 3.1,
+"fps": 30,
+"frames": 94,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0.085,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Standing Happily",
@@ -5079,7 +5579,17 @@
 "size": 707120,
 "category": "civil",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "standing_in_a_sad_disposition",
+"bundle": "civil",
+"duration": 4,
+"fps": 30,
+"frames": 121,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Standing Into Fighting Stance From Crouching",
@@ -5195,7 +5705,17 @@
 "size": 602352,
 "category": "hit",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "standing_reaction_to_shove",
+"bundle": "react",
+"duration": 3,
+"fps": 30,
+"frames": 91,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Standing Right Turn (1)",
@@ -5313,7 +5833,17 @@
 "size": 513008,
 "category": "civil",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "standing_to_sitting_transition",
+"bundle": "civil",
+"duration": 2.233,
+"fps": 30,
+"frames": 68,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 0.477,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Standing Up And Looking Around",
@@ -5321,7 +5851,17 @@
 "size": 665712,
 "category": "getup",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "standing_up_and_looking_around",
+"bundle": "react",
+"duration": 3.933,
+"fps": 30,
+"frames": 119,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 0.164,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Standing Up From A Soccer Fall",
@@ -5337,7 +5877,17 @@
 "size": 992960,
 "category": "getup",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "standing_up_from_back",
+"bundle": "react",
+"duration": 8.267,
+"fps": 30,
+"frames": 249,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 0.802,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Standing Up From Lying On Stomach",
@@ -5345,7 +5895,17 @@
 "size": 1221472,
 "category": "getup",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "standing_up_from_lying_on_stomach",
+"bundle": "react",
+"duration": 11.4,
+"fps": 30,
+"frames": 343,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0.049,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Standing Up From Seated Position",
@@ -5511,7 +6071,17 @@
 "size": 494720,
 "category": "climb",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "starting_to_climb_onto_a_box_or_short_fence",
+"bundle": "core",
+"duration": 2.267,
+"fps": 30,
+"frames": 69,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 0.925,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Starting To Run With A Aimed Rifle",
@@ -5675,7 +6245,17 @@
 "size": 654464,
 "category": "swim",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "swimming_breastroke_to_edge_of_pool",
+"bundle": "core",
+"duration": 5,
+"fps": 30,
+"frames": 151,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 0.953,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Swing Backflip To Superhero Pose",
@@ -5947,7 +6527,17 @@
 "size": 446944,
 "category": "rifle",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "taking_cover_against_a_wall_with_rifle",
+"bundle": "rifle",
+"duration": 2.267,
+"fps": 30,
+"frames": 69,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 1.346,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Talking Finding Something Funny",
@@ -6737,7 +7327,17 @@
 "size": 624672,
 "category": "climb",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "vault_over_box_and_hide",
+"bundle": "core",
+"duration": 3.533,
+"fps": 30,
+"frames": 107,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 3.126,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Vertical Elbow And Solar Plexus Strike",
@@ -7243,7 +7843,17 @@
 "size": 604192,
 "category": "death",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "walking_while_aiming_rifle_to_immediate_dying",
+"bundle": "rifle",
+"duration": 3.067,
+"fps": 30,
+"frames": 93,
+"skinned": false,
+"inPlace": false,
+"rootMotion": 1.627,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Walking While Aiming Rifle",
@@ -7401,7 +8011,17 @@
 "size": 304784,
 "category": "misc",
 "themed": false,
-"dup": false
+"dup": false,
+"key": "waving",
+"bundle": "civil",
+"duration": 0.533,
+"fps": 30,
+"frames": 17,
+"skinned": false,
+"inPlace": true,
+"rootMotion": 0,
+"prefix": "mixamorig12:",
+"restHipsY": 0.9931
 },
 {
 "name": "Wiping Sweat Idle",

@@ -1,0 +1,98 @@
+[
+ {
+  "url": "index.html?shot=m4_hero_char&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m4_hero_char.png",
+  "w": 1280,
+  "h": 720,
+  "timeout": 400000
+ },
+ {
+  "url": "index.html?shot=m4_hero_char_night&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m4_hero_char_night.png",
+  "w": 1280,
+  "h": 720,
+  "timeout": 400000
+ },
+ {
+  "url": "index.html?shot=m4_walk&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m4_walk.png",
+  "w": 960,
+  "h": 540,
+  "timeout": 400000
+ },
+ {
+  "url": "index.html?shot=m4_sprint&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m4_sprint.png",
+  "w": 960,
+  "h": 540,
+  "timeout": 400000
+ },
+ {
+  "url": "index.html?shot=m4_enter&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m4_enter.png",
+  "w": 960,
+  "h": 540,
+  "timeout": 400000
+ },
+ {
+  "url": "index.html?shot=m4_seated&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m4_seated.png",
+  "w": 960,
+  "h": 540,
+  "timeout": 400000
+ },
+ {
+  "url": "index.html?shot=m4_ragdoll&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m4_ragdoll.png",
+  "w": 960,
+  "h": 540,
+  "timeout": 400000
+ },
+ {
+  "url": "index.html?shot=m4_getup&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m4_getup.png",
+  "w": 960,
+  "h": 540,
+  "timeout": 400000
+ },
+ {
+  "url": "index.html?shot=m4_crowd&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m4_crowd.png",
+  "w": 1280,
+  "h": 720,
+  "timeout": 400000
+ },
+ {
+  "url": "index.html?shot=m3_golden&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m3_golden.png",
+  "w": 1280,
+  "h": 720,
+  "timeout": 400000
+ },
+ {
+  "url": "index.html?shot=m3_night_wet&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m3_night_wet.png",
+  "w": 1280,
+  "h": 720,
+  "timeout": 400000
+ },
+ {
+  "url": "index.html?shot=m3_intersection&tier=high",
+  "ready": "window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready",
+  "out": "shots/latest/m3_intersection.png",
+  "w": 1280,
+  "h": 720,
+  "timeout": 400000
+ }
+]

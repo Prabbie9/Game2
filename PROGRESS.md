@@ -1,7 +1,7 @@
 # PROGRESS
-NEXT STEP: M4 — search Sketchfab for realistic Mixamo-rigged humanoids (verify mixamorig bones, CC-BY/CC0), then player controller + anim state machine.
+NEXT STEP: M4 wrap-up — review M4 shots (shots/m4), animation-gate frame strips, look-gate scoring incl. hero character, PLAYTEST/known-good/Artifact republish; then M5 (wave 3 clips + weapons).
 
-STEPS_USED: ~450 (M0 ~80, M1 ~75, M2 ~190, M3 ~95, M4 ~10)   DRIVE_CALLS_USED: 165 / 300
+STEPS_USED: ~590 (M0 ~80, M1 ~75, M2 ~190, M3 ~95, M4 ~150)   DRIVE_CALLS_USED: 167 / 300   SKETCHFAB_DOWNLOADS: 36 / 150
 MILESTONE: M3 done (checkpoint 4) — look gate BELOW target (5.4/7), carried forward
 
 ## Milestones
@@ -9,6 +9,7 @@ MILESTONE: M3 done (checkpoint 4) — look gate BELOW target (5.4/7), carried fo
 
 - M1 Vehicle feel grey-box: DONE. Rapier ray-cast vehicle in a worker + arcade assists (drift state + angle limiter, yaw assist, countersteer, anti-flip, self-right), chase cam, tuning panel (K) with presets + copy, synthesized audio, rain/night mood test. Fun gate proxies pass for all presets (PLAYTEST.md).
 - M2 Look slice: DONE with shortfall. PBR KTX2 library, building kit + interior mapping, intersection slice, SSR, sky dome, scene probe, sourced car via prep tool (Kiri '86), Mixamo peds, rest test (props pass).
+- M4 Characters + animation: IN PROGRESS (gates below). Wave 2 (62 clips) ingested -> 144 clips / 6 bundles. Cast: 15 Sketchfab Mixamo-rigged bodies (CC-BY) prepped to LOD0 (~24k tris, 60k player) + LOD1 (~6k) with meshopt + WebP, palette variants (4 per body -> 60 looks). On-foot player (Rapier character controller in the worker: autostep, snap, slope limit, crouch capsule, obstacle probe), speed-matched phase-synced gait blend tree, jump/fall/land, vault/climb, foot IK (two-bone, toe/heel contact, pelvis, ankle-to-normal, planted locking), car enter/exit without teleport (door route, seat H-point pin, steering-wheel hand IK), ragdolls + get-up blend, vehicle impacts, cast pedestrians, VAT instanced crowd (mid/far).
 - M3 World generator + streaming: DONE. Seeded Downtown (grid, arterials, plaza, underpass/tunnel, elevated highway), 128 m chunks built in 2 workers, near/far LOD, physics groups, time-sliced apply, shader pre-warm, bot budget reports.
 
 ## DECISIONS
@@ -24,8 +25,16 @@ MILESTONE: M3 done (checkpoint 4) — look gate BELOW target (5.4/7), carried fo
 - Default scene is the streamed city; ?scene=slice keeps the M2 look slice, ?scene=test the M1 track.
 - Ground heights are analytic from the city layout (useful for foot IK / props without physics queries).
 - Sprint uses "Running Fast" (Drive "Sprinting" is a 2-key pose).
+- Cast = Sketchfab Mixamo-rigged bodies (bones verified, renamed to bare Mixamo names in tools/char_prep.mjs). Rejected: fantasy/medieval Fuse outfits (3), sci-fi suit, broken SWAT rig, a body with a Marvel logo, multi-copy file, non-Mixamo rigs (Renderpeople UE skeleton, CC_Base, in3D), anything uploaded from games (CS2, Detroit, Last of Us, Scary Teacher) never downloaded.
+- Default walk = "Male Walk Forward 03" (the "Walking Forwards" clip has an exaggerated arm swing); female bodies use "Female Walk Forward".
+- Rapier character controller: never call setMinSlopeSlideAngle (kills autostep) and never toggle autostep at runtime (capsule sinks); steep ramps are blocked by projecting out the uphill velocity instead.
+- Scripted moves (vault, entering/exiting a seat) disable the capsule collider so they never shove cars or props.
+- Crowd: nearest pedestrians are full skinned characters (cast LOD0/LOD1); beyond 26 m an instanced VAT crowd (baked at load from LOD1 bodies, no assets shipped) scaled by tier (88 on Low .. 220 on High).
+- Default sandbox start is on foot beside the parked car; shots with a route and ?bot= start seated.
 
 ## MISSING CLIPS
 - Sprint loop: "Sprinting" is a static pose -> use "Running Fast" (5.5 m/s) time-scaled.
-- Car enter/exit: none in library -> procedural door/entry blend + "Standing Up From Seated Position"/"Pulled Out Of Pilot Seat" segments + IK (M4).
+- Car enter/exit: none in library -> walk-to-door route + "Standing To Sitting Transition" slid into the seat (hips pinned to the H-point) / "Standing Up From Seated Position" for exit; hands on the wheel by IK. Doors don't open yet (Kiri model has no door nodes).
+- Crouched forward walk: none -> "Walking Backwards While Crouched" played reversed.
 - Pistol idle/reload: no dedicated clips found -> "Pistol Aim To Holster Idle" frames + procedural reload (M5).
+- "Running Forwards" holds the right arm overhead in our retarget -> run gait = "Slow Run Forward" (wave 3a, 2 calls).

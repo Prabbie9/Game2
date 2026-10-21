@@ -74,7 +74,7 @@ export class Player {
         if (Math.hypot(inp.move[0], inp.move[1]) > 0.3 && this.state === 'toDoor') { this.state = 'foot'; this.car = null; } }
       const mag = Math.min(1, Math.hypot(mx, my));
       if (inp.crouch) this.crouch = !this.crouch; if (inp.sprint) this.crouch = false;
-      if (this.state === 'foot') want = mag < 0.05 ? 0 : (this.crouch ? SPEED.crouch : inp.sprint ? SPEED.sprint : mag < 0.6 ? SPEED.walk : SPEED.run) * Math.max(mag, 0.35);
+      if (this.state === 'foot') want = mag < 0.05 ? 0 : this.crouch ? SPEED.crouch * Math.min(1, mag / 0.5) : inp.sprint ? SPEED.sprint : mag < 0.6 ? SPEED.walk * THREE.MathUtils.clamp(mag / 0.5, 0.5, 1) : SPEED.run * mag; // analog: gentle push walks, full push runs
       if (mag > 0.05) { const fx = Math.sin(camYaw), fz = Math.cos(camYaw); const rx = -Math.cos(camYaw), rz = Math.sin(camYaw);
         const dx = fx * my + rx * mx, dz = fz * my + rz * mx; this.moveYaw = Math.atan2(dx, dz);
         // facing turns toward the move direction, slower at speed (momentum); velocity follows facing so sprints arc

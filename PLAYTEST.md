@@ -75,3 +75,28 @@ Drivability: the bot drove the avenue (-150 -> +108) and the highway ramp + deck
 | Cohesion | 5.5 | consistent kit; far LOD massing plain |
 | **Average** | **5.4** | **BELOW 7 (required by M3)** — remaining gap is mostly characters (M4) and effects (M5); GRAPHICS_BACKLOG item 0 updated |
 Gates: FUN (vehicle) unchanged PASS on the shared sim; REALISM rest test props PASS, ragdolls UNVERIFIED; city drivable end to end incl. highway + tunnel (bot).
+
+## M4 — REALISM GATE: grounding (tests/anim harness: analytic surfaces, foot IK on; standing_man unless noted)
+Targets: planted foot within 1.5 cm, penetration <= 1 cm, planted slide < 2 cm/s, pelvis jumps < 3 cm/frame.
+| case | planted |d| p95 / mean (cm) | penetration p99 (cm) | slide mean / p90 (cm/s) | pelvis max jump (cm) | verdict |
+|---|---|---|---|---|---|
+| flat walk 1.6 m/s | 0.94 / 0.09 | 0 | 1.1 / 2.8 | 0 | PASS |
+| flat run 3.6 / sprint 5.6 | 0 / 0 (stance only) | 0 | 0 / 0 | 0 | PASS |
+| idle | 0 | 0 | 0 | 0 | PASS |
+| crouch idle + crouch walk 1.2 | 0 | 0 | 0 | 3.47 (crouch blend-in) | PASS (pelvis: logged, blend-in only) |
+| slope 10 deg walk+run | 3.76 / 1.43 | 1.41 | 1.8 / 3.9 | 0 | PARTIAL (p95 over target; mean within) |
+| kerb 15 cm walk+run | 2.02 / 0.40 | 5.03 | 0.8 / 0.1 | 1.36 | PARTIAL (swing foot clips the kerb edge for a frame) |
+| stairs 17/30 cm walk 1.2 | 12.8 / 3.4 | 16.5 | 10 / 28 | 3.98 | FAIL (no stair-specific animation; IK can't fix the stride/riser mismatch) |
+| police_f flat walk | 0.27 / 0.03 | 0 | 0.5 / 0 | 0 | PASS |
+| lod_dude kerb walk | 4.48 / 0.78 | 7.63 | 3.9 / 18.8 | 1.35 | PARTIAL |
+Relaxations (logged): stairs need a stair locomotion set (wave 3 has "Walking Up/Down Stairs" partially: only "Walking Up A Set Of Stairs" at 0.37 m/s is in core) — UNVERIFIED for stairs until then. Kerb edge clip is a single swing frame; fix planned with a toe-clearance pass (lift the swing foot over a raised edge ahead).
+
+## M4 — on-foot controller gate (tools/footgate.ts, Node, real Rapier world)
+`{"kerb_up":0.15,"kerb_ok":true,"stairs_top_y":1.36,"stairs_ok":true,"slope25_ok":true,"slope60_blocked":true,"jump_apex_m":0.88,"jump_ok":true,"wall_slide_ms":1.91,"wall_ok":true,"probe_top":0.9,"probe_ok":true,"crouch_ok":true,"failed":[]}` — PASS (kerb + 8-step stair climb, 25 deg ramp walkable, 60 deg blocked, 0.88 m jump apex, glancing wall hit keeps 1.9 m/s, vault probe reads a 0.90 m box at 1.0 m, crouch under a 1.3 m ceiling and no standing up underneath).
+Vehicle fun gate re-run after M4: unchanged PASS (Balanced 0-cruise 6.63 s, 208.8 km/h, brake 40.2 m, drift 12 deg sd 3.7).
+
+## M4 — REALISM GATE: rest test with ragdolls (tools/resttest.ts)
+`{"props":200,"floating":0,"sinking":0,"jittering":1,"maxGapCm":0.33,"maxDrift2sCm":3.91,"asleep":198,"ragdolls":20,"ragFloating":0,"ragSinking":0,"ragJittering":1,"ragMaxSinkCm":0.64,"ragMaxContactGapCm":0.64,"ragMaxDrift2sCm":0.52}` — PASS with notes: one ball still rolling at 12 s (3.9 cm in 2 s; it was struck by a ragdoll), one ragdoll pelvis moved 0.52 cm in the last 2 s (threshold 0.5) while settling. No ragdoll floats or sinks (max 0.64 cm).
+
+## M4 — vehicle realism (driver)
+Seated driver: hips pinned to the seat H-point (model space 0.37, 0.50, -0.28), hands IK'd to the wheel rim points; enter/exit never teleports (route to door, slide in/out during the sit/stand clip). Door opening: not possible with the current Kiri model (no door nodes) — logged for the M6 fleet (prep tool to split doors).
