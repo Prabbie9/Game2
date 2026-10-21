@@ -199,7 +199,16 @@ box truck is detuned (67.6 m). Drift is only required of rear-drive cars with a 
 
 ### Wanted / police (`?shot=m7_police`, 2 stars set at frame 20, 37 s simulated)
 - Two pursuit cruisers spawned on the grid and reached the player; two officers deployed (states cover/advance) and fired. Player health 200 → 132 during the capture. Light bar flashing, siren audible in-browser.
-- Evasion, BUSTED and WASTED are wired (evade after 8 + 3 s per star unseen; arrest at 1 star; death or drowning → banner + respawn). They are not covered by an automated gate (logged).
+### Wanted-system gate (tools/wantedgate.mjs → tools/out/wantedgate.json; `?report`, fixed 1/30 s per frame, simulated seconds)
+| test | result | numbers |
+|---|---|---|
+| WASTED: 250 damage at 1 star | **PASS** | banner at 0 s; respawn after 5.6 s with health 200, on foot; stars 0 |
+| LOSE POLICE: 2 stars, cruiser dispatched, player moved 1.2 km away (Harbour) | **FAIL** | stars still 2 after 30 s; unseen time stays 0; 2 units + 2 officers within 14 m of the player |
+| BUSTED: 1 star, player standing still on foot | **FAIL** | officers out after 11.6 s; over 60 s the nearest officer holds at 2.49 m, just outside the 2.4 m arrest radius |
+
+- Lose police: dispatch keeps spawning new cruisers 90–140 m from the player's current position with no knowledge check, so line of sight is regained almost immediately and the evade timer never runs. In play this means stars can only be lost if no road near the player is in streaming range, which effectively never happens. Not fixed (reported per instruction).
+- Busted: the officer AI's advance stops at a standoff distance of about 2.5 m, which never satisfies the 2.4 m arrest check. Not fixed (reported per instruction).
+- The test moves the player by teleport rather than by driving away. That isolates the evade timer from chase driving, so the failure above is in the dispatch rule, not in driving.
 
 ### Stress test (tools/stresstest.mjs → tools/out/stresstest.json)
 See the table below (SwiftShader CPU raster at 480×270 — compare the phases with each other, not as fps).
