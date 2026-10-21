@@ -24,6 +24,8 @@ export class Combatant {
   ch: Character; an!: Animator; ik!: FootIK; rig!: WeaponRig; rag!: RagdollCtl; id = nextId++; state: AIState = 'idle'; health = 160; armour = 0.65; ready = false;
   yaw = 0; speed = 0; target: Target | null = null; seen = 0; lastSeen = new THREE.Vector3(); cover: THREE.Vector3 | null = null; t = 0; burst = 0; cool = 1; warnT = 0; alertT = 0; peek = 0;
   private wp: THREE.Vector3 | null = null; private visY = 0; tgt: Target;
+  /** Advance stops this far from the last-seen point (police arresting at 1 star use ~1 m); noCover = never take cover. */
+  standoff = 12; noCover = false;
   constructor(public R: Renderer, public phys: PhysicsClient, public combat: Combat, public world: CoverSource, public body = 'fsb_op', public team = 1, public weapon: 'rifle' | 'smg' | 'pistol' = 'rifle') {
     this.ch = new Character(R, body, { lod: 0 }); const self = this;
     this.tgt = { id: 'ai' + this.id, ch: this.ch, team, get alive() { return self.state !== 'dead'; }, get health() { return self.health; }, armour: this.armour, pos: () => this.ch.root.position, hit: (d, dir, z, f) => this.hit(d, dir, z, f) };
@@ -68,12 +70,12 @@ export class Combatant {
     let want = 0; let aim = false; this.cool -= dt;
     switch (this.state) {
       case 'idle': { const a = this.t * 0.3 + this.id; this.yaw += Math.sin(a) * dt * 0.3; break; }
-      case 'alert': this.alertT += dt; this.yaw = Math.atan2(this.lastSeen.x - me.x, this.lastSeen.z - me.z); aim = true; if (this.alertT > 0.6) { this.cover = this.findCover(this.lastSeen); this.state = this.cover ? 'toCover' : 'advance'; this.warnT = 0; } break;
+      case 'alert': this.alertT += dt; this.yaw = Math.atan2(this.lastSeen.x - me.x, this.lastSeen.z - me.z); aim = true; if (this.alertT > 0.6) { this.cover = this.noCover ? null : this.findCover(this.lastSeen); this.state = this.cover ? 'toCover' : 'advance'; this.warnT = 0; } break;
       case 'toCover': { if (!this.cover) { this.state = 'advance'; break; } want = this.steer(this.cover, 3.4); aim = true; if (want === 0) { this.state = 'cover'; this.peek = 0; } break; }
       case 'cover': { // peek out sideways to shoot, duck back when hit or after the burst; relocate when the threat sees us from cover
         this.peek += dt; const exposed = this.los(eye, tp.clone().setY(tp.y + 1.3)); this.yaw = Math.atan2(this.lastSeen.x - me.x, this.lastSeen.z - me.z); aim = true;
         if (this.peek > 9 || (exposed && this.peek > 3 && Math.random() < dt * 0.3)) { const c = this.findCover(this.lastSeen); if (c && c.distanceTo(me) > 2) { this.cover = c; this.state = 'toCover'; } else this.state = 'advance'; this.peek = 0; } break; }
-      case 'advance': { const goal = this.lastSeen.clone().add(me.clone().sub(this.lastSeen).setY(0).normalize().multiplyScalar(12)); want = this.steer(goal, 2.2); aim = true; if (this.t % 6 < dt) { const c = this.findCover(this.lastSeen); if (c) { this.cover = c; this.state = 'toCover'; } } break; }
+      case 'advance': { const goal = this.lastSeen.clone().add(me.clone().sub(this.lastSeen).setY(0).normalize().multiplyScalar(this.standoff)); want = this.steer(goal, 2.2); aim = true; if (this.t % 6 < dt && !this.noCover) { const c = this.findCover(this.lastSeen); if (c) { this.cover = c; this.state = 'toCover'; } } break; }
     }
     // shooting: warning (aim up) -> grace -> bursts with reaction time and capped accuracy
     if (aim && visible && this.state !== 'idle') { this.warnT += dt;
