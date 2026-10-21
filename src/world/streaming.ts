@@ -1,6 +1,7 @@
 // Chunk streaming: maintains near (full detail + physics + lights + parked cars) and far (massing) LOD rings of
 // 128 m chunks around the camera. Chunks are built in worker(s) (chunkworker.ts) and swapped in without gaps:
 // a chunk upgraded far -> near keeps its far meshes until the near build arrives. Fog/haze hides the outer edge.
+import { FarMerger } from './farmerger';
 import { InstancePool } from './instancepool';
 import { ParkedFleet } from '../vehicles/parkedfleet';
 import * as THREE from 'three';
@@ -9,18 +10,20 @@ import type { PhysicsClient } from '../physics/client';
 import type { LightPool } from '../lighting/lightpool';
 import { WorldMaterials } from './worldmaterials';
 import { SourcedCar } from '../vehicles/sourced';
-import { CHUNK, groundRects } from './citygen';
+import { CHUNK, groundRects, treeGeometry } from './citygen';
+import { Batch, rnd } from './kit';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 
 interface ChunkState { boxes: THREE.Box3[]; key: string; cx: number; cz: number; lod: number; group: THREE.Group; lights: number[]; parked: number[]; tl: [InstancePool, number][]; pending: number | null; built: number | null; steam: THREE.Vector3[] }
 const PAINTS = [0x1f3e66, 0x8f8f92, 0x1b1b1d, 0xd8d6cf, 0x5b1d24, 0x2f4b37, 0xb08d3c, 0x6a7078];
 
 export class Streaming {
   chunks = new Map<string, ChunkState>(); workers: Worker[] = []; busy = [0, 0]; queue: { key: string; cx: number; cz: number; lod: number }[] = [];
-  mats: WorldMaterials; root = new THREE.Group(); nearR = 1; farR = 6; parkedBudget = 30; parkedCount = 0; fleet: ParkedFleet | null = null; // parked cars are instances (one draw per material for the whole city)
+  mats: WorldMaterials; root = new THREE.Group(); nearR = 1; farR = 6; parkedBudget = 30; parkedCount = 0; farMerger!: FarMerger; fleet: ParkedFleet | null = null; // parked cars are instances (one draw per material for the whole city)
   stats = { built: 0, lastMs: 0, maxMs: 0, near: 0, far: 0, mainMs: 0, mainMaxMs: 0 }; steamVents: THREE.Vector3[] = [];
   private lightIds = 0; private inbox: any[] = [];
   constructor(public R: Renderer, public phys: PhysicsClient, public pool: LightPool, public seed = 1337) {
-    this.mats = new WorldMaterials(R); R.scene.add(this.root); this.root.userData.hlCat = 'city chunks';
+    this.mats = new WorldMaterials(R); R.scene.add(this.root); this.farMerger = new FarMerger(this.root, (k) => this.mats.get(k)); this.root.userData.hlCat = 'city chunks';
     // citywide far ground (asphalt) 3 cm below chunk ground; near chunks draw their own detailed ground on top
     for (const r of groundRects()) { const g = new THREE.PlaneGeometry(r.x1 - r.x0, r.z1 - r.z0).rotateX(-Math.PI / 2); g.translate((r.x0 + r.x1) / 2, -0.03, (r.z0 + r.z1) / 2);
       const p = g.attributes.position, uv = g.attributes.uv as THREE.BufferAttribute; for (let i = 0; i < p.count; i++) uv.setXY(i, p.getX(i) / 4.5, p.getZ(i) / 4.5);
@@ -37,6 +40,7 @@ export class Streaming {
   }
   /** Chunks within near radius get LOD 0, the rest of the visible ring LOD 1. */
   update(cam: THREE.Vector3) {
+    this.farMerger.update(this.pending > 0 ? 1 : 4);
     // apply finished chunks time-sliced: nearest LOD-0 first, at most ~4 ms of mesh creation per frame (no hitches)
     if (this.inbox.length) { const t0 = performance.now(); this.inbox.sort((a, b) => a.lod - b.lod);
       while (this.inbox.length && performance.now() - t0 < 4) this.onBuilt(this.inbox.shift()); }
@@ -52,26 +56,36 @@ export class Streaming {
     this.stats.near = [...this.chunks.values()].filter((c) => c.built === 0).length; this.stats.far = [...this.chunks.values()].filter((c) => c.built === 1).length;
   }
   private request(c: ChunkState, lod: number) { c.pending = lod; this.queue = this.queue.filter((q) => q.key !== c.key); this.queue.push({ key: c.key, cx: c.cx, cz: c.cz, lod }); }
-  get pending() { return this.queue.length + this.busy[0] + this.busy[1] + this.inbox.length; }
+  get pending() { return this.queue.length + this.busy[0] + this.busy[1] + this.inbox.length + (this.farMerger?.dirty ?? 0); }
   private onBuilt(d: any) {
     const c = this.chunks.get(d.id); if (!c || c.pending !== d.lod) return; const tMain = performance.now();
     this.stats.built++; this.stats.lastMs = d.ms; this.stats.maxMs = Math.max(this.stats.maxMs, d.ms);
-    this.clear(c); c.pending = null; c.built = d.lod;
+    this.clear(c); c.pending = null; c.built = d.lod; let farParts: { key: string; geo: THREE.BufferGeometry }[] | undefined;
     for (const m of d.meshes) { const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(m.pos, 3)); g.setAttribute('normal', new THREE.BufferAttribute(m.nrm, 3)); g.setAttribute('uv', new THREE.BufferAttribute(m.uv, 2)); if (m.col) g.setAttribute('color', new THREE.BufferAttribute(m.col, 3)); g.computeBoundingSphere();
+      if (d.lod === 1) { (farParts ??= []).push({ key: m.key, geo: g }); continue; } /* far LOD: merged per region by FarMerger */
       const mat = this.mats.get(m.key); const mesh = new THREE.Mesh(g, mat); mesh.name = m.key;
-      const shadowless = /^(asphalt|walk|tar|paint|paintY|tiles|litter|iron|glass_|water|far|furn|hydrant|bench|sign_|kerb|lamphead)/.test(m.key) || d.lod === 1; mesh.castShadow = !shadowless; mesh.receiveShadow = true; mesh.matrixAutoUpdate = false; mesh.updateMatrix();
+      const shadowless = /^(asphalt|walk|tar|paint|paintY|tiles|litter|iron|glass_|water|far|furn|hydrant|bench|sign_|kerb|lamphead)/.test(m.key) || d.lod === 1 || (/^(Lite|Low)$/.test(this.R.tier.name) && /^(trim|awning|rooftop|pole|roof)/.test(m.key)); /* Lite/Low: walls and trees carry the shadows; small parts would be re-drawn per cascade */ mesh.castShadow = !shadowless; mesh.receiveShadow = true; mesh.matrixAutoUpdate = false; mesh.updateMatrix();
       c.group.add(mesh); }
+    if (farParts) this.farMerger.set(c.key, farParts);
     if (d.lod === 0) {
       this.phys.addGroup(c.key, d.colliders);
       // axis-aligned blockers for camera collision (ignores rotation; buildings/walls/piers are axis-aligned here)
       c.boxes = d.colliders.filter((q: any) => q.kind === 'box' && q.half[1] > 0.6 && !q.rot).map((q: any) => new THREE.Box3(new THREE.Vector3(q.pos[0] - q.half[0], q.pos[1] - q.half[1], q.pos[2] - q.half[2]), new THREE.Vector3(q.pos[0] + q.half[0], q.pos[1] + q.half[1], q.pos[2] + q.half[2])));
       for (const l of d.lights) { const id = ++this.lightIds; this.pool.add({ pos: new THREE.Vector3(...l.pos), color: new THREE.Color(l.color), intensity: l.intensity, distance: l.distance, nightOnly: true, group: c.key } as any); c.lights.push(id); }
-      for (const t of d.tlights) this.trafficLight(c, t);
+      for (const t of d.tlights) this.trafficLight(c, t); for (const t of d.trees ?? []) this.addTree(c, t);
       for (const p of d.parked) { if (this.parkedCount >= this.parkedBudget) break; this.fleet ??= new ParkedFleet(this.R, this.parkedBudget); const slot = this.fleet.add(new THREE.Vector3(p.pos[0], p.pos[1], p.pos[2]), p.yaw, PAINTS[p.paint % PAINTS.length]); if (slot < 0) break; c.parked.push(slot); this.parkedCount++; }
       c.steam = d.steam.map((s: number[]) => new THREE.Vector3(...s));
     }
     this.root.add(c.group); this.refreshSteam();
     this.stats.mainMs = performance.now() - tMain; this.stats.mainMaxMs = Math.max(this.stats.mainMaxMs, this.stats.mainMs);
+  }
+  /** Street trees are instances of one template (bark, inner foliage, leaf cards): 3 draws for the whole city plus shadows. */
+  private treePools: InstancePool[] | null = null;
+  private addTree(c: ChunkState, t: number[]) {
+    if (!this.treePools) { const B = new Batch(); treeGeometry(B, 0, 0, rnd(7), 0);
+      this.treePools = ['bark', 'leafInner', 'leaf'].map((k) => new InstancePool(this.root, mergeGeometries(B.geos.get(k)!)!, this.mats.get(k), 1500, { castShadow: true, name: 'tree_' + k })); }
+    const m = new THREE.Matrix4().compose(new THREE.Vector3(t[0], t[1], t[2]), new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), t[3]), new THREE.Vector3(t[4], t[4], t[4]));
+    for (const pool of this.treePools) c.tl.push([pool, pool.add(m)]);
   }
   /** Traffic lights are instances: one housing pool + one disc pool per lamp material (7 draws for the whole city). */
   private tlPools: { housing: InstancePool; discs: Record<string, InstancePool> } | null = null;
@@ -83,6 +97,7 @@ export class Streaming {
     (['r', 'a', 'g'] as const).forEach((col, i) => { const m = new THREE.Matrix4().makeTranslation(0, 0.38 - i * 0.38, 0.17).premultiply(o.matrix); const pool = P.discs[col + t.axis]; c.tl.push([pool, pool.add(m)]); });
   }
   private clear(c: ChunkState) {
+    this.farMerger.remove(c.key);
     for (const o of [...c.group.children]) { c.group.remove(o); const m = o as THREE.Mesh; if (m.isMesh && m.geometry !== TL_HOUSING) m.geometry.dispose(); }
     for (const slot of c.parked) { this.fleet?.remove(slot); this.parkedCount--; } c.parked = []; for (const [pool, s] of c.tl) pool.remove(s); c.tl = [];
     if (c.built === 0) { this.phys.removeGroup(c.key); (this.pool as any).removeGroup?.(c.key); }

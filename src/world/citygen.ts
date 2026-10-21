@@ -159,12 +159,15 @@ function streetProps(B: Batch, R: Rect, c: Rect, i: number, j: number) {
   for (let t = R.z0 + 14; t < R.z1 - 10; t += 7.2) { const x = R.x1 + 2.2, z = t; if (inC(x - 2.2, z) && r() < 0.42 && !inTrench(x, z)) B.parked.push({ pos: [x, 0.725, z], yaw: 0, paint: Math.floor(r() * 8) }); }
 }
 export function tree(B: Batch, x: number, z: number, r: () => number, y = KERB) {
+  B.trees.push([x, y, z, r() * Math.PI * 2, 0.85 + r() * 0.3]); B.add('iron', box(1.4, 0.02, 1.4, x, y + 0.011, z));
+}
+/** Tree geometry at the origin (template for the instanced trees; also used by the slice). */
+export function treeGeometry(B: Batch, x: number, z: number, r: () => number, y = KERB) {
   const tr = new THREE.CylinderGeometry(0.14, 0.22, 4.2, 7); tr.translate(x, y + 2.1, z); B.add('bark', tr);
   const cy = y + 5.3;
   for (let k = 0; k < 3; k++) { const b = new THREE.IcosahedronGeometry(1.0 + r() * 0.5, 1); b.translate(x + (r() - 0.5) * 1.5, cy + (r() - 0.5) * 1.2, z + (r() - 0.5) * 1.5); B.add('leafInner', b); }
   for (let k = 0; k < 60; k++) { const card = new THREE.PlaneGeometry(1.1, 1.1); const dir = new THREE.Vector3(r() - 0.5, (r() - 0.35) * 0.9, r() - 0.5).normalize();
     card.rotateX(r() * Math.PI); card.rotateY(r() * Math.PI * 2); card.rotateZ(r() * Math.PI); const d = Math.sqrt(r()) * 2.5; card.translate(x + dir.x * d * 1.1, cy + dir.y * d * 0.8, z + dir.z * d * 1.1); B.add('leaf', card); }
-  B.add('iron', box(1.4, 0.02, 1.4, x, y + 0.011, z));
 }
 function plaza(B: Batch, c: Rect) {
   const P = PLAZA; const pr = clip(c, P); if (!pr) return; const cx = (P.x0 + P.x1) / 2, cz = (P.z0 + P.z1) / 2;

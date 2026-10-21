@@ -224,6 +224,7 @@ export async function startGame(app: HTMLElement) {
       if (phys.vehicle(t.id) || (t as any).placed) phys.teleportVehicle(t.id, [along, t.y ?? 10.2, t.lane[0]], yaw); else phys.spawnVehicle(t.id, resolveTuning(t.cls ?? 'sedan', 'Grippy'), [along, t.y ?? 10.2, t.lane[0]], yaw);
       (t as any).placed = true; t.vis.root.visible = true; return true; }
     if (phys.vehicle(t.id)) { phys.removeVehicle(t.id); (t as any).placed = false; } t.vis.root.visible = false; return false; };
+  let streamWaitCount = 0; // frames the physics waited for the player's chunk colliders
   const focusPt = () => (player.ready && player.state !== 'drive' ? player.position.clone() : state ? new THREE.Vector3(...state.pos) : new THREE.Vector3(spawn[0], 0, spawn[2]));
   const clock = new THREE.Clock(); let frames = 0, loadedOnce = false, lightT = 0; let state: ReturnType<PhysicsClient['vehicle']> = null;
   const tmp = { p2: new THREE.Vector3(), p3: new THREE.Vector3(), q: new THREE.Quaternion(), p: new THREE.Vector3(), v: new THREE.Vector3(), prevP: new THREE.Vector3() };
@@ -236,7 +237,8 @@ export async function startGame(app: HTMLElement) {
     crime: (k: any) => wanted?.crime(k), gameState: () => ({ banner: bannerEl.hidden ? '' : bannerEl.textContent, wastedT: +wastedT.toFixed(2), health: playerHealth, pstate: player.state, pos: player.position.toArray().map((v) => +v.toFixed(1)), nearestCop: cops.filter((c) => c.state !== 'dead').reduce((m, c) => Math.min(m, c.ch.root.position.distanceTo(player.position)), 1e9) }),
     place: (id: string) => { const pl = PLACES()[id]; const p = new THREE.Vector3(...pl.p); p.y = city ? groundAt(p.x, p.z) : p.y; player.respawn(p, pl.yaw); }, wanted: () => wanted && { stars: wanted.stars, unseen: +wanted.unseen.toFixed(1), engaged: wanted.engaged, unitPos: wanted.units.map((u) => { const st = phys.vehicle(u.id); return st ? [+st.pos[0].toFixed(0), +st.pos[2].toFixed(0), +(st.vf * 3.6).toFixed(0)] : null; }), units: wanted.units.length, officers: wanted.officers.length, cops: cops.map((c) => c.state), stats: wanted.stats }, playerDamage: (n = 50) => playerTarget.hit(n, new THREE.Vector3(1, 0, 0), 'torso', 2),
     setTraffic: (n: number) => { if (life) life.max = n; }, get trafficSys() { return life; }, pending: () => pendingLoads(),
-    get streamWaits() { return (dbg as any).streamWaits ?? 0; },
+    get streamWaits() { return streamWaitCount; },
+    chunkAt: (x: number, z: number) => { const c = (city as any)?.chunks.get(`${Math.floor(x / 128)},${Math.floor(z / 128)}`); return c ? { built: c.built, pending: c.pending } : null; }, pstate: () => player.state,
     carPos: (id: number) => phys.vehicle(id)?.pos.map((v) => +v.toFixed(2)) ?? null, groundAt: (x: number, z: number) => (city ? groundAt(x, z) : 0),
     cars: () => [...damages].map(([id, d]) => ({ id, hp: Math.round(d.health), wrecked: d.wrecked, charred: (d as any).charred, dents: d.dents, glass: d.glassBroken, burnT: +d.burnT.toFixed(1), impacts: d.impacts, kmh: +((phys.vehicle(id)?.vf ?? 0) * 3.6).toFixed(0) })),
     fxAlive: () => ({ smoke: cfx.smoke.p.filter((q) => q.life > 0).length, sparks: cfx.sparks.p.filter((q) => q.life > 0).length }),
@@ -291,7 +293,7 @@ export async function startGame(app: HTMLElement) {
     if (inBoat) vin = { steer: 0, throttle: 0, brake: 0, handbrake: 1, boost: 0 };
     phys.inputs[PLAYER] = vin;
     /* never simulate the player over ground whose colliders aren't built yet (a fast car at low fps outran streaming and fell through) */
-    const here = player.ready && player.state !== 'drive' ? player.position : state ? { x: state.pos[0], z: state.pos[2] } : null; const groundReady = !city || !spawned || !here || city.readyAt(here.x, here.z); (dbg as any).streamWaits = ((dbg as any).streamWaits ?? 0) + (groundReady ? 0 : 1);
+    const here = player.ready && player.state !== 'drive' ? player.position : state ? { x: state.pos[0], z: state.pos[2] } : null; const groundReady = !city || !spawned || !here || city.readyAt(here.x, here.z); streamWaitCount += groundReady ? 0 : 1;
     phys.update(groundReady ? sim : 0);
     state = phys.vehicle(PLAYER);
     if (state) {

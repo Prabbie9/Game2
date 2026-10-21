@@ -24,6 +24,7 @@ export class Wanted {
   /** Per-tier caps on live pursuit cars and officers (Lite/Low keep draw calls and AI cost down). */
   caps = { units: 5, officers: 6 };
   constructor(public host: PoliceHost, parent: HTMLElement) { this.ui = document.createElement('div'); this.ui.className = 'hl-wanted'; parent.append(this.ui); this.render(); }
+  private stuck: Record<number, { x: number; z: number; t: number }> = {};
   disabled = false; engaged = false; sinceCrime = 0; // the lose-wanted timer only runs once the police are engaged (have seen the player or are searching the last-seen point)
   setStars(n: number) { if (n <= 0) return this.clear(); this.heat = Math.min(5.99, n); this.stars = Math.min(5, n); this.unseen = 0; this.lastSeen.copy(this.host.player().pos); this.stats.maxStars = Math.max(this.stats.maxStars, this.stars); this.render(); }
   crime(kind: Crime, witnessed = true) { if (!witnessed || this.disabled) return; const [min, h] = HEAT[kind]; this.heat = Math.min(5.99, Math.max(this.heat + h, min)); this.stars = Math.max(this.stars, Math.floor(this.heat)); this.unseen = 0; this.lastSeen.copy(this.host.player().pos); this.stats.crimes++; this.stats.maxStars = Math.max(this.stats.maxStars, this.stars); this.render(); }
@@ -73,7 +74,9 @@ export class Wanted {
     const want = Math.min(this.caps.units, [0, 1, 2, 3, 4, 5][this.stars]); this.dispatchT -= dt; if (this.units.length < want && this.dispatchT <= 0) { this.dispatchT = 2.5; const hidden = this.unseen > 2 || !this.engaged; this.dispatch(hidden ? this.lastSeen : pl.pos, pl.pos, hidden); }
     // officers get out when the player is on foot near a stopped cruiser
     for (const u of this.units) { const s = tr.host.phys.vehicle(u.id); if (!s || this.deployed.has(u.id)) continue; const goal = this.engaged ? pl.pos : this.lastSeen; const d = Math.hypot(s.pos[0] - goal.x, s.pos[2] - goal.z); /* not engaged yet: officers get out at the scene and search on foot */
-      if (d < 22 && Math.abs(s.vf) < 2.5 && (pl.onFoot || this.stars >= 2)) { this.deployed.add(u.id); const q = new THREE.Quaternion(...s.quat); const side = new THREE.Vector3(1, 0, 0).applyQuaternion(q); const yaw = Math.atan2(pl.pos.x - s.pos[0], pl.pos.z - s.pos[2]);
+      const st = (this.stuck[u.id] ??= { x: s.pos[0], z: s.pos[2], t: 0 }); if (Math.hypot(s.pos[0] - st.x, s.pos[2] - st.z) > 2) { st.x = s.pos[0]; st.z = s.pos[2]; st.t = 0; } else st.t += dt;
+      if (st.t > 6 && d >= 70) { tr.remove(u); delete this.stuck[u.id]; continue; } /* stuck far away (wedged on a corner): send a fresh unit */
+      if ((d < 22 && Math.abs(s.vf) < 2.5 && (pl.onFoot || this.stars >= 2)) || (st.t > 4 && d < 70)) { /* stuck within 70 m: officers continue on foot */ this.deployed.add(u.id); const q = new THREE.Quaternion(...s.quat); const side = new THREE.Vector3(1, 0, 0).applyQuaternion(q); const yaw = Math.atan2(pl.pos.x - s.pos[0], pl.pos.z - s.pos[2]);
         const w = this.stars >= 4 ? 'rifle' : this.stars >= 3 ? 'smg' : 'pistol'; for (const sd of [1, -1]) { if (this.officers.filter((o) => !o.dead).length >= this.caps.officers) break; const at = new THREE.Vector3(s.pos[0], 0, s.pos[2]).addScaledVector(side, sd * 1.7); this.officers.push(this.host.spawnOfficer(at, w, yaw)); this.stats.officers++; } } }
     for (const o of this.officers) { o.setArrest(this.stars <= 1 && pl.onFoot); o.update(dt); }
     // arrest at 1 star: an officer next to a slow player on foot

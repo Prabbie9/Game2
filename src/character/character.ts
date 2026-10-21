@@ -78,7 +78,7 @@ export class Character {
       m.material = Array.isArray(m.material) ? m.material.map(skinify) : skinify(m.material); });
     mergeSkinned(s);
     // frustum culling with a padded bind-pose sphere (radius x1.8 covers animation and ragdoll poses; the root stays under the pelvis)
-    s.updateMatrixWorld(true); s.traverse((o) => { const m = o as THREE.SkinnedMesh; if (!m.isSkinnedMesh) return; m.computeBoundingSphere(); /* bone-transformed: quantised positions are not in mesh space */ m.boundingSphere!.radius *= 1.8; m.frustumCulled = true; });
+    s.updateMatrixWorld(true); s.traverse((o) => { const m = o as THREE.SkinnedMesh; if (!m.isSkinnedMesh) return; m.skeleton.update(); m.computeBoundingSphere(); /* bone-transformed (needs current bone matrices): quantised positions are not in mesh space */ m.boundingSphere!.radius *= 1.8; m.frustumCulled = true; });
     return s;
   }
   /** Palette variant: deterministic tints per clothing material and hair from the variant index. */

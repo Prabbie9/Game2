@@ -5,13 +5,19 @@ import * as THREE from 'three';
 import type { StaticDesc } from '../sim/simcore';
 
 export interface LightOut { pos: number[]; color: number; intensity: number; distance: number }
+export const SIGN_COLS = [0xff3d6e, 0x37d7ff, 0xffb238, 0x9dff6a, 0xff7a2e];
 export class Batch {
   geos = new Map<string, THREE.BufferGeometry[]>(); colliders: StaticDesc[] = []; lights: LightOut[] = []; parked: { pos: number[]; yaw: number; paint: number }[] = [];
+  trees: number[][] = []; /* [x, y, z, yaw, scale]: drawn as instances of one template tree */
   steam: number[][] = []; tlights: { pos: number[]; face: number[]; axis: number }[] = [];
   /** While set, geometry added under `tintKey` gets `tint` as a vertex colour (one wall material per style instead of one per tint = fewer draws). */
   tintKey = ''; tint = new THREE.Color();
-  add(key: string, g: THREE.BufferGeometry) { const n = g.index ? g.toNonIndexed() : g; for (const k of Object.keys(n.attributes)) if (!['position', 'normal', 'uv', 'color'].includes(k)) n.deleteAttribute(k);
-    if (key === this.tintKey && !n.attributes.color) { const c = new Float32Array(n.attributes.position.count * 3); for (let i = 0; i < c.length; i += 3) { c[i] = this.tint.r; c[i + 1] = this.tint.g; c[i + 2] = this.tint.b; } n.setAttribute('color', new THREE.BufferAttribute(c, 3)); }
+  add(key: string, g: THREE.BufferGeometry) {
+    // colour-merged keys: the 5 sign colours and white/yellow road paint each share one material (colour per vertex = fewer draws)
+    let col: number | null = null; if (key.startsWith('sign_')) { col = SIGN_COLS[+key.slice(5) % 5]; key = 'sign'; } else if (key === 'paintY') { col = 0xe2b23a; key = 'paint'; } else if (key === 'paint') col = 0xf0ede4;
+    const n = g.index ? g.toNonIndexed() : g; for (const k of Object.keys(n.attributes)) if (!['position', 'normal', 'uv', 'color'].includes(k)) n.deleteAttribute(k);
+    if (col !== null && !n.attributes.color) { const c = new THREE.Color(col), a = new Float32Array(n.attributes.position.count * 3); for (let i = 0; i < a.length; i += 3) { a[i] = c.r; a[i + 1] = c.g; a[i + 2] = c.b; } n.setAttribute('color', new THREE.BufferAttribute(a, 3)); }
+    else if (key === this.tintKey && !n.attributes.color) { const c = new Float32Array(n.attributes.position.count * 3); for (let i = 0; i < c.length; i += 3) { c[i] = this.tint.r; c[i + 1] = this.tint.g; c[i + 2] = this.tint.b; } n.setAttribute('color', new THREE.BufferAttribute(c, 3)); }
     (this.geos.get(key) ?? this.geos.set(key, []).get(key)!).push(n); }
 }
 export const rnd = (s: number) => () => ((s = (Math.imul(s, 16807) >>> 0) % 2147483647 || 1) / 2147483647);

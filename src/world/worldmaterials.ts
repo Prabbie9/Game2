@@ -6,7 +6,6 @@ import { pbr } from '../materials/pbr';
 import { interiorGlass } from './buildings';
 import { WORLD_UNIFORMS } from '../lighting/environment';
 
-const SIGN_COLS = [0xff3d6e, 0x37d7ff, 0xffb238, 0x9dff6a, 0xff7a2e];
 export class WorldMaterials {
   private m = new Map<string, THREE.Material>(); night: THREE.MeshStandardMaterial[] = []; signs: THREE.MeshStandardMaterial[] = []; far: THREE.MeshStandardMaterial[] = [];
   tl: Record<string, THREE.MeshStandardMaterial> = {};
@@ -17,7 +16,8 @@ export class WorldMaterials {
   private make(key: string): THREE.Material {
     const R = this.R; const S = <T extends THREE.Material>(m: T) => R.setupMaterial(m);
     if (key.startsWith('wall_')) { const [, style] = key.split('_'); const m = pbr(style === 'brick' ? 'brick' : style === 'concrete' ? 'concrete' : 'plaster', { grime: 0.5, aoIntensity: 0.8 }, key); m.vertexColors = true; return S(m); } // per-building tint comes from the vertex colour
-    if (key.startsWith('sign_')) { const m = new THREE.MeshStandardMaterial({ color: 0x111111, emissive: SIGN_COLS[+key.slice(5) % 5], emissiveIntensity: 1, roughness: 0.4 }); this.signs.push(m); return m; }
+    if (key === 'sign' || key.startsWith('sign_')) { const m = new THREE.MeshStandardMaterial({ color: 0x111111, emissive: 0xffffff, emissiveIntensity: 1, roughness: 0.4, vertexColors: true }); /* sign colour per vertex drives the glow */
+      m.onBeforeCompile = (sh) => { sh.fragmentShader = sh.fragmentShader.replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n  totalEmissiveRadiance *= vColor.rgb;'); }; m.customProgramCacheKey = () => 'sign-vc'; this.signs.push(m); return m; }
     if (key === 'far') return S(this.farMat());
     switch (key) {
       case 'asphalt': return S(pbr('asphalt', { antiTile: true, grime: 0.55, puddles: 1, normalScale: 1.1 }, 'road'));
@@ -37,7 +37,7 @@ export class WorldMaterials {
       case 'hydrant': return S(new THREE.MeshStandardMaterial({ color: 0xb3221b, roughness: 0.5, metalness: 0.3 }));
       case 'tar': return S(new THREE.MeshStandardMaterial({ color: 0x1c1d1f, roughness: 0.35, transparent: true, opacity: 0.28, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -3, polygonOffsetUnits: -3 }));
       case 'litter': return S(new THREE.MeshStandardMaterial({ color: 0xcfc8b8, roughness: 0.9, polygonOffset: true, polygonOffsetFactor: -2 }));
-      case 'paint': case 'paintY': { const m = S(pbr('concrete', { grime: 0.2, tint: key === 'paint' ? 0xf0ede4 : 0xe2b23a, puddles: 0.5, roughness: 0.7 }, key)); m.polygonOffset = true; m.polygonOffsetFactor = -2; m.polygonOffsetUnits = -2; return m; }
+      case 'paint': case 'paintY': { const m = S(pbr('concrete', { grime: 0.2, tint: key === 'paint' ? 0xffffff : 0xe2b23a, puddles: 0.5, roughness: 0.7 }, key)); m.vertexColors = key === 'paint'; /* white/yellow from the vertex colour */ m.polygonOffset = true; m.polygonOffsetFactor = -2; m.polygonOffsetUnits = -2; return m; }
       case 'lamphead': { const m = new THREE.MeshStandardMaterial({ color: 0x1b1b1b, emissive: 0xffd9a8, emissiveIntensity: 0, roughness: 0.3 }); this.night.push(m); return m; }
       case 'frame_tower': return S(new THREE.MeshStandardMaterial({ color: 0x2b3036, roughness: 0.4, metalness: 0.9 }));
       case 'frame_std': return S(new THREE.MeshStandardMaterial({ color: 0x26221e, roughness: 0.45, metalness: 0.2 }));
