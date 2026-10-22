@@ -29,8 +29,8 @@ export class WorldMaterials {
       case 'roof': return S(pbr('gravel', { grime: 0.3 }, 'roof'));
       case 'rooftop': return S(pbr('metal', { grime: 0.6, tint: 0xb8bcc0, roughness: 0.8 }, 'rooftop'));
       case 'awning': return S(pbr('fabric', { grime: 0.3, tint: 0x7a2f2a, metalness: 0 }, 'awn'));
-      case 'pole': return S(pbr('metal', { grime: 0.4, tint: 0x4a5058, roughness: 0.55, metalness: 0.25 }, 'pole')); // painted steel (was raw metal: black in shade)
-      case 'furn': return S(pbr('metal', { grime: 0.5, tint: 0x3d434a, roughness: 0.65, metalness: 0.25 }, 'furn'));
+      case 'pole': return S(new THREE.MeshStandardMaterial({ color: 0x5b636b, roughness: 0.55, metalness: 0.15 })); // painted steel: the dark metal texture x dark tint read as pure black, even in daylight
+      case 'furn': return S(new THREE.MeshStandardMaterial({ color: 0x4d555c, roughness: 0.6, metalness: 0.15 }));
       case 'iron': return S(pbr('rust', { grime: 0.3, tint: 0x6a6460, puddles: 0 }, 'iron'));
       case 'bench': return S(pbr('wood', { grime: 0.4, tint: 0xa07a52, metalness: 0 }, 'bench'));
       case 'bark': return S(pbr('wood', { grime: 0.5, tint: 0x6b5a4a, metalness: 0 }, 'bark'));

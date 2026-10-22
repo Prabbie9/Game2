@@ -54,7 +54,7 @@ export class Environment {
     // hemisphere fill: sky-ish above, warm ground bounce below (bounce-light stand-in)
     this.hemi.color.setRGB(0.5 + low * 0.1, 0.62 + low * 0.04, 0.95 - low * 0.08).lerp(new THREE.Color(0.7, 0.72, 0.75), overcast).multiplyScalar(1 - this.night * 0.9);
     this.hemi.groundColor.setRGB(0.32, 0.27, 0.22).multiplyScalar(0.6 + sunUp * 0.4);
-    this.hemi.intensity = (1.0 + overcast * 0.15) * (1 - this.night * 0.88);
+    this.hemi.intensity = (0.78 + overcast * 0.35) * (1 - this.night * 0.88); // look pass: less flat fill on clear days (more form from the sun)
     // fog: colour follows the horizon; density follows weather
     const horizon = new THREE.Color().setRGB(0.62 + low * 0.3, 0.7 + low * 0.05, 0.8 - low * 0.25).lerp(new THREE.Color(0.6, 0.63, 0.66), overcast).lerp(new THREE.Color(0.03, 0.04, 0.07), this.night);
     this.fog.color.copy(horizon); this.fog.density = 0.0008 + fog * 0.009 + rain * 0.0022 + overcast * 0.0004;
@@ -67,7 +67,7 @@ export class Environment {
     const g = this.R.grade.uniforms; const gain = g.get('gain')!.value as THREE.Vector3, lift = g.get('lift')!.value as THREE.Vector3;
     gain.set(1.0 + low * 0.12 * sunUp, 1.0 + low * 0.01 * sunUp, 1.0 - low * 0.14 * sunUp).lerp(new THREE.Vector3(0.94, 0.98, 1.07), this.night);
     lift.set(0.0, 0.004, 0.012).multiplyScalar(1 + this.night * 2);
-    g.get('sat')!.value = 1.08 + low * 0.12 * sunUp - overcast * 0.2 - this.night * 0.05; g.get('contrast')!.value = 1.04 + low * 0.03 - overcast * 0.04;
+    g.get('sat')!.value = 1.08 + low * 0.12 * sunUp - overcast * 0.2 - this.night * 0.05; g.get('contrast')!.value = 1.08 + low * 0.03 - overcast * 0.05;
     WORLD_UNIFORMS.uWetness.value += (wet - WORLD_UNIFORMS.uWetness.value) * Math.min(1, dt * 0.2);
     WORLD_UNIFORMS.uRain.value = rain; WORLD_UNIFORMS.uNight.value = this.night; WORLD_UNIFORMS.uTime.value += dt;
     // IBL: rebake the sky into a PMREM when time/weather moved enough
