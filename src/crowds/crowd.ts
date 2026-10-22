@@ -49,6 +49,6 @@ export class Crowd {
       m.compose(p.set(pl.x, KERB, pl.z), q.setFromAxisAngle(Y, pl.yaw), one);
       for (const [pi, im] of this.meshes[a.body].entries()) { im.setMatrixAt(k, m); const at = im.geometry.getAttribute('aVat') as THREE.InstancedBufferAttribute; at.setXY(k, a.phase, (a.speed * (a.fear && a.fear > 0 ? 2.6 : 1)) / b.stride);
         if ((b.parts[pi].role === 'cloth' || b.parts[pi].role === 'merged') && !(window as any).HL_NOTINT) im.setColorAt(k, a.tint); } }
-    this.meshes.forEach((parts, bi) => parts.forEach((im) => { im.count = counts[bi]; im.instanceMatrix.needsUpdate = true; (im.geometry.getAttribute('aVat') as THREE.InstancedBufferAttribute).needsUpdate = true; if (im.instanceColor) im.instanceColor.needsUpdate = true; }));
+    this.meshes.forEach((parts, bi) => parts.forEach((im) => { im.count = Math.min(counts[bi], im.instanceMatrix.count); /* bodies are picked at random, so one can get more walkers than its buffer holds: never draw past it (garbage matrices made screen-filling triangles) */ im.instanceMatrix.needsUpdate = true; (im.geometry.getAttribute('aVat') as THREE.InstancedBufferAttribute).needsUpdate = true; if (im.instanceColor) im.instanceColor.needsUpdate = true; }));
   }
 }
