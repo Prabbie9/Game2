@@ -291,3 +291,8 @@ Same views on every tier at 1280×720 (Downtown golden hour `m3_golden`; Harbour
 - Verified: the Low + Medium look matrix after the fix had 12/12 clean captures on the first try (`shots/look/p2c`), against 2–3 black per run before.
 - On a real GPU the out-of-range reads would more likely have shown as missing or flickering walkers than black screens; same root cause.
 - Wrong turns on the way, for the record: a NaN/Inf sanitize pass before bloom (did not help, removed) and per-pass/uniform probes. Screenshot mode now renders the last 10 frames instead of 4 (kept; harmless).
+
+### Preview version 12 (from pushed commit 7c3d522)
+- Published to the same private URL. Contents: crowd instance-overrun fix (the Medium/High black frames), look batches 1–3 (Harbour quay dressing, water detail and foam, night light pools; painted-steel street poles; less flat daylight).
+- Boot-checked locally from exactly the published 167-file set: base64 mode, fresh profile with no saved tier → **Lite** by default; booted in 126 s on CPU rendering; Harbour loaded; 242 draws; no script errors (one 404 for the browser's automatic /favicon.ico; the page uses favicon.svg). `shots/m10/artifact_boot_check.png`.
+- Read back after publishing: the live page references this build's bundles. The hosted copy needs your sign-in and was not opened from here.
