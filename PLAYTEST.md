@@ -286,8 +286,8 @@ Same views on every tier at 1280×720 (Downtown golden hour `m3_golden`; Harbour
 2. Do distant combatants look wrong without their pouches/magazines, or their rifles with merged flat colours?
 3. Does the boat windshield still read as glass?
 
-### Open issue: intermittent black frames on Medium/High (SwiftShader, this container)
-- Medium (and High) captures of the Downtown and Harbour cameras come out fully or mostly black in roughly half the runs, most often at night. Low never did. The pre-Phase-2 build does it too.
-- Ruled out by probes on black frames: scene render (normal RenderPass output), GL errors, lost context, incomplete half-float targets, SMAA, N8AO (toggling it changes nothing), NaN/Inf from the scene (a sanitize pass before bloom did not help), and the post-effect parameters (identical in black and normal frames).
-- Not resolved. It may be specific to SwiftShader; no real GPU was available. The look matrix retries a black capture up to twice and reports every retry.
-- **Human question 4:** on a real GPU, set Medium or High (Esc → Quality), go to the Harbour at night (B → Teleport → Harbour; T for time). Does the screen ever go black, fully or in large patches?
+### Resolved: intermittent black/salmon frames on Medium/High
+- Medium/High captures came out black (or filled by a flat skin/cloth colour) in roughly half the runs. Cause: the crowd picks a body at random per walker, so one body could get more walkers than its instance buffer holds; the update skipped writing the extras but the draw count was not clamped, so the GPU read garbage matrices past the buffer and drew screen-filling triangles. Fixed by clamping the count (`src/crowds/crowd.ts`).
+- Verified: the Low + Medium look matrix after the fix had 12/12 clean captures on the first try (`shots/look/p2c`), against 2–3 black per run before.
+- On a real GPU the out-of-range reads would more likely have shown as missing or flickering walkers than black screens; same root cause.
+- Wrong turns on the way, for the record: a NaN/Inf sanitize pass before bloom (did not help, removed) and per-pass/uniform probes. Screenshot mode now renders the last 10 frames instead of 4 (kept; harmless).

@@ -15,15 +15,6 @@ class ExposureEffect extends Effect {
       { uniforms: new Map([['exposure', new THREE.Uniform(1)]]) });
   }
 }
-/** NaN/Inf guard before bloom: the scene renders into a half-float target, where a hot specular (water clearcoat under
- * floodlights) can overflow to Inf; bloom's mip blur then turned one bad pixel into NaN across the whole frame (intermittent
- * full-black frames on Medium/High). Bad pixels become black, the rest is clamped to a sane HDR range. */
-class SanitizeEffect extends Effect {
-  constructor() {
-    super('Sanitize', `void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor){
-      vec3 c = inputColor.rgb; bool bad = any(isnan(c)) || any(isinf(c)); outputColor = vec4(bad ? vec3(0.0) : min(c, vec3(512.0)), inputColor.a); }`);
-  }
-}
 class GradeEffect extends Effect {
   constructor() {
     super('Grade', `uniform vec3 lift; uniform vec3 gain; uniform float sat; uniform float contrast;
@@ -80,7 +71,6 @@ export class Renderer {
     this.noise = new NoiseEffect({ blendFunction: BlendFunction.OVERLAY, premultiply: false }); this.noise.blendMode.opacity.value = 0.025;
     this.ca = new ChromaticAberrationEffect({ offset: new THREE.Vector2(0.0006, 0.0004), radialModulation: true, modulationOffset: 0.35 });
     this.smaa = new SMAAEffect({ preset: SMAAPreset.HIGH });
-    c.addPass(new EffectPass(this.camera, new SanitizeEffect()));
     c.addPass(new EffectPass(this.camera, this.bloom, this.speedBlur));
     c.addPass(new EffectPass(this.camera, this.exposure, this.tone));
     c.addPass(new EffectPass(this.camera, this.grade, this.ca, this.vignette, this.noise));
