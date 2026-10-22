@@ -272,3 +272,16 @@ Same views on every tier at 1280×720 (Downtown golden hour `m3_golden`; Harbour
 - Default check: the base64 artifact build (`artifact.html`, fresh profile, no `?tier`) reports tier **Lite**; plain `index.html` on SwiftShader still auto-picks Low. A tier saved in localStorage still overrides Lite.
 - Draw calls on Lite at 1280×720, same views as the tier pass: **Downtown 1,472** (Low 1,607, −8%), **Harbour 831** (Low 932, −11%). Triangles 2.91 M / 2.41 M; textures about 792 / 838 MB; heap 264 / 265 MB. Live traffic cars: 4 / 3.
 - Lite has no budget of its own. Downtown is still above the Low draw-call budget (1,200). Lite mainly cuts per-pixel cost (render scale 0.6, one cascade, no AO/SSR) and population, not draw calls.
+
+## M10 — Phase 1 performance (tools/tierpass.mjs, tools/drawattrib.mjs; details and before/after per change in PERF_LOG.md)
+- Draw-call targets met on every tier and view, plain and under stress (40 cars, 100 pedestrians, 20 combatants, 5 explosions). Latest: Lite 313 / 232 / 471 / 386, Low 393 / 286 / 549 / 454, Medium 1,051 / 785 / 1,518 / 1,060, High 1,481 / 985 / 2,040 / 1,424 (Downtown / Harbour / Downtown stress / Harbour stress; targets 800 / 1,200 / 1,800 / 2,500).
+- Texture memory and JS heap within each tier's budget on every view (Low stress needed change 15: 1,609 → 836 MB).
+- Scene triangles for one main view (mainTris) are reported separately from whole-frame pass triangles (passTris) in PERF_LOG.md.
+- Gates on the pushed code: damage 4/4 PASS (phantom normal / 10 fps / uneven, real impacts), wanted 3/3 PASS (wasted, lose police, busted), scaler test PASS.
+- Preview version 11 published to the same URL. Boot-checked locally from exactly the published file set (base64 mode, fresh profile): tier Lite, 241 draws, harbour/boat loaded, no script errors (one 404 for the browser's automatic /favicon.ico; the page uses favicon.svg). `shots/m10/artifact_boot_check.png`. The hosted copy needs your sign-in and was not opened from here.
+- **No frame rate was measured** (software rasteriser only).
+
+### Human questions (M10 Phase 1)
+1. On your laptop, does the preview hold a steady frame rate on Lite in Downtown? Does the quality scaler visibly drop resolution or thin traffic, and is that acceptable?
+2. Do distant combatants look wrong without their pouches/magazines, or their rifles with merged flat colours?
+3. Does the boat windshield still read as glass?
