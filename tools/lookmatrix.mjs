@@ -13,11 +13,15 @@ const LIMIT_MS = 40 * 60 * 1000; let failed = false;
 for (const tier of tierArg.split(',')) { const outs = [];
   for (const [v, shot] of Object.entries(VIEWS)) for (const [l, q] of Object.entries(LIGHT)) {
     const out = `${dir}/${tier}_${v}_${l}.png`; const job = [{ url: `index.html?shot=${shot}&tier=${tier}&${q}`, out, w: +W, h: +H, timeout: LIMIT_MS, ready: 'window.HARBOURLINE_DEBUG&&HARBOURLINE_DEBUG.ready' }];
-    const t0 = Date.now();
-    try { execFileSync('node', [path.join(ROOT, 'tools/shoot.mjs'), JSON.stringify(job)], { env: process.env, encoding: 'utf8', timeout: LIMIT_MS, killSignal: 'SIGKILL', cwd: ROOT }); }
-    catch (e) { console.log(`TIMEOUT/ERROR ${out} after ${((Date.now() - t0) / 60000).toFixed(1)} min: ${String(e.message).slice(0, 160)}`); failed = true; continue; }
-    const lum = execFileSync('python3', ['-W', 'ignore', '-c', `from PIL import Image\nim=Image.open('${out}').convert('L').resize((96,54))\nprint(round(sum(im.getdata())/(96*54),1))`], { encoding: 'utf8', cwd: ROOT }).trim();
-    const black = +lum < 15; if (black) failed = true; outs.push(out); console.log(`${black ? 'BLACK' : 'ok'} ${out} lum ${lum} ${((Date.now() - t0) / 60000).toFixed(1)} min`);
+    // Medium/High captures intermittently come out black in this container (open issue, see PLAYTEST M10): a black
+    // capture is retried up to twice and every retry is reported; it never counts as a result.
+    let black = true, lum = '0', tries = 0, t0 = Date.now(), dead = false;
+    while (black && tries < 3) { tries++; t0 = Date.now();
+      try { execFileSync('node', [path.join(ROOT, 'tools/shoot.mjs'), JSON.stringify(job)], { env: process.env, encoding: 'utf8', timeout: LIMIT_MS, killSignal: 'SIGKILL', cwd: ROOT }); }
+      catch (e) { console.log(`TIMEOUT/ERROR ${out} after ${((Date.now() - t0) / 60000).toFixed(1)} min: ${String(e.message).slice(0, 160)}`); failed = dead = true; break; }
+      lum = execFileSync('python3', ['-W', 'ignore', '-c', `from PIL import Image\nim=Image.open('${out}').convert('L').resize((96,54))\nprint(round(sum(im.getdata())/(96*54),1))`], { encoding: 'utf8', cwd: ROOT }).trim();
+      black = +lum < 15; if (black) console.log(`black capture ${out} (try ${tries})`); }
+    if (dead) continue; if (black) failed = true; outs.push(out); console.log(`${black ? 'BLACK' : 'ok'} ${out} lum ${lum} tries ${tries} ${((Date.now() - t0) / 60000).toFixed(1)} min`);
   }
   if (outs.length) console.log(execFileSync('python3', [path.join(ROOT, 'tools/sheet.py'), `${dir}/${tier}_sheet.jpg`, '3', '640', ...outs], { encoding: 'utf8', cwd: ROOT }).trim());
 }

@@ -285,3 +285,9 @@ Same views on every tier at 1280×720 (Downtown golden hour `m3_golden`; Harbour
 1. On your laptop, does the preview hold a steady frame rate on Lite in Downtown? Does the quality scaler visibly drop resolution or thin traffic, and is that acceptable?
 2. Do distant combatants look wrong without their pouches/magazines, or their rifles with merged flat colours?
 3. Does the boat windshield still read as glass?
+
+### Open issue: intermittent black frames on Medium/High (SwiftShader, this container)
+- Medium (and High) captures of the Downtown and Harbour cameras come out fully or mostly black in roughly half the runs, most often at night. Low never did. The pre-Phase-2 build does it too.
+- Ruled out by probes on black frames: scene render (normal RenderPass output), GL errors, lost context, incomplete half-float targets, SMAA, N8AO (toggling it changes nothing), NaN/Inf from the scene (a sanitize pass before bloom did not help), and the post-effect parameters (identical in black and normal frames).
+- Not resolved. It may be specific to SwiftShader; no real GPU was available. The look matrix retries a black capture up to twice and reports every retry.
+- **Human question 4:** on a real GPU, set Medium or High (Esc → Quality), go to the Harbour at night (B → Teleport → Harbour; T for time). Does the screen ever go black, fully or in large patches?
