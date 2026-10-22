@@ -65,7 +65,7 @@ export class Harbour {
     const S = R.scene; const statics: StaticDesc[] = []; const col = (half: number[], pos: number[]) => statics.push({ kind: 'box', half, pos, friction: 0.8 } as any);
     // water
     this.normals = waveNormals(); this.normals.repeat.set(1, 1);
-    const wm = new THREE.MeshPhysicalMaterial({ color: 0x0c2a33, roughness: 0.07, metalness: 0.0, normalMap: this.normals, normalScale: new THREE.Vector2(0.26, 0.26), envMapIntensity: 1.25, clearcoat: 0.6, clearcoatRoughness: 0.12 });
+    const wm = new THREE.MeshPhysicalMaterial({ color: 0x0a2632, roughness: 0.07, metalness: 0.0, normalMap: this.normals, normalScale: new THREE.Vector2(0.26, 0.26), envMapIntensity: 1.25, clearcoat: 0.6, clearcoatRoughness: 0.12 });
     // second, finer wave layer scrolling the other way (breaks the single-layer tiling) + broken foam along the quay wall and around the piers
     wm.userData.patch = (sh: any) => { sh.uniforms.uWave2 = this.wave2; sh.uniforms.uPiers = { value: PIERS.map(([x, hw, ze]) => new THREE.Vector3(x, hw, ze)) };
       sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying vec3 vWPos;').replace('#include <begin_vertex>', '#include <begin_vertex>\nvWPos = (modelMatrix * vec4(transformed, 1.0)).xyz;');
@@ -134,6 +134,12 @@ export class Harbour {
     for (let x = -EXTENT; x <= EXTENT; x += 90) { const z = QUAY_Z - 14; mg.push(new THREE.CylinderGeometry(0.25, 0.35, 22, 8).translate(x, 11, z)); hg.push(box(2.6, 0.5, 1.0, x, 22.2, z + 0.4)); col([0.3, 11, 0.3], [x, 11, z]);
       pool.add({ pos: new THREE.Vector3(x, 20, z + 3), color: new THREE.Color(0xffd9a0), intensity: 900, distance: 55, nightOnly: true }); }
     S.add(Object.assign(new THREE.Mesh(mergeGeometries(mg), mastM), { castShadow: true }), new THREE.Mesh(mergeGeometries(hg), headM));
+    // night: warm light pools on the apron under every mast (additive ground decals, one draw). The pooled point lights only
+    // reach the masts nearest the camera, which left the rest of the apron pitch black.
+    { const c = document.createElement('canvas'); c.width = c.height = 128; const g2 = c.getContext('2d')!; const gr = g2.createRadialGradient(64, 64, 0, 64, 64, 63); gr.addColorStop(0, 'rgba(255,214,150,1)'); gr.addColorStop(0.45, 'rgba(255,190,120,0.45)'); gr.addColorStop(1, 'rgba(255,170,100,0)'); g2.fillStyle = gr; g2.fillRect(0, 0, 128, 128);
+      const pg: THREE.BufferGeometry[] = []; for (let x = -EXTENT; x <= EXTENT; x += 90) pg.push(new THREE.PlaneGeometry(30, 30).rotateX(-Math.PI / 2).translate(x, 0.03, QUAY_Z - 11));
+      this.poolM = new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(c), transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, fog: true, polygonOffset: true, polygonOffsetFactor: -3 });
+      const pm = new THREE.Mesh(mergeGeometries(pg), this.poolM); pm.renderOrder = 2; S.add(pm); }
     this.dressApron(statics);
     phys.addStatics(statics);
     // boats: the drivable speedboat beside the first pier, moored speedboats and trawlers
@@ -143,7 +149,7 @@ export class Harbour {
     loadProp('trawler').then((m) => { m.traverse((o) => { const me = o as THREE.Mesh; if (me.isMesh) { R.setupMaterial(me.material as THREE.Material); me.castShadow = true; } });
       for (const [x, z, yaw] of [[PIERS[2][0] - PIERS[2][1] - 2.4, QUAY_Z + 55, Math.PI], [PIERS[0][0] - PIERS[0][1] - 2.4, QUAY_Z + 60, 0], [PIERS[1][0] + PIERS[1][1] + 2.4, QUAY_Z + 45, Math.PI]] as [number, number, number][]) { const b = new THREE.Group(); b.add(m.clone()); b.position.set(x, WATER_Y - 1.1, z); b.rotation.y = yaw; S.add(b); this.moored.push({ o: b, base: b.position.clone(), t: z }); } }).catch((e) => console.warn('trawler', e?.message));
   }
-  headM: THREE.MeshStandardMaterial; wave2 = { value: new THREE.Vector2() };
+  headM: THREE.MeshStandardMaterial; wave2 = { value: new THREE.Vector2() }; poolM!: THREE.MeshBasicMaterial;
   /** Apron dressing (look pass): painted quay markings and bay lines, oil stains, and cargo clusters (pallet stacks, crates,
    * drums, site cabins) between the shed fronts and the quay, clear of the pier roots. 6 draws in all (instanced/merged). */
   private dressApron(statics: StaticDesc[]) {
@@ -180,7 +186,7 @@ export class Harbour {
   /** Is (x,z) solid for a boat (quay, piers, beyond the map)? */
   blocked = (x: number, z: number) => z < QUAY_Z + 1.8 || Math.abs(x) > 4000 || z > 4800 || PIERS.some(([px, hw, ze]) => Math.abs(x - px) < hw + 1.3 && z < ze + 2.5);
   update(dt: number, night: number, t: number) {
-    this.normals.offset.set((t * 0.011) % 1, (t * 0.017) % 1); this.wave2.value.set((-t * 0.019) % 1, (t * 0.008) % 1); this.headM.emissiveIntensity = night * 12;
+    this.normals.offset.set((t * 0.011) % 1, (t * 0.017) % 1); this.wave2.value.set((-t * 0.019) % 1, (t * 0.008) % 1); this.headM.emissiveIntensity = night * 12; if (this.poolM) this.poolM.opacity = night * 0.55;
     for (const m of this.moored) { m.o.position.y = m.base.y + Math.sin(t * 1.1 + m.t) * 0.06; m.o.rotation.z = Math.sin(t * 0.8 + m.t) * 0.02; m.o.rotation.x = Math.sin(t * 0.6 + m.t * 0.3) * 0.012; }
   }
 }

@@ -57,7 +57,7 @@ export class Environment {
     this.hemi.intensity = (0.78 + overcast * 0.35) * (1 - this.night * 0.88); // look pass: less flat fill on clear days (more form from the sun)
     // fog: colour follows the horizon; density follows weather
     const horizon = new THREE.Color().setRGB(0.62 + low * 0.3, 0.7 + low * 0.05, 0.8 - low * 0.25).lerp(new THREE.Color(0.6, 0.63, 0.66), overcast).lerp(new THREE.Color(0.03, 0.04, 0.07), this.night);
-    this.fog.color.copy(horizon); this.fog.density = 0.0008 + fog * 0.009 + rain * 0.0022 + overcast * 0.0004;
+    this.fog.color.copy(horizon); this.fog.density = 0.00045 + fog * 0.009 + rain * 0.0022 + overcast * 0.0004;
     this.R.scene.environmentIntensity = (0.6 + sunUp * 0.7) * (1 - overcast * 0.2) * (1 - this.night * 0.6) + this.night * 0.25;
     // exposure: adapt per scene brightness (auto-exposure lite; full luminance adaptation later)
     const targetExp = THREE.MathUtils.lerp(1.0 - overcast * 0.08, 1.45, this.night);
